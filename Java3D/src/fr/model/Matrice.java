@@ -10,13 +10,15 @@ public class Matrice {
 	}
 
 	/**
-	 * 
-	 * @return la matrice avec les points
+	 * @param x position x dans la matrice 
+	 * @param y positon y dans la matrice
+	 * @return l'entier stocker à la position x, y dans la matrice
 	 */
-	public Matrix getMatrice() {
-		return matrice;
+	public double get(int x, int y){
+		return matrice.get(x, y);
 	}
-
+	
+	
 	/**
 	 * 
 	 * @author Benoit
