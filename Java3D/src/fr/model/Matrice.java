@@ -41,7 +41,14 @@ public class Matrice {
 				{ 0, Math.sin(rotation), Math.cos(rotation), 0 },
 				{ 0, 0, 0, 1 } };
 		Matrix matriceRotation = new Matrix(tableauRotation);
-		return points.arrayTimesEquals(matriceRotation);
+		c.arrayTimesEquals(matriceRotation);
+		
+		for (int i = 0; i < points.getColumnDimension(); ++i) {
+			for (int j = 0; j < points.getRowDimension(); ++j) {
+				points.set(i, j, c.get(i, j));
+			}
+		}
+		return points;
 	}
 
 	/**
@@ -69,7 +76,14 @@ public class Matrice {
 				{ -Math.sin(rotation), 0, Math.cos(rotation), 0 },
 				{ 0, 0, 0, 1 } };
 		Matrix matriceRotation = new Matrix(tableauRotation);
-		return points.arrayTimesEquals(matriceRotation);
+		
+		c.arrayTimesEquals(matriceRotation);
+		for (int i = 0; i < points.getColumnDimension(); ++i) {
+			for (int j = 0; j < points.getRowDimension(); ++j) {
+				points.set(i, j, c.get(i, j));
+			}
+		}
+		return points;
 	}
 	
 	/**
@@ -97,6 +111,15 @@ public class Matrice {
 				{ 0, 0, 1, 0 },
 				{ 0, 0, 0, 1 } };
 		Matrix matriceRotation = new Matrix(tableauRotation);
-		return points.arrayTimesEquals(matriceRotation);
+
+		c.arrayTimesEquals(matriceRotation);
+		for (int i = 0; i < points.getColumnDimension(); ++i) {
+			for (int j = 0; j < points.getRowDimension(); ++j) {
+				points.set(i, j, c.get(i, j));
+			}
+		}
+		return points;
 	}
+
+	
 }
