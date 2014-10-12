@@ -3,10 +3,10 @@ package fr.model;
 import Jama.Matrix;
 
 public class Matrice {
-	private Matrix points;
+	private Matrix matrice;
 
 	public Matrice(double[][] ensemblePoints) {
-		points = new Matrix(ensemblePoints);
+		matrice = new Matrix(ensemblePoints);
 	}
 
 	/**
@@ -14,7 +14,7 @@ public class Matrice {
 	 * @return la matrice avec les points
 	 */
 	public Matrix getMatrice() {
-		return points;
+		return matrice;
 	}
 
 	/**
@@ -24,15 +24,15 @@ public class Matrice {
 	 * @return la nouvelle matrice après rotation sur l'axe x de rotation
 	 */
 	public Matrix rotationX(double rotation) {
-		Matrix c = new Matrix(points.getColumnDimension(),
-				points.getRowDimension() + 1);
-		for (int i = 0; i < points.getColumnDimension(); ++i) {
-			for (int j = 0; j < points.getRowDimension(); ++j) {
-				c.set(i, j, points.get(i, j));
+		Matrix c = new Matrix(matrice.getColumnDimension(),
+				matrice.getRowDimension() + 1);
+		for (int i = 0; i < matrice.getColumnDimension(); ++i) {
+			for (int j = 0; j < matrice.getRowDimension(); ++j) {
+				c.set(i, j, matrice.get(i, j));
 			}
 		}
-		for (int i = 0; i < points.getColumnDimension(); ++i) {
-			for (int j = 0; j < points.getRowDimension() + 1; ++j) {
+		for (int i = 0; i < matrice.getColumnDimension(); ++i) {
+			for (int j = 0; j < matrice.getRowDimension() + 1; ++j) {
 				c.set(i, j, 1);
 			}
 		}
@@ -43,12 +43,12 @@ public class Matrice {
 		Matrix matriceRotation = new Matrix(tableauRotation);
 		c.arrayTimesEquals(matriceRotation);
 		
-		for (int i = 0; i < points.getColumnDimension(); ++i) {
-			for (int j = 0; j < points.getRowDimension(); ++j) {
-				points.set(i, j, c.get(i, j));
+		for (int i = 0; i < matrice.getColumnDimension(); ++i) {
+			for (int j = 0; j < matrice.getRowDimension(); ++j) {
+				matrice.set(i, j, c.get(i, j));
 			}
 		}
-		return points;
+		return matrice;
 	}
 
 	/**
@@ -58,15 +58,15 @@ public class Matrice {
 	 * @return la nouvelle matrice après rotation sur l'axe y de rotation
 	 */
 	public Matrix rotationY(double rotation) {
-		Matrix c = new Matrix(points.getColumnDimension(),
-				points.getRowDimension() + 1);
-		for (int i = 0; i < points.getColumnDimension(); ++i) {
-			for (int j = 0; j < points.getRowDimension(); ++j) {
-				c.set(i, j, points.get(i, j));
+		Matrix c = new Matrix(matrice.getColumnDimension(),
+				matrice.getRowDimension() + 1);
+		for (int i = 0; i < matrice.getColumnDimension(); ++i) {
+			for (int j = 0; j < matrice.getRowDimension(); ++j) {
+				c.set(i, j, matrice.get(i, j));
 			}
 		}
-		for (int i = 0; i < points.getColumnDimension(); ++i) {
-			for (int j = 0; j < points.getRowDimension() + 1; ++j) {
+		for (int i = 0; i < matrice.getColumnDimension(); ++i) {
+			for (int j = 0; j < matrice.getRowDimension() + 1; ++j) {
 				c.set(i, j, 1);
 			}
 		}
@@ -78,12 +78,12 @@ public class Matrice {
 		Matrix matriceRotation = new Matrix(tableauRotation);
 		
 		c.arrayTimesEquals(matriceRotation);
-		for (int i = 0; i < points.getColumnDimension(); ++i) {
-			for (int j = 0; j < points.getRowDimension(); ++j) {
-				points.set(i, j, c.get(i, j));
+		for (int i = 0; i < matrice.getColumnDimension(); ++i) {
+			for (int j = 0; j < matrice.getRowDimension(); ++j) {
+				matrice.set(i, j, c.get(i, j));
 			}
 		}
-		return points;
+		return matrice;
 	}
 	
 	/**
@@ -93,15 +93,15 @@ public class Matrice {
 	 * @return la nouvelle matrice après rotation sur l'axe z de rotation
 	 */
 	public Matrix rotationZ(double rotation) {
-		Matrix c = new Matrix(points.getColumnDimension(),
-				points.getRowDimension() + 1);
-		for (int i = 0; i < points.getColumnDimension(); ++i) {
-			for (int j = 0; j < points.getRowDimension(); ++j) {
-				c.set(i, j, points.get(i, j));
+		Matrix c = new Matrix(matrice.getColumnDimension(),
+				matrice.getRowDimension() + 1);
+		for (int i = 0; i < matrice.getColumnDimension(); ++i) {
+			for (int j = 0; j < matrice.getRowDimension(); ++j) {
+				c.set(i, j, matrice.get(i, j));
 			}
 		}
-		for (int i = 0; i < points.getColumnDimension(); ++i) {
-			for (int j = 0; j < points.getRowDimension() + 1; ++j) {
+		for (int i = 0; i < matrice.getColumnDimension(); ++i) {
+			for (int j = 0; j < matrice.getRowDimension() + 1; ++j) {
 				c.set(i, j, 1);
 			}
 		}
@@ -113,13 +113,19 @@ public class Matrice {
 		Matrix matriceRotation = new Matrix(tableauRotation);
 
 		c.arrayTimesEquals(matriceRotation);
-		for (int i = 0; i < points.getColumnDimension(); ++i) {
-			for (int j = 0; j < points.getRowDimension(); ++j) {
-				points.set(i, j, c.get(i, j));
+		for (int i = 0; i < matrice.getColumnDimension(); ++i) {
+			for (int j = 0; j < matrice.getRowDimension(); ++j) {
+				matrice.set(i, j, c.get(i, j));
 			}
 		}
-		return points;
+		return matrice;
 	}
 
-	
+	/**
+	 * 
+	 * @return le determinant de la matrice englobant tout les points.
+	 */
+	public double determinant(){
+		return matrice.det();
+	}
 }

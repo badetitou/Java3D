@@ -1,8 +1,11 @@
 package fr.view;
 
 import javax.swing.JFrame;
-/*
- * By badetitou
+
+/**
+ * 
+ * @author Loic
+ *
  */
 public class Window extends JFrame{
 	public Window() {
