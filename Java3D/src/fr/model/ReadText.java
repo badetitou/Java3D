@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class ReadText {
 
-	List<String> list = new ArrayList<String>();
+	private List<String> list = new ArrayList<String>();
 	
 	public ReadText() {
 		try {
@@ -38,9 +38,9 @@ public class ReadText {
 			e.printStackTrace();
 		}
 	}
-
-	public static void main(String args[]) {
-		ReadText rt = new ReadText();
-		System.out.println(rt.list);
+	
+	public List<String> getList(){
+		return this.list;
 	}
+
 }
