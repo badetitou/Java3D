@@ -10,6 +10,18 @@ public class Matrice {
 	}
 
 	/**
+	 * @param x
+	 * @return la matrice qui se trouve à la x collonne
+	 */
+	public Matrice getPoint(int x){
+		double[][] mat = new double[0][3];
+		mat[0][0] = matrice.get(x, 0);
+		mat[0][1] = matrice.get(x, 1);
+		mat[0][2] = matrice.get(x, 2);
+		return new Matrice(mat);
+	}
+	
+	/**
 	 * @param x position x dans la matrice 
 	 * @param y positon y dans la matrice
 	 * @return l'entier stocker à la position x, y dans la matrice
