@@ -14,10 +14,10 @@ public class Matrice {
 	 * @return la matrice qui se trouve à la x collonne
 	 */
 	public Matrice getPoint(int x){
-		double[][] mat = new double[0][3];
-		mat[0][0] = matrice.get(x, 0);
-		mat[0][1] = matrice.get(x, 1);
-		mat[0][2] = matrice.get(x, 2);
+		double[][] mat = new double[0][matrice.getColumnDimension()];
+		for(int i = 0;i<matrice.getColumnDimension();++i){
+			mat[0][i] = matrice.get(x, i);
+		}
 		return new Matrice(mat);
 	}
 	
