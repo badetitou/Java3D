@@ -1,13 +1,10 @@
 package fr.model;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
 
 /**
  * @author Loïc Cette classe a pour but de lire un fichier texte contenant le
@@ -15,32 +12,37 @@ import java.util.List;
  */
 public class ReadText {
 
-	private List<String> list = new ArrayList<String>();
-	
-	public ReadText() {
+	private final Map<Integer,Integer[]> map;
+	private Scanner scanner;
+	private final String file;
+	@SuppressWarnings("resource")
+	public ReadText(String file) {
+		map=new HashMap<Integer,Integer[]>();
+		this.file=file;
 		try {
-			InputStream is = new FileInputStream("ressources/image/tetra");
-			Reader r = new InputStreamReader(is);
-			BufferedReader br = new BufferedReader(r);
-			while(br.ready()){
-				String traitement = br.readLine();
-				int current = 0;
-				for(int i = 0;i<traitement.length(); ++i){
-					if (traitement.charAt(i) == ' '){
-						list.add(traitement.substring(current, i));
-						current = i;
-					}
-				}
-				list.add(traitement.substring(current,traitement.length()));
+			scanner = new Scanner(new File(file));
+			// On boucle sur chaque champ detecté
+			while (scanner.hasNextLine()) {
+				String line = scanner.nextLine();
+
+				System.out.println(line);
+				//faites ici votre traitement
 			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
+
+			scanner.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("Fichier introuvable");
 			e.printStackTrace();
 		}
+
 	}
-	
-	public List<String> getList(){
-		return this.list;
+
+	public String getFile(){
+		return this.file;
+	}
+
+	public Map<Integer,Integer[]> getMap(){
+		return this.map;
 	}
 
 }
