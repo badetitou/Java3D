@@ -8,7 +8,7 @@ public class Main {
 
 	public static void main(String args[]) {
 		ReadText rt = new ReadText("ressources/image/tetra");
-		System.out.println(rt.getPointList().toString());
+		System.out.println(rt.getFaceList().toString());
 		//Window w = new Window();
 
 	}

@@ -39,25 +39,28 @@ public class ReadText {
 				line = scanner.nextLine();
 				if (i==0){
 					nbPoints=extractLine(line)[0];
-					System.out.println(nbPoints);
 					nbSegments=extractLine(line)[1];
-					System.out.println(nbSegments);
 					nbFaces=extractLine(line)[2];
-					System.out.println(nbFaces);
 				}
 
 				else if (i<=nbPoints){
 					pointList.add(new Point(extractLine(line)[0], extractLine(line)[1], extractLine(line)[2]));
-					System.out.println(pointList.toString());
 				}
 
-				else if (i> nbPoints && i<= nbSegments){
-					map.put(j, new CouplePoint(extractLine(line)[0],extractLine(line)[1]));
+				else if (i> nbPoints && i<= nbPoints+nbSegments){
+					map.put(j, new CouplePoint(pointList.get(extractLine(line)[0]-1),pointList.get(extractLine(line)[1]-1)));
 					j++;
 				}
 
 				else {
-
+					Point p3=null;
+					if ((map.get(extractLine(line)[0]).getP1()!=map.get(extractLine(line)[2]).getP1())){
+						p3=map.get(extractLine(line)[2]).getP1();
+					}
+					else {
+						p3=map.get(extractLine(line)[2]).getP2();
+					}
+					faceList.add(new Face(map.get(extractLine(line)[0]).getP1(),map.get(extractLine(line)[0]).getP2(),p3));
 				}
 				i++;
 			}
