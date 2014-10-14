@@ -1,12 +1,15 @@
 package fr.model;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * 
  * @author Benoit
  *
  */
 public class Model {
-	ReadText rt;
+	private ReadText rt;
 
 	/**
 	 * 
@@ -14,6 +17,18 @@ public class Model {
 	 */
 	public Model(String url) {
 		rt = new ReadText(url);
+	}
+	
+	public void trieFace(){
+		Collections.sort(rt.getFaceList());
+	}
+	
+	/**
+	 * 
+	 * @return la liste des Faces
+	 */
+	public List<Face> getFace(){
+		return rt.getFaceList();
 	}
 
 	/**
