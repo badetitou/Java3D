@@ -8,10 +8,18 @@ package fr.model;
 public class Model {
 	ReadText rt;
 
+	/**
+	 * 
+	 * @param url est le chemin vers le fichier à étudier
+	 */
 	public Model(String url) {
 		rt = new ReadText(url);
 	}
 
+	/**
+	 * 
+	 * @param r est la valeur en radiant de la rotation à faire en X
+	 */
 	public void rotationX(double r) {
 		for (int i = 0; i < rt.getPointList().size(); ++i) {
 			rt.getPointList().get(i).multiplier(new double[][] { 
@@ -21,6 +29,10 @@ public class Model {
 		}
 	}
 
+	/**
+	 * 
+	 * @param r est la valeur de la rotation à faire en Y
+	 */
 	public void rotationY(double r) {
 		for (int i = 0; i < rt.getPointList().size(); ++i) {
 			rt.getPointList().get(i).multiplier(new double[][] { 
@@ -30,7 +42,12 @@ public class Model {
 		}
 	}
 	
-	public void zoom(int k){
+	/**
+	 * Double pour plus de precision possible
+	 * 
+	 * @param k et la force du zoom
+	 */
+	public void zoom(double k){
 		for (int i = 0; i < rt.getPointList().size(); ++i) {
 			rt.getPointList().get(i).multiplier(new double[][] { 
 					{ k, 0, 0 },
