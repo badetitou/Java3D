@@ -61,6 +61,21 @@ public class Model {
 	}
 	
 	/**
+	 * Je sais aps si ça va servir mais dans le doute maintenant on l'a
+	 * 
+	 * @param r est la valeur de la rotation à faire en Z
+	 */
+	public void rotationZ(double r) {
+		for (int i = 0; i < rt.getPointList().size(); ++i) {
+			rt.getPointList().get(i).multiplier(new double[][] { 
+					{ Math.cos(r), -Math.sin(r),0 },
+					{ Math.sin(r), Math.cos(r), 0 },
+					{ 0, 0, 0 } });
+		}
+		trieFace();
+	}
+	
+	/**
 	 * Double pour plus de precision possible
 	 * 
 	 * @param k et la force du zoom
