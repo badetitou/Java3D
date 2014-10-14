@@ -29,5 +29,14 @@ public class Model {
 					{ -Math.sin(r), 0, Math.cos(r) } });
 		}
 	}
+	
+	public void zoom(int k){
+		for (int i = 0; i < rt.getPointList().size(); ++i) {
+			rt.getPointList().get(i).multiplier(new double[][] { 
+					{ k, 0, 0 },
+					{ 0, k, 0 },
+					{ 0, 0, k } });
+		}
+	}
 
 }
