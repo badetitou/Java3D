@@ -1,5 +1,7 @@
 package fr.model;
-
+/**
+ * @author Loïc
+ */
 public class CouplePoint {
 	private final Point p1;
 	private final Point p2;

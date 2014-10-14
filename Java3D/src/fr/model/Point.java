@@ -1,5 +1,7 @@
 package fr.model;
-
+/**
+ * @author Loïc
+ */
 public class Point {
 	private final int x;
 	private final int y;

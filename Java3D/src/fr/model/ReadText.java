@@ -54,13 +54,13 @@ public class ReadText {
 
 				else {
 					Point p3=null;
-					if ((map.get(extractLine(line)[0]).getP1()!=map.get(extractLine(line)[2]).getP1())){
-						p3=map.get(extractLine(line)[2]).getP1();
+					if ((map.get(extractLine(line)[0]-1).getP1()!=map.get(extractLine(line)[2]-1).getP1())){
+						p3=map.get(extractLine(line)[2]-1).getP1();
 					}
 					else {
-						p3=map.get(extractLine(line)[2]).getP2();
+						p3=map.get(extractLine(line)[2]-1).getP2();
 					}
-					faceList.add(new Face(map.get(extractLine(line)[0]).getP1(),map.get(extractLine(line)[0]).getP2(),p3));
+					faceList.add(new Face(map.get(extractLine(line)[0]-1).getP1(),map.get(extractLine(line)[0]-1).getP2(),p3));
 				}
 				i++;
 			}
