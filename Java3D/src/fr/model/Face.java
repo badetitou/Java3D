@@ -43,6 +43,9 @@ public class Face extends JPanel implements Comparable<Face>{
 		g.drawLine((int)p3.x, (int)p3.y, (int)p2.x, (int)p2.y);
 	}
 
+	/**
+	 * permet de trier avec Collections.sort()
+	 */
 	public int compareTo(Face f) {
 		if ((this.p3.z + this.p2.z + this.p1.z)/3 <f.p3.z + f.p2.z + f.p1.z){
 			return -1;
