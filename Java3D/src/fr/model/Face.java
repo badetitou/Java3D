@@ -8,7 +8,8 @@ import javax.swing.JPanel;
 /**
  * @author Loïc
  */
-public class Face extends JPanel{
+@SuppressWarnings("serial")
+public class Face extends JPanel implements Comparable<Face>{
 
 	private final Point p1;
 	private final Point p2;
@@ -40,5 +41,15 @@ public class Face extends JPanel{
 		g.drawLine((int)p1.x, (int)p1.y, (int)p2.x, (int)p2.y);
 		g.drawLine((int)p1.x, (int)p1.y, (int)p3.x, (int)p3.y);
 		g.drawLine((int)p3.x, (int)p3.y, (int)p2.x, (int)p2.y);
+	}
+
+	public int compareTo(Face f) {
+		if ((this.p3.z + this.p2.z + this.p1.z)/3 <f.p3.z + f.p2.z + f.p1.z){
+			return -1;
+		}
+		else if ((this.p3.z + this.p2.z + this.p1.z)/3  > f.p3.z + f.p2.z + f.p1.z){
+			return 1;
+		}
+		return 0;
 	}
 }
