@@ -18,7 +18,7 @@ public class ReadText {
 	private final List<Face> faceList;
 	private Scanner scanner;
 	private final String file;
-	@SuppressWarnings("resource")
+	
 	public ReadText(String file) {
 		pointList=new ArrayList<Point>();
 		faceList=new ArrayList<Face>();
