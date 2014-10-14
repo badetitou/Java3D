@@ -3,15 +3,15 @@ package fr.model;
  * @author Loïc
  */
 public class Point {
-	private double x;
-	private double y;
-	private double z;
+	public double x;
+	public double y;
+	public double z;
 	public Point(int x, int y, int z){
 		this.x=x;
 		this.y=y;
 		this.z=z;
 	}
-	
+
 	public void multiplier(double[][] a){
 		x = x*a[0][0] + x*a[0][1] + x*a[0][2];
 		y = y*a[1][0] + y*a[1][1] + y*a[1][2];
