@@ -19,7 +19,7 @@ public class Model {
 		rt = new ReadText(url);
 	}
 	
-	public void trieFace(){
+	private void trieFace(){
 		Collections.sort(rt.getFaceList());
 	}
 	
@@ -42,6 +42,7 @@ public class Model {
 					{ 0, Math.cos(r), -Math.sin(r) },
 					{ 0, Math.sin(r), Math.cos(r) } });
 		}
+		trieFace();
 	}
 
 	/**
@@ -55,6 +56,7 @@ public class Model {
 					{ 0, 1, 0 },
 					{ -Math.sin(r), 0, Math.cos(r) } });
 		}
+		trieFace();
 	}
 	
 	/**
