@@ -36,11 +36,17 @@ public class Face extends JPanel implements Comparable<Face>{
 	}
 
 	@Override
-	public void paint(Graphics g){
+	public void paintComponent(Graphics g){
+		super.paintComponent(g);
 		g.setColor(this.color);
-		g.drawLine((int)p1.x, (int)p1.y, (int)p2.x, (int)p2.y);
-		g.drawLine((int)p1.x, (int)p1.y, (int)p3.x, (int)p3.y);
-		g.drawLine((int)p3.x, (int)p3.y, (int)p2.x, (int)p2.y);
+		/*
+		int[] x = { (int)p1.x, (int)p2.x, (int)p3.x };
+		int[] y = { (int)p1.y, (int)p2.y, (int)p3.y };//draw with polygon
+		Polygon triangle = new Polygon(x, y, 3);
+		 */
+		g.drawLine((int)p1.x*10, (int)p1.y*10, (int)p2.x*10, (int)p2.y*10);
+		g.drawLine((int)p1.x*10, (int)p1.y*10, (int)p3.x*10, (int)p3.y*10);
+		g.drawLine((int)p3.x*10, (int)p3.y*10, (int)p2.x*10, (int)p2.y*10);
 	}
 
 	/**

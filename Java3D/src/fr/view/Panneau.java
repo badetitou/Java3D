@@ -14,10 +14,12 @@ public class Panneau extends JPanel{
 		for (int i=0;i<rt.getFaceList().size();i++){
 			this.add(rt.getFaceList().get(i));
 		}
+		System.out.println(rt.getFaceList().toString());
 	}
 
 	@Override
-	public void paint(Graphics g){
+	public void paintComponent(Graphics g){
+		super.paintComponent(g);
 		for (int i=0;i<rt.getFaceList().size();i++){
 			rt.getFaceList().get(i).paint(g);
 		}
