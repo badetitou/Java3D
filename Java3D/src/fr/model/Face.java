@@ -13,7 +13,7 @@ public class Face extends JPanel{
 	private final Point p1;
 	private final Point p2;
 	private final Point p3;
-	private Color color;
+	private Color color=Color.BLUE;
 
 	public Face(Point p1, Point p2, Point p3){
 		this.p1=p1;
@@ -36,6 +36,9 @@ public class Face extends JPanel{
 
 	@Override
 	public void paint(Graphics g){
-
+		g.setColor(this.color);
+		g.drawLine((int)p1.x, (int)p1.y, (int)p2.x, (int)p2.y);
+		g.drawLine((int)p1.x, (int)p1.y, (int)p3.x, (int)p3.y);
+		g.drawLine((int)p3.x, (int)p3.y, (int)p2.x, (int)p2.y);
 	}
 }
