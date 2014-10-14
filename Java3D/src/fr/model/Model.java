@@ -17,6 +17,7 @@ public class Model {
 	 */
 	public Model(String url) {
 		rt = new ReadText(url);
+		trieFace();
 	}
 	
 	private void trieFace(){
