@@ -64,8 +64,6 @@ public class ReadText {
 				}
 				i++;
 			}
-			System.out.println(faceList.toString());
-
 			scanner.close();
 		} catch (FileNotFoundException e) {
 			System.out.println("Fichier introuvable");

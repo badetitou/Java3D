@@ -11,10 +11,11 @@ public class Panneau extends JPanel {
 	Model m;
 
 	public Panneau(Model m) {
-		this.m=m;
-		m.rotationX(20);
-		//System.out.println(m.getFace());
+		this.m = m;
+		m.zoom(50);
 		repaint();
+		m.rotationX(45);
+		
 	}
 
 	@Override
