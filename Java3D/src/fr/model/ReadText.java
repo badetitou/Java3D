@@ -28,9 +28,9 @@ public class ReadText {
 			scanner = new Scanner(new File(file));
 			int i=0;
 			int j=0;
-			int nbPoints=0;
-			int nbSegments=0;
-			int nbFaces=0;
+			double nbPoints=0;
+			double nbSegments=0;
+			double nbFaces=0;
 			String line="";
 			map = new HashMap<Integer,CouplePoint>();
 
@@ -48,19 +48,19 @@ public class ReadText {
 				}
 
 				else if (i> nbPoints && i<= nbPoints+nbSegments){
-					map.put(j, new CouplePoint(pointList.get(extractLine(line)[0]-1),pointList.get(extractLine(line)[1]-1)));
+					map.put(j, new CouplePoint(pointList.get((int) (extractLine(line)[0]-1)),pointList.get((int) (extractLine(line)[1]-1))));
 					j++;
 				}
 
 				else {
 					Point p3=null;
-					if ((map.get(extractLine(line)[0]-1).getP1()!=map.get(extractLine(line)[2]-1).getP1())){
-						p3=map.get(extractLine(line)[2]-1).getP1();
+					if (!((map.get((int)extractLine(line)[0]-1).getP1().equals(map.get((int)extractLine(line)[2]-1).getP1())))&& !(map.get((int)extractLine(line)[0]-1).getP2().equals((map.get((int)extractLine(line)[2]-1).getP1())))){
+						p3=map.get((int)extractLine(line)[2]-1).getP1();
 					}
 					else {
-						p3=map.get(extractLine(line)[2]-1).getP2();
+						p3=map.get((int)extractLine(line)[2]-1).getP2();
 					}
-					faceList.add(new Face(map.get(extractLine(line)[0]-1).getP1(),map.get(extractLine(line)[0]-1).getP2(),p3));
+					faceList.add(new Face(map.get((int)extractLine(line)[0]-1).getP1(),map.get((int)extractLine(line)[0]-1).getP2(),p3));
 				}
 				i++;
 			}
@@ -74,18 +74,18 @@ public class ReadText {
 
 	}
 
-	public int[] extractLine(String line){
-		int [] tab = new int [3];
+	public double[] extractLine(String line){
+		double [] tab = new double [3];
 		int j=0;
 		int k=0;
 		for (int i=0;i<line.length();i++){
 			if(line.charAt(i)==' '){
-				tab[k]=Integer.parseInt(line.substring(j, i));
+				tab[k]=Double.parseDouble(line.substring(j, i));
 				j=i+1;
 				k++;
 			}
 		}
-		tab[k]=Integer.parseInt(line.substring(j,line.length()));
+		tab[k]=Double.parseDouble(line.substring(j,line.length()));
 
 		return tab;
 	}

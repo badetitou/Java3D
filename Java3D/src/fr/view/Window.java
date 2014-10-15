@@ -1,5 +1,8 @@
 package fr.view;
 
+import java.awt.Toolkit;
+
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 import fr.model.Model;
@@ -14,14 +17,16 @@ public class Window extends JFrame{
 
 	Panneau panel;
 	Model m;
+	Toolkit outil;
 
 	public Window() {
 		super("3D Lib");
-		//this.setIconImage(new ImageIcon("rsc/images/icon.png").getImage());
-		m = new Model("ressources/image/triangle");
+		outil = getToolkit();
+		this.setIconImage(new ImageIcon("ressources/image/logoforreal2.png").getImage());
+		m = new Model("ressources/image/cube.gts");
 		panel=new Panneau(m);
 		this.getContentPane().add(panel);
-		this.setBounds(200,80,800,600);
+		this.setSize(outil.getScreenSize());
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
 		this.setVisible(true);

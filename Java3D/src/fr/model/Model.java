@@ -9,7 +9,7 @@ import java.util.List;
  *
  */
 public class Model {
-	private ReadText rt;
+	private final ReadText rt;
 
 	/**
 	 * 
@@ -17,13 +17,14 @@ public class Model {
 	 */
 	public Model(String url) {
 		rt = new ReadText(url);
+		this.zoom(25);
 		trieFace();
 	}
-	
+
 	private void trieFace(){
 		Collections.sort(rt.getFaceList());
 	}
-	
+
 	/**
 	 * 
 	 * @return la liste des Faces
@@ -38,7 +39,7 @@ public class Model {
 	 */
 	public void rotationX(double r) {
 		for (int i = 0; i < rt.getPointList().size(); ++i) {
-			rt.getPointList().get(i).multiplier(new double[][] { 
+			rt.getPointList().get(i).multiplier(new double[][] {
 					{ 1, 0, 0 },
 					{ 0, Math.cos(r), -Math.sin(r) },
 					{ 0, Math.sin(r), Math.cos(r) } });
@@ -52,14 +53,14 @@ public class Model {
 	 */
 	public void rotationY(double r) {
 		for (int i = 0; i < rt.getPointList().size(); ++i) {
-			rt.getPointList().get(i).multiplier(new double[][] { 
+			rt.getPointList().get(i).multiplier(new double[][] {
 					{ Math.cos(r), 0, Math.sin(r) },
 					{ 0, 1, 0 },
 					{ -Math.sin(r), 0, Math.cos(r) } });
 		}
 		trieFace();
 	}
-	
+
 	/**
 	 * Je sais aps si ça va servir mais dans le doute maintenant on l'a
 	 * 
@@ -67,14 +68,14 @@ public class Model {
 	 */
 	public void rotationZ(double r) {
 		for (int i = 0; i < rt.getPointList().size(); ++i) {
-			rt.getPointList().get(i).multiplier(new double[][] { 
+			rt.getPointList().get(i).multiplier(new double[][] {
 					{ Math.cos(r), -Math.sin(r),0 },
 					{ Math.sin(r), Math.cos(r), 0 },
 					{ 0, 0, 0 } });
 		}
 		trieFace();
 	}
-	
+
 	/**
 	 * Double pour plus de precision possible
 	 * 
@@ -82,7 +83,7 @@ public class Model {
 	 */
 	public void zoom(double k){
 		for (int i = 0; i < rt.getPointList().size(); ++i) {
-			rt.getPointList().get(i).multiplier(new double[][] { 
+			rt.getPointList().get(i).multiplier(new double[][] {
 					{ k, 0, 0 },
 					{ 0, k, 0 },
 					{ 0, 0, k } });
