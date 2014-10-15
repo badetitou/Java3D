@@ -14,11 +14,11 @@ public class Window extends JFrame{
 
 	Panneau panel;
 	Model m;
-	
+
 	public Window() {
 		super("3D Lib");
 		//this.setIconImage(new ImageIcon("rsc/images/icon.png").getImage());
-		m = new Model("ressources/image/tetra");
+		m = new Model("ressources/image/triangle");
 		panel=new Panneau(m);
 		this.getContentPane().add(panel);
 		this.setBounds(200,80,800,600);

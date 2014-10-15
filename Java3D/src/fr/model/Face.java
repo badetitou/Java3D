@@ -5,7 +5,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.GeneralPath;
-import java.util.Random;
 
 /**
  * @author Loïc
@@ -26,7 +25,7 @@ public class Face implements Comparable<Face> {
 
 	@Override
 	public String toString(){
-		return p1+" | " +p2 + " | "+p3 + "\n---\n";
+		return p1+" | " +p2 + " | "+p3 ;
 	}
 
 	public Color getColor(){
@@ -53,15 +52,15 @@ public class Face implements Comparable<Face> {
 	public void paint(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-		        RenderingHints.VALUE_ANTIALIAS_ON);
+				RenderingHints.VALUE_ANTIALIAS_ON);
 		GeneralPath p0 = new GeneralPath();
 		p0.moveTo(p1.x+120, -p1.y+120);
-	    p0.lineTo(p2.x+120,-p2.y+120);
-	    p0.lineTo(p3.x+120, -p3.y+120);
-	    p0.moveTo(p2.x+120, -p2.y+120);
-	    p0.lineTo(p1.x+120, -p1.y+120);
-	    p0.closePath();
-	    g2.fill(p0);
-		
+		p0.lineTo(p2.x+120,-p2.y+120);
+		p0.lineTo(p3.x+120, -p3.y+120);
+		p0.moveTo(p2.x+120, -p2.y+120);
+		p0.lineTo(p1.x+120, -p1.y+120);
+		p0.closePath();
+		g2.fill(p0);
+
 	}
 }

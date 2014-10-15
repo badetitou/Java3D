@@ -5,15 +5,14 @@ import java.awt.Graphics;
 import javax.swing.JPanel;
 
 import fr.model.Model;
-import fr.model.ReadText;
 
 public class Panneau extends JPanel {
 	Model m;
 
 	public Panneau(Model m) {
 		this.m=m;
-		
-		System.out.println(m.getFace());
+
+		//System.out.println(m.getFace());
 		repaint();
 	}
 

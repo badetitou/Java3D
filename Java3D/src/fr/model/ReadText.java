@@ -18,7 +18,7 @@ public class ReadText {
 	private final List<Face> faceList;
 	private Scanner scanner;
 	private final String file;
-	
+
 	public ReadText(String file) {
 		pointList=new ArrayList<Point>();
 		faceList=new ArrayList<Face>();
@@ -64,6 +64,7 @@ public class ReadText {
 				}
 				i++;
 			}
+			System.out.println(faceList.toString());
 
 			scanner.close();
 		} catch (FileNotFoundException e) {
