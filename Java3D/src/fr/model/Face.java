@@ -3,16 +3,15 @@ package fr.model;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Polygon;
+import java.awt.RenderingHints;
 import java.awt.geom.GeneralPath;
-
-import javax.swing.JPanel;
+import java.util.Random;
 
 /**
  * @author Loïc
  */
 @SuppressWarnings("serial")
-public class Face extends JPanel implements Comparable<Face>{
+public class Face implements Comparable<Face> {
 
 	private final Point p1;
 	private final Point p2;
@@ -38,30 +37,6 @@ public class Face extends JPanel implements Comparable<Face>{
 		this.color=color;
 	}
 
-	@Override
-	public void paintComponent(Graphics g){
-		Graphics2D g2 = (Graphics2D) g;
-		g2.setColor(this.color);
-		/*
-		int[] x = { (int)p1.x, (int)p2.x, (int)p3.x };
-		int[] y = { (int)p1.y, (int)p2.y, (int)p3.y };//draw with polygon
-		Polygon triangle = new Polygon(x, y, 3);
-		g2.drawPolygon(triangle);
-		*/
-		GeneralPath p0 = new GeneralPath();
-		p0.moveTo(p1.x, p1.y);
-	    p0.lineTo(p2.x, p2.y);
-	    p0.lineTo(p3.x, p3.y);
-	    p0.lineTo(p1.x, p1.y);
-	    g2.draw(p0);
-		
-		/*
-		g.drawLine((int)p1.x*10, (int)p1.y*10, (int)p2.x*10, (int)p2.y*10);
-		g.drawLine((int)p1.x*10, (int)p1.y*10, (int)p3.x*10, (int)p3.y*10);
-		g.drawLine((int)p3.x*10, (int)p3.y*10, (int)p2.x*10, (int)p2.y*10);
-		*/
-	}
-
 	/**
 	 * permet de trier avec Collections.sort()
 	 */
@@ -73,5 +48,20 @@ public class Face extends JPanel implements Comparable<Face>{
 			return 1;
 		}
 		return 0;
+	}
+
+	public void paint(Graphics g) {
+		Graphics2D g2 = (Graphics2D) g;
+		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+		        RenderingHints.VALUE_ANTIALIAS_ON);
+		GeneralPath p0 = new GeneralPath();
+		p0.moveTo(p1.x+120, -p1.y+120);
+	    p0.lineTo(p2.x+120,-p2.y+120);
+	    p0.lineTo(p3.x+120, -p3.y+120);
+	    p0.moveTo(p2.x+120, -p2.y+120);
+	    p0.lineTo(p1.x+120, -p1.y+120);
+	    p0.closePath();
+	    g2.fill(p0);
+		
 	}
 }

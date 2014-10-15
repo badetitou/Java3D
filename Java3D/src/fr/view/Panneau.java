@@ -1,20 +1,27 @@
 package fr.view;
 
+import java.awt.Graphics;
+
 import javax.swing.JPanel;
 
 import fr.model.Model;
+import fr.model.ReadText;
 
-
-@SuppressWarnings("serial")
-public class Panneau extends JPanel{
+public class Panneau extends JPanel {
 	Model m;
-	public Panneau (Model m){
+
+	public Panneau(Model m) {
 		this.m=m;
-		System.out.println(m.getFace());
-		//this.setBackground(Color.GREEN);
-		for (int i=0;i<m.getFace().size();i++){
-			//this.add(m.getFace().get(i));
-		}
 		
+		System.out.println(m.getFace());
+		repaint();
+	}
+
+	@Override
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		for (int i = 0; i < m.getFace().size(); i++) {
+			m.getFace().get(i).paint(g);
+		}
 	}
 }
