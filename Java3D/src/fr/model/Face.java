@@ -69,10 +69,9 @@ public class Face implements Comparable<Face> {
 			g2.setColor(Color.GREEN);
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
-		
 		GeneralPath p0 = new GeneralPath();
 		p0.moveTo(p1.x+400, -p1.y+400);
-		p0.lineTo(p2.x+400,-p2.y+400);
+		p0.lineTo(p2.x+400, -p2.y+400);
 		p0.lineTo(p3.x+400, -p3.y+400);
 		p0.moveTo(p2.x+400, -p2.y+400);
 		p0.lineTo(p1.x+400, -p1.y+400);
@@ -84,5 +83,6 @@ public class Face implements Comparable<Face> {
 		Polygon poly = new Polygon(xCoord,yCoord,3);
 		g2.fill(poly);
 		*/
+
 	}
 }

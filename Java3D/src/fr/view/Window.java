@@ -23,7 +23,7 @@ public class Window extends JFrame{
 		super("3D Lib");
 		outil = getToolkit();
 		this.setIconImage(new ImageIcon("ressources/image/logoforreal2.png").getImage());
-		m = new Model("ressources/image/bunny.gts");
+		m = new Model("ressources/image/tie.gts");
 		panel=new Panneau(m);
 		this.getContentPane().add(panel);
 		this.setSize(outil.getScreenSize());

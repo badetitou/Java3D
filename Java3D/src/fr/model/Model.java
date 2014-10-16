@@ -40,15 +40,31 @@ public class Model {
 	 * @param r
 	 *            est la valeur en radiant de la rotation à faire en X
 	 */
-	public void rotationX(double r) {
+	public void rotationZ(int r) {
+		for (int i = 0; i < rt.getPointList().size(); ++i) {
+			for (int j = 0; i < r; ++j) {
+				rt.getPointList()
+						.get(i)
+						.multiplier(
+								new double[][] {
+										{ 1, 0, 0, 0 },
+										{ 0, Math.cos(Math.PI / 256),
+												-Math.sin(Math.PI / 256), 0 },
+										{ 0, Math.sin(Math.PI / 256),
+												Math.cos(Math.PI / 256), 0 },
+										{ 0, 0, 0, 1 } });
+			}
+		}
+		trieFace();
+	}
+
+	public void translation(double x, double y, double z) {
 		for (int i = 0; i < rt.getPointList().size(); ++i) {
 			rt.getPointList()
 					.get(i)
 					.multiplier(
-							new double[][] { { 1, 0, 0, 0 },
-									{ 0, Math.cos(r), -Math.sin(r), 0 },
-									{ 0, Math.sin(r), Math.cos(r), 0 },
-									{ 0, 0, 0, 1 } });
+							new double[][] { { 1, 0, 0, x }, { 0, 1, 0, y },
+									{ 0, 0, 1, z }, { 0, 0, 0, 1 } });
 		}
 		trieFace();
 	}
@@ -58,15 +74,20 @@ public class Model {
 	 * @param r
 	 *            est la valeur de la rotation à faire en Y
 	 */
-	public void rotationY(double r) {
+	public void rotationX(int r) {
 		for (int i = 0; i < rt.getPointList().size(); ++i) {
+			for (int j = 0;j<r; ++j){
 			rt.getPointList()
 					.get(i)
 					.multiplier(
-							new double[][] { { Math.cos(r), 0, Math.sin(r) , 0},
-									{ 0, 1, 0 , 0},
-									{ -Math.sin(r), 0, Math.cos(r), 0 } ,
-									{0,0,0,1}});
+							new double[][] {
+									{ Math.cos(Math.PI / 256), 0,
+											Math.sin(Math.PI / 256), 0 },
+									{ 0, 1, 0, 0 },
+									{ -Math.sin(Math.PI / 256), 0,
+											Math.cos(Math.PI / 256), 0 },
+									{ 0, 0, 0, 1 } });
+		}
 		}
 		trieFace();
 	}
@@ -77,15 +98,19 @@ public class Model {
 	 * @param r
 	 *            est la valeur de la rotation à faire en Z
 	 */
-	public void rotationZ(double r) {
+	public void rotationY(int r) {
 		for (int i = 0; i < rt.getPointList().size(); ++i) {
-			rt.getPointList()
-					.get(i)
-					.multiplier(
-							new double[][] { { Math.cos(r), -Math.sin(r), 0, 0 },
-									{ Math.sin(r), Math.cos(r), 0, 0 },
-									{ 0, 0, 0, 0 } ,
-									{0,0,0,1}});
+			for (int j = 0; j < r; ++j) {
+				rt.getPointList()
+						.get(i)
+						.multiplier(
+								new double[][] {
+										{ Math.cos(Math.PI / 256),
+												-Math.sin(Math.PI / 256), 0, 0 },
+										{ Math.sin(Math.PI / 256),
+												Math.cos(Math.PI / 256), 0, 0 },
+										{ 0, 0, 0, 0 }, { 0, 0, 0, 1 } });
+			}
 		}
 		trieFace();
 	}
