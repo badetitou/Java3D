@@ -10,6 +10,7 @@ import fr.model.Model;
 /**
  * 
  * @author Loic
+ * Fenêtre du logiciel après l'écran du chargement. Elle contient tous les JPanel.
  *
  */
 @SuppressWarnings("serial")

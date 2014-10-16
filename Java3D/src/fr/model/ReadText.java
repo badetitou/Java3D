@@ -19,6 +19,13 @@ public class ReadText {
 	private Scanner scanner;
 	private final String file;
 
+	/**
+	 * 
+	 * @param String file
+	 * Prend l'url d'un fichier en paramètre et récupère tout le contenu de celui-ci en stockant les points et les faces dans deux ArrayLists.
+	 * 
+	 */
+
 	public ReadText(String file) {
 		pointList=new ArrayList<Point>();
 		faceList=new ArrayList<Face>();
@@ -71,6 +78,13 @@ public class ReadText {
 		}
 
 	}
+
+	/**
+	 * 
+	 * @param String line
+	 * Prend la chaîne de caractère passée en paramètre et retourne un tableau de double contenant les divers points/segments/faces
+	 *       du fichier en entrée.
+	 */
 
 	public double[] extractLine(String line){
 		double [] tab = new double [3];

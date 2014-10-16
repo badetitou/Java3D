@@ -9,7 +9,17 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+/**
+ * @author Loïc
+ * Charge l'écran de chargement du logiciel
+ * 
+ */
+
 public class SplashScreenPanel extends JPanel{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Image img;
 	public SplashScreenPanel(SplashScreen ss){
 

@@ -51,6 +51,12 @@ public class Face implements Comparable<Face> {
 		return 0;
 	}
 
+	/**
+	 * 
+	 * Dessine la face selon ses points.
+	 * La méthode est appelée pour chaque face.
+	 */
+
 	public void paint(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setColor(this.color);

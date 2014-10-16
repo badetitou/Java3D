@@ -8,6 +8,10 @@ import fr.model.Face;
 import fr.model.Model;
 
 public class Panneau extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	Model m;
 
 	public Panneau(Model m) {

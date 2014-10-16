@@ -9,7 +9,19 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.Timer;
 
+
+/**
+ * @author Loïc
+ * Traitement de la barre de progression de l'écran de chargement.
+ * TIMER_PAUSE = temps pour arriver jusqu'à 100%
+ * 
+ */
+
 public class ProgressBar extends JPanel{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static JProgressBar progressBar = new JProgressBar();
 	private static int count = 1, PROGBAR_MAX=100,TIMER_PAUSE = 20;
 	private static SplashScreen ss;
@@ -21,7 +33,7 @@ public class ProgressBar extends JPanel{
 			if (PROGBAR_MAX == count) {
 				ss.dispose();
 				progressBarTimer.stop();//stop the timer
-				Window w = new Window();
+				new Window();
 			}
 			progressBar.setStringPainted(true);
 			progressBar.setString(count+"%");
@@ -35,7 +47,7 @@ public class ProgressBar extends JPanel{
 		progressBar.setBackground(Color.lightGray);
 		progressBar.setPreferredSize(new Dimension(180,18));
 		//progressBar.setForeground(Color.DARK_GRAY);
-		this.ss=ss;
+		ProgressBar.ss=ss;
 		this.setLayout(new FlowLayout(0,0,350));
 		this.setOpaque(false);
 		this.add(progressBar);
