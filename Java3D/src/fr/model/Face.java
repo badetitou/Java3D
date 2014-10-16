@@ -3,7 +3,6 @@ package fr.model;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Polygon;
 import java.awt.RenderingHints;
 import java.awt.geom.GeneralPath;
 import java.util.Random;
@@ -82,7 +81,7 @@ public class Face implements Comparable<Face> {
 		int [] yCoord ={(int)p1.y+200,(int)p2.y+200,(int)p3.y+200};
 		Polygon poly = new Polygon(xCoord,yCoord,3);
 		g2.fill(poly);
-		*/
+		 */
 
 	}
 }

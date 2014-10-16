@@ -6,7 +6,6 @@ import javax.swing.JPanel;
 
 import fr.model.Face;
 import fr.model.Model;
-import fr.model.Point;
 
 public class Panneau extends JPanel {
 	Model m;
@@ -14,6 +13,7 @@ public class Panneau extends JPanel {
 	public Panneau(Model m) {
 		this.m = m;
 		m.zoom(0.1);
+		m.rotationX(25);
 		repaint();
 	}
 
