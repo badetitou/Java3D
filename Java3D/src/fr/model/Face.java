@@ -63,18 +63,22 @@ public class Face implements Comparable<Face> {
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
 
-		Point N = new Point((p2.y - p1.y) * (p3.z - p1.z) - (p2.z - p1.z) * (p3.y - p1.y),
-				(p2.z - p1.z) * (p3.x - p1.x) - (p2.x - p1.x) * (p3.z - p1.z), (p2.x - p1.x)
-						* (p3.y - p1.y) - (p2.y - p1.y) * (p3.x - p1.x));
-		Point L = new Point(0,0,1);
-		double scal = N.x*L.x - N.y*L.y + N.z*L.z;
+		Point N = new Point((p2.y - p1.y) * (p3.z - p1.z) - (p2.z - p1.z)
+				* (p3.y - p1.y), (p2.z - p1.z) * (p3.x - p1.x) - (p2.x - p1.x)
+				* (p3.z - p1.z), (p2.x - p1.x) * (p3.y - p1.y) - (p2.y - p1.y)
+				* (p3.x - p1.x));
+		Point L = new Point(0, 0, 1);
+
+		double scal = N.x * L.x - N.y * L.y + N.z * L.z;
 		double amplN = Math.pow(N.x, 2) + Math.pow(N.y, 2) + Math.pow(N.z, 2);
 		double amplL = Math.pow(L.x, 2) + Math.pow(L.y, 2) + Math.pow(L.z, 2);
-		double cosValue = scal/((Math.sqrt(amplL))*(Math.sqrt(amplN)));
+		double cosValue = scal / ((Math.sqrt(amplL)) * (Math.sqrt(amplN)));
+		
 		int cosPositif = (int) (255 * cosValue);
 		if (cosPositif < 0)
 			cosPositif = -cosPositif;
-		this.setColor(new Color((int) (cosPositif) ,(int) (cosPositif), (int)(cosPositif)));
+		this.setColor(new Color((int) (cosPositif), (int) (cosPositif),
+				(int) (cosPositif)));
 		
 		GeneralPath p0 = new GeneralPath();
 		p0.moveTo(p1.x + Panneau.d.getWidth() / 2,
