@@ -41,7 +41,7 @@ public class Window extends JFrame{
 		this.setMaximumSize(new Dimension(400,400));
 		this.setResizable(false);
 		this.setVisible(true);
-		Panneau.d = panel.getSize(); // NE PAS TOUCHER
+		Panneau.d = panel.getSize(); // NE PAS TOUCHER CECI PERMET L'AFFICHAGE CENTRE
 	}
 
 }
