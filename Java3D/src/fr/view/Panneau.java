@@ -19,17 +19,19 @@ public class Panneau extends JPanel {
 
 	public Panneau(Model mod) {
 		this.m = mod;
-		m.rotationX(25);
 		repaint();
+		
 		this.addMouseWheelListener (new MouseWheelListener() {
 			public void mouseWheelMoved(MouseWheelEvent e) {
 				m.zoom((-e.getPreciseWheelRotation() + 15)/15);
 				repaint();
 			}
 		});
+		
 		this.addMouseMotionListener(new MouseMotionListener() {
-			int coordMouseX;
-			int coordMouseY;
+			int coordMouseX = 0;
+			int coordMouseY = 0;
+			
 			public void mouseMoved(MouseEvent e) {
 				coordMouseX = e.getX();
 				coordMouseY = e.getY();
@@ -41,7 +43,7 @@ public class Panneau extends JPanel {
 				m.rotationZ(coordMouseY - e.getY());
 				coordMouseX = e.getX();
 				coordMouseY = e.getY();
-				
+				repaint();
 			}
 		});
 	}
