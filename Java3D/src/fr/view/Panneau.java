@@ -28,14 +28,17 @@ public class Panneau extends JPanel {
 			}
 		});
 		this.addMouseMotionListener(new MouseMotionListener() {
-			
+			int coordMouseX;
+			int coordMouseY;
 			public void mouseMoved(MouseEvent e) {
-				// TODO Auto-generated method stub
+				coordMouseX = e.getX();
+				coordMouseY = e.getY();
 				
 			}
 			
 			public void mouseDragged(MouseEvent e) {
-				// TODO Auto-generated method stub
+				coordMouseX = e.getX();
+				coordMouseY = e.getY();
 				
 			}
 		});
