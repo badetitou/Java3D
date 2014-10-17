@@ -1,5 +1,6 @@
 package fr.view;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
@@ -16,6 +17,7 @@ public class Panneau extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	Model m;
+	public static Dimension d;
 
 	public Panneau(Model mod) {
 		this.m = mod;
