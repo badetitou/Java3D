@@ -40,8 +40,8 @@ public class Panneau extends JPanel {
 			}
 			
 			public void mouseDragged(MouseEvent e) {
-				m.rotationX(coordMouseX - e.getX());
-				m.rotationZ(coordMouseY - e.getY());
+				m.rotationX(e.getX() - coordMouseX);
+				m.rotationZ(e.getY() -coordMouseY);
 				coordMouseX = e.getX();
 				coordMouseY = e.getY();
 				repaint();

@@ -12,7 +12,6 @@ import fr.view.Panneau;
 /**
  * @author Loïc
  */
-@SuppressWarnings("serial")
 public class Face implements Comparable<Face> {
 
 	private final Point p1;
