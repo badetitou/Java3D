@@ -56,15 +56,15 @@ public class Model {
 										{
 												0,
 												Math.cos(sensRotation * Math.PI
-														/ 256),
+														/ 1024),
 												-Math.sin(sensRotation
-														* Math.PI / 256), 0 },
+														* Math.PI / 1024), 0 },
 										{
 												0,
 												Math.sin(sensRotation * Math.PI
-														/ 256),
+														/ 1024),
 												Math.cos(sensRotation * Math.PI
-														/ 256), 0 },
+														/ 1024), 0 },
 										{ 0, 0, 0, 1 } });
 			}
 		}
@@ -99,11 +99,11 @@ public class Model {
 				.get(i)
 				.multiplier(
 						new double[][] {
-								{ Math.cos(sensRotation * Math.PI / 256), 0,
-									Math.sin(sensRotation * Math.PI / 256), 0 },
+								{ Math.cos(sensRotation * Math.PI / 1024), 0,
+									Math.sin(sensRotation * Math.PI / 1024), 0 },
 									{ 0, 1, 0, 0 },
-									{ -Math.sin(sensRotation * Math.PI / 256), 0,
-										Math.cos(sensRotation * Math.PI / 256), 0 },
+									{ -Math.sin(sensRotation * Math.PI / 1024), 0,
+										Math.cos(sensRotation * Math.PI / 1024), 0 },
 										{ 0, 0, 0, 1 } });
 			}
 		}
@@ -131,14 +131,14 @@ public class Model {
 								new double[][] {
 										{
 												Math.cos(sensRotation * Math.PI
-														/ 256),
+														/ 1024),
 												-Math.sin(sensRotation
-														* Math.PI / 256), 0, 0 },
+														* Math.PI / 1024), 0, 0 },
 										{
 												Math.sin(sensRotation * Math.PI
-														/ 256),
+														/ 1024),
 												Math.cos(sensRotation * Math.PI
-														/ 256), 0, 0 },
+														/ 1024), 0, 0 },
 										{ 0, 0, 0, 0 }, { 0, 0, 0, 1 } });
 			}
 		}
