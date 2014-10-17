@@ -46,7 +46,7 @@ public class Model {
 			sensRotation = -1;
 		}
 		for (int i = 0; i < rt.getPointList().size(); ++i) {
-			for (int j = 0; i < r; ++j) {
+			for (int j = 0; i < j; ++j) {
 				rt.getPointList()
 						.get(i)
 						.multiplier(
