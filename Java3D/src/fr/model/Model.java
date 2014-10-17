@@ -47,6 +47,7 @@ public class Model {
 		}
 		for (int i = 0; i < rt.getPointList().size(); ++i) {
 			for (int j = 0; j < r; ++j) {
+				
 				rt.getPointList()
 						.get(i)
 						.multiplier(
@@ -70,6 +71,12 @@ public class Model {
 		trieFace();
 	}
 
+	/**
+	 * En TEST
+	 * @param x
+	 * @param y
+	 * @param z
+	 */
 	public void translation(double x, double y, double z) {
 		for (int i = 0; i < rt.getPointList().size(); ++i) {
 			rt.getPointList()
