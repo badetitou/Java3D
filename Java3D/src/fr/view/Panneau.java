@@ -1,6 +1,8 @@
 package fr.view;
 
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
@@ -23,6 +25,18 @@ public class Panneau extends JPanel {
 			public void mouseWheelMoved(MouseWheelEvent e) {
 				m.zoom((-e.getPreciseWheelRotation() + 15)/15);
 				repaint();
+			}
+		});
+		this.addMouseMotionListener(new MouseMotionListener() {
+			
+			public void mouseMoved(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			public void mouseDragged(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
 			}
 		});
 	}
