@@ -24,7 +24,6 @@ public class Model {
 
 	private void trieFace() {
 		Collections.sort(rt.getFaceList());
-		System.out.println("Trié");
 	}
 
 	/**
