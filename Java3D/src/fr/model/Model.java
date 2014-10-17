@@ -37,9 +37,9 @@ public class Model {
 	/**
 	 * 
 	 * @param r
-	 *            est la valeur en radiant de la rotation à faire en X
+	 *            est la valeur en radiant de la rotation à faire en Y
 	 */
-	public void rotationZ(int r) {
+	public void rotationY(int r) {
 		int sensRotation = 1;
 		if (r < 0) {
 			r = -r;
@@ -84,7 +84,7 @@ public class Model {
 	/**
 	 * 
 	 * @param r
-	 *            est la valeur de la rotation à faire en Y
+	 *            est la valeur de la rotation à faire en X
 	 */
 	public void rotationX(int r) {
 		int sensRotation = 1;
@@ -115,7 +115,7 @@ public class Model {
 	 * @param r
 	 *            est la valeur de la rotation à faire en Z
 	 */
-	public void rotationY(int r) {
+	public void rotationZ(int r) {
 		int sensRotation = 1;
 		if (r < 0) {
 			r = -r;
