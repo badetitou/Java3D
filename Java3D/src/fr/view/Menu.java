@@ -1,19 +1,15 @@
 package fr.view;
 
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JPanel;
 
-@SuppressWarnings("serial")
-public class Menu extends JPanel implements ActionListener{
+public class Menu extends JMenuBar{
 
-	private final	JMenuBar menuBar;
+
 	private final	JMenu menuFile;
 	private final	JMenu menuEdit;
 	private final	JMenuItem	menuFileNew;
@@ -21,11 +17,12 @@ public class Menu extends JPanel implements ActionListener{
 	private final	JMenuItem	menuFileSave;
 	private final	JMenuItem	menuFileSaveAs;
 	private final	JMenuItem	menuFileExit;
+	private final 	JMenuItem 	menuEditZoom;
+	private final 	JMenuItem 	menuEditRotate;
 	private final JMenu menuHelp;
 	public Menu()
 	{
-		menuBar = new JMenuBar();
-		menuBar.setPreferredSize(new Dimension((int) Window.outil.getScreenSize().getWidth(),30));
+		this.setPreferredSize(new Dimension((int) Window.outil.getScreenSize().getWidth(),30));
 
 		menuFile=new JMenu("File");
 		menuEdit=new JMenu("Edit");
@@ -36,27 +33,31 @@ public class Menu extends JPanel implements ActionListener{
 		menuHelp.setPreferredSize(new Dimension(40,30));
 
 		menuFileNew = new JMenuItem("New project");
-		menuFileOpen = new JMenuItem("Open project");
-		menuFileSave = new JMenuItem("Save");
+		menuFileOpen = new JMenuItem("Open project..");
+		menuFileSave = new JMenuItem("Save..");
 		menuFileSaveAs = new JMenuItem("Save as..");
 		menuFileExit = new JMenuItem("Exit");
+
+		menuFileNew.setMnemonic(KeyEvent.VK_H);
+		menuFile.setMnemonic(KeyEvent.VK_F);
+
+
+		menuEditZoom = new JMenuItem("Zoom");
+		menuEditRotate = new JMenuItem("Rotate");
+
 
 		menuFile.add(menuFileNew);
 		menuFile.add(menuFileOpen);
 		menuFile.add(menuFileSave);
 		menuFile.add(menuFileSaveAs);
+		menuFile.addSeparator();
 		menuFile.add(menuFileExit);
 
-		menuBar.add(menuFile);
-		menuBar.add(menuEdit);
-		menuBar.add(menuHelp);
+		menuEdit.add(menuEditZoom);
+		menuEdit.add(menuEditRotate);
 
-		this.setLayout(new FlowLayout(0,0,0));
-		this.add(menuBar);
-	}
-
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-
+		this.add(menuFile);
+		this.add(menuEdit);
+		this.add(menuHelp);
 	}
 }
