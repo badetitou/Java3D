@@ -72,10 +72,11 @@ public class Model {
 	}
 
 	/**
-	 * En TEST
-	 * @param x
-	 * @param y
-	 * @param z
+	 * Permet de deplace une figure 
+	 * 
+	 * @param x deplace sur l'axe x
+	 * @param y deplace sur l'axe y
+	 * @param z deplace sur l'axe z ( ne sert à rien dans ce programme) 
 	 */
 	public void translation(double x, double y, double z) {
 		for (int i = 0; i < rt.getPointList().size(); ++i) {
