@@ -28,7 +28,7 @@ public class Window extends JFrame{
 		super("3D Lib");
 		outil = getToolkit();
 		this.setIconImage(new ImageIcon("ressources/image/logoforreal2.png").getImage());
-		m = new Model("ressources/image/horse.gts");
+		m = new Model("ressources/image/x_wing.gts");
 		container = new JPanel();
 		container.setLayout(new BorderLayout());
 		panel=new Panneau(m);
