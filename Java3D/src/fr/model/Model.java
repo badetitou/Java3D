@@ -18,7 +18,7 @@ public class Model {
 	 */
 	public Model(String url) {
 		rt = new ReadText(url);
-		this.zoom(25);
+		this.zoom(5);
 		trieFace();
 	}
 
@@ -44,14 +44,14 @@ public class Model {
 		for (int i = 0; i < rt.getPointList().size(); ++i) {
 			for (int j = 0; i < r; ++j) {
 				rt.getPointList()
-						.get(i)
-						.multiplier(
-								new double[][] {
-										{ 1, 0, 0, 0 },
-										{ 0, Math.cos(Math.PI / 256),
-												-Math.sin(Math.PI / 256), 0 },
-										{ 0, Math.sin(Math.PI / 256),
-												Math.cos(Math.PI / 256), 0 },
+				.get(i)
+				.multiplier(
+						new double[][] {
+								{ 1, 0, 0, 0 },
+								{ 0, Math.cos(Math.PI / 256),
+									-Math.sin(Math.PI / 256), 0 },
+									{ 0, Math.sin(Math.PI / 256),
+										Math.cos(Math.PI / 256), 0 },
 										{ 0, 0, 0, 1 } });
 			}
 		}
@@ -61,10 +61,10 @@ public class Model {
 	public void translation(double x, double y, double z) {
 		for (int i = 0; i < rt.getPointList().size(); ++i) {
 			rt.getPointList()
-					.get(i)
-					.multiplier(
-							new double[][] { { 1, 0, 0, x }, { 0, 1, 0, y },
-									{ 0, 0, 1, z }, { 0, 0, 0, 1 } });
+			.get(i)
+			.multiplier(
+					new double[][] { { 1, 0, 0, x }, { 0, 1, 0, y },
+							{ 0, 0, 1, z }, { 0, 0, 0, 1 } });
 		}
 		trieFace();
 	}
@@ -77,17 +77,17 @@ public class Model {
 	public void rotationX(int r) {
 		for (int i = 0; i < rt.getPointList().size(); ++i) {
 			for (int j = 0;j<r; ++j){
-			rt.getPointList()
-					.get(i)
-					.multiplier(
-							new double[][] {
-									{ Math.cos(Math.PI / 256), 0,
-											Math.sin(Math.PI / 256), 0 },
+				rt.getPointList()
+				.get(i)
+				.multiplier(
+						new double[][] {
+								{ Math.cos(Math.PI / 256), 0,
+									Math.sin(Math.PI / 256), 0 },
 									{ 0, 1, 0, 0 },
 									{ -Math.sin(Math.PI / 256), 0,
-											Math.cos(Math.PI / 256), 0 },
-									{ 0, 0, 0, 1 } });
-		}
+										Math.cos(Math.PI / 256), 0 },
+										{ 0, 0, 0, 1 } });
+			}
 		}
 		trieFace();
 	}
@@ -102,13 +102,13 @@ public class Model {
 		for (int i = 0; i < rt.getPointList().size(); ++i) {
 			for (int j = 0; j < r; ++j) {
 				rt.getPointList()
-						.get(i)
-						.multiplier(
-								new double[][] {
-										{ Math.cos(Math.PI / 256),
-												-Math.sin(Math.PI / 256), 0, 0 },
-										{ Math.sin(Math.PI / 256),
-												Math.cos(Math.PI / 256), 0, 0 },
+				.get(i)
+				.multiplier(
+						new double[][] {
+								{ Math.cos(Math.PI / 256),
+									-Math.sin(Math.PI / 256), 0, 0 },
+									{ Math.sin(Math.PI / 256),
+										Math.cos(Math.PI / 256), 0, 0 },
 										{ 0, 0, 0, 0 }, { 0, 0, 0, 1 } });
 			}
 		}
@@ -124,10 +124,10 @@ public class Model {
 	public void zoom(double k) {
 		for (int i = 0; i < rt.getPointList().size(); ++i) {
 			rt.getPointList()
-					.get(i)
-					.multiplier(
-							new double[][] { { k, 0, 0, 0 }, { 0, k, 0, 0 },
-									{ 0, 0, k, 0 }, { 0, 0, 0, 1 } });
+			.get(i)
+			.multiplier(
+					new double[][] { { k, 0, 0, 0 }, { 0, k, 0, 0 },
+							{ 0, 0, k, 0 }, { 0, 0, 0, 1 } });
 		}
 	}
 
