@@ -22,7 +22,6 @@ public class Panneau extends JPanel {
 	public Panneau(Model mod) {
 		this.m = mod;
 		repaint();
-		
 		this.addMouseWheelListener (new MouseWheelListener() {
 			public void mouseWheelMoved(MouseWheelEvent e) {
 				m.zoom((-e.getPreciseWheelRotation() + 15)/15);
