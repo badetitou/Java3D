@@ -1,10 +1,11 @@
 package fr.view;
 
 import java.awt.Graphics;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 
 import javax.swing.JPanel;
 
-import fr.model.Face;
 import fr.model.Model;
 
 public class Panneau extends JPanel {
@@ -14,11 +15,16 @@ public class Panneau extends JPanel {
 	private static final long serialVersionUID = 1L;
 	Model m;
 
-	public Panneau(Model m) {
-		this.m = m;
-		m.zoom(0.1);
+	public Panneau(Model mod) {
+		this.m = mod;
 		m.rotationX(25);
 		repaint();
+		this.addMouseWheelListener (new MouseWheelListener() {
+			public void mouseWheelMoved(MouseWheelEvent e) {
+				m.zoom((-e.getPreciseWheelRotation() + 15)/15);
+				repaint();
+			}
+		});
 	}
 
 	@Override
@@ -27,6 +33,5 @@ public class Panneau extends JPanel {
 		for (int i = 0; i < m.getFace().size(); i++) {
 			m.getFace().get(i).paint(g);
 		}
-		System.out.print(Face.i);
 	}
 }
