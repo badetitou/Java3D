@@ -7,6 +7,8 @@ import java.awt.RenderingHints;
 import java.awt.geom.GeneralPath;
 import java.util.Random;
 
+import fr.view.Panneau;
+
 /**
  * @author Loïc
  */
@@ -75,11 +77,11 @@ public class Face implements Comparable<Face> {
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
 		GeneralPath p0 = new GeneralPath();
-		p0.moveTo(p1.x+400, -p1.y+400);
-		p0.lineTo(p2.x+400, -p2.y+400);
-		p0.lineTo(p3.x+400, -p3.y+400);
-		p0.moveTo(p2.x+400, -p2.y+400);
-		p0.lineTo(p1.x+400, -p1.y+400);
+		p0.moveTo(p1.x+Panneau.d.getHeight()/2, -p1.y+Panneau.d.getWidth()/2);
+		p0.lineTo(p2.x+Panneau.d.getHeight()/2, -p2.y+Panneau.d.getWidth()/2);
+		p0.lineTo(p3.x+Panneau.d.getHeight()/2, -p3.y+Panneau.d.getWidth()/2);
+		p0.moveTo(p2.x+Panneau.d.getHeight()/2, -p2.y+Panneau.d.getWidth()/2);
+		p0.lineTo(p1.x+Panneau.d.getHeight()/2, -p1.y+Panneau.d.getWidth()/2);
 		p0.closePath();
 		g2.fill(p0);
 		/*
