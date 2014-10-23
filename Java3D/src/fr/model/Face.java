@@ -5,7 +5,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.GeneralPath;
-import java.util.Random;
 
 import fr.view.Panneau;
 
@@ -20,10 +19,14 @@ public class Face implements Comparable<Face> {
 	private Color color;
 	public static int i = 0;
 
-	public Face(Point p1, Point p2, Point p3) {
+	public Face(Point p1, Point p2, Point p3,Color color) {
 		this.p1 = p1;
 		this.p2 = p2;
 		this.p3 = p3;
+		if(color ==null)
+			this.color=new Color(180,180,180);
+		else
+			this.color=color;
 		calculLumiere();
 	}
 
@@ -78,17 +81,17 @@ public class Face implements Comparable<Face> {
 		p0.closePath();
 		g2.fill(p0);
 	}
-	
+
 	private void calculLumiere(){
-		
+
 		Point N = new Point((p2.y - p1.y) * (p3.z - p1.z) - (p2.z - p1.z)
 				* (p3.y - p1.y), (p2.z - p1.z) * (p3.x - p1.x) - (p2.x - p1.x)
 				* (p3.z - p1.z), (p2.x - p1.x) * (p3.y - p1.y) - (p2.y - p1.y)
 				* (p3.x - p1.x));
-		
+
 		Point L = new Point(0, 0, 1);
 		Point G = new Point((p1.x+p1.y+p1.z)/3,(p2.x+p2.y+p2.z)/3,(p2.x+p2.y+p2.z)/3);
-		
+
 		double scal = N.x * L.x - N.y * L.y + N.z * L.z;
 		double amplN = Math.pow(N.x, 2) + Math.pow(N.y, 2) + Math.pow(N.z, 2);
 		double amplL = Math.pow(L.x, 2) + Math.pow(L.y, 2) + Math.pow(L.z, 2);
@@ -96,8 +99,8 @@ public class Face implements Comparable<Face> {
 		int cosPositif = (int) (255 * cosValue);
 		if (cosPositif < 0)
 			cosPositif = -cosPositif;
-		this.setColor(new Color((int) (cosPositif), (int) (cosPositif),
-				(int) (cosPositif)));
-		
+		this.setColor(new Color((cosPositif), (cosPositif),
+				(cosPositif)));
+
 	}
 }
