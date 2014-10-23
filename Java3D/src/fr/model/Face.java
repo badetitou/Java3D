@@ -19,14 +19,14 @@ public class Face implements Comparable<Face> {
 	private Color color;
 	public static int i = 0;
 
-	public Face(Point p1, Point p2, Point p3,Color color) {
+	public Face(Point p1, Point p2, Point p3,Color c) {
 		this.p1 = p1;
 		this.p2 = p2;
 		this.p3 = p3;
-		if(color ==null)
-			this.color=new Color(180,180,180);
+		if(c.getRed()==0 && c.getGreen()==0 &&c.getBlue()==0)
+			this.color=new Color(255,255,255);
 		else
-			this.color=color;
+			this.color=c;
 		calculLumiere();
 	}
 
@@ -96,11 +96,18 @@ public class Face implements Comparable<Face> {
 		double amplN = Math.pow(N.x, 2) + Math.pow(N.y, 2) + Math.pow(N.z, 2);
 		double amplL = Math.pow(L.x, 2) + Math.pow(L.y, 2) + Math.pow(L.z, 2);
 		double cosValue = scal / ((Math.sqrt(amplL)) * (Math.sqrt(amplN)));
-		int cosPositif = (int) (255 * cosValue);
-		if (cosPositif < 0)
-			cosPositif = -cosPositif;
-		this.setColor(new Color((cosPositif), (cosPositif),
-				(cosPositif)));
+		int cosPositifR = (int) (this.color.getRed() * cosValue);
+		int cosPositifV = (int) (this.color.getGreen() * cosValue);
+		int cosPositifB = (int) (this.color.getBlue() * cosValue);
+
+		if (cosPositifR < 0)
+			cosPositifR = -cosPositifR;
+		if (cosPositifV < 0)
+			cosPositifV = -cosPositifV;
+		if (cosPositifB < 0)
+			cosPositifB = -cosPositifB;
+		this.setColor(new Color((cosPositifR), (cosPositifV),
+				(cosPositifB)));
 
 	}
 }
