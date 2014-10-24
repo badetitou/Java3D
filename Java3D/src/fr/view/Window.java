@@ -5,10 +5,9 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 
 import javax.swing.ImageIcon;
+import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
-import fr.model.Model;
 
 /**
  * 
@@ -20,22 +19,28 @@ import fr.model.Model;
 public class Window extends JFrame{
 
 	Panneau panel;
-	public Model m;
 	public static Toolkit outil;
-	JPanel container;
+	public JPanel container;
 	public static JFrame frame;
+	public JDesktopPane dp;
+
 
 	public Window() {
 		super("3D Lib");
 		this.frame=this;
 		outil = getToolkit();
 		this.setIconImage(new ImageIcon("ressources/image/logoforreal2.png").getImage());
-		m = new Model("ressources/image/x_wing.gts");
+
+
+		dp = new MyDeskTopPane();
+
+
+
 		container = new JPanel();
 		container.setLayout(new BorderLayout());
-		panel=new Panneau(m);
-		container.add(panel,BorderLayout.CENTER);
+		container.add(dp,BorderLayout.CENTER);
 		container.add(new Barre(),BorderLayout.NORTH);
+
 		this.setJMenuBar(new Menu());
 		this.getContentPane().add(container);
 		this.setSize(outil.getScreenSize());
@@ -44,7 +49,8 @@ public class Window extends JFrame{
 		this.setMaximumSize(new Dimension(400,400));
 		this.setResizable(false);
 		this.setVisible(true);
-		Panneau.d = panel.getSize(); // NE PAS TOUCHER CECI PERMET L'AFFICHAGE CENTRE
+
+		Panneau.d = MyDeskTopPane.panel.getSize(); // NE PAS TOUCHER CECI PERMET L'AFFICHAGE CENTRE
 	}
 
 }
