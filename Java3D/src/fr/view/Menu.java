@@ -11,6 +11,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import fr.model.Model;
+
 public class Menu extends JMenuBar implements ActionListener{
 
 

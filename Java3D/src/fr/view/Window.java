@@ -20,7 +20,7 @@ import fr.model.Model;
 public class Window extends JFrame{
 
 	Panneau panel;
-	Model m;
+	public Model m;
 	public static Toolkit outil;
 	JPanel container;
 
