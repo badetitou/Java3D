@@ -35,6 +35,7 @@ public class Window extends JFrame{
 		container.setLayout(new BorderLayout());
 		panel=new Panneau(m);
 		container.add(panel,BorderLayout.CENTER);
+		container.add(new Barre(),BorderLayout.NORTH);
 		this.setJMenuBar(new Menu());
 		this.getContentPane().add(container);
 		this.setSize(outil.getScreenSize());
