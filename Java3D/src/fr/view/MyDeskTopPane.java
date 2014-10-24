@@ -6,8 +6,19 @@ import javax.swing.JPanel;
 
 import fr.model.Model;
 
+/**
+ * 
+ * @author Loïc
+ * Classe regroupant les 4 panels qui vont contenir les 4 vues possible de l'objet!
+ *
+ */
+
 public class MyDeskTopPane extends JDesktopPane{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public JInternalFrame iFrameMain;
 	public JInternalFrame iFrameDessus;
 	public JInternalFrame iFrameDessous;

@@ -11,11 +11,14 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-import fr.model.Model;
 
 public class Menu extends JMenuBar implements ActionListener{
 
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private final	JMenu menuFile;
 	private final	JMenu menuEdit;
 	private final	JMenuItem	menuFileNew;
@@ -65,17 +68,17 @@ public class Menu extends JMenuBar implements ActionListener{
 		this.add(menuFile);
 		this.add(menuEdit);
 		this.add(menuHelp);
-		
-		menuFileOpen.addActionListener((ActionListener) this); 
-		
+
+		menuFileOpen.addActionListener(this);
+
 	}
 	public void actionPerformed(ActionEvent e) {
-		 if (e.getSource().equals(menuFileOpen)) {
-			 JFileChooser dialogue = new JFileChooser(new File("."));
-			 File fichier;
+		if (e.getSource().equals(menuFileOpen)) {
+			JFileChooser dialogue = new JFileChooser(new File("."));
+			File fichier;
 			dialogue.showOpenDialog(null);
-		    fichier = dialogue.getSelectedFile();
-		    System.out.println(fichier);
-		 }
+			fichier = dialogue.getSelectedFile();
+			System.out.println(fichier);
+		}
 	}
 }

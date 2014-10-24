@@ -12,6 +12,10 @@ import javax.swing.JPanel;
 
 public class Barre extends JPanel implements MouseListener{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public JButton b1;
 	public JButton b2;
 	public JButton b3;
