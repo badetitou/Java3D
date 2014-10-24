@@ -1,13 +1,17 @@
 package fr.view;
 
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
 
+import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-public class Menu extends JMenuBar{
+public class Menu extends JMenuBar implements ActionListener{
 
 
 	private final	JMenu menuFile;
@@ -59,5 +63,17 @@ public class Menu extends JMenuBar{
 		this.add(menuFile);
 		this.add(menuEdit);
 		this.add(menuHelp);
+		
+		menuFileOpen.addActionListener((ActionListener) this); 
+		
+	}
+	public void actionPerformed(ActionEvent e) {
+		 if (e.getSource().equals(menuFileOpen)) {
+			 JFileChooser dialogue = new JFileChooser(new File("."));
+			 File fichier;
+			dialogue.showOpenDialog(null);
+		    fichier = dialogue.getSelectedFile();
+		    System.out.println(fichier);
+		 }
 	}
 }
