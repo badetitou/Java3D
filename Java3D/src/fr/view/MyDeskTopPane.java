@@ -27,7 +27,7 @@ public class MyDeskTopPane extends JDesktopPane{
 	public static JPanel panel;
 
 	public MyDeskTopPane(){
-		m = new Model("ressources/image/icosa.gts");
+		m = new Model("ressources/image/tie.gts");
 		panel=new Panneau(m);
 
 		iFrameMain = new JInternalFrame(

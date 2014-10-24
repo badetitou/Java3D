@@ -44,40 +44,43 @@ public class ReadText {
 			double nbSegments=0;
 			double nbFaces=0;
 			String line="";
+			double tab[];
 			map = new HashMap<Integer,CouplePoint>();
 
 			// On boucle sur chaque champ detecté
 			while (scanner.hasNextLine()) {
 				line = scanner.nextLine();
+				tab=extractLine(line);
+				System.out.println(tab[5]);
 				if (i==0){
-					nbPoints=extractLine(line)[0];
-					nbSegments=extractLine(line)[1];
-					nbFaces=extractLine(line)[2];
+					nbPoints=(int)tab[0];
+					nbSegments=(int)tab[1];
+					nbFaces=(int)tab[2];
 				}
 
 				else if (i<=nbPoints){
-					pointList.add(new Point(extractLine(line)[0], extractLine(line)[1], extractLine(line)[2]));
+					pointList.add(new Point(tab[0], tab[1], tab[2]));
 				}
 
 				else if (i> nbPoints && i<= nbPoints+nbSegments){
-					map.put(j, new CouplePoint(pointList.get((int) (extractLine(line)[0]-1)),pointList.get((int) (extractLine(line)[1]-1))));
+					map.put(j, new CouplePoint(pointList.get((int) (tab[0]-1)),pointList.get((int) (tab[1]-1))));
 					j++;
 				}
 
 				else {
 					Point p3=null;
-					if (!((map.get((int)extractLine(line)[0]-1).getP1().equals(map.get((int)extractLine(line)[2]-1).getP1())))&& !(map.get((int)extractLine(line)[0]-1).getP2().equals((map.get((int)extractLine(line)[2]-1).getP1())))){
-						p3=map.get((int)extractLine(line)[2]-1).getP1();
+					if (!((map.get((int)tab[0]-1).getP1().equals(map.get((int)tab[2]-1).getP1())))&& !(map.get((int)tab[0]-1).getP2().equals((map.get((int)tab[2]-1).getP1())))){
+						p3=map.get((int)tab[2]-1).getP1();
 					}
 					else {
-						p3=map.get((int)extractLine(line)[2]-1).getP2();
+						p3=map.get((int)tab[2]-1).getP2();
 					}
 
 					if(this.corrupt){
 						JOptionPane.showMessageDialog(new JFrame(),"Fichier Corrumpu","Error",JOptionPane.ERROR_MESSAGE);
 						break;
 					}
-					faceList.add(new Face(map.get((int)extractLine(line)[0]-1).getP1(),map.get((int)extractLine(line)[0]-1).getP2(),p3,new Color((int)extractLine(line)[3],(int)extractLine(line)[4],(int)extractLine(line)[5])));
+					faceList.add(new Face(map.get((int)tab[0]-1).getP1(),map.get((int)tab[0]-1).getP2(),p3,new Color((int)tab[3],(int)tab[4],(int)tab[5])));
 				}
 				i++;
 			}
@@ -104,12 +107,16 @@ public class ReadText {
 		for (int i=0;i<line.length();i++){
 			if(line.charAt(i)==' '){
 				if(k==3 || k==4 || k==5){
-					//System.out.println(line.substring(j, i));
-					if(validColor(Integer.parseInt(line.substring(j, i)))){
-						tab[k]=Double.parseDouble(line.substring(j, i));
+					if(line.substring(j, i)!=null){
+						if(validColor(Integer.parseInt(line.substring(j, i)))){
+							tab[k]=Double.parseDouble(line.substring(j, i));
+						}
+						else {
+							this.corrupt=true;
+						}
 					}
 					else {
-						this.corrupt=true;
+						tab[k]=0;
 					}
 				}
 				else {
@@ -120,15 +127,22 @@ public class ReadText {
 			}
 		}
 		if(k==3 || k==4 || k==5){
-			if(validColor(Integer.parseInt(line.substring(j, line.length())))){
-				tab[k]=Double.parseDouble(line.substring(j, line.length()));
+			if(line.substring(j, line.length())!=null){
+				if(validColor(Integer.parseInt(line.substring(j, line.length())))){
+					tab[k]=Double.parseDouble(line.substring(j, line.length()));
+				}
+				else {
+					this.corrupt=true;
+				}
 			}
 			else {
-				this.corrupt=true;
+				tab[k]=0;
 			}
 			//System.out.println(tab[3]+" | "+tab[4]+" | "+tab[5]);
 		}
+
 		tab[k]=Double.parseDouble(line.substring(j,line.length()));
+
 
 		return tab;
 	}
