@@ -23,12 +23,14 @@ public class Window extends JFrame{
 	public Model m;
 	public static Toolkit outil;
 	JPanel container;
+	public static JFrame frame;
 
 	public Window() {
 		super("3D Lib");
+		this.frame=this;
 		outil = getToolkit();
 		this.setIconImage(new ImageIcon("ressources/image/logoforreal2.png").getImage());
-		m = new Model("ressources/image/tie.gts");
+		m = new Model("ressources/image/x_wing.gts");
 		container = new JPanel();
 		container.setLayout(new BorderLayout());
 		panel=new Panneau(m);
