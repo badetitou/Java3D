@@ -30,6 +30,12 @@ public class Barre extends JPanel implements MouseListener{
 	public ImageIcon ic9;
 	public ImageIcon ic10;
 
+	public boolean bb1=false;
+	public boolean bb2=false;
+	public boolean bb3=false;
+	public boolean bb4=false;
+	public boolean bb5=false;
+
 	public Barre(){
 		this.setLayout(new FlowLayout());
 
@@ -63,6 +69,13 @@ public class Barre extends JPanel implements MouseListener{
 		b4.setBorder(null);
 		b5.setBorder(null);
 
+		b1.addMouseListener(this);
+		b2.addMouseListener(this);
+		b3.addMouseListener(this);
+		b4.addMouseListener(this);
+		b5.addMouseListener(this);
+
+
 		b1.setIcon(ic1);
 		b2.setIcon(ic2);
 		b3.setIcon(ic3);
@@ -77,7 +90,48 @@ public class Barre extends JPanel implements MouseListener{
 	}
 
 	public void mouseClicked(MouseEvent e) {
+		if(e.getSource().equals(b1) && !bb1){
+			b1.setIcon(ic6);
+			bb1=true;
+		}
+		else if(e.getSource().equals(b2) && !bb2){
+			b2.setIcon(ic7);
+			bb2=true;
+		}
+		else if(e.getSource().equals(b3) && !bb3){
+			b3.setIcon(ic8);
+			bb3=true;
+		}
+		else if(e.getSource().equals(b4) && !bb4){
+			b4.setIcon(ic9);
+			bb4=true;
+		}
+		else if(e.getSource().equals(b5) && !bb5){
+			b5.setIcon(ic10);
+			bb5=true;
+		}
 
+
+		else if(e.getSource().equals(b1) && bb1){
+			b1.setIcon(ic1);
+			bb1=false;
+		}
+		else if(e.getSource().equals(b2) && bb2){
+			b2.setIcon(ic2);
+			bb2=false;
+		}
+		else if(e.getSource().equals(b3) && bb3){
+			b3.setIcon(ic3);
+			bb3=false;
+		}
+		else if(e.getSource().equals(b4) && bb4){
+			b4.setIcon(ic4);
+			bb4=false;
+		}
+		else if(e.getSource().equals(b5) && bb5){
+			b5.setIcon(ic5);
+			bb5=false;
+		}
 	}
 
 	public void mouseEntered(MouseEvent arg0) {
