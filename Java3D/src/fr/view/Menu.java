@@ -64,9 +64,11 @@ public class Menu extends JMenuBar implements ActionListener{
 
 		this.add(menuFile);
 		this.add(menuEdit);
-		this.add(menuHelp);		
+		this.add(menuHelp);
+		
+		menuFileOpen.addActionListener((ActionListener) this); 
+		
 	}
-	
 	public void actionPerformed(ActionEvent e) {
 		 if (e.getSource().equals(menuFileOpen)) {
 			 JFileChooser dialogue = new JFileChooser(new File("."));
