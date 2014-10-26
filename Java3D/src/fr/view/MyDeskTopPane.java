@@ -32,7 +32,7 @@ public class MyDeskTopPane extends JDesktopPane{
 	public static int largeur=800;
 
 	public MyDeskTopPane(){
-		m = new Model("ressources/image/tie.gts");
+		m = new Model("ressources/image/cube.gts");
 		this.setPreferredSize(new Dimension(hauteur,largeur));
 		this.setLayout(new GridLayout(2,2));
 		panel=new Panneau(m);
