@@ -51,7 +51,6 @@ public class ReadText {
 			while (scanner.hasNextLine()) {
 				line = scanner.nextLine();
 				tab=extractLine(line);
-				System.out.println(tab[5]);
 				if (i==0){
 					nbPoints=(int)tab[0];
 					nbSegments=(int)tab[1];

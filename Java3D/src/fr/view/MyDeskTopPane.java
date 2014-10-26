@@ -1,5 +1,7 @@
 package fr.view;
 
+import java.awt.GridLayout;
+
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
@@ -28,6 +30,7 @@ public class MyDeskTopPane extends JDesktopPane{
 
 	public MyDeskTopPane(){
 		m = new Model("ressources/image/tie.gts");
+		this.setLayout(new GridLayout(2,2));
 		panel=new Panneau(m);
 
 		iFrameMain = new JInternalFrame(
@@ -52,7 +55,13 @@ public class MyDeskTopPane extends JDesktopPane{
 		iFrameProfil.setBounds(0, 0, 300, 300);
 
 		iFrameMain.add(panel);
+		iFrameDessus.add(panel);
+		iFrameDessous.add(panel);
+		iFrameProfil.add(panel);
 		this.add(iFrameMain);
+		this.add(iFrameDessus);
+		this.add(iFrameDessous);
+		this.add(iFrameProfil);
 
 	}
 }
