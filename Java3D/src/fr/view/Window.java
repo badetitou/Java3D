@@ -2,6 +2,7 @@ package fr.view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.Toolkit;
 
 import javax.swing.ImageIcon;
@@ -34,10 +35,14 @@ public class Window extends JFrame{
 
 		dp = new MyDeskTopPane();
 
+		JPanel jp=new JPanel();
+		jp.setLayout(new GridLayout(1,2));
+		jp.add(dp);
+		jp.add(new ControlPanel());
 
 		container = new JPanel();
 		container.setLayout(new BorderLayout());
-		container.add(dp,BorderLayout.CENTER);
+		container.add(jp,BorderLayout.CENTER);
 		container.add(new Barre(),BorderLayout.NORTH);
 
 		this.setJMenuBar(new Menu());

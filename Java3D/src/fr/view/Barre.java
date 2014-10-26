@@ -1,5 +1,6 @@
 package fr.view;
 
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.Insets;
@@ -42,8 +43,9 @@ public class Barre extends JPanel implements MouseListener{
 	public boolean bb5=false;
 
 	public Barre(){
-		this.setLayout(new FlowLayout(0,3,0));
+		this.setLayout(new FlowLayout(0,1,0));
 		this.setBorder(BorderFactory.createLoweredBevelBorder());
+		this.setBackground(new Color(190,190,190));
 
 		b1=new JButton();
 		b2=new JButton();
