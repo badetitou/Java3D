@@ -99,10 +99,15 @@ public class Barre extends JPanel implements MouseListener{
 
 	public void mouseClicked(MouseEvent e) {
 		if(e.getSource().equals(b1) && !bb1){
+			if (bb2)
+				b2.setIcon(ic2);
 			b1.setIcon(ic6);
 			bb1=true;
+			b5.setEnabled(false);
 		}
 		else if(e.getSource().equals(b2) && !bb2){
+			if (bb1)
+				b1.setIcon(ic1);
 			b2.setIcon(ic7);
 			bb2=true;
 		}
@@ -121,8 +126,10 @@ public class Barre extends JPanel implements MouseListener{
 
 
 		else if(e.getSource().equals(b1) && bb1){
+
 			b1.setIcon(ic1);
 			bb1=false;
+			b5.setEnabled(true);
 		}
 		else if(e.getSource().equals(b2) && bb2){
 			b2.setIcon(ic2);
