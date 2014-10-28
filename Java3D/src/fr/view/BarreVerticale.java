@@ -46,6 +46,10 @@ public class BarreVerticale extends JPanel implements MouseListener{
 		b2=new JButton();
 		b3=new JButton();
 
+		b1.setToolTipText("Mode 1 vue");
+		b2.setToolTipText("Mode 4 vues");
+		b3.setToolTipText("Mode edit");
+
 
 		ic1=new ImageIcon(new ImageIcon("ressources/icones/oneview.png").getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
 		ic2=new ImageIcon(new ImageIcon("ressources/icones/multipanel.png").getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));

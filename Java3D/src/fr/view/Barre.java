@@ -47,11 +47,19 @@ public class Barre extends JPanel implements MouseListener{
 		this.setBorder(BorderFactory.createLoweredBevelBorder());
 		this.setBackground(new Color(190,190,190));
 
+
 		b1=new JButton();
 		b2=new JButton();
 		b3=new JButton();
 		b4=new JButton();
 		b5=new JButton();
+
+		b1.setToolTipText("Rotation");
+		b2.setToolTipText("Deplacement");
+		b3.setToolTipText("x");
+		b4.setToolTipText("y");
+		b5.setToolTipText("z");
+
 
 		ic1=new ImageIcon(new ImageIcon("ressources/icones/iconerota.png").getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));
 		ic2=new ImageIcon(new ImageIcon("ressources/icones/iconedepla.png").getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));
@@ -149,13 +157,11 @@ public class Barre extends JPanel implements MouseListener{
 		}
 	}
 
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+	public void mouseEntered(MouseEvent e) {
 
 	}
 
 	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 
 	}
 
