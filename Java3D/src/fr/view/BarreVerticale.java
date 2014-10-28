@@ -97,6 +97,10 @@ public class BarreVerticale extends JPanel implements MouseListener{
 			bb1=true;
 			bb2=false;
 			bb3=false;
+			MyDeskTopPane.iFrameMain.setBounds(0, 0, 800, 800);
+			MyDeskTopPane.iFrameDessous.setVisible(false);
+			MyDeskTopPane.iFrameDessus.setVisible(false);
+			MyDeskTopPane.iFrameProfil.setVisible(false);
 		}
 		else if(e.getSource().equals(b2) && !bb2){
 			b2.setIcon(ic7);
@@ -105,6 +109,10 @@ public class BarreVerticale extends JPanel implements MouseListener{
 			bb2=true;
 			bb1=false;
 			bb3=false;
+			MyDeskTopPane.iFrameMain.setBounds(0, 0, 300, 300);
+			MyDeskTopPane.iFrameDessous.setVisible(true);
+			MyDeskTopPane.iFrameDessus.setVisible(true);
+			MyDeskTopPane.iFrameProfil.setVisible(true);
 		}
 		else if(e.getSource().equals(b3) && !bb3){
 			b3.setIcon(ic8);

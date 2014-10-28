@@ -22,10 +22,10 @@ public class MyDeskTopPane extends JDesktopPane{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public JInternalFrame iFrameMain;
-	public JInternalFrame iFrameDessus;
-	public JInternalFrame iFrameDessous;
-	public JInternalFrame iFrameProfil;
+	public static JInternalFrame iFrameMain;
+	public static JInternalFrame iFrameDessus;
+	public static JInternalFrame iFrameDessous;
+	public static JInternalFrame iFrameProfil;
 	public Model m;
 	public static JPanel panel;
 	public static int hauteur=800;
@@ -44,19 +44,20 @@ public class MyDeskTopPane extends JDesktopPane{
 				true,     // true si la fenêtre est maximisable
 				false);    // true si la fenêtre est iconifiable
 		iFrameMain.setVisible(true); // pour rendre la fenêtre visible
-		iFrameMain.setBounds(0, 0, hauteur, largeur);
+		//iFrameMain.setBounds(0, 0, hauteur, largeur);
+		//iFrameMain.setPreferredSize(new Dimension(hauteur,largeur));
 
 		iFrameDessus = new JInternalFrame("Vue du Dessus", false,    true,     true,    false);
 		iFrameDessus.setVisible(false);
-		iFrameDessus.setBounds(0, 0, 300, 300);
+		//iFrameDessus.setBounds(0, 0, 300, 300);
 
 		iFrameDessous = new JInternalFrame("Vue du Dessous", false,    true,     true,    false);
 		iFrameDessous.setVisible(false);
-		iFrameDessous.setBounds(0, 0, 300, 300);
+		//iFrameDessous.setBounds(0, 0, 300, 300);
 
 		iFrameProfil = new JInternalFrame("Vue de profil", false,    true,     true,    false);
 		iFrameProfil.setVisible(false);
-		iFrameProfil.setBounds(0, 0, 300, 300);
+		//iFrameProfil.setBounds(0, 0, 300, 300);
 
 		iFrameMain.add(panel);
 		//iFrameDessus.add(panel);

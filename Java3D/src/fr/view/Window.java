@@ -36,9 +36,8 @@ public class Window extends JFrame{
 		dp = new MyDeskTopPane();
 
 		JPanel jp=new JPanel();
-		jp.setLayout(new GridLayout(1,2));
+		jp.setLayout(new GridLayout(1,1));
 		jp.add(dp);
-		jp.add(new ControlPanel());
 
 		JPanel jp2=new JPanel();
 		jp2.add(new BarreVerticale());
