@@ -1,7 +1,7 @@
 package fr.view;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 
@@ -40,17 +40,20 @@ public class Window extends JFrame{
 		jp.add(dp);
 		jp.add(new ControlPanel());
 
+		JPanel jp2=new JPanel();
+		jp2.add(new BarreVerticale());
+		jp2.setBackground(new Color(190,190,190));
+
 		container = new JPanel();
 		container.setLayout(new BorderLayout());
 		container.add(jp,BorderLayout.CENTER);
 		container.add(new Barre(),BorderLayout.NORTH);
+		container.add(jp2,BorderLayout.WEST);
 
 		this.setJMenuBar(new Menu());
 		this.getContentPane().add(container);
 		this.setSize(outil.getScreenSize());
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setMinimumSize(new Dimension(400,400));
-		this.setMaximumSize(new Dimension(400,400));
 		this.setResizable(false);
 		this.setVisible(true);
 

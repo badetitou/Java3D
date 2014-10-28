@@ -43,7 +43,7 @@ public class Barre extends JPanel implements MouseListener{
 	public boolean bb5=false;
 
 	public Barre(){
-		this.setLayout(new FlowLayout(0,1,0));
+		this.setLayout(new FlowLayout(0,2,0));
 		this.setBorder(BorderFactory.createLoweredBevelBorder());
 		this.setBackground(new Color(190,190,190));
 
@@ -53,17 +53,17 @@ public class Barre extends JPanel implements MouseListener{
 		b4=new JButton();
 		b5=new JButton();
 
-		ic1=new ImageIcon(new ImageIcon("ressources/icones/iconerota.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
-		ic2=new ImageIcon(new ImageIcon("ressources/icones/iconedepla.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
-		ic3=new ImageIcon(new ImageIcon("ressources/icones/x.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
-		ic4=new ImageIcon(new ImageIcon("ressources/icones/y.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
-		ic5=new ImageIcon(new ImageIcon("ressources/icones/z.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
+		ic1=new ImageIcon(new ImageIcon("ressources/icones/iconerota.png").getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));
+		ic2=new ImageIcon(new ImageIcon("ressources/icones/iconedepla.png").getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));
+		ic3=new ImageIcon(new ImageIcon("ressources/icones/x.png").getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));
+		ic4=new ImageIcon(new ImageIcon("ressources/icones/y.png").getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));
+		ic5=new ImageIcon(new ImageIcon("ressources/icones/z.png").getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));
 
-		ic6=new ImageIcon(new ImageIcon("ressources/icones/iconerotaclic.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
-		ic7=new ImageIcon(new ImageIcon("ressources/icones/iconedeplaclic.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
-		ic8=new ImageIcon(new ImageIcon("ressources/icones/xclic.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
-		ic9=new ImageIcon(new ImageIcon("ressources/icones/yclic.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
-		ic10=new ImageIcon(new ImageIcon("ressources/icones/zclic.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
+		ic6=new ImageIcon(new ImageIcon("ressources/icones/iconerotaclic.png").getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));
+		ic7=new ImageIcon(new ImageIcon("ressources/icones/iconedeplaclic.png").getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));
+		ic8=new ImageIcon(new ImageIcon("ressources/icones/xclic.png").getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));
+		ic9=new ImageIcon(new ImageIcon("ressources/icones/yclic.png").getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));
+		ic10=new ImageIcon(new ImageIcon("ressources/icones/zclic.png").getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));
 
 		b1.setMargin(new Insets(0, 0, 0, 0));
 		b2.setMargin(new Insets(0, 0, 0, 0));
@@ -84,11 +84,15 @@ public class Barre extends JPanel implements MouseListener{
 		b5.addMouseListener(this);
 
 
-		b1.setIcon(ic1);
+		b1.setIcon(ic6);
+		bb1=true;
 		b2.setIcon(ic2);
-		b3.setIcon(ic3);
-		b4.setIcon(ic4);
-		b5.setIcon(ic5);
+		b3.setIcon(ic8);
+		bb3=true;
+		b4.setIcon(ic9);
+		bb4=true;
+		b5.setIcon(ic10);
+		bb5=true;
 
 		this.add(b1);
 		this.add(b2);
@@ -131,17 +135,6 @@ public class Barre extends JPanel implements MouseListener{
 			bb5=true;
 		}
 
-
-		else if(e.getSource().equals(b1) && bb1){
-
-			b1.setIcon(ic1);
-			bb1=false;
-		}
-		else if(e.getSource().equals(b2) && bb2){
-			b2.setIcon(ic2);
-			bb2=false;
-			b5.setEnabled(true);
-		}
 		else if(e.getSource().equals(b3) && bb3){
 			b3.setIcon(ic3);
 			bb3=false;
