@@ -24,6 +24,7 @@ public class Window extends JFrame{
 	public JPanel container;
 	public static JFrame frame;
 	public JDesktopPane dp;
+	public static JPanel jp;
 
 
 	public Window() {
@@ -35,7 +36,7 @@ public class Window extends JFrame{
 
 		dp = new MyDeskTopPane();
 
-		JPanel jp=new JPanel();
+		jp=new JPanel();
 		jp.setLayout(new GridLayout(1,1));
 		jp.add(dp);
 

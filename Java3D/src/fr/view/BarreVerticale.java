@@ -1,6 +1,7 @@
 package fr.view;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
@@ -97,7 +98,8 @@ public class BarreVerticale extends JPanel implements MouseListener{
 			bb1=true;
 			bb2=false;
 			bb3=false;
-			MyDeskTopPane.iFrameMain.setBounds(0, 0, 800, 800);
+			MyDeskTopPane.iFrameMain.setLocation(0, 0);
+			MyDeskTopPane.iFrameMain.setPreferredSize(new Dimension(800, 800));
 			MyDeskTopPane.iFrameDessous.setVisible(false);
 			MyDeskTopPane.iFrameDessus.setVisible(false);
 			MyDeskTopPane.iFrameProfil.setVisible(false);
@@ -109,7 +111,7 @@ public class BarreVerticale extends JPanel implements MouseListener{
 			bb2=true;
 			bb1=false;
 			bb3=false;
-			MyDeskTopPane.iFrameMain.setBounds(0, 0, 300, 300);
+			MyDeskTopPane.iFrameMain.setPreferredSize(new Dimension( 400, 400));
 			MyDeskTopPane.iFrameDessous.setVisible(true);
 			MyDeskTopPane.iFrameDessus.setVisible(true);
 			MyDeskTopPane.iFrameProfil.setVisible(true);
