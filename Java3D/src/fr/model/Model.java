@@ -10,16 +10,18 @@ import java.util.List;
  */
 public class Model {
 	private final ReadText rt;
+	public int vue;
 
 	/**
 	 * 
 	 * @param url
 	 *            est le chemin vers le fichier à étudier
 	 */
-	public Model(String url) {
+	public Model(String url,int vue) {
 		rt = new ReadText(url);
 		this.zoom(5);
 		trieFace();
+		this.vue=vue;
 	}
 
 	private void trieFace() {
@@ -47,44 +49,44 @@ public class Model {
 		}
 		for (int i = 0; i < rt.getPointList().size(); ++i) {
 			for (int j = 0; j < r; ++j) {
-				
+
 				rt.getPointList()
-						.get(i)
-						.multiplier(
-								new double[][] {
-										{ 1, 0, 0, 0 },
-										{
-												0,
-												Math.cos(sensRotation * Math.PI
-														/ 1024),
-												-Math.sin(sensRotation
-														* Math.PI / 1024), 0 },
-										{
-												0,
-												Math.sin(sensRotation * Math.PI
-														/ 1024),
-												Math.cos(sensRotation * Math.PI
-														/ 1024), 0 },
-										{ 0, 0, 0, 1 } });
+				.get(i)
+				.multiplier(
+						new double[][] {
+								{ 1, 0, 0, 0 },
+								{
+									0,
+									Math.cos(sensRotation * Math.PI
+											/ 1024),
+											-Math.sin(sensRotation
+													* Math.PI / 1024), 0 },
+													{
+														0,
+														Math.sin(sensRotation * Math.PI
+																/ 1024),
+																Math.cos(sensRotation * Math.PI
+																		/ 1024), 0 },
+																		{ 0, 0, 0, 1 } });
 			}
 		}
 		trieFace();
 	}
 
 	/**
-	 * Permet de deplace une figure 
+	 * Permet de deplace une figure
 	 * 
 	 * @param x deplace sur l'axe x
 	 * @param y deplace sur l'axe y
-	 * @param z deplace sur l'axe z ( ne sert à rien dans ce programme) 
+	 * @param z deplace sur l'axe z ( ne sert à rien dans ce programme)
 	 */
 	public void translation(double x, double y, double z) {
 		for (int i = 0; i < rt.getPointList().size(); ++i) {
 			rt.getPointList()
-					.get(i)
-					.multiplier(
-							new double[][] { { 1, 0, 0, x }, { 0, 1, 0, y },
-									{ 0, 0, 1, z }, { 0, 0, 0, 1 } });
+			.get(i)
+			.multiplier(
+					new double[][] { { 1, 0, 0, x }, { 0, 1, 0, y },
+							{ 0, 0, 1, z }, { 0, 0, 0, 1 } });
 		}
 		trieFace();
 	}
@@ -133,20 +135,20 @@ public class Model {
 		for (int i = 0; i < rt.getPointList().size(); ++i) {
 			for (int j = 0; j < r; ++j) {
 				rt.getPointList()
-						.get(i)
-						.multiplier(
-								new double[][] {
-										{
-												Math.cos(sensRotation * Math.PI
-														/ 1024),
-												-Math.sin(sensRotation
-														* Math.PI / 1024), 0, 0 },
-										{
-												Math.sin(sensRotation * Math.PI
-														/ 1024),
-												Math.cos(sensRotation * Math.PI
-														/ 1024), 0, 0 },
-										{ 0, 0, 0, 0 }, { 0, 0, 0, 1 } });
+				.get(i)
+				.multiplier(
+						new double[][] {
+								{
+									Math.cos(sensRotation * Math.PI
+											/ 1024),
+											-Math.sin(sensRotation
+													* Math.PI / 1024), 0, 0 },
+													{
+														Math.sin(sensRotation * Math.PI
+																/ 1024),
+																Math.cos(sensRotation * Math.PI
+																		/ 1024), 0, 0 },
+																		{ 0, 0, 0, 0 }, { 0, 0, 0, 1 } });
 			}
 		}
 		trieFace();
@@ -161,10 +163,10 @@ public class Model {
 	public void zoom(double k) {
 		for (int i = 0; i < rt.getPointList().size(); ++i) {
 			rt.getPointList()
-					.get(i)
-					.multiplier(
-							new double[][] { { k, 0, 0, 0 }, { 0, k, 0, 0 },
-									{ 0, 0, k, 0 }, { 0, 0, 0, 1 } });
+			.get(i)
+			.multiplier(
+					new double[][] { { k, 0, 0, 0 }, { 0, k, 0, 0 },
+							{ 0, 0, k, 0 }, { 0, 0, 0, 1 } });
 		}
 	}
 

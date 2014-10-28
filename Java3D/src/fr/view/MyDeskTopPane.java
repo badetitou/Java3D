@@ -31,9 +31,10 @@ public class MyDeskTopPane extends JDesktopPane{
 	public static JPanel panel;
 	public static int hauteur=800;
 	public static int largeur=800;
+	public static String url="ressources/image/head.gts";
 
 	public MyDeskTopPane(){
-		m = new Model("ressources/image/cube.gts");
+		m = new Model(url,0);
 		this.setPreferredSize(new Dimension(hauteur,largeur));
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
@@ -66,9 +67,9 @@ public class MyDeskTopPane extends JDesktopPane{
 		iFrameProfil.setPreferredSize(new Dimension(400,400));
 
 		iFrameMain.add(panel);
-		iFrameDessus.add(new Panneau(m));
-		iFrameDessous.add(new Panneau(m));
-		iFrameProfil.add(new Panneau(m));
+		iFrameDessus.add(new Panneau(new Model(url,1)));
+		iFrameDessous.add(new Panneau(new Model(url,2)));
+		iFrameProfil.add(new Panneau(new Model(url,3)));
 
 		gbc.gridx = 0;
 		gbc.gridy = 0;
