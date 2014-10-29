@@ -23,10 +23,10 @@ public class Model {
 	 * @param url
 	 *            est le chemin vers le fichier à étudier
 	 */
-	public Model(String url, int vue) {
+	public Model(String url, int vue, Dimension d) {
 		rt = new ReadText(url);
 		trieFace();
-		this.zoomAuto();
+		this.zoomAuto(d);
 		this.vue = vue;
 	}
 
@@ -94,11 +94,7 @@ public class Model {
 		yTranslate += y;
 	}
 
-	public void zoomAuto() {
-		Dimension d = MyDeskTopPane.dimension;
-		if (BarreVerticale.bb2) {
-			d = MyDeskTopPane.dimmini;
-		}
+	public void zoomAuto(Dimension d) {
 		double maxX = 0.0;
 
 		for (int i = 0; i < rt.getPointList().size(); ++i) {

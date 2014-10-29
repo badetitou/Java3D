@@ -41,7 +41,7 @@ public class MyDeskTopPane extends JDesktopPane{
 		this.setPreferredSize(new Dimension(800,800));
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
-		m = new Model(url,0);
+		m = new Model(url,0, dimension);
 		panel=new Panneau(m);
 
 		iFrameMain = new JInternalFrame(
@@ -70,9 +70,9 @@ public class MyDeskTopPane extends JDesktopPane{
 		iFrameProfil.setPreferredSize(dimmini);
 
 		iFrameMain.add(panel);
-		iFrameDessus.add(new Panneau(new Model(url,1)));
-		iFrameDessous.add(new Panneau(new Model(url,2)));
-		iFrameProfil.add(new Panneau(new Model(url,3)));
+		iFrameDessus.add(new Panneau(new Model(url,1, dimmini)));
+		iFrameDessous.add(new Panneau(new Model(url,2, dimmini)));
+		iFrameProfil.add(new Panneau(new Model(url,3, dimmini)));
 
 		gbc.gridx = 0;
 		gbc.gridy = 0;
