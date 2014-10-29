@@ -13,6 +13,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import fr.model.Model;
+
 public class BarreVerticale extends JPanel implements MouseListener{
 
 	/**
@@ -101,6 +103,8 @@ public class BarreVerticale extends JPanel implements MouseListener{
 			MyDeskTopPane.iFrameDessous.setVisible(false);
 			MyDeskTopPane.iFrameDessus.setVisible(false);
 			MyDeskTopPane.iFrameProfil.setVisible(false);
+			Model.xTranslate = 0.0;
+			Model.yTranslate = 0.0;
 		}
 		else if(e.getSource().equals(b2) && !bb2){
 			b2.setIcon(ic7);
@@ -114,7 +118,8 @@ public class BarreVerticale extends JPanel implements MouseListener{
 			MyDeskTopPane.iFrameDessous.setVisible(true);
 			MyDeskTopPane.iFrameDessus.setVisible(true);
 			MyDeskTopPane.iFrameProfil.setVisible(true);
-
+			Model.xTranslate = 0.0;
+			Model.yTranslate = 0.0;
 		}
 		else if(e.getSource().equals(b3) && !modeEdit){
 			b3.setIcon(ic8);
@@ -128,6 +133,8 @@ public class BarreVerticale extends JPanel implements MouseListener{
 			MyDeskTopPane.iFrameDessous.setVisible(false);
 			MyDeskTopPane.iFrameDessus.setVisible(false);
 			MyDeskTopPane.iFrameProfil.setVisible(false);
+			Model.xTranslate = 0.0;
+			Model.yTranslate = 0.0;
 		}
 		MyDeskTopPane.m.zoomAuto();
 		MyDeskTopPane.panel.repaint();
