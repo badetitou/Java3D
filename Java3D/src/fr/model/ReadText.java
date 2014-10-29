@@ -76,7 +76,7 @@ public class ReadText {
 					}
 
 					if(this.corrupt){
-						JOptionPane.showMessageDialog(new JFrame(),"Fichier Corrumpu","Error",JOptionPane.ERROR_MESSAGE);
+						//JOptionPane.showMessageDialog(new JFrame(),"Fichier Corrumpu","Error",JOptionPane.ERROR_MESSAGE);
 						break;
 					}
 					faceList.add(new Face(map.get((int)tab[0]-1).getP1(),map.get((int)tab[0]-1).getP2(),p3,new Color((int)tab[3],(int)tab[4],(int)tab[5])));

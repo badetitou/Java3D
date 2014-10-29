@@ -24,14 +24,14 @@ public class Window extends JFrame{
 	public static JFrame frame;
 	public JDesktopPane dp;
 
-	public Window(MyDeskTopPane dp) {
+	public Window() {
 		super("3D Lib");
 		Window.frame=this;
 		outil = getToolkit();
 		this.setIconImage(new ImageIcon("ressources/image/logoforreal2.png").getImage());
 
 
-		this.dp = dp;
+		dp=new MyDeskTopPane();
 
 
 		JPanel jp2=new JPanel();
