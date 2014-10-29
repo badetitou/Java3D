@@ -28,7 +28,7 @@ public class MyDeskTopPane extends JDesktopPane{
 	public static JInternalFrame iFrameDessus;
 	public static JInternalFrame iFrameDessous;
 	public static JInternalFrame iFrameProfil;
-	public Model m;
+	public static Model m;
 	public static JPanel panel;
 	public static Dimension dimension;
 	public static Dimension dimmini;
