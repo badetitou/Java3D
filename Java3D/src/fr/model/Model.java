@@ -3,6 +3,8 @@ package fr.model;
 import java.util.Collections;
 import java.util.List;
 
+import fr.view.MyDeskTopPane;
+
 /**
  * 
  * @author Benoit
@@ -96,6 +98,7 @@ public class Model {
 
 	public void zoomAuto() {
 		double maxX = 0;
+		if (BarreVerticale.)
 		for (int i = 0; i < rt.getPointList().size(); ++i) {
 			if (rt.getPointList().get(i).x > maxX){
 				maxX = rt.getPointList().get(i).x;
