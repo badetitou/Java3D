@@ -47,24 +47,24 @@ public class MyDeskTopPane extends JDesktopPane{
 				true,     // true si la fenêtre est maximisable
 				false);    // true si la fenêtre est iconifiable
 		iFrameMain.setVisible(true); // pour rendre la fenêtre visible
-		iFrameMain.setPreferredSize(new Dimension(800,800));
+		iFrameMain.setPreferredSize(new Dimension(600,600));
 		iFrameMain.setLocation(0,0);
 		//iFrameMain.setPreferredSize(new Dimension(hauteur,largeur));
 
 		iFrameDessus = new JInternalFrame("Vue du Dessus", true,    false,     true,    false);
 		iFrameDessus.setVisible(false);
 		//iFrameDessus.setBounds(0, 0, 300, 300);
-		iFrameDessus.setPreferredSize(new Dimension(400,400));
+		iFrameDessus.setPreferredSize(new Dimension(300,300));
 
 		iFrameDessous = new JInternalFrame("Vue du Dessous", true,    false,     true,    false);
 		iFrameDessous.setVisible(false);
 		//iFrameDessous.setBounds(0, 0, 300, 300);
-		iFrameDessous.setPreferredSize(new Dimension(400,400));
+		iFrameDessous.setPreferredSize(new Dimension(300,300));
 
 		iFrameProfil = new JInternalFrame("Vue de profil", true,    false,     true,    false);
 		iFrameProfil.setVisible(false);
 		//iFrameProfil.setBounds(0, 0, 300, 300);
-		iFrameProfil.setPreferredSize(new Dimension(400,400));
+		iFrameProfil.setPreferredSize(new Dimension(300,300));
 
 		iFrameMain.add(panel);
 		iFrameDessus.add(new Panneau(new Model(url,1)));
