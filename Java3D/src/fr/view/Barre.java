@@ -36,11 +36,11 @@ public class Barre extends JPanel implements MouseListener{
 	public ImageIcon ic9;
 	public ImageIcon ic10;
 
-	public boolean bb1=false;
-	public boolean bb2=false;
-	public boolean bb3=false;
-	public boolean bb4=false;
-	public boolean bb5=false;
+	public static boolean boolButtonRotation=false;
+	public static boolean boolButtonTranslation=false;
+	public static boolean boolButtonX=false;
+	public static boolean boolButtonY=false;
+	public static boolean boolButtonZ=false;
 
 	public Barre(){
 		this.setLayout(new FlowLayout(0,2,0));
@@ -93,14 +93,14 @@ public class Barre extends JPanel implements MouseListener{
 
 
 		b1.setIcon(ic6);
-		bb1=true;
+		boolButtonRotation=true;
 		b2.setIcon(ic2);
 		b3.setIcon(ic8);
-		bb3=true;
+		boolButtonX=true;
 		b4.setIcon(ic9);
-		bb4=true;
+		boolButtonY=true;
 		b5.setIcon(ic10);
-		bb5=true;
+		boolButtonZ=true;
 
 		this.add(b1);
 		this.add(b2);
@@ -110,50 +110,50 @@ public class Barre extends JPanel implements MouseListener{
 	}
 
 	public void mouseClicked(MouseEvent e) {
-		if(e.getSource().equals(b1) && !bb1){
-			if (bb2){
+		if(e.getSource().equals(b1) && !boolButtonRotation){
+			if (boolButtonTranslation){
 				b2.setIcon(ic2);
-				bb2=false;
+				boolButtonTranslation=false;
 			}
 			b1.setIcon(ic6);
-			bb1=true;
+			boolButtonRotation=true;
 			if(!b5.isEnabled())
 				b5.setEnabled(true);
 		}
-		else if(e.getSource().equals(b2) && !bb2){
-			if (bb1){
+		else if(e.getSource().equals(b2) && !boolButtonTranslation){
+			if (boolButtonRotation){
 				b1.setIcon(ic1);
-				bb1=false;
+				boolButtonRotation=false;
 			}
 			b5.setEnabled(false);
 			b5.setIcon(ic5);
 			b2.setIcon(ic7);
-			bb2=true;
+			boolButtonTranslation=true;
 		}
-		else if(e.getSource().equals(b3) && !bb3){
+		else if(e.getSource().equals(b3) && !boolButtonX){
 			b3.setIcon(ic8);
-			bb3=true;
+			boolButtonX=true;
 		}
-		else if(e.getSource().equals(b4) && !bb4){
+		else if(e.getSource().equals(b4) && !boolButtonY){
 			b4.setIcon(ic9);
-			bb4=true;
+			boolButtonY=true;
 		}
-		else if(e.getSource().equals(b5) && !bb5){
+		else if(e.getSource().equals(b5) && !boolButtonZ){
 			b5.setIcon(ic10);
-			bb5=true;
+			boolButtonZ=true;
 		}
 
-		else if(e.getSource().equals(b3) && bb3){
+		else if(e.getSource().equals(b3) && boolButtonX){
 			b3.setIcon(ic3);
-			bb3=false;
+			boolButtonX=false;
 		}
-		else if(e.getSource().equals(b4) && bb4){
+		else if(e.getSource().equals(b4) && boolButtonY){
 			b4.setIcon(ic4);
-			bb4=false;
+			boolButtonY=false;
 		}
-		else if(e.getSource().equals(b5) && bb5){
+		else if(e.getSource().equals(b5) && boolButtonZ){
 			b5.setIcon(ic5);
-			bb5=false;
+			boolButtonZ=false;
 		}
 	}
 

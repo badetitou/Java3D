@@ -56,11 +56,33 @@ public class Panneau extends JPanel {
 
 			public void mouseDragged(MouseEvent e) {
 				if(m.vue==0){
-					m.rotationX(e.getX() - coordMouseX);
-					m.rotationY(e.getY() - coordMouseY);
-					coordMouseX = e.getX();
-					coordMouseY = e.getY();
-					repaint();
+					if(Barre.boolButtonX && Barre.boolButtonY){
+						m.rotationX(e.getX() - coordMouseX);
+						m.rotationY(e.getY() - coordMouseY);
+						coordMouseX = e.getX();
+						coordMouseY = e.getY();
+						repaint();
+					}
+					else if (Barre.boolButtonX && !Barre.boolButtonY){
+						m.rotationX(e.getX() - coordMouseX);
+						//m.rotationY(e.getY() - coordMouseY);
+						coordMouseX = e.getX();
+						coordMouseY = e.getY();
+						repaint();
+					}
+					else if (!Barre.boolButtonX && Barre.boolButtonY){
+						//m.rotationX(e.getX() - coordMouseX);
+						m.rotationY(e.getY() - coordMouseY);
+						coordMouseX = e.getX();
+						coordMouseY = e.getY();
+						repaint();
+					}
+					else{
+						/*m.rotationZ(e.getY() - coordMouseY);
+						coordMouseX = e.getX();
+						coordMouseY = e.getY();
+						repaint();*/
+					}
 				}
 			}
 		});

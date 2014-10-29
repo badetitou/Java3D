@@ -2,7 +2,6 @@ package fr.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.GridLayout;
 import java.awt.Toolkit;
 
 import javax.swing.ImageIcon;
@@ -24,8 +23,6 @@ public class Window extends JFrame{
 	public JPanel container;
 	public static JFrame frame;
 	public JDesktopPane dp;
-	public static JPanel jp;
-
 
 	public Window() {
 		super("3D Lib");
@@ -36,9 +33,6 @@ public class Window extends JFrame{
 
 		dp = new MyDeskTopPane();
 
-		jp=new JPanel();
-		jp.setLayout(new GridLayout(1,1));
-		jp.add(dp);
 
 		JPanel jp2=new JPanel();
 		jp2.add(new BarreVerticale());
@@ -46,7 +40,7 @@ public class Window extends JFrame{
 
 		container = new JPanel();
 		container.setLayout(new BorderLayout());
-		container.add(jp,BorderLayout.CENTER);
+		container.add(dp,BorderLayout.CENTER);
 		container.add(new Barre(),BorderLayout.NORTH);
 		container.add(jp2,BorderLayout.WEST);
 
