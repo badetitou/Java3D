@@ -17,8 +17,7 @@ public class Model {
 	public int vue;
 	public static double xTranslate = 0;
 	public static double yTranslate = 0;
-	
-	
+
 	/**
 	 * 
 	 * @param url
@@ -90,9 +89,9 @@ public class Model {
 	 * @param z
 	 *            deplace sur l'axe z ( ne sert à rien dans ce programme)
 	 */
-	public void translation(double x, double y, double z) {
-		xTranslate +=x;
-		yTranslate +=y;
+	public void translation(double x, double y) {
+		xTranslate += x;
+		yTranslate += y;
 	}
 
 	public void zoomAuto() {
@@ -100,6 +99,23 @@ public class Model {
 		if (BarreVerticale.bb2) {
 			d = MyDeskTopPane.dimmini;
 		}
+		double maxX = 0.0;
+
+		for (int i = 0; i < rt.getPointList().size(); ++i) {
+			if (Math.abs(rt.getPointList().get(i).x)> maxX) {
+				maxX = Math.abs(rt.getPointList().get(i).x);
+			}
+		}
+		zoom((d.getWidth() / 2 - 20) / maxX);
+
+		double maxY = 0.0;
+		for (int i = 0; i < rt.getPointList().size(); ++i) {
+			if (Math.abs(rt.getPointList().get(i).y) > maxY) {
+				maxY = Math.abs(rt.getPointList().get(i).y);
+			}
+		}
+		if (maxY > d.getHeight() /2  - 50)
+			zoom((d.getHeight() / 2 - 50) / maxY);
 	}
 
 	/**

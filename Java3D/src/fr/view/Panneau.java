@@ -80,19 +80,19 @@ public class Panneau extends JPanel {
 					}
 					else if (Barre.boolButtonTranslation){
 						if(Barre.boolButtonX && Barre.boolButtonY){
-							m.translation(e.getX() - coordMouseX, e.getY() - coordMouseY, 0);
+							m.translation(e.getX() - coordMouseX, e.getY() - coordMouseY);
 							coordMouseX = e.getX();
 							coordMouseY = e.getY();
 							repaint();
 						}
 						else if (Barre.boolButtonX){
-							m.translation(e.getX() - coordMouseX,0, 0);
+							m.translation(e.getX() - coordMouseX,0);
 							coordMouseX = e.getX();
 							coordMouseY = e.getY();
 							repaint();
 						}
 						else if (Barre.boolButtonY){
-							m.translation(0, e.getY() - coordMouseY, 0);
+							m.translation(0, e.getY() - coordMouseY);
 							coordMouseX = e.getX();
 							coordMouseY = e.getY();
 							repaint();
