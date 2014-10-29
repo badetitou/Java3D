@@ -35,13 +35,13 @@ public class MyDeskTopPane extends JDesktopPane{
 	public static String url="ressources/image/tie.gts";
 
 	public MyDeskTopPane(){
-		m = new Model(url,0);
 		Toolkit tk=getToolkit();
 		dimension=new Dimension(tk.getScreenSize().height/2,tk.getScreenSize().height/2);
 		dimmini=new Dimension(dimension.height/2,dimension.height/2);
 		this.setPreferredSize(new Dimension(800,800));
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
+		m = new Model(url,0);
 		panel=new Panneau(m);
 
 		iFrameMain = new JInternalFrame(
