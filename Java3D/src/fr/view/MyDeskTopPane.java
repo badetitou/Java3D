@@ -32,7 +32,7 @@ public class MyDeskTopPane extends JDesktopPane{
 	public static JPanel panel;
 	public static Dimension dimension;
 	public static Dimension dimmini;
-	public static String url="ressources/image/head.gts";
+	public static String url="ressources/image/tie.gts";
 
 	public MyDeskTopPane(){
 		m = new Model(url,0);
@@ -52,7 +52,6 @@ public class MyDeskTopPane extends JDesktopPane{
 				false);    // true si la fenêtre est iconifiable
 		iFrameMain.setVisible(true); // pour rendre la fenêtre visible
 		iFrameMain.setPreferredSize(dimension);
-		iFrameMain.setLocation(0,0);
 		//iFrameMain.setPreferredSize(new Dimension(hauteur,largeur));
 
 		iFrameDessus = new JInternalFrame("Vue du Dessus", true,    false,     true,    false);
