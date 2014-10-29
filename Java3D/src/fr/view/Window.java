@@ -9,6 +9,8 @@ import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import fr.model.Connexion;
+
 /**
  * 
  * @author Loic
@@ -23,12 +25,18 @@ public class Window extends JFrame{
 	public JPanel container;
 	public static JFrame frame;
 	public JDesktopPane dp;
+	public Connexion co;
 
 	public Window() {
 		super("3D Lib");
 		Window.frame=this;
 		outil = getToolkit();
 		this.setIconImage(new ImageIcon("ressources/image/logoforreal2.png").getImage());
+
+		//Connection bdd
+		co = new Connexion("Database.db");
+		co.connect();
+		co.close();
 
 
 		dp=new MyDeskTopPane();
