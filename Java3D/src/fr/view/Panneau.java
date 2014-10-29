@@ -18,8 +18,10 @@ public class Panneau extends JPanel {
 	private static final long serialVersionUID = 1L;
 	Model m;
 	public static Dimension d;
+	public static Panneau pan;
 
 	public Panneau(Model mod) {
+		pan=this;
 		this.m = mod;
 		if (m.vue == 1) {
 			m.rotationX(0);

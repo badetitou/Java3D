@@ -57,6 +57,7 @@ public class Window extends JFrame{
 		this.setJMenuBar(new Menu());
 		this.getContentPane().add(container);
 		this.setSize(outil.getScreenSize());
+		this.pack();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
 		this.setVisible(true);
