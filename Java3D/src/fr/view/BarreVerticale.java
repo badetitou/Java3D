@@ -36,8 +36,6 @@ public class BarreVerticale extends JPanel implements MouseListener{
 	public boolean bb1=false;
 	public boolean bb2=false;
 	public static boolean modeEdit=false;
-
-
 	public BarreVerticale(){
 		this.setLayout(new GridLayout(3,1,0,4));
 		this.setBorder(BorderFactory.createLoweredBevelBorder());
