@@ -33,7 +33,7 @@ public class BarreVerticale extends JPanel implements MouseListener{
 	public ImageIcon ic8;
 
 
-	public static boolean bb1=false;
+	public static boolean bb1=true;
 	public static boolean bb2=false;
 	public static boolean modeEdit=false;
 	public BarreVerticale(){
@@ -89,6 +89,7 @@ public class BarreVerticale extends JPanel implements MouseListener{
 	}
 
 	public void mouseClicked(MouseEvent e) {
+		MyDeskTopPane.m.zoomAuto();
 		if(e.getSource().equals(b1) && !bb1){
 			b1.setIcon(ic6);
 			b2.setIcon(ic2);

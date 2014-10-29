@@ -3,6 +3,7 @@ package fr.model;
 import java.util.Collections;
 import java.util.List;
 
+import fr.view.BarreVerticale;
 import fr.view.MyDeskTopPane;
 
 /**
@@ -21,7 +22,6 @@ public class Model {
 	 */
 	public Model(String url, int vue) {
 		rt = new ReadText(url);
-		this.zoomAuto();
 		trieFace();
 		this.vue = vue;
 	}
@@ -98,13 +98,15 @@ public class Model {
 
 	public void zoomAuto() {
 		double maxX = 0;
-		if (BarreVerticale.)
+		double maxY = 0;
 		for (int i = 0; i < rt.getPointList().size(); ++i) {
 			if (rt.getPointList().get(i).x > maxX){
 				maxX = rt.getPointList().get(i).x;
 			}
 		}
-		zoom(50/maxX);
+		if (BarreVerticale.bb1){
+			zoom(MyDeskTopPane.dimension.getWidth()/maxX);
+		}
 	}
 
 	/**
