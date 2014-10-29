@@ -26,6 +26,7 @@ public class ProgressBar extends JPanel{
 	private static int count = 1, PROGBAR_MAX=100,TIMER_PAUSE = 20;
 	private static SplashScreen ss;
 	private static Timer progressBarTimer;
+	private MyDeskTopPane dp;
 	ActionListener al = new ActionListener() {
 
 		public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -33,7 +34,7 @@ public class ProgressBar extends JPanel{
 			if (PROGBAR_MAX == count) {
 				ss.dispose();
 				progressBarTimer.stop();//stop the timer
-				new Window();
+				new Window(dp);
 			}
 			progressBar.setStringPainted(true);
 			progressBar.setString(count+"%");
@@ -57,5 +58,7 @@ public class ProgressBar extends JPanel{
 	private void startProgressBar() {
 		progressBarTimer = new Timer(TIMER_PAUSE, al);
 		progressBarTimer.start();
+		dp=new MyDeskTopPane();
+
 	}
 }
