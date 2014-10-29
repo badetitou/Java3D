@@ -107,50 +107,47 @@ public class Model {
 		if (BarreVerticale.bb2) {
 			d = MyDeskTopPane.dimmini;
 		}
-		
-		
-		//Max X
+
+		// Max X
 		for (int i = 0; i < rt.getPointList().size(); ++i) {
 			if (rt.getPointList().get(i).x > maxX) {
 				maxX = rt.getPointList().get(i).x;
-			} 
+			}
 		}
-		if ((((d.getWidth())/2)- 30) < maxX){
-			zoom((((d.getWidth() ) / 2)-30)  / maxX);
-		}
-		
-		//Max Y
-		for(int i =0; i<rt.getPointList().size();++i){
+		zoom((((d.getWidth()) / 2) - 30) / maxX);
+
+		// Max Y
+		for (int i = 0; i < rt.getPointList().size(); ++i) {
 			if (rt.getPointList().get(i).y > maxY) {
 				maxY = rt.getPointList().get(i).y;
-			} 
+			}
 		}
-		if ((((d.getHeight())/2)- 30) < maxY){
-			zoom((((d.getHeight()) / 2)-30)  / maxY);
+		if ((((d.getHeight()) / 2) - 30) < maxY) {
+			zoom((((d.getHeight()) / 2) - 30) / maxY);
 		}
-		
-		//Min Y
-		for(int i =0; i<rt.getPointList().size();++i){
+
+		// Min Y
+		for (int i = 0; i < rt.getPointList().size(); ++i) {
 			if (rt.getPointList().get(i).y < minY) {
 				minY = rt.getPointList().get(i).y;
-			} 
+			}
 		}
 		minY = Math.abs(minY);
-		if ((((d.getHeight())/2)-30) < minY){
-			zoom((((d.getHeight()) / 2)-30)  / minY);
+		if ((((d.getHeight()) / 2) - 30) < minY) {
+			zoom((((d.getHeight()) / 2) - 30) / minY);
 		}
-		
-		//Min X
-		for(int i =0; i<rt.getPointList().size();++i){
+
+		// Min X
+		for (int i = 0; i < rt.getPointList().size(); ++i) {
 			if (rt.getPointList().get(i).y < minX) {
 				minX = rt.getPointList().get(i).x;
-			} 
+			}
 		}
 		minX = Math.abs(minX);
-		if ((((d.getWidth())/2)-30) < minX){
-			zoom((((d.getWidth()) / 2)-30)  / minX);
+		if ((((d.getWidth()) / 2) - 30) < minX) {
+			zoom((((d.getWidth()) / 2) - 30) / minX);
 		}
-		
+
 	}
 
 	/**
