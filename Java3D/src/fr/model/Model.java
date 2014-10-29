@@ -15,7 +15,10 @@ import fr.view.MyDeskTopPane;
 public class Model {
 	private final ReadText rt;
 	public int vue;
-
+	public static double xTranslate = 0;
+	public static double yTranslate = 0;
+	
+	
 	/**
 	 * 
 	 * @param url
@@ -88,66 +91,15 @@ public class Model {
 	 *            deplace sur l'axe z ( ne sert à rien dans ce programme)
 	 */
 	public void translation(double x, double y, double z) {
-		for (int i = 0; i < rt.getPointList().size(); ++i) {
-			rt.getPointList()
-					.get(i)
-					.multiplier(
-							new double[][] { { 1, 0, 0, x }, { 0, 1, 0, -y },
-									{ 0, 0, 1, z }, { 0, 0, 0, 1 } });
-		}
-		trieFace();
+		xTranslate +=x;
+		yTranslate +=y;
 	}
 
 	public void zoomAuto() {
-		double maxX = 0;
-		double maxY = 0;
-		double minX = 0;
-		double minY = 0;
 		Dimension d = MyDeskTopPane.dimension;
 		if (BarreVerticale.bb2) {
 			d = MyDeskTopPane.dimmini;
 		}
-
-		// Max X
-		for (int i = 0; i < rt.getPointList().size(); ++i) {
-			if (rt.getPointList().get(i).x > maxX) {
-				maxX = rt.getPointList().get(i).x;
-			}
-		}
-		zoom((((d.getWidth()) / 2) - 30) / maxX);
-
-		// Max Y
-		for (int i = 0; i < rt.getPointList().size(); ++i) {
-			if (rt.getPointList().get(i).y > maxY) {
-				maxY = rt.getPointList().get(i).y;
-			}
-		}
-		if ((((d.getHeight()) / 2) - 30) < maxY) {
-			zoom((((d.getHeight()) / 2) - 30) / maxY);
-		}
-
-		// Min Y
-		for (int i = 0; i < rt.getPointList().size(); ++i) {
-			if (rt.getPointList().get(i).y < minY) {
-				minY = rt.getPointList().get(i).y;
-			}
-		}
-		minY = Math.abs(minY);
-		if ((((d.getHeight()) / 2) - 30) < minY) {
-			zoom((((d.getHeight()) / 2) - 30) / minY);
-		}
-
-		// Min X
-		for (int i = 0; i < rt.getPointList().size(); ++i) {
-			if (rt.getPointList().get(i).y < minX) {
-				minX = rt.getPointList().get(i).x;
-			}
-		}
-		minX = Math.abs(minX);
-		if ((((d.getWidth()) / 2) - 30) < minX) {
-			zoom((((d.getWidth()) / 2) - 30) / minX);
-		}
-
 	}
 
 	/**

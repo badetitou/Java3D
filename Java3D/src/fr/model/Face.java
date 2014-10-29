@@ -69,16 +69,16 @@ public class Face implements Comparable<Face> {
 				RenderingHints.VALUE_ANTIALIAS_ON);
 		calculLumiere();
 		GeneralPath p0 = new GeneralPath();
-		p0.moveTo(p1.x + Panneau.d.getWidth() / 2,
-				-p1.y + Panneau.d.getHeight() / 2);
-		p0.lineTo(p2.x + Panneau.d.getWidth() / 2,
-				-p2.y + Panneau.d.getHeight() / 2);
-		p0.lineTo(p3.x + Panneau.d.getWidth() / 2,
-				-p3.y + Panneau.d.getHeight() / 2);
-		p0.moveTo(p2.x + Panneau.d.getWidth() / 2,
-				-p2.y + Panneau.d.getHeight() / 2);
-		p0.lineTo(p1.x + Panneau.d.getWidth() / 2,
-				-p1.y + Panneau.d.getHeight() / 2);
+		p0.moveTo(p1.x + Panneau.d.getWidth() / 2 + Model.xTranslate,
+				-p1.y + Panneau.d.getHeight() / 2 + Model.yTranslate);
+		p0.lineTo(p2.x + Panneau.d.getWidth() / 2 + Model.xTranslate,
+				-p2.y + Panneau.d.getHeight() / 2 + Model.yTranslate);
+		p0.lineTo(p3.x + Panneau.d.getWidth() / 2 + Model.xTranslate,
+				-p3.y + Panneau.d.getHeight() / 2 + Model.yTranslate);
+		p0.moveTo(p2.x + Panneau.d.getWidth() / 2 + Model.xTranslate,
+				-p2.y + Panneau.d.getHeight() / 2 + Model.yTranslate);
+		p0.lineTo(p1.x + Panneau.d.getWidth() / 2 + Model.xTranslate,
+				-p1.y + Panneau.d.getHeight() / 2 + Model.yTranslate);
 		p0.closePath();
 		g2.fill(p0);
 	}
