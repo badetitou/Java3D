@@ -35,7 +35,7 @@ public class BarreVerticale extends JPanel implements MouseListener{
 
 	public boolean bb1=false;
 	public boolean bb2=false;
-	public boolean bb3=false;
+	public static boolean modeEdit=false;
 
 
 	public BarreVerticale(){
@@ -97,7 +97,7 @@ public class BarreVerticale extends JPanel implements MouseListener{
 			b3.setIcon(ic3);
 			bb1=true;
 			bb2=false;
-			bb3=false;
+			modeEdit=false;
 			Panneau.d = new Dimension(800,800);
 			MyDeskTopPane.iFrameMain.setLocation(0, 0);
 			MyDeskTopPane.iFrameMain.setPreferredSize(new Dimension(800, 800));
@@ -111,7 +111,7 @@ public class BarreVerticale extends JPanel implements MouseListener{
 			b3.setIcon(ic3);
 			bb2=true;
 			bb1=false;
-			bb3=false;
+			modeEdit=false;
 			Panneau.d = new Dimension(400,400); // NE PAS TOUCHER CECI PERMET L'AFFICHAGE CENTRE
 			MyDeskTopPane.iFrameMain.setPreferredSize(new Dimension( 400, 400));
 			MyDeskTopPane.iFrameDessous.setVisible(true);
@@ -119,13 +119,19 @@ public class BarreVerticale extends JPanel implements MouseListener{
 			MyDeskTopPane.iFrameProfil.setVisible(true);
 
 		}
-		else if(e.getSource().equals(b3) && !bb3){
+		else if(e.getSource().equals(b3) && !modeEdit){
 			b3.setIcon(ic8);
 			b2.setIcon(ic2);
 			b1.setIcon(ic1);
-			bb3=true;
 			bb1=false;
 			bb2=false;
+			modeEdit=true;
+			Panneau.d = new Dimension(800,800);
+			MyDeskTopPane.iFrameMain.setLocation(0, 0);
+			MyDeskTopPane.iFrameMain.setPreferredSize(new Dimension(800, 800));
+			MyDeskTopPane.iFrameDessous.setVisible(false);
+			MyDeskTopPane.iFrameDessus.setVisible(false);
+			MyDeskTopPane.iFrameProfil.setVisible(false);
 		}
 
 
