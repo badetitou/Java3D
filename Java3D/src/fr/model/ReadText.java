@@ -87,6 +87,7 @@ public class ReadText {
 		} catch (FileNotFoundException e) {
 			System.out.println("Fichier introuvable");
 			JOptionPane.showMessageDialog(new JFrame(),"Fichier introuvable","Error",JOptionPane.ERROR_MESSAGE);
+			System.exit(0);
 			e.printStackTrace();
 		}
 
