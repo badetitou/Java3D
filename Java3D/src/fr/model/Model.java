@@ -101,7 +101,7 @@ public class Model {
 				maxX = rt.getPointList().get(i).x;
 			}
 		}
-		zoom(30/maxX);
+		zoom(50/maxX);
 	}
 
 	/**
