@@ -29,7 +29,7 @@ public class SplashScreenPanel extends JPanel{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		this.setLayout(new FlowLayout(0,80,10));
+		this.setLayout(new FlowLayout(0,70,330));
 		ProgressBar progressBar = new ProgressBar(ss);
 		this.add(progressBar);
 	}

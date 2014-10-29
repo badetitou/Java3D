@@ -2,9 +2,10 @@ package fr.view;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.Timer;
@@ -49,8 +50,11 @@ public class ProgressBar extends JPanel{
 		progressBar.setPreferredSize(new Dimension(180,18));
 		//progressBar.setForeground(Color.DARK_GRAY);
 		ProgressBar.ss=ss;
-		this.setLayout(new FlowLayout(0,0,350));
+		this.setLayout(new GridLayout(2,1,0,4));
 		this.setOpaque(false);
+		JLabel jl = new JLabel(" Chargement des fichiers ...");
+		jl.setForeground(Color.white);
+		this.add(jl);
 		this.add(progressBar);
 		startProgressBar();
 	}
