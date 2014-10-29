@@ -64,7 +64,7 @@ public class Panneau extends JPanel {
 						repaint();
 					}
 					else if (Barre.boolButtonX && !Barre.boolButtonY){
-						m.rotationX(e.getX() - coordMouseX);
+						m.rotationY(e.getY() - coordMouseY);
 						//m.rotationY(e.getY() - coordMouseY);
 						coordMouseX = e.getX();
 						coordMouseY = e.getY();
@@ -72,7 +72,7 @@ public class Panneau extends JPanel {
 					}
 					else if (!Barre.boolButtonX && Barre.boolButtonY){
 						//m.rotationX(e.getX() - coordMouseX);
-						m.rotationY(e.getY() - coordMouseY);
+						m.rotationX(e.getX() - coordMouseX);
 						coordMouseX = e.getX();
 						coordMouseY = e.getY();
 						repaint();
