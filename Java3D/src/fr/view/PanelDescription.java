@@ -1,5 +1,6 @@
 package fr.view;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -30,6 +31,7 @@ public class PanelDescription extends JPanel {
 
 	public PanelDescription(){
 		this.setLayout(new FlowLayout(0,30,30));
+		this.setBackground(new Color(215,215,215));
 
 
 		textArea=new JTextArea();
@@ -48,6 +50,7 @@ public class PanelDescription extends JPanel {
 		panelBouton.add(valider);
 		panelBouton.add(supprimer);
 		panelBouton.add(annuler);
+		panelBouton.setBackground(new Color(215,215,215));
 		/*
 		panelDescription=new JPanel();
 		panelDescription.setLayout(new GridLayout(2,1));
