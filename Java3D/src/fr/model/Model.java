@@ -120,7 +120,7 @@ public class Model {
 			}
 
 		}
-		zoom(((d.getWidth() - 100) / 2) / maxX);
+		zoom((((d.getWidth()) / 2)-20)  / maxX);
 	}
 
 	/**

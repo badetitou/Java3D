@@ -129,10 +129,8 @@ public class BarreVerticale extends JPanel implements MouseListener{
 			MyDeskTopPane.iFrameDessus.setVisible(false);
 			MyDeskTopPane.iFrameProfil.setVisible(false);
 		}
-
 		MyDeskTopPane.m.zoomAuto();
 		MyDeskTopPane.panel.repaint();
-
 	}
 
 	public void mouseEntered(MouseEvent arg0) {
