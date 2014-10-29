@@ -1,5 +1,6 @@
 package fr.model;
 
+import java.awt.Dimension;
 import java.util.Collections;
 import java.util.List;
 
@@ -23,6 +24,7 @@ public class Model {
 	public Model(String url, int vue) {
 		rt = new ReadText(url);
 		trieFace();
+		this.zoomAuto();
 		this.vue = vue;
 	}
 
@@ -99,14 +101,26 @@ public class Model {
 	public void zoomAuto() {
 		double maxX = 0;
 		double maxY = 0;
+		double minX = 0;
+		double minY = 0;
+		Dimension d = MyDeskTopPane.dimension;
+		if (BarreVerticale.bb2) {
+			d = MyDeskTopPane.dimmini;
+		}
 		for (int i = 0; i < rt.getPointList().size(); ++i) {
-			if (rt.getPointList().get(i).x > maxX){
+			if (rt.getPointList().get(i).x > maxX) {
 				maxX = rt.getPointList().get(i).x;
+			} else if (rt.getPointList().get(i).x < maxX) {
+				minX = rt.getPointList().get(i).x;
 			}
+			if (rt.getPointList().get(i).y > maxY) {
+				maxY = rt.getPointList().get(i).y;
+			} else if (rt.getPointList().get(i).y < minY) {
+				minY = rt.getPointList().get(i).y;
+			}
+
 		}
-		if (BarreVerticale.bb1){
-			zoom(MyDeskTopPane.dimension.getWidth()/maxX);
-		}
+		zoom(((d.getWidth() - 100) / 2) / maxX);
 	}
 
 	/**
