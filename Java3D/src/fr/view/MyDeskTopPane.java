@@ -3,6 +3,7 @@ package fr.view;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Toolkit;
 
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
@@ -29,13 +30,16 @@ public class MyDeskTopPane extends JDesktopPane{
 	public static JInternalFrame iFrameProfil;
 	public Model m;
 	public static JPanel panel;
-	public static int hauteur=800;
-	public static int largeur=800;
+	public static Dimension dimension;
+	public static Dimension dimmini;
 	public static String url="ressources/image/head.gts";
 
 	public MyDeskTopPane(){
 		m = new Model(url,0);
-		this.setPreferredSize(new Dimension(hauteur,largeur));
+		Toolkit tk=getToolkit();
+		dimension=new Dimension(tk.getScreenSize().height/2,tk.getScreenSize().height/2);
+		dimmini=new Dimension(dimension.height/2,dimension.height/2);
+		this.setPreferredSize(new Dimension(800,800));
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
 		panel=new Panneau(m);
@@ -47,24 +51,24 @@ public class MyDeskTopPane extends JDesktopPane{
 				true,     // true si la fenêtre est maximisable
 				false);    // true si la fenêtre est iconifiable
 		iFrameMain.setVisible(true); // pour rendre la fenêtre visible
-		iFrameMain.setPreferredSize(new Dimension(600,600));
+		iFrameMain.setPreferredSize(dimension);
 		iFrameMain.setLocation(0,0);
 		//iFrameMain.setPreferredSize(new Dimension(hauteur,largeur));
 
 		iFrameDessus = new JInternalFrame("Vue du Dessus", true,    false,     true,    false);
 		iFrameDessus.setVisible(false);
 		//iFrameDessus.setBounds(0, 0, 300, 300);
-		iFrameDessus.setPreferredSize(new Dimension(300,300));
+		iFrameDessus.setPreferredSize(dimmini);
 
 		iFrameDessous = new JInternalFrame("Vue du Dessous", true,    false,     true,    false);
 		iFrameDessous.setVisible(false);
 		//iFrameDessous.setBounds(0, 0, 300, 300);
-		iFrameDessous.setPreferredSize(new Dimension(300,300));
+		iFrameDessous.setPreferredSize(dimmini);
 
 		iFrameProfil = new JInternalFrame("Vue de profil", true,    false,     true,    false);
 		iFrameProfil.setVisible(false);
 		//iFrameProfil.setBounds(0, 0, 300, 300);
-		iFrameProfil.setPreferredSize(new Dimension(300,300));
+		iFrameProfil.setPreferredSize(dimmini);
 
 		iFrameMain.add(panel);
 		iFrameDessus.add(new Panneau(new Model(url,1)));

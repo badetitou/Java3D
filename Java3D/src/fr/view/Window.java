@@ -44,7 +44,7 @@ public class Window extends JFrame{
 		container.add(new Barre(),BorderLayout.NORTH);
 		container.add(jp2,BorderLayout.WEST);
 		container.add(new PanelEdit(),BorderLayout.EAST);
-		//container.add(new PanelBdd(),BorderLayout.SOUTH);
+		container.add(new PanelBdd(),BorderLayout.SOUTH);
 
 		this.setJMenuBar(new Menu());
 		this.getContentPane().add(container);

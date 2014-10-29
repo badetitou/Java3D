@@ -2,6 +2,7 @@ package fr.view;
 
 import java.awt.CardLayout;
 import java.awt.Dimension;
+import java.awt.Toolkit;
 
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -17,7 +18,8 @@ public class PanelBdd extends JPanel{
 	JPanel realisations;
 	public PanelBdd(){
 		this.setLayout(new CardLayout());
-		this.setPreferredSize(new Dimension(10,100));
+		Toolkit tk=getToolkit();
+		this.setPreferredSize(new Dimension(tk.getScreenSize().height,tk.getScreenSize().width/6));
 		description=new PanelDescription();
 		informations = new PanelInformations();
 		images=new PanelImages();
