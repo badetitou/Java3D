@@ -23,11 +23,11 @@ public class Panneau extends JPanel {
 		this.m = mod;
 		if (m.vue == 1) {
 			m.rotationX(0);
-			m.rotationY(-515);
+			m.rotationY(515);
 			repaint();
 		} else if (m.vue == 2) {
 			m.rotationX(0);
-			m.rotationY(515);
+			m.rotationY(-515);
 			repaint();
 		} else if (m.vue == 3) {
 			m.rotationX(515);
@@ -67,10 +67,10 @@ public class Panneau extends JPanel {
 							coordMouseY = e.getY();
 							repaint();
 						} else if (!Barre.boolButtonX && Barre.boolButtonY) {;
-							m.rotationX(e.getX() - coordMouseX);
-							coordMouseX = e.getX();
-							coordMouseY = e.getY();
-							repaint();
+						m.rotationX(e.getX() - coordMouseX);
+						coordMouseX = e.getX();
+						coordMouseY = e.getY();
+						repaint();
 						} else {
 							m.rotationZ(e.getY() - coordMouseY);
 							coordMouseX = e.getX();
