@@ -17,11 +17,11 @@ public class Model {
 	 * @param url
 	 *            est le chemin vers le fichier à étudier
 	 */
-	public Model(String url,int vue) {
+	public Model(String url, int vue) {
 		rt = new ReadText(url);
-		this.zoom(5);
+		this.zoomAuto();
 		trieFace();
-		this.vue=vue;
+		this.vue = vue;
 	}
 
 	private void trieFace() {
@@ -51,23 +51,23 @@ public class Model {
 			for (int j = 0; j < r; ++j) {
 
 				rt.getPointList()
-				.get(i)
-				.multiplier(
-						new double[][] {
-								{ 1, 0, 0, 0 },
-								{
-									0,
-									Math.cos(sensRotation * Math.PI
-											/ 1024),
-											-Math.sin(sensRotation
-													* Math.PI / 1024), 0 },
-													{
-														0,
-														Math.sin(sensRotation * Math.PI
-																/ 1024),
-																Math.cos(sensRotation * Math.PI
-																		/ 1024), 0 },
-																		{ 0, 0, 0, 1 } });
+						.get(i)
+						.multiplier(
+								new double[][] {
+										{ 1, 0, 0, 0 },
+										{
+												0,
+												Math.cos(sensRotation * Math.PI
+														/ 1024),
+												-Math.sin(sensRotation
+														* Math.PI / 1024), 0 },
+										{
+												0,
+												Math.sin(sensRotation * Math.PI
+														/ 1024),
+												Math.cos(sensRotation * Math.PI
+														/ 1024), 0 },
+										{ 0, 0, 0, 1 } });
 			}
 		}
 		trieFace();
@@ -76,19 +76,32 @@ public class Model {
 	/**
 	 * Permet de deplace une figure
 	 * 
-	 * @param x deplace sur l'axe x
-	 * @param y deplace sur l'axe y
-	 * @param z deplace sur l'axe z ( ne sert à rien dans ce programme)
+	 * @param x
+	 *            deplace sur l'axe x
+	 * @param y
+	 *            deplace sur l'axe y
+	 * @param z
+	 *            deplace sur l'axe z ( ne sert à rien dans ce programme)
 	 */
 	public void translation(double x, double y, double z) {
 		for (int i = 0; i < rt.getPointList().size(); ++i) {
 			rt.getPointList()
-			.get(i)
-			.multiplier(
-					new double[][] { { 1, 0, 0, x }, { 0, 1, 0, -y },
-							{ 0, 0, 1, z }, { 0, 0, 0, 1 } });
+					.get(i)
+					.multiplier(
+							new double[][] { { 1, 0, 0, x }, { 0, 1, 0, -y },
+									{ 0, 0, 1, z }, { 0, 0, 0, 1 } });
 		}
 		trieFace();
+	}
+
+	public void zoomAuto() {
+		double maxX = 0;
+		for (int i = 0; i < rt.getPointList().size(); ++i) {
+			if (rt.getPointList().get(i).x > maxX){
+				maxX = rt.getPointList().get(i).x;
+			}
+		}
+		zoom(30/maxX);
 	}
 
 	/**
@@ -98,21 +111,29 @@ public class Model {
 	 */
 	public void rotationX(int r) {
 		int sensRotation = 1;
-		if (r < 0){
+		if (r < 0) {
 			r = -r;
 			sensRotation = -1;
 		}
 		for (int i = 0; i < rt.getPointList().size(); ++i) {
-			for (int j = 0;j<r; ++j){
+			for (int j = 0; j < r; ++j) {
 				rt.getPointList()
-				.get(i)
-				.multiplier(
-						new double[][] {
-								{ Math.cos(sensRotation * Math.PI / 1024), 0,
-									Math.sin(sensRotation * Math.PI / 1024), 0 },
-									{ 0, 1, 0, 0 },
-									{ -Math.sin(sensRotation * Math.PI / 1024), 0,
-										Math.cos(sensRotation * Math.PI / 1024), 0 },
+						.get(i)
+						.multiplier(
+								new double[][] {
+										{
+												Math.cos(sensRotation * Math.PI
+														/ 1024),
+												0,
+												Math.sin(sensRotation * Math.PI
+														/ 1024), 0 },
+										{ 0, 1, 0, 0 },
+										{
+												-Math.sin(sensRotation
+														* Math.PI / 1024),
+												0,
+												Math.cos(sensRotation * Math.PI
+														/ 1024), 0 },
 										{ 0, 0, 0, 1 } });
 			}
 		}
@@ -135,20 +156,20 @@ public class Model {
 		for (int i = 0; i < rt.getPointList().size(); ++i) {
 			for (int j = 0; j < r; ++j) {
 				rt.getPointList()
-				.get(i)
-				.multiplier(
-						new double[][] {
-								{
-									Math.cos(sensRotation * Math.PI
-											/ 1024),
-											-Math.sin(sensRotation
-													* Math.PI / 1024), 0, 0 },
-													{
-														Math.sin(sensRotation * Math.PI
-																/ 1024),
-																Math.cos(sensRotation * Math.PI
-																		/ 1024), 0, 0 },
-																		{ 0, 0, 0, 0 }, { 0, 0, 0, 1 } });
+						.get(i)
+						.multiplier(
+								new double[][] {
+										{
+												Math.cos(sensRotation * Math.PI
+														/ 1024),
+												-Math.sin(sensRotation
+														* Math.PI / 1024), 0, 0 },
+										{
+												Math.sin(sensRotation * Math.PI
+														/ 1024),
+												Math.cos(sensRotation * Math.PI
+														/ 1024), 0, 0 },
+										{ 0, 0, 0, 0 }, { 0, 0, 0, 1 } });
 			}
 		}
 		trieFace();
@@ -163,10 +184,10 @@ public class Model {
 	public void zoom(double k) {
 		for (int i = 0; i < rt.getPointList().size(); ++i) {
 			rt.getPointList()
-			.get(i)
-			.multiplier(
-					new double[][] { { k, 0, 0, 0 }, { 0, k, 0, 0 },
-							{ 0, 0, k, 0 }, { 0, 0, 0, 1 } });
+					.get(i)
+					.multiplier(
+							new double[][] { { k, 0, 0, 0 }, { 0, k, 0, 0 },
+									{ 0, 0, k, 0 }, { 0, 0, 0, 1 } });
 		}
 	}
 
