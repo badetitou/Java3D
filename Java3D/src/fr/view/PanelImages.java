@@ -31,7 +31,7 @@ public class PanelImages extends JPanel {
 		this.setLayout(new FlowLayout(0,20,20));
 		this.setBackground(new Color(215,215,215));
 		galerie=new JPanel();
-		galerie.setLayout(new GridLayout((columns/7)+1,7,10,10));
+		galerie.setLayout(new GridLayout((columns/7)+1,7,8,8));
 		images = new ArrayList<JLabel>();
 		JLabel label;
 		for (int i=0;i< columns;i++){
