@@ -32,7 +32,7 @@ public class MyDeskTopPane extends JDesktopPane{
 	public static JPanel panel;
 	public static Dimension dimension;
 	public static Dimension dimmini;
-	public static String url="ressources/image/tie.gts";
+	public static String url="ressources/image/head.gts";
 
 	public MyDeskTopPane(){
 		Toolkit tk=getToolkit();
