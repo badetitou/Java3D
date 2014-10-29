@@ -29,6 +29,11 @@ public class Model {
 		this.zoomAuto(d);
 		this.vue = vue;
 	}
+	
+	public static void recentrer(){
+		xTranslate = 0;
+		yTranslate = 0;
+	}
 
 	private void trieFace() {
 		Collections.sort(rt.getFaceList());
@@ -95,8 +100,8 @@ public class Model {
 	}
 
 	public void zoomAuto(Dimension d) {
+		recentrer();
 		double maxX = 0.0;
-
 		for (int i = 0; i < rt.getPointList().size(); ++i) {
 			if (Math.abs(rt.getPointList().get(i).x)> maxX) {
 				maxX = Math.abs(rt.getPointList().get(i).x);
