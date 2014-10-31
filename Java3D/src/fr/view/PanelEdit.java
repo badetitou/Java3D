@@ -10,6 +10,8 @@ import java.awt.event.MouseListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import fr.model.Model;
+
 public class PanelEdit extends JPanel implements MouseListener{
 
 	/**
@@ -36,13 +38,13 @@ public class PanelEdit extends JPanel implements MouseListener{
 		if(e.getSource().equals(boutonCentre)){
 			if(BarreVerticale.bb1 || BarreVerticale.modeEdit ){
 				MyDeskTopPane.m.zoomAuto(MyDeskTopPane.dimension);
-				Panneau.pan.revalidate();
-				Panneau.pan.repaint();
+				Model.recentrer();
+				MyDeskTopPane.panel.repaint();
 			}
 			else{
 				MyDeskTopPane.m.zoomAuto(MyDeskTopPane.dimmini);
-				Panneau.pan.revalidate();
-				Panneau.pan.repaint();
+				Model.recentrer();
+				MyDeskTopPane.panel.repaint();
 			}
 		}
 
