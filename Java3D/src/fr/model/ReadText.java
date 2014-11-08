@@ -40,9 +40,9 @@ public class ReadText {
 			scanner = new Scanner(new File(file));
 			int i=0;
 			int j=0;
-			double nbPoints=0;
-			double nbSegments=0;
-			double nbFaces=0;
+			int nbPoints=0;
+			int nbSegments=0;
+			int nbFaces=0;
 			String line="";
 			double tab[];
 			map = new HashMap<Integer,CouplePoint>();

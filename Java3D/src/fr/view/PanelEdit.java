@@ -28,6 +28,10 @@ public class PanelEdit extends JPanel implements MouseListener{
 		panelBouton.setBackground(new Color(190,190,190));
 
 		boutonCentre=new JButton("Recentrer");
+		//iboutonRecentrer=new ImageIcon(new ImageIcon("ressources/icones/boutons/recentrer.png").getImage().getScaledInstance(80, 30, Image.SCALE_DEFAULT));
+		//boutonCentre.setMargin(new Insets(0, 0, 0, 0));
+		//boutonCentre.setBorder(null);
+		//boutonCentre.setIcon(iboutonRecentrer);
 		boutonCentre.addMouseListener(this);
 
 		panelBouton.add(boutonCentre);

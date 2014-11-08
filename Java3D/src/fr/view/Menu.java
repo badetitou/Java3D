@@ -13,8 +13,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
-import fr.model.Model;
-
 
 public class Menu extends JMenuBar implements ActionListener{
 
@@ -56,13 +54,13 @@ public class Menu extends JMenuBar implements ActionListener{
 		mEdition = new JMenu("Edition");
 		mOptions = new JMenu("Options");
 		mInfos = new JMenu("?");
-		
+
 		//Dimensions des boutons
 		mFichier.setPreferredSize(new Dimension(60,350));
 		mEdition.setPreferredSize(new Dimension(60,350));
 		mOptions.setPreferredSize(new Dimension(60,350));
 		mInfos.setPreferredSize(new Dimension(60,350));
-		
+
 		//Création des sous menus
 		//Sous menu Fichier
 		mIFNouveau = new JMenuItem("Nouveau");
@@ -74,14 +72,14 @@ public class Menu extends JMenuBar implements ActionListener{
 		mIFImprimer = new JMenuItem("Imprimer");
 		mIFProprietes = new JMenuItem("Propriétés");
 		mIFQuitter = new JMenuItem("Quitter");
-		
+
 		///Action des MenuItems Fichier
-		
+
 		//Robin tu peux m'expliquer ceci
 		mIFNouveau.setMnemonic(KeyEvent.VK_H);
 		mFichier.setMnemonic(KeyEvent.VK_F);
 		//stp????
-		
+
 		mIFNouveau.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK));
 		mIFOuvrir.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_MASK));
 		//mIFRecents.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_MASK));
@@ -91,33 +89,33 @@ public class Menu extends JMenuBar implements ActionListener{
 		mIFImprimer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.CTRL_MASK));
 		mIFProprietes.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_J, InputEvent.CTRL_MASK));
 		mIFQuitter.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.CTRL_MASK));
-		
+
 
 		//Sous menu Edition
 		mIEDefaire = new JMenuItem("Défaire");
 		mIERefaire = new JMenuItem("Refaire");
-		
+
 		//Action des MenuItems Edition
-		
+
 		mIEDefaire.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, InputEvent.CTRL_MASK));
 		mIERefaire.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Y, InputEvent.CTRL_MASK));
 
 		//Sous menu Options
 		mIOBoiteOutils = new JMenuItem("Boîtes à Outils");
 		mIOPreferences = new JMenuItem("Préférences");
-		
+
 		//Action des MenuItems Options
-		
-		
+
+
 		//Sous menu Infos
 		mIIaPropos = new JMenuItem("A propos");
 		mIIContacts = new JMenuItem("Contacts");
-		
+
 		//action des MenuItems Infos
-		
+
 		mIIaPropos.setAccelerator(KeyStroke.getKeyStroke("F1"));
 		mIIContacts.setAccelerator(KeyStroke.getKeyStroke("F2"));
-		
+
 		//Ajout de chaque sous menu à son menu
 		mFichier.add(mIFNouveau);
 		mFichier.add(mIFOuvrir);
@@ -145,6 +143,7 @@ public class Menu extends JMenuBar implements ActionListener{
 		this.add(mInfos);
 
 		mIFOuvrir.addActionListener(this);
+		mIFQuitter.addActionListener(this);
 
 	}
 	public void actionPerformed(ActionEvent e) {
@@ -154,6 +153,9 @@ public class Menu extends JMenuBar implements ActionListener{
 			dialogue.showOpenDialog(null);
 			fichier = dialogue.getSelectedFile();
 			System.out.println(fichier);
+		}
+		else if (e.getSource().equals(mIFQuitter)){
+			System.exit(0);
 		}
 	}
 }
