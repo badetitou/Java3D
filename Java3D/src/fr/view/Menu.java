@@ -3,6 +3,7 @@ package fr.view;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
 
@@ -10,6 +11,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.KeyStroke;
 
 import fr.model.Model;
 
@@ -73,20 +75,48 @@ public class Menu extends JMenuBar implements ActionListener{
 		mIFProprietes = new JMenuItem("Propriétés");
 		mIFQuitter = new JMenuItem("Quitter");
 		
-		///à définir, étudier, Robin?
+		///Action des MenuItems Fichier
+		
+		//Robin tu peux m'expliquer ceci
 		mIFNouveau.setMnemonic(KeyEvent.VK_H);
 		mFichier.setMnemonic(KeyEvent.VK_F);
+		//stp????
+		
+		mIFNouveau.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK));
+		mIFOuvrir.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_MASK));
+		//mIFRecents.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_MASK));
+		mIFEnregistrer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK));
+		mIFEnregistrerSous.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));
+		mIFFermer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W, InputEvent.CTRL_MASK));
+		mIFImprimer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.CTRL_MASK));
+		mIFProprietes.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_J, InputEvent.CTRL_MASK));
+		mIFQuitter.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.CTRL_MASK));
+		
 
 		//Sous menu Edition
 		mIEDefaire = new JMenuItem("Défaire");
 		mIERefaire = new JMenuItem("Refaire");
+		
+		//Action des MenuItems Edition
+		
+		mIEDefaire.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, InputEvent.CTRL_MASK));
+		mIERefaire.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Y, InputEvent.CTRL_MASK));
 
 		//Sous menu Options
 		mIOBoiteOutils = new JMenuItem("Boîtes à Outils");
 		mIOPreferences = new JMenuItem("Préférences");
+		
+		//Action des MenuItems Options
+		
+		
 		//Sous menu Infos
 		mIIaPropos = new JMenuItem("A propos");
 		mIIContacts = new JMenuItem("Contacts");
+		
+		//action des MenuItems Infos
+		
+		mIIaPropos.setAccelerator(KeyStroke.getKeyStroke("F1"));
+		mIIContacts.setAccelerator(KeyStroke.getKeyStroke("F2"));
 		
 		//Ajout de chaque sous menu à son menu
 		mFichier.add(mIFNouveau);
