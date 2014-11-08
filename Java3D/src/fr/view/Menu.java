@@ -3,6 +3,7 @@ package fr.view;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
 
@@ -10,6 +11,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.KeyStroke;
 
 import fr.model.Model;
 
@@ -21,61 +23,132 @@ public class Menu extends JMenuBar implements ActionListener{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final	JMenu menuFile;
-	private final	JMenu menuEdit;
-	private final	JMenuItem	menuFileNew;
-	private final	JMenuItem	menuFileOpen;
-	private final	JMenuItem	menuFileSave;
-	private final	JMenuItem	menuFileSaveAs;
-	private final	JMenuItem	menuFileExit;
-	private final 	JMenuItem 	menuEditZoom;
-	private final 	JMenuItem 	menuEditRotate;
-	private final JMenu menuHelp;
+	private final	JMenu mFichier;
+	private final	JMenu mEdition;
+	private final	JMenu mOptions;
+	private final 	JMenu mInfos;
+	//Items Menu Fichier
+	private final	JMenuItem	mIFNouveau;
+	private final	JMenuItem	mIFOuvrir;
+	private final	JMenuItem	mIFRecents;
+	private final	JMenuItem	mIFEnregistrer;
+	private final	JMenuItem	mIFEnregistrerSous;
+	private final 	JMenuItem 	mIFFermer;
+	private final 	JMenuItem 	mIFImprimer;
+	private final 	JMenuItem 	mIFProprietes;
+	private final 	JMenuItem 	mIFQuitter;
+	//Items Menu Edition
+	private final 	JMenuItem 	mIEDefaire;
+	private final 	JMenuItem 	mIERefaire;
+	//Items Menu Options
+	private final 	JMenuItem 	mIOBoiteOutils;
+	private final 	JMenuItem 	mIOPreferences;
+	//Items Menu Infos
+	private final 	JMenuItem 	mIIaPropos;
+	private final 	JMenuItem 	mIIContacts;
+
 	public Menu()
 	{
 		this.setPreferredSize(new Dimension((int) Window.outil.getScreenSize().getWidth(),30));
 
-		menuFile=new JMenu("File");
-		menuEdit=new JMenu("Edit");
-		menuHelp=new JMenu("Help");
+		//Création du Menu
+		mFichier = new JMenu("Fichier");
+		mEdition = new JMenu("Edition");
+		mOptions = new JMenu("Options");
+		mInfos = new JMenu("?");
+		
+		//Dimensions des boutons
+		mFichier.setPreferredSize(new Dimension(60,350));
+		mEdition.setPreferredSize(new Dimension(60,350));
+		mOptions.setPreferredSize(new Dimension(60,350));
+		mInfos.setPreferredSize(new Dimension(60,350));
+		
+		//Création des sous menus
+		//Sous menu Fichier
+		mIFNouveau = new JMenuItem("Nouveau");
+		mIFOuvrir = new JMenuItem("Ouvrir");
+		mIFRecents = new JMenuItem("Fichiers récents");
+		mIFEnregistrer = new JMenuItem("Enregistrer");
+		mIFEnregistrerSous = new JMenuItem("Enregistrer sous");
+		mIFFermer = new JMenuItem("Fermer");
+		mIFImprimer = new JMenuItem("Imprimer");
+		mIFProprietes = new JMenuItem("Propriétés");
+		mIFQuitter = new JMenuItem("Quitter");
+		
+		///Action des MenuItems Fichier
+		
+		//Robin tu peux m'expliquer ceci
+		mIFNouveau.setMnemonic(KeyEvent.VK_H);
+		mFichier.setMnemonic(KeyEvent.VK_F);
+		//stp????
+		
+		mIFNouveau.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK));
+		mIFOuvrir.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_MASK));
+		//mIFRecents.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_MASK));
+		mIFEnregistrer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK));
+		mIFEnregistrerSous.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));
+		mIFFermer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W, InputEvent.CTRL_MASK));
+		mIFImprimer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.CTRL_MASK));
+		mIFProprietes.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_J, InputEvent.CTRL_MASK));
+		mIFQuitter.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.CTRL_MASK));
+		
 
-		menuFile.setPreferredSize(new Dimension(40,30));
-		menuEdit.setPreferredSize(new Dimension(40,30));
-		menuHelp.setPreferredSize(new Dimension(40,30));
+		//Sous menu Edition
+		mIEDefaire = new JMenuItem("Défaire");
+		mIERefaire = new JMenuItem("Refaire");
+		
+		//Action des MenuItems Edition
+		
+		mIEDefaire.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, InputEvent.CTRL_MASK));
+		mIERefaire.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Y, InputEvent.CTRL_MASK));
 
-		menuFileNew = new JMenuItem("New project");
-		menuFileOpen = new JMenuItem("Open project..");
-		menuFileSave = new JMenuItem("Save..");
-		menuFileSaveAs = new JMenuItem("Save as..");
-		menuFileExit = new JMenuItem("Exit");
+		//Sous menu Options
+		mIOBoiteOutils = new JMenuItem("Boîtes à Outils");
+		mIOPreferences = new JMenuItem("Préférences");
+		
+		//Action des MenuItems Options
+		
+		
+		//Sous menu Infos
+		mIIaPropos = new JMenuItem("A propos");
+		mIIContacts = new JMenuItem("Contacts");
+		
+		//action des MenuItems Infos
+		
+		mIIaPropos.setAccelerator(KeyStroke.getKeyStroke("F1"));
+		mIIContacts.setAccelerator(KeyStroke.getKeyStroke("F2"));
+		
+		//Ajout de chaque sous menu à son menu
+		mFichier.add(mIFNouveau);
+		mFichier.add(mIFOuvrir);
+		mFichier.add(mIFRecents);
+		mFichier.addSeparator();
+		mFichier.add(mIFEnregistrer);
+		mFichier.add(mIFEnregistrerSous);
+		mFichier.add(mIFFermer);
+		mFichier.addSeparator();
+		mFichier.add(mIFImprimer);
+		mFichier.addSeparator();
+		mFichier.add(mIFProprietes);
+		mFichier.addSeparator();
+		mFichier.add(mIFQuitter);
+		mEdition.add(mIEDefaire);
+		mEdition.add(mIERefaire);
+		mOptions.add(mIOBoiteOutils);
+		mOptions.add(mIOPreferences);
+		mInfos.add(mIIaPropos);
+		mInfos.add(mIIContacts);
 
-		menuFileNew.setMnemonic(KeyEvent.VK_H);
-		menuFile.setMnemonic(KeyEvent.VK_F);
+		this.add(mFichier);
+		this.add(mEdition);
+		this.add(mOptions);
+		this.add(mInfos);
 
-
-		menuEditZoom = new JMenuItem("Zoom");
-		menuEditRotate = new JMenuItem("Rotate");
-
-
-		menuFile.add(menuFileNew);
-		menuFile.add(menuFileOpen);
-		menuFile.add(menuFileSave);
-		menuFile.add(menuFileSaveAs);
-		menuFile.addSeparator();
-		menuFile.add(menuFileExit);
-
-		menuEdit.add(menuEditZoom);
-		menuEdit.add(menuEditRotate);
-
-		this.add(menuFile);
-		this.add(menuEdit);
-		this.add(menuHelp);
-
-		menuFileOpen.addActionListener(this);
+		mIFOuvrir.addActionListener(this);
 
 	}
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource().equals(menuFileOpen)) {
+		if (e.getSource().equals(mIFOuvrir)) {
 			JFileChooser dialogue = new JFileChooser(new File("."));
 			File fichier;
 			dialogue.showOpenDialog(null);
