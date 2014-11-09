@@ -27,7 +27,7 @@ public class Window extends JFrame{
 	public JDesktopPane dp;
 	public Connexion co;
 
-	public Window() {
+	public Window(MyDeskTopPane dp) {
 		super("3D Lib");
 		Window.frame=this;
 		outil = getToolkit();
@@ -39,7 +39,7 @@ public class Window extends JFrame{
 		co.close();
 
 
-		dp=new MyDeskTopPane();
+		dp=dp;
 
 
 		JPanel jp2=new JPanel();
@@ -59,7 +59,7 @@ public class Window extends JFrame{
 		this.setSize(outil.getScreenSize());
 		this.pack();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setResizable(false);
+		this.setResizable(true);
 		this.setVisible(true);
 
 		Panneau.d = MyDeskTopPane.panel.getSize(); // NE PAS TOUCHER CECI PERMET L'AFFICHAGE CENTRE
