@@ -11,6 +11,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
 
@@ -155,7 +156,12 @@ public class Menu extends JMenuBar implements ActionListener{
 			System.out.println(fichier);
 		}
 		else if (e.getSource().equals(mIFQuitter)){
-			System.exit(0);
+			JOptionPane JOP1 = new JOptionPane();
+			int option = JOP1.showConfirmDialog(null, "Voulez-vous vraiment quitter?", "Quitter", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+			if(option == JOptionPane.OK_OPTION){
+				System.exit(0);
+			}
+			
 		}
 	}
 }
