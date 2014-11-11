@@ -27,22 +27,6 @@ public class ProgressBar extends JPanel{
 	private MyDeskTopPane dp;
 	Thread t ;
 	Thread t2;
-	/*ActionListener al = new ActionListener() {
-
-		public void actionPerformed(java.awt.event.ActionEvent evt) {
-			progressBar.setValue(count);
-			if (PROGBAR_MAX == count) {
-				ss.dispose();
-				progressBarTimer.stop();//stop the timer
-				t.stop();
-				new Window(dp);
-			}
-			progressBar.setStringPainted(true);
-			progressBar.setString(count+"%");
-			count++;//increase counter
-
-		}
-	};*/
 	public ProgressBar(SplashScreen ss){
 		progressBar.setMaximum(PROGBAR_MAX);
 		progressBar.setBorderPainted(false);
