@@ -2,6 +2,7 @@ package fr.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Frame;
 import java.awt.Toolkit;
 
 import javax.swing.ImageIcon;
@@ -35,6 +36,7 @@ public class Window extends JFrame{
 		this.setVisible(true);
 		this.setSize(outil.getScreenSize());
 		this.setResizable(false);
+		this.setState(Frame.NORMAL);
 
 
 		//Connection bdd
