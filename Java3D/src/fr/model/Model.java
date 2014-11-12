@@ -4,9 +4,6 @@ import java.awt.Dimension;
 import java.util.Collections;
 import java.util.List;
 
-import fr.view.BarreVerticale;
-import fr.view.MyDeskTopPane;
-
 /**
  * 
  * @author Benoit
