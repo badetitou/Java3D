@@ -2,6 +2,7 @@ package fr.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Frame;
 import java.awt.Toolkit;
 
 import javax.swing.ImageIcon;
@@ -32,6 +33,11 @@ public class Window extends JFrame{
 		Window.frame=this;
 		outil = getToolkit();
 		this.setIconImage(new ImageIcon("ressources/image/logoforreal2.png").getImage());
+		this.setVisible(true);
+		this.setSize(outil.getScreenSize());
+		this.setResizable(false);
+		this.setState(Frame.NORMAL);
+
 
 		//Connection bdd
 		co = new Connexion("Database.db");
@@ -39,7 +45,7 @@ public class Window extends JFrame{
 		co.close();
 
 
-		dp=dp;
+		this.dp=dp;
 
 
 		JPanel jp2=new JPanel();
@@ -54,13 +60,11 @@ public class Window extends JFrame{
 		container.add(new PanelEdit(),BorderLayout.EAST);
 		container.add(new PanelBdd(),BorderLayout.SOUTH);
 
+
 		this.setJMenuBar(new Menu());
 		this.getContentPane().add(container);
-		this.setSize(outil.getScreenSize());
-		this.pack();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setResizable(true);
-		this.setVisible(true);
+		this.pack();
 
 		Panneau.d = MyDeskTopPane.panel.getSize(); // NE PAS TOUCHER CECI PERMET L'AFFICHAGE CENTRE
 	}
