@@ -73,11 +73,6 @@ public class Panneau extends JPanel {
 						coordMouseX = e.getX();
 						coordMouseY = e.getY();
 						repaint();
-						} else {
-							m.rotationZ(e.getY() - coordMouseY);
-							coordMouseX = e.getX();
-							coordMouseY = e.getY();
-							repaint();
 						}
 					}
 					else if (Barre.boolButtonTranslation){
