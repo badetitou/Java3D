@@ -3,12 +3,14 @@ package fr.view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Frame;
+import java.awt.Image;
 import java.awt.Toolkit;
 
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 
 import fr.model.Connexion;
 
@@ -23,10 +25,11 @@ public class Window extends JFrame{
 
 	Panneau panel;
 	public static Toolkit outil;
-	public JPanel container;
+	private final JPanel container;
 	public static JFrame frame;
 	public JDesktopPane dp;
-	public Connexion co;
+	private final Connexion co;
+	public JTabbedPane tabbedPane;
 
 	public Window(MyDeskTopPane dp) {
 		super("3D Lib");
@@ -46,7 +49,10 @@ public class Window extends JFrame{
 
 
 		this.dp=dp;
-
+		//onglets
+		tabbedPane = new JTabbedPane();
+		tabbedPane.addTab("Icosa",new ImageIcon(new ImageIcon("ressources/icones/description.png").getImage().getScaledInstance(26, 26, Image.SCALE_DEFAULT)), new Onglet(dp));
+		//tabbedPane.addTab("X-wing",new ImageIcon(new ImageIcon("ressources/icones/description.png").getImage().getScaledInstance(26, 26, Image.SCALE_DEFAULT)), new Onglet(new MyDeskTopPane("ressources/image/x_wing.gts")));
 
 		JPanel jp2=new JPanel();
 		jp2.add(new BarreVerticale());
@@ -54,11 +60,9 @@ public class Window extends JFrame{
 
 		container = new JPanel();
 		container.setLayout(new BorderLayout());
-		container.add(dp,BorderLayout.CENTER);
 		container.add(new Barre(),BorderLayout.NORTH);
-		container.add(jp2,BorderLayout.WEST);
-		container.add(new PanelEdit(),BorderLayout.EAST);
-		container.add(new PanelBdd(),BorderLayout.SOUTH);
+		container.add(tabbedPane,BorderLayout.CENTER);
+
 
 
 		this.setJMenuBar(new Menu());

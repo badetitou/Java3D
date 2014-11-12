@@ -7,10 +7,12 @@ import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.border.Border;
 
 public class PanelDescription extends JPanel implements MouseListener{
 
@@ -39,6 +41,8 @@ public class PanelDescription extends JPanel implements MouseListener{
 		textArea.setPreferredSize(new Dimension(Window.outil.getScreenSize().width-500,Window.outil.getScreenSize().height/5));
 		textArea.setEditable(false);
 		textArea.setBackground(new Color(230,230,230));
+		Border border = BorderFactory.createLineBorder(new Color(190,190,190));
+		textArea.setBorder(BorderFactory.createCompoundBorder(border, BorderFactory.createEmptyBorder(10, 10, 10, 10)));
 
 		label=new JLabel("Description de l'objet "+nomObjet+ " : ");
 		label.setPreferredSize(new Dimension(70,30));

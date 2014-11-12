@@ -27,6 +27,7 @@ public class ProgressBar extends JPanel{
 	private MyDeskTopPane dp;
 	Thread t ;
 	Thread t2;
+	public static String url="ressources/image/icosa.gts";
 	public ProgressBar(SplashScreen ss){
 		progressBar.setMaximum(PROGBAR_MAX);
 		progressBar.setBorderPainted(false);
@@ -44,14 +45,11 @@ public class ProgressBar extends JPanel{
 	}
 
 	private void startProgressBar() {
-		System.out.println("coucou1");
 		t = new Thread() {
 
 			@Override
 			public void run() {
-				System.out.println("coucou2");
-				dp=new MyDeskTopPane();
-				System.out.println("coucou3");
+				dp=new MyDeskTopPane(url);
 			}
 		};
 		t.start();

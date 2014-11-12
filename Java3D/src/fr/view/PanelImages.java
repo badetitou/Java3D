@@ -36,7 +36,7 @@ public class PanelImages extends JPanel {
 		JLabel label;
 		for (int i=0;i< columns;i++){
 			label=new JLabel();
-			url="ressources/icones/iconerota.png";
+			url="ressources/icones/iconedepla.png";
 			label.setIcon(new ImageIcon(new ImageIcon(url).getImage().getScaledInstance(Window.outil.getScreenSize().width/10, Window.outil.getScreenSize().width/10, Image.SCALE_DEFAULT)));
 			images.add(label);
 			galerie.add(images.get(i));

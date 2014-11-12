@@ -32,9 +32,7 @@ public class MyDeskTopPane extends JDesktopPane{
 	public static JPanel panel;
 	public static Dimension dimension;
 	public static Dimension dimmini;
-	public static String url="ressources/image/icosa.gts";
-
-	public MyDeskTopPane(){
+	public MyDeskTopPane(String url){
 		Toolkit tk=getToolkit();
 		dimension=new Dimension(tk.getScreenSize().height/2,tk.getScreenSize().height/2);
 		dimmini=new Dimension(dimension.height/2,dimension.height/2);
