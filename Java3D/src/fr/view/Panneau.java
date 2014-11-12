@@ -3,12 +3,14 @@ package fr.view;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
 import javax.swing.JPanel;
 
+import fr.model.Face;
 import fr.model.Model;
 
 public class Panneau extends JPanel {
@@ -19,6 +21,8 @@ public class Panneau extends JPanel {
 	Model m;
 	public static Dimension d;
 	public static Panneau pan;
+	private int coordMouseX = 0;
+	private int coordMouseY = 0;
 
 	public Panneau(Model mod) {
 		pan=this;
@@ -36,6 +40,37 @@ public class Panneau extends JPanel {
 			m.rotationY(0);
 			repaint();
 		}
+		
+		this.addMouseListener(new MouseListener(){
+			Face f;
+			
+			public void mouseClicked(MouseEvent arg0) {
+				f.setSelected(false);
+				f = m.getParticularFace(coordMouseX,coordMouseY);
+				f.setSelected(true);
+			}
+
+			public void mouseEntered(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			public void mouseExited(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			public void mousePressed(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			public void mouseReleased(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
 
 		repaint();
 		this.addMouseWheelListener(new MouseWheelListener() {
@@ -46,8 +81,7 @@ public class Panneau extends JPanel {
 		});
 
 		this.addMouseMotionListener(new MouseMotionListener() {
-			int coordMouseX = 0;
-			int coordMouseY = 0;
+			
 
 			public void mouseMoved(MouseEvent e) {
 				coordMouseX = e.getX();

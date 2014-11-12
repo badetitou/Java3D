@@ -18,7 +18,7 @@ public class Face implements Comparable<Face> {
 	private final Point p3;
 	private Color color;
 	private Color currentColor;
-	public static int i = 0;
+	private boolean selected = false;
 
 	public Face(Point p1, Point p2, Point p3,Color c) {
 		this.p1 = p1;
@@ -29,6 +29,10 @@ public class Face implements Comparable<Face> {
 		else
 			this.color=c;
 		calculLumiere();
+	}
+	
+	public void setSelected(boolean b){
+		this.selected = b;
 	}
 
 	@Override

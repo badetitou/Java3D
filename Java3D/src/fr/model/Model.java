@@ -203,4 +203,11 @@ public class Model {
 		}
 	}
 
+	public Face getParticularFace(int coordMouseX, int coordMouseY) {
+		Face f = null;
+		for(int i =0;i<rt.getFaceList().size();++i){
+			//TODO badetitou récuperer face la plus haute avec les coord
+		}
+		return f;
+	}
 }
