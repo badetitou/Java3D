@@ -18,8 +18,7 @@ public class Face implements Comparable<Face> {
 	private final Point p3;
 	private Color color;
 	private Color currentColor;
-	private boolean selected = false;
-
+	private Model mod;
 	public Face(Point p1, Point p2, Point p3,Color c) {
 		this.p1 = p1;
 		this.p2 = p2;
@@ -30,9 +29,12 @@ public class Face implements Comparable<Face> {
 			this.color=c;
 		calculLumiere();
 	}
-	
+
+	public void setModel(Model m){
+		this.mod=m;
+	}
+
 	public void setSelected(boolean b){
-		this.selected = b;
 	}
 
 	@Override
@@ -73,16 +75,16 @@ public class Face implements Comparable<Face> {
 				RenderingHints.VALUE_ANTIALIAS_ON);
 		calculLumiere();
 		GeneralPath p0 = new GeneralPath();
-		p0.moveTo(p1.x + Panneau.d.getWidth() / 2 + Model.xTranslate,
-				-p1.y + Panneau.d.getHeight() / 2 + Model.yTranslate);
-		p0.lineTo(p2.x + Panneau.d.getWidth() / 2 + Model.xTranslate,
-				-p2.y + Panneau.d.getHeight() / 2 + Model.yTranslate);
-		p0.lineTo(p3.x + Panneau.d.getWidth() / 2 + Model.xTranslate,
-				-p3.y + Panneau.d.getHeight() / 2 + Model.yTranslate);
-		p0.moveTo(p2.x + Panneau.d.getWidth() / 2 + Model.xTranslate,
-				-p2.y + Panneau.d.getHeight() / 2 + Model.yTranslate);
-		p0.lineTo(p1.x + Panneau.d.getWidth() / 2 + Model.xTranslate,
-				-p1.y + Panneau.d.getHeight() / 2 + Model.yTranslate);
+		p0.moveTo(p1.x + mod.getD().getWidth() / 2 + mod.xTranslate,
+				-p1.y + mod.getD().getHeight() / 2 + mod.yTranslate);
+		p0.lineTo(p2.x + mod.getD().getWidth() / 2 + mod.xTranslate,
+				-p2.y + mod.getD().getHeight() / 2 + mod.yTranslate);
+		p0.lineTo(p3.x + mod.getD().getWidth() / 2 + mod.xTranslate,
+				-p3.y + mod.getD().getHeight() / 2 + mod.yTranslate);
+		p0.moveTo(p2.x + mod.getD().getWidth() / 2 + mod.xTranslate,
+				-p2.y + mod.getD().getHeight() / 2 + mod.yTranslate);
+		p0.lineTo(p1.x + mod.getD().getWidth() / 2 + mod.xTranslate,
+				-p1.y + mod.getD().getHeight() / 2 + mod.yTranslate);
 		p0.closePath();
 		g2.fill(p0);
 	}
@@ -114,5 +116,8 @@ public class Face implements Comparable<Face> {
 		this.currentColor = (new Color((cosPositifR), (cosPositifV),
 				(cosPositifB)));
 
+	}
+
+	public void setP(Panneau p) {
 	}
 }

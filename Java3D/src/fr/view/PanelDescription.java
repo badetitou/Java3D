@@ -31,7 +31,6 @@ public class PanelDescription extends JPanel implements MouseListener{
 	private final JLabel label;
 
 	private final String nomObjet="";
-
 	public PanelDescription(){
 		this.setLayout(new FlowLayout(0,30,30));
 		this.setBackground(new Color(215,215,215));
@@ -43,6 +42,7 @@ public class PanelDescription extends JPanel implements MouseListener{
 		textArea.setBackground(new Color(230,230,230));
 		Border border = BorderFactory.createLineBorder(new Color(190,190,190));
 		textArea.setBorder(BorderFactory.createCompoundBorder(border, BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+		textArea.setForeground(new Color(130,130,130));
 
 		label=new JLabel("Description de l'objet "+nomObjet+ " : ");
 		label.setPreferredSize(new Dimension(70,30));
@@ -78,6 +78,7 @@ public class PanelDescription extends JPanel implements MouseListener{
 			valider.setEnabled(true);
 			modifier.setEnabled(false);
 			textArea.setBackground(new Color(255,255,255));
+			textArea.setForeground(new Color(0,0,0));
 		}
 
 
@@ -86,6 +87,7 @@ public class PanelDescription extends JPanel implements MouseListener{
 			valider.setEnabled(false);
 			modifier.setEnabled(true);
 			textArea.setBackground(new Color(230,230,230));
+			textArea.setForeground(new Color(130,130,130));
 		}
 
 	}

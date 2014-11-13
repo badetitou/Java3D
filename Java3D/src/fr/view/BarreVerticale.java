@@ -13,8 +13,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import fr.model.Model;
-
 public class BarreVerticale extends JPanel implements MouseListener{
 
 	/**
@@ -35,10 +33,12 @@ public class BarreVerticale extends JPanel implements MouseListener{
 	public ImageIcon ic8;
 
 
-	public static boolean bb1=true;
-	public static boolean bb2=false;
-	public static boolean modeEdit=false;
-	public BarreVerticale(){
+	public boolean bb1=true;
+	public boolean bb2=false;
+	public boolean modeEdit=false;
+	private final MyDeskTopPane dp;
+	public BarreVerticale(MyDeskTopPane dp){
+		this.dp=dp;
 		this.setLayout(new GridLayout(3,1,0,4));
 		this.setBorder(BorderFactory.createLoweredBevelBorder());
 		this.setBackground(new Color(190,190,190));
@@ -98,15 +98,15 @@ public class BarreVerticale extends JPanel implements MouseListener{
 			bb1=true;
 			bb2=false;
 			modeEdit=false;
-			Panneau.d = new Dimension(MyDeskTopPane.dimension);
-			MyDeskTopPane.iFrameMain.setPreferredSize(new Dimension(MyDeskTopPane.dimension));
-			MyDeskTopPane.iFrameDessous.setVisible(false);
-			MyDeskTopPane.iFrameDessus.setVisible(false);
-			MyDeskTopPane.iFrameProfil.setVisible(false);
+			dp.panel.setD(new Dimension(MyDeskTopPane.dimension));
+			this.dp.iFrameMain.setPreferredSize(new Dimension(MyDeskTopPane.dimension));
+			this.dp.iFrameDessous.setVisible(false);
+			this.dp.iFrameDessus.setVisible(false);
+			this.dp.iFrameProfil.setVisible(false);
 			/*
 			 * Zoom automatique laisser dans cette ordre
 			 */
-			MyDeskTopPane.m.zoomAuto(MyDeskTopPane.dimension);
+			this.dp.getModel().zoomAuto(MyDeskTopPane.dimension);
 		}
 		else if(e.getSource().equals(b2) && !bb2){
 			b2.setIcon(ic7);
@@ -115,15 +115,15 @@ public class BarreVerticale extends JPanel implements MouseListener{
 			bb2=true;
 			bb1=false;
 			modeEdit=false;
-			Panneau.d = new Dimension(MyDeskTopPane.dimmini); // NE PAS TOUCHER CECI PERMET L'AFFICHAGE CENTRE
-			MyDeskTopPane.iFrameMain.setPreferredSize(MyDeskTopPane.dimmini);
-			MyDeskTopPane.iFrameDessous.setVisible(true);
-			MyDeskTopPane.iFrameDessus.setVisible(true);
-			MyDeskTopPane.iFrameProfil.setVisible(true);
+			dp.panel.setD(new Dimension(MyDeskTopPane.dimmini)); // NE PAS TOUCHER CECI PERMET L'AFFICHAGE CENTRE
+			this.dp.iFrameMain.setPreferredSize(MyDeskTopPane.dimmini);
+			this.dp.iFrameDessous.setVisible(true);
+			this.dp.iFrameDessus.setVisible(true);
+			this.dp.iFrameProfil.setVisible(true);
 			/*
 			 * Zoom automatique laisser dans cette ordre
 			 */
-			MyDeskTopPane.m.zoomAuto(MyDeskTopPane.dimmini);
+			this.dp.getModel().zoomAuto(MyDeskTopPane.dimmini);
 		}
 		else if(e.getSource().equals(b3) && !modeEdit){
 			b3.setIcon(ic8);
@@ -132,18 +132,18 @@ public class BarreVerticale extends JPanel implements MouseListener{
 			bb1=false;
 			bb2=false;
 			modeEdit=true;
-			Panneau.d = new Dimension(MyDeskTopPane.dimension);
-			MyDeskTopPane.iFrameMain.setPreferredSize(MyDeskTopPane.dimension);
-			MyDeskTopPane.iFrameDessous.setVisible(false);
-			MyDeskTopPane.iFrameDessus.setVisible(false);
-			MyDeskTopPane.iFrameProfil.setVisible(false);
+			dp.panel.setD(new Dimension(MyDeskTopPane.dimension));
+			this.dp.iFrameMain.setPreferredSize(MyDeskTopPane.dimension);
+			this.dp.iFrameDessous.setVisible(false);
+			this.dp.iFrameDessus.setVisible(false);
+			this.dp.iFrameProfil.setVisible(false);
 			/*
 			 * Zoom automatique laisser dans cette ordre
 			 */
-			MyDeskTopPane.m.zoomAuto(MyDeskTopPane.dimension);
+			this.dp.getModel().zoomAuto(MyDeskTopPane.dimension);
 		}
-		
-		MyDeskTopPane.panel.repaint();
+
+		this.dp.panel.repaint();
 	}
 
 	public void mouseEntered(MouseEvent arg0) {

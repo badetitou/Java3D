@@ -10,8 +10,6 @@ import java.awt.event.MouseListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import fr.model.Model;
-
 public class PanelEdit extends JPanel implements MouseListener{
 
 	/**
@@ -19,7 +17,11 @@ public class PanelEdit extends JPanel implements MouseListener{
 	 */
 	private static final long serialVersionUID = 1L;
 	private final JButton boutonCentre;
-	public PanelEdit(){
+	private final MyDeskTopPane dp;
+	private final BarreVerticale bv;
+	public PanelEdit(MyDeskTopPane dp,BarreVerticale bv){
+		this.bv=bv;
+		this.dp=dp;
 		this.setPreferredSize(new Dimension(300,200));
 		this.setBackground(new Color(190,190,190));
 		this.setLayout(new FlowLayout(0,100,20));
@@ -40,15 +42,14 @@ public class PanelEdit extends JPanel implements MouseListener{
 	}
 	public void mouseClicked(MouseEvent e) {
 		if(e.getSource().equals(boutonCentre)){
-			if(BarreVerticale.bb1 || BarreVerticale.modeEdit ){
-				MyDeskTopPane.m.zoomAuto(MyDeskTopPane.dimension);
-				Model.recentrer();
-				MyDeskTopPane.panel.repaint();
+			if(bv.bb1 || bv.modeEdit ){
+				this.dp.getModel().zoomAuto(MyDeskTopPane.dimension);
+				this.dp.panel.repaint();
 			}
 			else{
-				MyDeskTopPane.m.zoomAuto(MyDeskTopPane.dimmini);
-				Model.recentrer();
-				MyDeskTopPane.panel.repaint();
+				this.dp.getModel().zoomAuto(MyDeskTopPane.dimmini);
+				this.dp.getModel().recentrer();
+				this.dp.panel.repaint();
 			}
 		}
 

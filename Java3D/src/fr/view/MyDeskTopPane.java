@@ -7,7 +7,6 @@ import java.awt.Toolkit;
 
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
-import javax.swing.JPanel;
 
 import fr.model.Model;
 
@@ -24,14 +23,14 @@ public class MyDeskTopPane extends JDesktopPane{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public static JInternalFrame iFrameMain;
-	public static JInternalFrame iFrameDessus;
-	public static JInternalFrame iFrameDessous;
-	public static JInternalFrame iFrameProfil;
-	public static Model m;
-	public static JPanel panel;
+	public JInternalFrame iFrameMain;
+	public JInternalFrame iFrameDessus;
+	public JInternalFrame iFrameDessous;
+	public JInternalFrame iFrameProfil;
+	public Panneau panel;
 	public static Dimension dimension;
 	public static Dimension dimmini;
+
 	public MyDeskTopPane(String url){
 		Toolkit tk=getToolkit();
 		dimension=new Dimension(tk.getScreenSize().height/2,tk.getScreenSize().height/2);
@@ -39,8 +38,7 @@ public class MyDeskTopPane extends JDesktopPane{
 		this.setPreferredSize(new Dimension(800,800));
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
-		m = new Model(url,0, dimension);
-		panel=new Panneau(m);
+		panel=new Panneau(new Model(url,0, dimension));
 
 		iFrameMain = new JInternalFrame(
 				"Vue principale", // le titre de la fenêtre
@@ -92,5 +90,9 @@ public class MyDeskTopPane extends JDesktopPane{
 		this.add(iFrameDessous);
 		this.add(iFrameProfil);
 		 */
+	}
+
+	public Model getModel(){
+		return this.panel.m;
 	}
 }

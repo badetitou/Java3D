@@ -7,13 +7,14 @@ import java.util.List;
 /**
  * 
  * @author Benoit
- *
+ * 
  */
 public class Model {
 	private final ReadText rt;
 	public int vue;
-	public static double xTranslate = 0;
-	public static double yTranslate = 0;
+	public double xTranslate = 0;
+	public double yTranslate = 0;
+	private Dimension d;
 
 	/**
 	 * 
@@ -25,9 +26,22 @@ public class Model {
 		trieFace();
 		this.zoomAuto(d);
 		this.vue = vue;
+
+		for (int i = 0; i < rt.getFaceList().size(); ++i) {
+			rt.getFaceList().get(i).setModel(this);
+		}
+		this.d = d;
 	}
-	
-	public static void recentrer(){
+
+	public Dimension getD(){
+		return d;
+	}
+
+	public void setD(Dimension d){
+		this.d=d;
+	}
+
+	public void recentrer() {
 		xTranslate = 0;
 		yTranslate = 0;
 	}
@@ -59,23 +73,23 @@ public class Model {
 			for (int j = 0; j < r; ++j) {
 
 				rt.getPointList()
-						.get(i)
-						.multiplier(
-								new double[][] {
-										{ 1, 0, 0, 0 },
-										{
-												0,
-												Math.cos(sensRotation * Math.PI
-														/ 1024),
-												-Math.sin(sensRotation
-														* Math.PI / 1024), 0 },
-										{
-												0,
-												Math.sin(sensRotation * Math.PI
-														/ 1024),
-												Math.cos(sensRotation * Math.PI
-														/ 1024), 0 },
-										{ 0, 0, 0, 1 } });
+				.get(i)
+				.multiplier(
+						new double[][] {
+								{ 1, 0, 0, 0 },
+								{
+									0,
+									Math.cos(sensRotation * Math.PI
+											/ 1024),
+											-Math.sin(sensRotation
+													* Math.PI / 1024), 0 },
+													{
+														0,
+														Math.sin(sensRotation * Math.PI
+																/ 1024),
+																Math.cos(sensRotation * Math.PI
+																		/ 1024), 0 },
+																		{ 0, 0, 0, 1 } });
 			}
 		}
 		trieFace();
@@ -100,7 +114,7 @@ public class Model {
 		recentrer();
 		double maxX = 0.0;
 		for (int i = 0; i < rt.getPointList().size(); ++i) {
-			if (Math.abs(rt.getPointList().get(i).x)> maxX) {
+			if (Math.abs(rt.getPointList().get(i).x) > maxX) {
 				maxX = Math.abs(rt.getPointList().get(i).x);
 			}
 		}
@@ -112,7 +126,7 @@ public class Model {
 				maxY = Math.abs(rt.getPointList().get(i).y);
 			}
 		}
-		if (maxY > d.getHeight() /2  - 50)
+		if (maxY > d.getHeight() / 2 - 50)
 			zoom((d.getHeight() / 2 - 50) / maxY);
 	}
 
@@ -130,23 +144,23 @@ public class Model {
 		for (int i = 0; i < rt.getPointList().size(); ++i) {
 			for (int j = 0; j < r; ++j) {
 				rt.getPointList()
-						.get(i)
-						.multiplier(
-								new double[][] {
-										{
-												Math.cos(sensRotation * Math.PI
-														/ 1024),
-												0,
-												Math.sin(sensRotation * Math.PI
-														/ 1024), 0 },
-										{ 0, 1, 0, 0 },
-										{
-												-Math.sin(sensRotation
-														* Math.PI / 1024),
-												0,
-												Math.cos(sensRotation * Math.PI
-														/ 1024), 0 },
-										{ 0, 0, 0, 1 } });
+				.get(i)
+				.multiplier(
+						new double[][] {
+								{
+									Math.cos(sensRotation * Math.PI
+											/ 1024),
+											0,
+											Math.sin(sensRotation * Math.PI
+													/ 1024), 0 },
+													{ 0, 1, 0, 0 },
+													{
+														-Math.sin(sensRotation
+																* Math.PI / 1024),
+																0,
+																Math.cos(sensRotation * Math.PI
+																		/ 1024), 0 },
+																		{ 0, 0, 0, 1 } });
 			}
 		}
 		trieFace();
@@ -168,20 +182,20 @@ public class Model {
 		for (int i = 0; i < rt.getPointList().size(); ++i) {
 			for (int j = 0; j < r; ++j) {
 				rt.getPointList()
-						.get(i)
-						.multiplier(
-								new double[][] {
-										{
-												Math.cos(sensRotation * Math.PI
-														/ 1024),
-												-Math.sin(sensRotation
-														* Math.PI / 1024), 0, 0 },
-										{
-												Math.sin(sensRotation * Math.PI
-														/ 1024),
-												Math.cos(sensRotation * Math.PI
-														/ 1024), 0, 0 },
-										{ 0, 0, 0, 0 }, { 0, 0, 0, 1 } });
+				.get(i)
+				.multiplier(
+						new double[][] {
+								{
+									Math.cos(sensRotation * Math.PI
+											/ 1024),
+											-Math.sin(sensRotation
+													* Math.PI / 1024), 0, 0 },
+													{
+														Math.sin(sensRotation * Math.PI
+																/ 1024),
+																Math.cos(sensRotation * Math.PI
+																		/ 1024), 0, 0 },
+																		{ 0, 0, 0, 0 }, { 0, 0, 0, 1 } });
 			}
 		}
 		trieFace();
@@ -196,17 +210,17 @@ public class Model {
 	public void zoom(double k) {
 		for (int i = 0; i < rt.getPointList().size(); ++i) {
 			rt.getPointList()
-					.get(i)
-					.multiplier(
-							new double[][] { { k, 0, 0, 0 }, { 0, k, 0, 0 },
-									{ 0, 0, k, 0 }, { 0, 0, 0, 1 } });
+			.get(i)
+			.multiplier(
+					new double[][] { { k, 0, 0, 0 }, { 0, k, 0, 0 },
+							{ 0, 0, k, 0 }, { 0, 0, 0, 1 } });
 		}
 	}
 
 	public Face getParticularFace(int coordMouseX, int coordMouseY) {
 		Face f = null;
-		for(int i =0;i<rt.getFaceList().size();++i){
-			//TODO badetitou récuperer face la plus haute avec les coord
+		for (int i = 0; i < rt.getFaceList().size(); ++i) {
+			// TODO badetitou récuperer face la plus haute avec les coord
 		}
 		return f;
 	}

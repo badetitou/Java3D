@@ -7,7 +7,6 @@ import java.awt.Image;
 import java.awt.Toolkit;
 
 import javax.swing.ImageIcon;
-import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -27,7 +26,7 @@ public class Window extends JFrame{
 	public static Toolkit outil;
 	private final JPanel container;
 	public static JFrame frame;
-	public JDesktopPane dp;
+	public MyDeskTopPane dp;
 	private final Connexion co;
 	public JTabbedPane tabbedPane;
 
@@ -52,10 +51,9 @@ public class Window extends JFrame{
 		//onglets
 		tabbedPane = new JTabbedPane();
 		tabbedPane.addTab("Icosa",new ImageIcon(new ImageIcon("ressources/icones/description.png").getImage().getScaledInstance(26, 26, Image.SCALE_DEFAULT)), new Onglet(dp));
-		//tabbedPane.addTab("X-wing",new ImageIcon(new ImageIcon("ressources/icones/description.png").getImage().getScaledInstance(26, 26, Image.SCALE_DEFAULT)), new Onglet(new MyDeskTopPane("ressources/image/x_wing.gts")));
-
+		tabbedPane.addTab("Head",new ImageIcon(new ImageIcon("ressources/icones/description.png").getImage().getScaledInstance(26, 26, Image.SCALE_DEFAULT)), new Onglet(new MyDeskTopPane("ressources/image/head.gts")));
 		JPanel jp2=new JPanel();
-		jp2.add(new BarreVerticale());
+		jp2.add(new BarreVerticale(this.dp));
 		jp2.setBackground(new Color(190,190,190));
 
 		container = new JPanel();
@@ -69,8 +67,6 @@ public class Window extends JFrame{
 		this.getContentPane().add(container);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.pack();
-
-		Panneau.d = MyDeskTopPane.panel.getSize(); // NE PAS TOUCHER CECI PERMET L'AFFICHAGE CENTRE
 	}
 
 }
