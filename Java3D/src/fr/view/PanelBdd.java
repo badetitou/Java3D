@@ -14,10 +14,10 @@ public class PanelBdd extends JPanel{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	JPanel description;
-	JPanel informations;
-	JPanel images;
-	JPanel realisations;
+	private final JPanel description;
+	private final JPanel informations;
+	private final JPanel images;
+	private final JPanel realisations;
 	public PanelBdd(){
 		this.setLayout(new CardLayout());
 		Toolkit tk=getToolkit();

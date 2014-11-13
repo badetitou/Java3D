@@ -13,7 +13,7 @@ public class Onglet extends JPanel{
 	 */
 	private static final long serialVersionUID = 1L;
 	private final MyDeskTopPane dp;
-	public BarreVerticale bv;
+	private final BarreVerticale bv;
 	public Onglet(MyDeskTopPane dp){
 		this.dp=dp;
 		Toolkit tk=getToolkit();

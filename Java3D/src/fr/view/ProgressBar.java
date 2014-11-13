@@ -25,8 +25,8 @@ public class ProgressBar extends JPanel{
 	private static int PROGBAR_MAX=100;
 	private static SplashScreen ss;
 	private MyDeskTopPane dp;
-	Thread t ;
-	Thread t2;
+	private Thread t ;
+	private Thread t2;
 	public static String url="ressources/image/icosa.gts";
 	public ProgressBar(SplashScreen ss){
 		progressBar.setMaximum(PROGBAR_MAX);

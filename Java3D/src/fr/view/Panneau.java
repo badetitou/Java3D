@@ -17,13 +17,17 @@ public class Panneau extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public Model m;
+	private final Model m;
 	private int coordMouseX = 0;
 	private int coordMouseY = 0;
 
 
 
 
+
+	public Model getM() {
+		return m;
+	}
 
 	public Panneau(Model mod) {
 		this.m = mod;

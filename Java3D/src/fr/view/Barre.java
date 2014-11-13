@@ -18,20 +18,20 @@ public class Barre extends JPanel implements MouseListener{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public JButton b1;
-	public JButton b2;
-	public JButton b3;
-	public JButton b4;
+	private final JButton b1;
+	private final JButton b2;
+	private final JButton b3;
+	private final JButton b4;
 
-	public ImageIcon ic1;
-	public ImageIcon ic2;
-	public ImageIcon ic3;
-	public ImageIcon ic4;
+	private final ImageIcon ic1;
+	private final ImageIcon ic2;
+	private final ImageIcon ic3;
+	private final ImageIcon ic4;
 
-	public ImageIcon ic6;
-	public ImageIcon ic7;
-	public ImageIcon ic8;
-	public ImageIcon ic9;
+	private final ImageIcon ic6;
+	private final ImageIcon ic7;
+	private final ImageIcon ic8;
+	private final ImageIcon ic9;
 
 	public static boolean boolButtonRotation=false;
 	public static boolean boolButtonTranslation=false;

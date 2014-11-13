@@ -42,14 +42,14 @@ public class PanelEdit extends JPanel implements MouseListener{
 	}
 	public void mouseClicked(MouseEvent e) {
 		if(e.getSource().equals(boutonCentre)){
-			if(bv.bb1 || bv.modeEdit ){
+			if(bv.isBb1() || bv.isModeEdit() ){
 				this.dp.getModel().zoomAuto(MyDeskTopPane.dimension);
-				this.dp.panel.repaint();
+				this.dp.getPanel().repaint();
 			}
 			else{
 				this.dp.getModel().zoomAuto(MyDeskTopPane.dimmini);
 				this.dp.getModel().recentrer();
-				this.dp.panel.repaint();
+				this.dp.getPanel().repaint();
 			}
 		}
 

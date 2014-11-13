@@ -26,9 +26,9 @@ public class Window extends JFrame{
 	public static Toolkit outil;
 	private final JPanel container;
 	public static JFrame frame;
-	public MyDeskTopPane dp;
+	private final MyDeskTopPane dp;
 	private final Connexion co;
-	public JTabbedPane tabbedPane;
+	private final JTabbedPane tabbedPane;
 
 	public Window(MyDeskTopPane dp) {
 		super("3D Lib");

@@ -23,11 +23,31 @@ public class MyDeskTopPane extends JDesktopPane{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public JInternalFrame iFrameMain;
-	public JInternalFrame iFrameDessus;
-	public JInternalFrame iFrameDessous;
-	public JInternalFrame iFrameProfil;
-	public Panneau panel;
+	private final JInternalFrame iFrameMain;
+	private final JInternalFrame iFrameDessus;
+	private final JInternalFrame iFrameDessous;
+	private final JInternalFrame iFrameProfil;
+	private final Panneau panel;
+	public JInternalFrame getiFrameMain() {
+		return iFrameMain;
+	}
+
+	public JInternalFrame getiFrameDessus() {
+		return iFrameDessus;
+	}
+
+	public JInternalFrame getiFrameDessous() {
+		return iFrameDessous;
+	}
+
+	public JInternalFrame getiFrameProfil() {
+		return iFrameProfil;
+	}
+
+	public Panneau getPanel() {
+		return panel;
+	}
+
 	public static Dimension dimension;
 	public static Dimension dimmini;
 
@@ -93,6 +113,6 @@ public class MyDeskTopPane extends JDesktopPane{
 	}
 
 	public Model getModel(){
-		return this.panel.m;
+		return this.panel.getM();
 	}
 }

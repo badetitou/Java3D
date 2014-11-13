@@ -22,9 +22,7 @@ public class PanelDescription extends JPanel implements MouseListener{
 	private static final long serialVersionUID = 1L;
 	private final JTextArea textArea;
 
-	public JPanel panelBouton;
-	public JPanel panelDescription;
-
+	private final JPanel panelBouton;
 	private final JButton valider;
 	private final JButton modifier;
 

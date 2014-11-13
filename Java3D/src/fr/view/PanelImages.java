@@ -27,6 +27,7 @@ public class PanelImages extends JPanel {
 	private final JButton supprimerImage;
 	public static boolean boutonAjouterImage;
 	public static boolean boutonSupprimerImage;
+
 	public PanelImages(){
 		this.setLayout(new FlowLayout(0,20,20));
 		this.setBackground(new Color(215,215,215));
