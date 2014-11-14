@@ -20,7 +20,7 @@ public class OutilsBdd {
 		DBPath = dBPath;
 	}
 
-	public void connect() {
+	private void connect() {
 		try {
 			Class.forName("org.sqlite.JDBC");
 			connection = DriverManager.getConnection("jdbc:sqlite:"+ DBPath);
@@ -32,7 +32,7 @@ public class OutilsBdd {
 	}
 
 
-	public void close() {
+	private void close() {
 		try {
 			statement.close();
 			connection.close();
@@ -44,6 +44,7 @@ public class OutilsBdd {
 
 	
 	public void addFile(String name, String linkFile, String desc, String author, Date dateAdd, Date dateLastModif, int nbrOpen, int nbrImg, int nbrModif, String linkImg, int size) {
+		this.connect();
 		String dateA=dateAdd.getYear()+"-"+dateAdd.getMonth()+"-"+dateAdd.getDay();
 		String dateM=dateLastModif.getYear()+"-"+dateLastModif.getMonth()+"-"+dateLastModif.getDay();
 		String requet = "INSERT INTO files VALUES('"
@@ -64,9 +65,11 @@ public class OutilsBdd {
 			System.out.println("Erreur dans la requet : " + requet);
 			System.out.println(e.getMessage());
 		}
+		this.close();
 	}
 	
 	public void addTag(String tag, String file) {
+		this.connect();
 		String requet = "INSERT INTO tags VALUES('"
 				+ tag +"','"
 				+ file +")";
@@ -76,124 +79,155 @@ public class OutilsBdd {
 			System.out.println("Erreur dans la requet : " + requet);
 			System.out.println(e.getMessage());
 		}
+		this.close();
 	}
 	
 	public String getLinkFile (String name) {
+		this.connect();
 		String query = "SELECT linkFile FROM files WHERE name='"+name+"'";
     	try {
     		ResultSet rs = statement.executeQuery(query);
-    		return rs.getString("linkFile");    		
+    		this.close();
+    		return rs.getString("linkFile");
     	} catch (Exception e) {
     		System.out.println("Erreur dans getLinkFile");
-    		System.out.println(e.getMessage());    		
+    		System.out.println(e.getMessage());
+    		this.close();
     		return "";
     	}
 	}
 	
 	public String getDesc (String name) {
+		this.connect();
 		String query = "SELECT desc FROM files WHERE name='"+name+"'";
     	try {
     		ResultSet rs = statement.executeQuery(query);
+    		this.close();
     		return rs.getString("desc");    		
     	} catch (Exception e) {
     		System.out.println("Erreur dans getDesc");
     		System.out.println(e.getMessage());    		
+    		this.close();
     		return "";
     	}
 	}
 	
 	public String getAuthor (String name) {
+		this.connect();
 		String query = "SELECT author FROM files WHERE name='"+name+"'";
     	try {
     		ResultSet rs = statement.executeQuery(query);
+    		this.close();
     		return rs.getString("author");    		
     	} catch (Exception e) {
     		System.out.println("Erreur dans getAuthor");
     		System.out.println(e.getMessage());    		
+    		this.close();
     		return "";
     	}
 	}
 	
 	public Date getDateAdd (String name) {
+		this.connect();
 		String query = "SELECT addDate FROM files WHERE name='"+name+"'";
     	try {
     		ResultSet rs = statement.executeQuery(query);
+    		this.close();
     		return rs.getDate("addDate");    		
     	} catch (Exception e) {
     		System.out.println("Erreur dans getDateAdd");
     		System.out.println(e.getMessage());    		
+    		this.close();
     		return null;
     	}
 	}
 	
 	public Date getDateLastModif (String name) {
+		this.connect();
 		String query = "SELECT lastModifDate FROM files WHERE name='"+name+"'";
     	try {
     		ResultSet rs = statement.executeQuery(query);
+    		this.close();
     		return rs.getDate("lastModifDate");    		
     	} catch (Exception e) {
     		System.out.println("Erreur dans getDateLastModif");
     		System.out.println(e.getMessage());    		
+    		this.close();
     		return null;
     	}
 	}
 	
 	public int getnbrOppen (String name) {
+		this.connect();
 		String query = "SELECT nbrOppen FROM files WHERE name='"+name+"'";
     	try {
     		ResultSet rs = statement.executeQuery(query);
+    		this.close();
     		return rs.getInt("nbrOppen");    		
     	} catch (Exception e) {
     		System.out.println("Erreur dans getLinkFile");
     		System.out.println(e.getMessage());    		
+    		this.close();
     		return 0;
     	}
 	}
 	
 	public int getnbrImg (String name) {
+		this.connect();
 		String query = "SELECT nbrImg FROM files WHERE name='"+name+"'";
     	try {
     		ResultSet rs = statement.executeQuery(query);
+    		this.close();
     		return rs.getInt("nbrImg");    		
     	} catch (Exception e) {
     		System.out.println("Erreur dans getImg");
     		System.out.println(e.getMessage());    		
+    		this.close();
     		return 0;
     	}
 	}
 	
 	public int getnbrModif (String name) {
+		this.connect();
 		String query = "SELECT nbrModif FROM files WHERE name='"+name+"'";
     	try {
     		ResultSet rs = statement.executeQuery(query);
+    		this.close();
     		return rs.getInt("nbrModif");    		
     	} catch (Exception e) {
     		System.out.println("Erreur dans getNbrModif");
     		System.out.println(e.getMessage());    		
+    		this.close();
     		return 0;
     	}
 	}
 	
 	public String getLinkImg (String name) {
+		this.connect();
 		String query = "SELECT linkImg FROM files WHERE name='"+name+"'";
     	try {
     		ResultSet rs = statement.executeQuery(query);
+    		this.close();
     		return rs.getString("linkImg");    		
     	} catch (Exception e) {
     		System.out.println("Erreur dans getLinkImg");
     		System.out.println(e.getMessage());    		
+    		this.close();
     		return "";
     	}
 	}
 	
 	public int getSize (String name) {
+		this.connect();
 		String query = "SELECT size FROM files WHERE name='"+name+"'";
     	try {
     		ResultSet rs = statement.executeQuery(query);
+    		this.close();
     		return rs.getInt("size");    		
     	} catch (Exception e) {
     		System.out.println("Erreur dans getSize");
     		System.out.println(e.getMessage());    		
+    		this.close();
     		return 0;
     	}
 	}

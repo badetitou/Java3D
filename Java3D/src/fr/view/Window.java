@@ -11,8 +11,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import fr.model.OutilsBdd;
-
 
 /**
  * 
@@ -28,7 +26,6 @@ public class Window extends JFrame{
 	private final JPanel container;
 	public static JFrame frame;
 	private final MyDeskTopPane dp;
-	private final OutilsBdd bdd;
 	private final JTabbedPane tabbedPane;
 
 	public Window(MyDeskTopPane dp) {
@@ -40,13 +37,6 @@ public class Window extends JFrame{
 		this.setSize(outil.getScreenSize());
 		this.setResizable(false);
 		this.setState(Frame.NORMAL);
-
-
-		//Connection bdd
-		bdd = new OutilsBdd("Database.db");
-		bdd.connect();
-		bdd.close();
-
 
 		this.dp=dp;
 		//onglets
