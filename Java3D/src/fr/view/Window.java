@@ -11,7 +11,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import fr.model.Connexion;
+import fr.model.OutilsBdd;
+
 
 /**
  * 
@@ -27,7 +28,7 @@ public class Window extends JFrame{
 	private final JPanel container;
 	public static JFrame frame;
 	private final MyDeskTopPane dp;
-	private final Connexion co;
+	private final OutilsBdd bdd;
 	private final JTabbedPane tabbedPane;
 
 	public Window(MyDeskTopPane dp) {
@@ -42,9 +43,9 @@ public class Window extends JFrame{
 
 
 		//Connection bdd
-		co = new Connexion("Database.db");
-		co.connect();
-		co.close();
+		bdd = new OutilsBdd("Database.db");
+		bdd.connect();
+		bdd.close();
 
 
 		this.dp=dp;
