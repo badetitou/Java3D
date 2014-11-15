@@ -12,6 +12,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JTabbedPane;
 import javax.swing.KeyStroke;
 
 
@@ -27,7 +28,7 @@ public class Menu extends JMenuBar implements ActionListener{
 	private final	JMenu mOptions;
 	private final 	JMenu mInfos;
 	//Items Menu Fichier
-	private final	JMenuItem	mIFNouveau;
+	private final	JMenuItem	mIFImporter;
 	private final	JMenuItem	mIFOuvrir;
 	private final	JMenuItem	mIFRecents;
 	private final	JMenuItem	mIFEnregistrer;
@@ -46,8 +47,13 @@ public class Menu extends JMenuBar implements ActionListener{
 	private final 	JMenuItem 	mIIaPropos;
 	private final 	JMenuItem 	mIIContacts;
 
-	public Menu()
+	private final JTabbedPane tabbedPane;
+
+	private final String nomFichier="new";
+
+	public Menu(JTabbedPane tabbedPane)
 	{
+		this.tabbedPane=tabbedPane;
 		this.setPreferredSize(new Dimension((int) Window.outil.getScreenSize().getWidth(),30));
 
 		//Création du Menu
@@ -64,7 +70,7 @@ public class Menu extends JMenuBar implements ActionListener{
 
 		//Création des sous menus
 		//Sous menu Fichier
-		mIFNouveau = new JMenuItem("Nouveau");
+		mIFImporter = new JMenuItem("Importer");
 		mIFOuvrir = new JMenuItem("Ouvrir");
 		mIFRecents = new JMenuItem("Fichiers récents");
 		mIFEnregistrer = new JMenuItem("Enregistrer");
@@ -77,11 +83,11 @@ public class Menu extends JMenuBar implements ActionListener{
 		///Action des MenuItems Fichier
 
 		//Robin tu peux m'expliquer ceci
-		mIFNouveau.setMnemonic(KeyEvent.VK_H);
+		mIFImporter.setMnemonic(KeyEvent.VK_H);
 		mFichier.setMnemonic(KeyEvent.VK_F);
 		//stp????
 
-		mIFNouveau.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK));
+		mIFImporter.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK));
 		mIFOuvrir.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_MASK));
 		//mIFRecents.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_MASK));
 		mIFEnregistrer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK));
@@ -118,7 +124,7 @@ public class Menu extends JMenuBar implements ActionListener{
 		mIIContacts.setAccelerator(KeyStroke.getKeyStroke("F2"));
 
 		//Ajout de chaque sous menu à son menu
-		mFichier.add(mIFNouveau);
+		mFichier.add(mIFImporter);
 		mFichier.add(mIFOuvrir);
 		mFichier.add(mIFRecents);
 		mFichier.addSeparator();
@@ -145,6 +151,7 @@ public class Menu extends JMenuBar implements ActionListener{
 
 		mIFOuvrir.addActionListener(this);
 		mIFQuitter.addActionListener(this);
+		mIFImporter.addActionListener(this);
 
 	}
 	public void actionPerformed(ActionEvent e) {
@@ -156,12 +163,17 @@ public class Menu extends JMenuBar implements ActionListener{
 			System.out.println(fichier);
 		}
 		else if (e.getSource().equals(mIFQuitter)){
-			JOptionPane JOP1 = new JOptionPane();
-			int option = JOP1.showConfirmDialog(null, "Voulez-vous vraiment quitter?", "Quitter", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+			int option = JOptionPane.showConfirmDialog(null, "Voulez-vous vraiment quitter?", "Quitter", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 			if(option == JOptionPane.OK_OPTION){
 				System.exit(0);
 			}
-			
+
+		}
+		else if (e.getSource().equals(mIFImporter)){
+			//blabla ouverture d'une fenetre pour chercher le .gts
+			//new Onglet(new MyDeskTopPane("ressources/image/head.gts"),Window.nbOnglets+1,this.tabbedPane,nomFichier);
+			this.tabbedPane.addTab(nomFichier, new Onglet(new MyDeskTopPane("ressources/image/head.gts"),Window.nbOnglets+1,this.tabbedPane,nomFichier));
+			Window.nbOnglets++;
 		}
 	}
 }
