@@ -1,9 +1,16 @@
 package fr.view;
 
+import java.awt.AWTException;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Rectangle;
+import java.awt.Robot;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
@@ -65,6 +72,24 @@ public class ProgressBar extends JPanel{
 				}
 				ss.dispose();
 				new Window(dp);
+
+				try {
+					this.sleep(50);
+				} catch (InterruptedException e) {}
+				BufferedImage screen=null;
+				try {
+					System.out.println(Window.outil.getScreenSize());
+					screen = new Robot().createScreenCapture(new Rectangle((int)Window.outil.getScreenSize().getWidth()/3-35,(int)Window.outil.getScreenSize().getHeight()/5-2,(int)MyDeskTopPane.dimension.getWidth()-35,(int)MyDeskTopPane.dimension.getHeight()-35));
+				} catch (AWTException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				try {
+					ImageIO.write(screen, "png", new File("ressources/screenshot.png"));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		};
 		System.out.println("cc3");
