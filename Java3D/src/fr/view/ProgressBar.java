@@ -78,7 +78,7 @@ public class ProgressBar extends JPanel{
 				} catch (InterruptedException e) {}
 				BufferedImage screen=null;
 				try {
-					System.out.println(Window.outil.getScreenSize());
+					//System.out.println(Window.outil.getScreenSize());
 					screen = new Robot().createScreenCapture(new Rectangle((int)Window.outil.getScreenSize().getWidth()/3-35,(int)Window.outil.getScreenSize().getHeight()/5-2,(int)MyDeskTopPane.dimension.getWidth()-35,(int)MyDeskTopPane.dimension.getHeight()-35));
 				} catch (AWTException e) {
 					// TODO Auto-generated catch block
