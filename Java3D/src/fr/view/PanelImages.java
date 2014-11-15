@@ -19,7 +19,7 @@ public class PanelImages extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public static int columns=55;
+	public static int columns=25;
 	private final JPanel galerie;
 	private final ArrayList<JLabel> images;
 	private String url="";
@@ -43,7 +43,7 @@ public class PanelImages extends JPanel {
 			galerie.add(images.get(i));
 		}
 		JScrollPane scroll = new JScrollPane(galerie);
-		scroll.setPreferredSize(new Dimension(Window.outil.getScreenSize().width-500,Window.outil.getScreenSize().height/5));
+		scroll.setPreferredSize(new Dimension(Window.outil.getScreenSize().width-500,Window.outil.getScreenSize().height/6));
 
 		ajouterImage=new JButton("Ajouter une image");
 		supprimerImage=new JButton("Supprimer une image");

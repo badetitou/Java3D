@@ -1,10 +1,17 @@
 package fr.view;
 
+import java.awt.AWTException;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Rectangle;
+import java.awt.Robot;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 
@@ -28,6 +35,7 @@ public class MyDeskTopPane extends JDesktopPane{
 	private final JInternalFrame iFrameDessous;
 	private final JInternalFrame iFrameProfil;
 	private final Panneau panel;
+	private BufferedImage screen;
 	public JInternalFrame getiFrameMain() {
 		return iFrameMain;
 	}
@@ -104,12 +112,18 @@ public class MyDeskTopPane extends JDesktopPane{
 		gbc.gridx = 1;
 		gbc.gridy = 1;
 		this.add(iFrameProfil, gbc);
-		/*
-		this.add(iFrameMain);
-		this.add(iFrameDessus);
-		this.add(iFrameDessous);
-		this.add(iFrameProfil);
-		 */
+		/*try {
+			screen = new Robot().createScreenCapture(new Rectangle(150,150,(int)dimension.getWidth(),(int)dimension.getHeight()));
+		} catch (AWTException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			ImageIO.write(screen, "png", new File("ressources/screenshot.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
 	}
 
 	public Model getModel(){

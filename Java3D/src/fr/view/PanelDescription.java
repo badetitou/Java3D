@@ -35,7 +35,7 @@ public class PanelDescription extends JPanel implements MouseListener{
 
 
 		textArea=new JTextArea();
-		textArea.setPreferredSize(new Dimension(Window.outil.getScreenSize().width-500,Window.outil.getScreenSize().height/5));
+		textArea.setPreferredSize(new Dimension(Window.outil.getScreenSize().width-500,Window.outil.getScreenSize().height/6));
 		textArea.setEditable(false);
 		textArea.setBackground(new Color(230,230,230));
 		Border border = BorderFactory.createLineBorder(new Color(190,190,190));

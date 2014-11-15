@@ -42,7 +42,8 @@ public class Window extends JFrame{
 		//onglets
 		tabbedPane = new JTabbedPane();
 		tabbedPane.addTab("Icosa",new ImageIcon(new ImageIcon("ressources/icones/description.png").getImage().getScaledInstance(26, 26, Image.SCALE_DEFAULT)), new Onglet(dp));
-		tabbedPane.addTab("Head",new ImageIcon(new ImageIcon("ressources/icones/description.png").getImage().getScaledInstance(26, 26, Image.SCALE_DEFAULT)), new Onglet(new MyDeskTopPane("ressources/image/head.gts")));
+		//tabbedPane.addTab("Head",new ImageIcon(new ImageIcon("ressources/icones/description.png").getImage().getScaledInstance(26, 26, Image.SCALE_DEFAULT)), new Onglet(new MyDeskTopPane("ressources/image/head.gts")));
+
 		JPanel jp2=new JPanel();
 		jp2.add(new BarreVerticale(this.dp));
 		jp2.setBackground(new Color(190,190,190));
