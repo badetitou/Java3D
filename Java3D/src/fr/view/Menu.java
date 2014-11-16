@@ -19,6 +19,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import javax.swing.KeyStroke;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 
 public class Menu extends JMenuBar implements ActionListener{
@@ -173,44 +174,47 @@ public class Menu extends JMenuBar implements ActionListener{
 		}
 		else if (e.getSource().equals(mIFImporter)){
 			//blabla ouverture d'une fenetre pour chercher le .gts
-			JFileChooser dialogue = new JFileChooser(new File("."));
+			JFileChooser dialogue = new JFileChooser(new File("ressources/image"));
+			FileNameExtensionFilter filter = new FileNameExtensionFilter("Fichier gts","gts");
+			dialogue.setFileFilter(filter);
 			final File fichier;
 			dialogue.showOpenDialog(null);
 			fichier = dialogue.getSelectedFile();
-			//			onglet=null;//new Onglet(new MyDeskTopPane("ressources/image/head.gts"),Window.nbOnglets+1,this.tabbedPane,nomFichier,listeOnglets);
-			final Thread t = new Thread() {
-				@Override
-				public void run() {
-					onglet=new Onglet(new MyDeskTopPane(fichier.getAbsolutePath()),tabbedPane,nomFichier,listeOnglets);
-					System.out.println(fichier.getAbsolutePath());
-				}
-			};
-			Thread t2=new Thread(){
-				@Override
-				public void run() {
-					while(t.isAlive()){
+			if(fichier!=null){
+				final Thread t = new Thread() {
+					@Override
+					public void run() {
+						onglet=new Onglet(new MyDeskTopPane(fichier.getAbsolutePath()),tabbedPane,nomFichier,listeOnglets);
+						System.out.println(fichier.getAbsolutePath());
+					}
+				};
+				Thread t2=new Thread(){
+					@Override
+					public void run() {
+						while(t.isAlive()){
+							try {
+								this.sleep(10);
+							} catch (InterruptedException e) {}
+						}
+						System.out.println("cc3");
 						try {
-							this.sleep(10);
+							this.sleep(50);
 						} catch (InterruptedException e) {}
+						BufferedImage screen=null;
+						try {
+							screen = new Robot().createScreenCapture(new Rectangle((int)Window.outil.getScreenSize().getWidth()/3-35,(int)Window.outil.getScreenSize().getHeight()/5-2,(int)MyDeskTopPane.dimension.getWidth()-35,(int)MyDeskTopPane.dimension.getHeight()-35));
+						} catch (AWTException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						tabbedPane.addTab(nomFichier, onglet);
+						onglet.dessineOnglet();
+						Window.nbOnglets++;
 					}
-					System.out.println("cc3");
-					try {
-						this.sleep(50);
-					} catch (InterruptedException e) {}
-					BufferedImage screen=null;
-					try {
-						screen = new Robot().createScreenCapture(new Rectangle((int)Window.outil.getScreenSize().getWidth()/3-35,(int)Window.outil.getScreenSize().getHeight()/5-2,(int)MyDeskTopPane.dimension.getWidth()-35,(int)MyDeskTopPane.dimension.getHeight()-35));
-					} catch (AWTException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					tabbedPane.addTab(nomFichier, onglet);
-					onglet.dessineOnglet();
-					Window.nbOnglets++;
-				}
-			};
-			t.start();
-			t2.start();
+				};
+				t.start();
+				t2.start();
+			}
 		}
 	}
 }
