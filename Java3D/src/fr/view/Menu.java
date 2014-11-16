@@ -162,7 +162,7 @@ public class Menu extends JMenuBar implements ActionListener{
 	}
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(mIFOuvrir)) {
-			WindowOuvrir windowO = new WindowOuvrir();
+			WindowOuvrir windowO = new WindowOuvrir(tabbedPane, listeOnglets);
 
 		}
 		else if (e.getSource().equals(mIFQuitter)){

@@ -45,8 +45,10 @@ public class OutilsBdd {
 		String query = "SELECT * FROM files WHERE name='"+name+"'";
     	try {
     		ResultSet rs = statement.executeQuery(query);
+    		//Return le rs.next() faisait bug le bordel, à voir(?)
+    		boolean b = rs.next();
     		this.close();
-    		return rs.next();
+    		return b;
     	} catch (Exception e) {
     		System.out.println("Erreur dans estPresent");
     		System.out.println(e.getMessage());
@@ -123,14 +125,17 @@ public class OutilsBdd {
 		String query = "SELECT linkFile FROM files WHERE name='"+name+"'";
     	try {
     		ResultSet rs = statement.executeQuery(query);
+    		String lien = rs.getString(1);
+    		System.out.println(lien);
     		this.close();
-    		return rs.getString("linkFile");
+    		return lien;
     	} catch (Exception e) {
     		System.out.println("Erreur dans getLinkFile");
     		System.out.println(e.getMessage());
     		this.close();
     		return "";
     	}
+    	
 	}
 	
 	public String getDesc (String name) {

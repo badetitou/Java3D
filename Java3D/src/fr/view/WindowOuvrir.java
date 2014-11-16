@@ -2,15 +2,16 @@ package fr.view;
 
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
-import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.ListModel;
 
@@ -18,9 +19,8 @@ import fr.model.OutilsBdd;
 
 public class WindowOuvrir extends JFrame {
 
-	PanelOuvrir pO = new PanelOuvrir();
-
-	public WindowOuvrir() {
+	public WindowOuvrir(JTabbedPane tabbedPane, ArrayList<Onglet> listeOnglets) {
+		PanelOuvrir pO = new PanelOuvrir(this, tabbedPane, listeOnglets);
 		this.setTitle("Ouvrir");
 		this.setSize(500, 300);
 		this.setResizable(false);
@@ -40,8 +40,15 @@ public class WindowOuvrir extends JFrame {
 		private JList bdd;
 		private final JLabel jlb1;
 		private final JLabel jlb2;
+		private JFrame windowO;
+		private OutilsBdd obdd;
+		private JTabbedPane tabbedPane;
+		private ArrayList<Onglet> listeOnglets;
 
-		public PanelOuvrir() {
+		public PanelOuvrir(JFrame windowO, JTabbedPane tabbedPane, ArrayList<Onglet> listeOnglets) {
+			this.windowO = windowO;
+			this.tabbedPane = tabbedPane;
+			this.listeOnglets = listeOnglets;
 			this.setPreferredSize(new Dimension(500, 300));
 			rTag = new JTextArea();
 			rTag.setPreferredSize(new Dimension(100, 20));
@@ -52,7 +59,7 @@ public class WindowOuvrir extends JFrame {
 			rAvancee = new JButton("Recherche Avancée");
 			ouvrir = new JButton("Ouvrir");
 			annuler = new JButton("Annuler");
-			OutilsBdd obdd = new OutilsBdd("Database.db");
+			obdd = new OutilsBdd("Database.db");
 			String[] data = obdd.getData();
 		//	String[] data = { "green", "red", "orange", "dark blue" };
 	/*		for(int i=0; i<data.length; ++i){
@@ -92,6 +99,8 @@ public class WindowOuvrir extends JFrame {
 			this.add(annuler);
 			
 			bdd.addMouseListener(this);
+			ouvrir.addMouseListener(this);
+			annuler.addMouseListener(this);
 		}
 
 		public void mouseClicked(MouseEvent e) {
@@ -102,6 +111,22 @@ public class WindowOuvrir extends JFrame {
 			     bdd.ensureIndexIsVisible(index);
 			     nFichier.setText(null);
 			     nFichier.setText((String) item);
+			}
+			else if(e.getSource().equals(ouvrir)){
+				String ouvrir = nFichier.getText();
+				if(obdd.estPresent(ouvrir)){
+					Onglet onglet = new Onglet(new MyDeskTopPane(obdd.getLinkFile(ouvrir)),tabbedPane,ouvrir,listeOnglets);
+					tabbedPane.addTab(ouvrir, onglet);
+					onglet.dessineOnglet();
+					Window.nbOnglets++;
+					windowO.dispose();
+				}
+				else{
+					nFichier.setText(null);
+				}
+			}
+			else if(e.getSource().equals(annuler)){
+				windowO.dispose();
 			}
 			
 		}
