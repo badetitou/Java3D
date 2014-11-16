@@ -33,12 +33,12 @@ public class Model {
 		this.d = d;
 	}
 
-	public Dimension getD(){
+	public Dimension getD() {
 		return d;
 	}
 
-	public void setD(Dimension d){
-		this.d=d;
+	public void setD(Dimension d) {
+		this.d = d;
 	}
 
 	public void recentrer() {
@@ -73,23 +73,23 @@ public class Model {
 			for (int j = 0; j < r; ++j) {
 
 				rt.getPointList()
-				.get(i)
-				.multiplier(
-						new double[][] {
-								{ 1, 0, 0, 0 },
-								{
-									0,
-									Math.cos(sensRotation * Math.PI
-											/ 1024),
-											-Math.sin(sensRotation
-													* Math.PI / 1024), 0 },
-													{
-														0,
-														Math.sin(sensRotation * Math.PI
-																/ 1024),
-																Math.cos(sensRotation * Math.PI
-																		/ 1024), 0 },
-																		{ 0, 0, 0, 1 } });
+						.get(i)
+						.multiplier(
+								new double[][] {
+										{ 1, 0, 0, 0 },
+										{
+												0,
+												Math.cos(sensRotation * Math.PI
+														/ 1024),
+												-Math.sin(sensRotation
+														* Math.PI / 1024), 0 },
+										{
+												0,
+												Math.sin(sensRotation * Math.PI
+														/ 1024),
+												Math.cos(sensRotation * Math.PI
+														/ 1024), 0 },
+										{ 0, 0, 0, 1 } });
 			}
 		}
 		trieFace();
@@ -144,23 +144,23 @@ public class Model {
 		for (int i = 0; i < rt.getPointList().size(); ++i) {
 			for (int j = 0; j < r; ++j) {
 				rt.getPointList()
-				.get(i)
-				.multiplier(
-						new double[][] {
-								{
-									Math.cos(sensRotation * Math.PI
-											/ 1024),
-											0,
-											Math.sin(sensRotation * Math.PI
-													/ 1024), 0 },
-													{ 0, 1, 0, 0 },
-													{
-														-Math.sin(sensRotation
-																* Math.PI / 1024),
-																0,
-																Math.cos(sensRotation * Math.PI
-																		/ 1024), 0 },
-																		{ 0, 0, 0, 1 } });
+						.get(i)
+						.multiplier(
+								new double[][] {
+										{
+												Math.cos(sensRotation * Math.PI
+														/ 1024),
+												0,
+												Math.sin(sensRotation * Math.PI
+														/ 1024), 0 },
+										{ 0, 1, 0, 0 },
+										{
+												-Math.sin(sensRotation
+														* Math.PI / 1024),
+												0,
+												Math.cos(sensRotation * Math.PI
+														/ 1024), 0 },
+										{ 0, 0, 0, 1 } });
 			}
 		}
 		trieFace();
@@ -182,20 +182,20 @@ public class Model {
 		for (int i = 0; i < rt.getPointList().size(); ++i) {
 			for (int j = 0; j < r; ++j) {
 				rt.getPointList()
-				.get(i)
-				.multiplier(
-						new double[][] {
-								{
-									Math.cos(sensRotation * Math.PI
-											/ 1024),
-											-Math.sin(sensRotation
-													* Math.PI / 1024), 0, 0 },
-													{
-														Math.sin(sensRotation * Math.PI
-																/ 1024),
-																Math.cos(sensRotation * Math.PI
-																		/ 1024), 0, 0 },
-																		{ 0, 0, 0, 0 }, { 0, 0, 0, 1 } });
+						.get(i)
+						.multiplier(
+								new double[][] {
+										{
+												Math.cos(sensRotation * Math.PI
+														/ 1024),
+												-Math.sin(sensRotation
+														* Math.PI / 1024), 0, 0 },
+										{
+												Math.sin(sensRotation * Math.PI
+														/ 1024),
+												Math.cos(sensRotation * Math.PI
+														/ 1024), 0, 0 },
+										{ 0, 0, 0, 0 }, { 0, 0, 0, 1 } });
 			}
 		}
 		trieFace();
@@ -210,17 +210,45 @@ public class Model {
 	public void zoom(double k) {
 		for (int i = 0; i < rt.getPointList().size(); ++i) {
 			rt.getPointList()
-			.get(i)
-			.multiplier(
-					new double[][] { { k, 0, 0, 0 }, { 0, k, 0, 0 },
-							{ 0, 0, k, 0 }, { 0, 0, 0, 1 } });
+					.get(i)
+					.multiplier(
+							new double[][] { { k, 0, 0, 0 }, { 0, k, 0, 0 },
+									{ 0, 0, k, 0 }, { 0, 0, 0, 1 } });
 		}
 	}
 
 	public Face getParticularFace(int coordMouseX, int coordMouseY) {
 		Face f = null;
 		for (int i = 0; i < rt.getFaceList().size(); ++i) {
-			// TODO badetitou récuperer face la plus haute avec les coord
+			if (((rt.getFaceList().get(i).getP1().x + getD().width + xTranslate < coordMouseX && (rt
+					.getFaceList().get(i).getP2().x
+					+ getD().width + xTranslate > coordMouseX || rt
+					.getFaceList().get(i).getP2().x
+					+ getD().width + xTranslate > coordMouseX) )
+					|| (rt.getFaceList().get(i).getP1().x + getD().width
+							+ xTranslate > coordMouseX && (rt.getFaceList()
+							.get(i).getP2().x
+							+ getD().width + xTranslate < coordMouseX || rt
+							.getFaceList().get(i).getP2().x
+							+ getD().width + xTranslate < coordMouseX)))
+					&&
+
+					(rt.getFaceList().get(i).getP1().y + getD().height
+							+ yTranslate < coordMouseY
+							&& (rt.getFaceList().get(i).getP2().y
+									+ getD().height + yTranslate > coordMouseY || rt
+									.getFaceList().get(i).getP2().y
+									+ getD().height + yTranslate > coordMouseY) || (rt
+							.getFaceList().get(i).getP1().y
+							+ getD().height + yTranslate > coordMouseY && (rt
+							.getFaceList().get(i).getP2().y
+							+ getD().height + yTranslate < coordMouseY || rt
+							.getFaceList().get(i).getP2().y
+							+ getD().height + yTranslate < coordMouseY))) 
+							&& rt.getFaceList().get(i).compareTo(f) == 1) {
+				f = rt.getFaceList().get(i);
+				
+			}
 		}
 		return f;
 	}

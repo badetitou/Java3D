@@ -19,6 +19,20 @@ public class Face implements Comparable<Face> {
 	private Color color;
 	private Color currentColor;
 	private Model mod;
+	
+	
+	public Point getP1() {
+		return p1;
+	}
+
+	public Point getP2() {
+		return p2;
+	}
+
+	public Point getP3() {
+		return p3;
+	}
+
 	public Face(Point p1, Point p2, Point p3,Color c) {
 		this.p1 = p1;
 		this.p2 = p2;
@@ -116,8 +130,5 @@ public class Face implements Comparable<Face> {
 		this.currentColor = (new Color((cosPositifR), (cosPositifV),
 				(cosPositifB)));
 
-	}
-
-	public void setP(Panneau p) {
 	}
 }

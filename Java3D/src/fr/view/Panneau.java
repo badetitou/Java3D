@@ -10,6 +10,7 @@ import java.awt.event.MouseWheelListener;
 
 import javax.swing.JPanel;
 
+import fr.model.Face;
 import fr.model.Model;
 
 public class Panneau extends JPanel {
@@ -46,11 +47,14 @@ public class Panneau extends JPanel {
 		}
 
 		this.addMouseListener(new MouseListener(){
+			Face f;
+			
 			public void mouseClicked(MouseEvent arg0) {
-				//if (f!= null)
-				//f.setSelected(false);
-				//f = m.getParticularFace(coordMouseX,coordMouseY);
-				//f.setSelected(true);
+				if (f!= null){
+					f.setSelected(false);
+				}
+				f = m.getParticularFace(coordMouseX,coordMouseY);
+				f.setSelected(true);
 			}
 
 			public void mouseEntered(MouseEvent arg0) {
