@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
@@ -51,9 +52,12 @@ public class Menu extends JMenuBar implements ActionListener{
 
 	private final String nomFichier="new";
 
-	public Menu(JTabbedPane tabbedPane)
+	private final ArrayList<Onglet>listeOnglets;
+
+	public Menu(JTabbedPane tabbedPane,ArrayList<Onglet> listeOnglets)
 	{
 		this.tabbedPane=tabbedPane;
+		this.listeOnglets=listeOnglets;
 		this.setPreferredSize(new Dimension((int) Window.outil.getScreenSize().getWidth(),30));
 
 		//Création du Menu
@@ -171,7 +175,7 @@ public class Menu extends JMenuBar implements ActionListener{
 		}
 		else if (e.getSource().equals(mIFImporter)){
 			//blabla ouverture d'une fenetre pour chercher le .gts
-			Onglet onglet=new Onglet(new MyDeskTopPane("ressources/image/head.gts"),Window.nbOnglets+1,this.tabbedPane,nomFichier);
+			Onglet onglet=new Onglet(new MyDeskTopPane("ressources/image/head.gts"),Window.nbOnglets+1,this.tabbedPane,nomFichier,listeOnglets);
 			this.tabbedPane.addTab(nomFichier, onglet);
 			onglet.dessineOnglet();
 			Window.nbOnglets++;

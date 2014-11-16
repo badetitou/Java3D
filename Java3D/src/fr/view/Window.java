@@ -3,6 +3,7 @@ package fr.view;
 import java.awt.BorderLayout;
 import java.awt.Frame;
 import java.awt.Toolkit;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -25,6 +26,7 @@ public class Window extends JFrame{
 	public static JFrame frame;
 	private final JTabbedPane tabbedPane;
 	public static int nbOnglets=0;
+	private final ArrayList<Onglet> listeOnglets;
 
 	public Window(MyDeskTopPane dp) {
 		super("3D Lib");
@@ -37,8 +39,9 @@ public class Window extends JFrame{
 		this.setState(Frame.NORMAL);
 
 		//onglets
+		listeOnglets=new ArrayList<Onglet>();
 		tabbedPane = new JTabbedPane();
-		Onglet onglet=new Onglet(dp,0,tabbedPane,"icosa");
+		Onglet onglet=new Onglet(dp,0,tabbedPane,"icosa",listeOnglets);
 		tabbedPane.addTab("Icosa", onglet);
 		onglet.dessineOnglet();
 
@@ -48,7 +51,7 @@ public class Window extends JFrame{
 		container.add(tabbedPane,BorderLayout.CENTER);
 
 
-		this.setJMenuBar(new Menu(tabbedPane));
+		this.setJMenuBar(new Menu(tabbedPane,listeOnglets));
 		this.getContentPane().add(container);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.pack();

@@ -7,6 +7,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -25,9 +26,9 @@ public class Onglet extends JPanel implements MouseListener{
 	private JLabel closeButon;
 	private final String nomFichier;
 	private JLabel ic;
-	private final int num;
-	public Onglet(MyDeskTopPane dp, int num, JTabbedPane tabbedPane,String nomFichier){
-		this.num=num;
+	private final ArrayList<Onglet>listeOnglets;
+	public Onglet(MyDeskTopPane dp, int num, JTabbedPane tabbedPane,String nomFichier,ArrayList<Onglet>listeOnglets){
+		this.listeOnglets=listeOnglets;
 		this.dp=dp;
 		this.tabbedPane=tabbedPane;
 		this.nomFichier=nomFichier;
@@ -56,13 +57,23 @@ public class Onglet extends JPanel implements MouseListener{
 		p1.add(ic);
 		p1.add(lbTitle);
 		p1.add(closeButon);
-		this.tabbedPane.setTabComponentAt(num,p1);
+		listeOnglets.add(this);
+		this.tabbedPane.setTabComponentAt(rechercheOnglet(),p1);
+	}
+
+	public int rechercheOnglet(){
+		for(int i=0;i<listeOnglets.size();i++){
+			if(listeOnglets.get(i).equals(this))
+				return i;
+		}
+		return -1;
 	}
 
 	public void mouseClicked(MouseEvent e) {
 		if(e.getSource().equals(closeButon)){
 			System.out.println("fermer");
 			tabbedPane.remove(this);
+			listeOnglets.remove(this);
 			Window.nbOnglets--;
 		}
 
