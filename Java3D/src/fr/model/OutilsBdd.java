@@ -51,7 +51,27 @@ public class OutilsBdd {
     		return false;
     	}
 	}
-
+	
+	public String[] getData() {
+		String query = "SELECT COUNT(name) AS i from files";
+	   	try {
+	   		ResultSet rs = statement.executeQuery(query);
+	   		int i = rs.getInt("i");
+	   		String[] data = new String[i];
+	   		query = "SELECT name from files";
+	   		rs = statement.executeQuery(query);
+	   		i=0;
+	   		while (rs.next()) {
+	   			data[i]=rs.getString("name");
+	   			i++;
+	   		}
+	   		return data;
+	   	} catch (Exception e) {
+	   		System.out.println("Erreur dans getLinkFile");
+	   		System.out.println(e.getMessage());
+	   		return null;
+	   	}
+	}
 	
 	public void addFile(String name, String linkFile, String desc, String author, Date dateAdd, Date dateLastModif, int nbrOpen, int nbrImg, int nbrModif, String linkImg, int size) {
 		this.connect();
