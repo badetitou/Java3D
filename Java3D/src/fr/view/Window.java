@@ -38,8 +38,9 @@ public class Window extends JFrame{
 
 		//onglets
 		tabbedPane = new JTabbedPane();
-		tabbedPane.addTab("Icosa", new Onglet(dp,0,tabbedPane,"icosa"));
-		//tabbedPane.addTab("Head",new ImageIcon(new ImageIcon("ressources/icones/description.png").getImage().getScaledInstance(26, 26, Image.SCALE_DEFAULT)), new Onglet(new MyDeskTopPane("ressources/image/head.gts")));
+		Onglet onglet=new Onglet(dp,0,tabbedPane,"icosa");
+		tabbedPane.addTab("Icosa", onglet);
+		onglet.dessineOnglet();
 
 		container = new JPanel();
 		container.setLayout(new BorderLayout());

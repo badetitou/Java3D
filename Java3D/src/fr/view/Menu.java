@@ -171,8 +171,9 @@ public class Menu extends JMenuBar implements ActionListener{
 		}
 		else if (e.getSource().equals(mIFImporter)){
 			//blabla ouverture d'une fenetre pour chercher le .gts
-			//new Onglet(new MyDeskTopPane("ressources/image/head.gts"),Window.nbOnglets+1,this.tabbedPane,nomFichier);
-			this.tabbedPane.addTab(nomFichier, new Onglet(new MyDeskTopPane("ressources/image/head.gts"),Window.nbOnglets+1,this.tabbedPane,nomFichier));
+			Onglet onglet=new Onglet(new MyDeskTopPane("ressources/image/head.gts"),Window.nbOnglets+1,this.tabbedPane,nomFichier);
+			this.tabbedPane.addTab(nomFichier, onglet);
+			onglet.dessineOnglet();
 			Window.nbOnglets++;
 		}
 	}
