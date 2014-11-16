@@ -91,10 +91,6 @@ public class Menu extends JMenuBar implements ActionListener{
 
 		///Action des MenuItems Fichier
 
-		//Robin tu peux m'expliquer ceci
-		mIFImporter.setMnemonic(KeyEvent.VK_H);
-		mFichier.setMnemonic(KeyEvent.VK_F);
-		//stp????
 
 		mIFImporter.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK));
 		mIFOuvrir.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_MASK));
@@ -165,11 +161,8 @@ public class Menu extends JMenuBar implements ActionListener{
 	}
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(mIFOuvrir)) {
-			JFileChooser dialogue = new JFileChooser(new File("."));
-			File fichier;
-			dialogue.showOpenDialog(null);
-			fichier = dialogue.getSelectedFile();
-			System.out.println(fichier);
+			WindowOuvrir windowO = new WindowOuvrir();
+			
 		}
 		else if (e.getSource().equals(mIFQuitter)){
 			int option = JOptionPane.showConfirmDialog(null, "Voulez-vous vraiment quitter?", "Quitter", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
