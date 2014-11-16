@@ -14,6 +14,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.Border;
 
+import fr.model.OutilsBdd;
+
 public class PanelDescription extends JPanel implements MouseListener{
 
 	/**
@@ -27,14 +29,13 @@ public class PanelDescription extends JPanel implements MouseListener{
 	private final JButton modifier;
 
 	private final JLabel label;
-
-	private final String nomObjet="";
-	public PanelDescription(){
+	private final OutilsBdd obdd;
+	public PanelDescription(String nomFichier){
 		this.setLayout(new FlowLayout(0,30,30));
 		this.setBackground(new Color(215,215,215));
+		obdd=new OutilsBdd("Database.db");
 
-
-		textArea=new JTextArea();
+		textArea=new JTextArea(obdd.getDesc(nomFichier));
 		textArea.setPreferredSize(new Dimension(Window.outil.getScreenSize().width-500,Window.outil.getScreenSize().height/6));
 		textArea.setEditable(false);
 		textArea.setBackground(new Color(230,230,230));
@@ -42,7 +43,7 @@ public class PanelDescription extends JPanel implements MouseListener{
 		textArea.setBorder(BorderFactory.createCompoundBorder(border, BorderFactory.createEmptyBorder(10, 10, 10, 10)));
 		textArea.setForeground(new Color(130,130,130));
 
-		label=new JLabel("Description de l'objet "+nomObjet+ " : ");
+		label=new JLabel("Description de l'objet "+nomFichier+ " : ");
 		label.setPreferredSize(new Dimension(70,30));
 
 		panelBouton=new JPanel();

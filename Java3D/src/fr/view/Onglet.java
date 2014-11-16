@@ -43,7 +43,7 @@ public class Onglet extends JPanel implements MouseListener{
 		this.add(dp,BorderLayout.CENTER);
 		this.add(jp2,BorderLayout.WEST);
 		this.add(new PanelEdit(this.dp,bv),BorderLayout.EAST);
-		this.add(new PanelBdd(),BorderLayout.SOUTH);
+		this.add(new PanelBdd(nomFichier),BorderLayout.SOUTH);
 
 	}
 
