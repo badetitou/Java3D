@@ -181,7 +181,9 @@ public class Menu extends JMenuBar implements ActionListener{
 			dialogue.showOpenDialog(null);
 			fichier = dialogue.getSelectedFile();
 			String name = fichier.getName();
-			if(name.substring(name.length()-4, name.length())!=".gts"){
+			name=name.substring(name.length()-4, name.length());
+			int comparaison = name.compareToIgnoreCase(".gts");
+			if(comparaison!=0){
 				JOptionPane.showMessageDialog(null, "Le fichier que vous avez choisi n'est pas compatible !", "Attention", JOptionPane.ERROR_MESSAGE);
 			}
 			if(fichier!=null && name.substring(name.length()-4, name.length()).equals(".gts")){
