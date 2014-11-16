@@ -41,7 +41,7 @@ public class Window extends JFrame{
 		//onglets
 		listeOnglets=new ArrayList<Onglet>();
 		tabbedPane = new JTabbedPane();
-		Onglet onglet=new Onglet(dp,0,tabbedPane,"icosa",listeOnglets);
+		Onglet onglet=new Onglet(dp,tabbedPane,"icosa",listeOnglets);
 		tabbedPane.addTab("Icosa", onglet);
 		onglet.dessineOnglet();
 

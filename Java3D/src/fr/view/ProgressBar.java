@@ -52,7 +52,6 @@ public class ProgressBar extends JPanel{
 	}
 
 	private void startProgressBar() {
-		System.out.println("cc1");
 		t = new Thread() {
 
 			@Override
@@ -60,7 +59,6 @@ public class ProgressBar extends JPanel{
 				dp=new MyDeskTopPane(url);
 			}
 		};
-		System.out.println("cc2");
 		t.start();
 		t2=new Thread(){
 			@Override
@@ -85,14 +83,13 @@ public class ProgressBar extends JPanel{
 					e.printStackTrace();
 				}
 				try {
-					ImageIO.write(screen, "png", new File("ressources/screenshot.png"));
+					ImageIO.write(screen, "png", new File("ressources/screenshot00.png"));
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
 		};
-		System.out.println("cc3");
 		t2.start();
 	}
 }

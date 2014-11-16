@@ -1,13 +1,19 @@
 package fr.view;
 
+import java.awt.AWTException;
 import java.awt.Dimension;
+import java.awt.Rectangle;
+import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -51,6 +57,7 @@ public class Menu extends JMenuBar implements ActionListener{
 	private final JTabbedPane tabbedPane;
 
 	private final String nomFichier="new";
+	private Onglet onglet;
 
 	private final ArrayList<Onglet>listeOnglets;
 
@@ -175,10 +182,46 @@ public class Menu extends JMenuBar implements ActionListener{
 		}
 		else if (e.getSource().equals(mIFImporter)){
 			//blabla ouverture d'une fenetre pour chercher le .gts
-			Onglet onglet=new Onglet(new MyDeskTopPane("ressources/image/head.gts"),Window.nbOnglets+1,this.tabbedPane,nomFichier,listeOnglets);
-			this.tabbedPane.addTab(nomFichier, onglet);
-			onglet.dessineOnglet();
-			Window.nbOnglets++;
+			//			onglet=null;//new Onglet(new MyDeskTopPane("ressources/image/head.gts"),Window.nbOnglets+1,this.tabbedPane,nomFichier,listeOnglets);
+			final Thread t = new Thread() {
+				@Override
+				public void run() {
+					onglet=new Onglet(new MyDeskTopPane("ressources/image/head.gts"),tabbedPane,nomFichier,listeOnglets);
+					System.out.println("cc2");
+				}
+			};
+			Thread t2=new Thread(){
+				@Override
+				public void run() {
+					while(t.isAlive()){
+						try {
+							this.sleep(10);
+						} catch (InterruptedException e) {}
+					}
+					System.out.println("cc3");
+					try {
+						this.sleep(50);
+					} catch (InterruptedException e) {}
+					BufferedImage screen=null;
+					try {
+						screen = new Robot().createScreenCapture(new Rectangle((int)Window.outil.getScreenSize().getWidth()/3-35,(int)Window.outil.getScreenSize().getHeight()/5-2,(int)MyDeskTopPane.dimension.getWidth()-35,(int)MyDeskTopPane.dimension.getHeight()-35));
+					} catch (AWTException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					try {
+						ImageIO.write(screen, "png", new File("ressources/screenshot"+Window.nbOnglets+1+".png"));
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					tabbedPane.addTab(nomFichier, onglet);
+					onglet.dessineOnglet();
+					Window.nbOnglets++;
+				}
+			};
+			t.start();
+			t2.start();
 		}
 	}
 }

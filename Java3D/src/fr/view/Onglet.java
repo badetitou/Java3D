@@ -27,11 +27,12 @@ public class Onglet extends JPanel implements MouseListener{
 	private final String nomFichier;
 	private JLabel ic;
 	private final ArrayList<Onglet>listeOnglets;
-	public Onglet(MyDeskTopPane dp, int num, JTabbedPane tabbedPane,String nomFichier,ArrayList<Onglet>listeOnglets){
+	public Onglet(MyDeskTopPane dp, JTabbedPane tabbedPane,String nomFichier,ArrayList<Onglet>listeOnglets){
 		this.listeOnglets=listeOnglets;
 		this.dp=dp;
 		this.tabbedPane=tabbedPane;
 		this.nomFichier=nomFichier;
+		//tabbedPane.setSelectedIndex(rechercheOnglet());
 		Toolkit tk=getToolkit();
 		this.setLayout(new BorderLayout());
 		this.setPreferredSize(new Dimension(tk.getScreenSize().height,tk.getScreenSize().width));
@@ -52,12 +53,12 @@ public class Onglet extends JPanel implements MouseListener{
 		closeButon.addMouseListener(this);
 		JPanel p1=new JPanel();
 		p1.setOpaque(false);
-		ic = new JLabel(new ImageIcon(new ImageIcon("ressources/screenshot.png").getImage().getScaledInstance(26, 26, Image.SCALE_DEFAULT)));
+		listeOnglets.add(this);
+		ic = new JLabel(new ImageIcon(new ImageIcon("ressources/screenshot0"+rechercheOnglet()+".png").getImage().getScaledInstance(26, 26, Image.SCALE_DEFAULT)));
 		JLabel lbTitle=new JLabel(nomFichier);
 		p1.add(ic);
 		p1.add(lbTitle);
 		p1.add(closeButon);
-		listeOnglets.add(this);
 		this.tabbedPane.setTabComponentAt(rechercheOnglet(),p1);
 	}
 
