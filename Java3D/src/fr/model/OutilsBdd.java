@@ -41,18 +41,22 @@ public class OutilsBdd {
 	}
 	
 	public boolean estPresent(String name) {
+		this.connect();
 		String query = "SELECT * FROM files WHERE name='"+name+"'";
     	try {
     		ResultSet rs = statement.executeQuery(query);
+    		this.close();
     		return rs.next();
     	} catch (Exception e) {
-    		System.out.println("Erreur dans getLinkFile");
+    		System.out.println("Erreur dans estPresent");
     		System.out.println(e.getMessage());
+    		this.close();
     		return false;
     	}
 	}
 	
 	public String[] getData() {
+		this.connect();
 		String query = "SELECT COUNT(name) AS i from files";
 	   	try {
 	   		ResultSet rs = statement.executeQuery(query);
@@ -65,10 +69,12 @@ public class OutilsBdd {
 	   			data[i]=rs.getString("name");
 	   			i++;
 	   		}
+	   		this.close();
 	   		return data;
 	   	} catch (Exception e) {
-	   		System.out.println("Erreur dans getLinkFile");
+	   		System.out.println("Erreur dans getData");
 	   		System.out.println(e.getMessage());
+	   		this.close();
 	   		return null;
 	   	}
 	}
