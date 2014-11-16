@@ -7,10 +7,7 @@ import java.awt.GridLayout;
 import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
@@ -82,12 +79,7 @@ public class ProgressBar extends JPanel{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				try {
-					ImageIO.write(screen, "png", new File("ressources/screenshot00.png"));
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				//ImageIO.write(screen, "png", new File("ressources/screenshot00.png"));
 			}
 		};
 		t2.start();

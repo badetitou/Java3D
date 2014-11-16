@@ -10,10 +10,8 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -206,12 +204,6 @@ public class Menu extends JMenuBar implements ActionListener{
 					try {
 						screen = new Robot().createScreenCapture(new Rectangle((int)Window.outil.getScreenSize().getWidth()/3-35,(int)Window.outil.getScreenSize().getHeight()/5-2,(int)MyDeskTopPane.dimension.getWidth()-35,(int)MyDeskTopPane.dimension.getHeight()-35));
 					} catch (AWTException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					try {
-						ImageIO.write(screen, "png", new File("ressources/screenshot"+Window.nbOnglets+1+".png"));
-					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
