@@ -19,7 +19,7 @@ public class Face implements Comparable<Face> {
 	private Color color;
 	private Color currentColor;
 	private Model mod;
-	
+	private boolean selected = false;
 	
 	public Point getP1() {
 		return p1;
@@ -49,6 +49,7 @@ public class Face implements Comparable<Face> {
 	}
 
 	public void setSelected(boolean b){
+		this.selected = b;
 	}
 
 	@Override
@@ -101,6 +102,10 @@ public class Face implements Comparable<Face> {
 				-p1.y + mod.getD().getHeight() / 2 + mod.yTranslate);
 		p0.closePath();
 		g2.fill(p0);
+		if (this.selected){
+			g2.setColor(new Color(255- this.color.getRed(), 255 - this.color.getGreen(), 255 - this.color.getBlue()));
+			g2.draw(p0);
+		}
 	}
 
 	private void calculLumiere(){
@@ -129,6 +134,20 @@ public class Face implements Comparable<Face> {
 			cosPositifB = -cosPositifB;
 		this.currentColor = (new Color((cosPositifR), (cosPositifV),
 				(cosPositifB)));
-
+	}
+	
+	public boolean pointDansTriangle(Point p){
+		double s = p1.y*p3.x - p1.x*p3.y + (p3.y - p1.y)*p.x + (p1.x - p3.x)*p.y;
+		double t = p1.x * p2.y - p1.y * p2.x + (p1.y - p2.y) * p.x + (p2.x-p1.x)*p.y;
+		if ( (s<0) != (t<0)){
+			return false;
+		}
+		double a = -p2.y * p3.x + p1.y * (p3.x - p2.x) + p1.x * (p2.y - p3.y) + p2.x * p3.y;
+		if (a < 0){
+			s = -s;
+			t = -t;
+			a = -a;
+		}
+		return s>0 && t>0 && (s+t) < a;
 	}
 }

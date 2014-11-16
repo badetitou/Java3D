@@ -217,38 +217,23 @@ public class Model {
 		}
 	}
 
-	public Face getParticularFace(int coordMouseX, int coordMouseY) {
+	public Face getParticularFace(double coordMouseX, double coordMouseY) {
 		Face f = null;
+		coordMouseX = coordMouseX - xTranslate - d.getWidth() / 2;
+		coordMouseY = coordMouseY - yTranslate - d.getHeight() / 2;
 		for (int i = 0; i < rt.getFaceList().size(); ++i) {
-			if (((rt.getFaceList().get(i).getP1().x + getD().width + xTranslate < coordMouseX && (rt
-					.getFaceList().get(i).getP2().x
-					+ getD().width + xTranslate > coordMouseX || rt
-					.getFaceList().get(i).getP2().x
-					+ getD().width + xTranslate > coordMouseX) )
-					|| (rt.getFaceList().get(i).getP1().x + getD().width
-							+ xTranslate > coordMouseX && (rt.getFaceList()
-							.get(i).getP2().x
-							+ getD().width + xTranslate < coordMouseX || rt
-							.getFaceList().get(i).getP2().x
-							+ getD().width + xTranslate < coordMouseX)))
-					&&
-
-					(rt.getFaceList().get(i).getP1().y + getD().height
-							+ yTranslate < coordMouseY
-							&& (rt.getFaceList().get(i).getP2().y
-									+ getD().height + yTranslate > coordMouseY || rt
-									.getFaceList().get(i).getP2().y
-									+ getD().height + yTranslate > coordMouseY) || (rt
-							.getFaceList().get(i).getP1().y
-							+ getD().height + yTranslate > coordMouseY && (rt
-							.getFaceList().get(i).getP2().y
-							+ getD().height + yTranslate < coordMouseY || rt
-							.getFaceList().get(i).getP2().y
-							+ getD().height + yTranslate < coordMouseY))) 
-							&& rt.getFaceList().get(i).compareTo(f) == 1) {
-				f = rt.getFaceList().get(i);
-				
+			if (rt.getFaceList().get(i)
+					.pointDansTriangle(new Point(coordMouseX, coordMouseY, 0))) {
+				if (f != null) {
+					if (rt.getFaceList().get(i).compareTo(f) == 1) {
+						f = rt.getFaceList().get(i);
+					}
+				}
+				else {
+					f = rt.getFaceList().get(i);
+				}
 			}
+
 		}
 		return f;
 	}

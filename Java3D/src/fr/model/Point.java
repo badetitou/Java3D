@@ -7,6 +7,7 @@ public class Point {
 	public double y;
 	public double z;
 	public double t = 1;
+	
 	public Point(double x, double y, double z){
 		this.x=x;
 		this.y=y;

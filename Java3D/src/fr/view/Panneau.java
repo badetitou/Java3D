@@ -55,6 +55,8 @@ public class Panneau extends JPanel {
 				}
 				f = m.getParticularFace(coordMouseX,coordMouseY);
 				f.setSelected(true);
+				System.out.println("Selected Face");
+				repaint();
 			}
 
 			public void mouseEntered(MouseEvent arg0) {
