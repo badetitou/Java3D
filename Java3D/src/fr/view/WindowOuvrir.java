@@ -2,7 +2,7 @@ package fr.view;
 
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -12,6 +12,9 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.ListModel;
+
+import fr.model.OutilsBdd;
 
 public class WindowOuvrir extends JFrame {
 
@@ -41,15 +44,22 @@ public class WindowOuvrir extends JFrame {
 		public PanelOuvrir() {
 			this.setPreferredSize(new Dimension(500, 300));
 			rTag = new JTextArea();
-			rTag.setPreferredSize(new Dimension(20, 70));
-			rTag.setEditable(false);
+			rTag.setPreferredSize(new Dimension(100, 20));
+			rTag.setEditable(true);
 			nFichier = new JTextArea();
-			nFichier.setPreferredSize(new Dimension(20, 70));
-			nFichier.setEditable(false);
+			nFichier.setPreferredSize(new Dimension(100, 20));
+			nFichier.setEditable(true);
 			rAvancee = new JButton("Recherche Avancée");
 			ouvrir = new JButton("Ouvrir");
 			annuler = new JButton("Annuler");
-			bdd = new JList();
+			OutilsBdd obdd = new OutilsBdd("Database.db");
+			String[] data = obdd.getData();
+		//	String[] data = { "green", "red", "orange", "dark blue" };
+	/*		for(int i=0; i<data.length; ++i){
+				System.out.println(data[i]);
+			}
+	*/
+			bdd = new JList(data);
 			jlb1 = new JLabel();
 			jlb1.setText("Recherche par mots clés: ");
 			jlb2 = new JLabel();
@@ -80,11 +90,19 @@ public class WindowOuvrir extends JFrame {
 			this.add(ouvrir);
 			gbc.gridx = 1;
 			this.add(annuler);
-
+			
+			bdd.addMouseListener(this);
 		}
 
-		public void mouseClicked(MouseEvent arg0) {
-			// TODO Auto-generated method stub
+		public void mouseClicked(MouseEvent e) {
+			if (e.getClickCount() == 2) {
+				int index = bdd.locationToIndex(e.getPoint());
+			     ListModel dlm = bdd.getModel();
+			     Object item = dlm.getElementAt(index);;
+			     bdd.ensureIndexIsVisible(index);
+			     nFichier.setText(null);
+			     nFichier.setText((String) item);
+			}
 			
 		}
 
