@@ -162,7 +162,7 @@ public class Menu extends JMenuBar implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(mIFOuvrir)) {
 			WindowOuvrir windowO = new WindowOuvrir();
-			
+
 		}
 		else if (e.getSource().equals(mIFQuitter)){
 			int option = JOptionPane.showConfirmDialog(null, "Voulez-vous vraiment quitter?", "Quitter", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
@@ -173,6 +173,10 @@ public class Menu extends JMenuBar implements ActionListener{
 		}
 		else if (e.getSource().equals(mIFImporter)){
 			//blabla ouverture d'une fenetre pour chercher le .gts
+			JFileChooser dialogue = new JFileChooser(new File("."));
+			File fichier;
+			dialogue.showOpenDialog(null);
+			fichier = dialogue.getSelectedFile();
 			//			onglet=null;//new Onglet(new MyDeskTopPane("ressources/image/head.gts"),Window.nbOnglets+1,this.tabbedPane,nomFichier,listeOnglets);
 			final Thread t = new Thread() {
 				@Override
