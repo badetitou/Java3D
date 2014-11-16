@@ -3,10 +3,9 @@ package fr.model;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Polygon;
 import java.awt.RenderingHints;
 import java.awt.geom.GeneralPath;
-
-import fr.view.Panneau;
 
 /**
  * @author Loïc
@@ -137,17 +136,7 @@ public class Face implements Comparable<Face> {
 	}
 	
 	public boolean pointDansTriangle(Point p){
-		double s = p1.y*p3.x - p1.x*p3.y + (p3.y - p1.y)*p.x + (p1.x - p3.x)*p.y;
-		double t = p1.x * p2.y - p1.y * p2.x + (p1.y - p2.y) * p.x + (p2.x-p1.x)*p.y;
-		if ( (s<0) != (t<0)){
-			return false;
-		}
-		double a = -p2.y * p3.x + p1.y * (p3.x - p2.x) + p1.x * (p2.y - p3.y) + p2.x * p3.y;
-		if (a < 0){
-			s = -s;
-			t = -t;
-			a = -a;
-		}
-		return s>0 && t>0 && (s+t) < a;
+		Polygon poly = new Polygon (new int[]{(int) p1.x, (int) p2.x, (int) p3.x}, new int[]{(int) p1.y, (int) p2.y, (int) p3.y}, 3);
+		return poly.contains((int) p.x, (int) p.y);
 	}
 }

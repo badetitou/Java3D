@@ -223,13 +223,15 @@ public class Model {
 		coordMouseY = coordMouseY - yTranslate - d.getHeight() / 2;
 		for (int i = 0; i < rt.getFaceList().size(); ++i) {
 			if (rt.getFaceList().get(i)
-					.pointDansTriangle(new Point(coordMouseX, coordMouseY, 0))) {
+					.pointDansTriangle(new Point(coordMouseX, -coordMouseY, 0))) {
 				if (f != null) {
-					if (rt.getFaceList().get(i).compareTo(f) == 1) {
+					if (rt.getFaceList().get(i).getP1().z
+							+ rt.getFaceList().get(i).getP2().z
+							+ rt.getFaceList().get(i).getP3().z > f.getP1().z
+							+ f.getP2().z + f.getP3().z) {
 						f = rt.getFaceList().get(i);
 					}
-				}
-				else {
+				} else {
 					f = rt.getFaceList().get(i);
 				}
 			}
