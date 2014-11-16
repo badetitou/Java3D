@@ -174,15 +174,15 @@ public class Menu extends JMenuBar implements ActionListener{
 		else if (e.getSource().equals(mIFImporter)){
 			//blabla ouverture d'une fenetre pour chercher le .gts
 			JFileChooser dialogue = new JFileChooser(new File("."));
-			File fichier;
+			final File fichier;
 			dialogue.showOpenDialog(null);
 			fichier = dialogue.getSelectedFile();
 			//			onglet=null;//new Onglet(new MyDeskTopPane("ressources/image/head.gts"),Window.nbOnglets+1,this.tabbedPane,nomFichier,listeOnglets);
 			final Thread t = new Thread() {
 				@Override
 				public void run() {
-					onglet=new Onglet(new MyDeskTopPane("ressources/image/head.gts"),tabbedPane,nomFichier,listeOnglets);
-					System.out.println("cc2");
+					onglet=new Onglet(new MyDeskTopPane(fichier.getAbsolutePath()),tabbedPane,nomFichier,listeOnglets);
+					System.out.println(fichier.getAbsolutePath());
 				}
 			};
 			Thread t2=new Thread(){
