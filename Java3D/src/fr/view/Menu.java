@@ -180,12 +180,15 @@ public class Menu extends JMenuBar implements ActionListener{
 			final File fichier;
 			dialogue.showOpenDialog(null);
 			fichier = dialogue.getSelectedFile();
-			if(fichier!=null){
+			String name = fichier.getName();
+			if(name.substring(name.length()-4, name.length())!=".gts"){
+				JOptionPane.showMessageDialog(null, "Le fichier que vous avez choisi n'est pas compatible !", "Attention", JOptionPane.ERROR_MESSAGE);
+			}
+			if(fichier!=null && name.substring(name.length()-4, name.length()).equals(".gts")){
 				final Thread t = new Thread() {
 					@Override
 					public void run() {
 						onglet=new Onglet(new MyDeskTopPane(fichier.getAbsolutePath()),tabbedPane,nomFichier,listeOnglets);
-						System.out.println(fichier.getAbsolutePath());
 					}
 				};
 				Thread t2=new Thread(){
