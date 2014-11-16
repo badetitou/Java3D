@@ -1,6 +1,7 @@
 package fr.view;
 
 import java.awt.AWTException;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.Robot;
@@ -158,6 +159,7 @@ public class Menu extends JMenuBar implements ActionListener{
 		mIFOuvrir.addActionListener(this);
 		mIFQuitter.addActionListener(this);
 		mIFImporter.addActionListener(this);
+		mIFFermer.addActionListener(this);
 
 	}
 	public void actionPerformed(ActionEvent e) {
@@ -214,12 +216,17 @@ public class Menu extends JMenuBar implements ActionListener{
 						}
 						tabbedPane.addTab(nomFichier, onglet);
 						onglet.dessineOnglet();
-						Window.nbOnglets++;
+						tabbedPane.setSelectedComponent(onglet);
 					}
 				};
 				t.start();
 				t2.start();
 			}
+		}
+		else if (e.getSource().equals(mIFFermer)){
+			Component onglet=tabbedPane.getSelectedComponent();
+			tabbedPane.remove(onglet);
+			listeOnglets.remove(onglet);
 		}
 	}
 }

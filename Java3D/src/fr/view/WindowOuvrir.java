@@ -37,13 +37,13 @@ public class WindowOuvrir extends JFrame {
 		private final JButton rAvancee;
 		private final JButton ouvrir;
 		private final JButton annuler;
-		private JList bdd;
+		private final JList bdd;
 		private final JLabel jlb1;
 		private final JLabel jlb2;
-		private JFrame windowO;
-		private OutilsBdd obdd;
-		private JTabbedPane tabbedPane;
-		private ArrayList<Onglet> listeOnglets;
+		private final JFrame windowO;
+		private final OutilsBdd obdd;
+		private final JTabbedPane tabbedPane;
+		private final ArrayList<Onglet> listeOnglets;
 
 		public PanelOuvrir(JFrame windowO, JTabbedPane tabbedPane, ArrayList<Onglet> listeOnglets) {
 			this.windowO = windowO;
@@ -61,25 +61,25 @@ public class WindowOuvrir extends JFrame {
 			annuler = new JButton("Annuler");
 			obdd = new OutilsBdd("Database.db");
 			String[] data = obdd.getData();
-		//	String[] data = { "green", "red", "orange", "dark blue" };
-	/*		for(int i=0; i<data.length; ++i){
+			//	String[] data = { "green", "red", "orange", "dark blue" };
+			/*		for(int i=0; i<data.length; ++i){
 				System.out.println(data[i]);
 			}
-	*/
+			 */
 			bdd = new JList(data);
 			jlb1 = new JLabel();
 			jlb1.setText("Recherche par mots clés: ");
 			jlb2 = new JLabel();
 			jlb2.setText("Nom du fichier: ");
 
-		//	this.setLayout(new GridBagLayout());
+			//	this.setLayout(new GridBagLayout());
 			GridBagConstraints gbc = new GridBagConstraints();
 			gbc.gridx = 0;
 			gbc.gridy = 0;
 			this.add(jlb1);
 			gbc.gridx = 1;
 			this.add(rTag);
-			gbc.gridx = 2;	
+			gbc.gridx = 2;
 			gbc.gridwidth = GridBagConstraints.REMAINDER;
 			this.add(rAvancee);
 			gbc.gridx = 0;
@@ -97,7 +97,7 @@ public class WindowOuvrir extends JFrame {
 			this.add(ouvrir);
 			gbc.gridx = 1;
 			this.add(annuler);
-			
+
 			bdd.addMouseListener(this);
 			ouvrir.addMouseListener(this);
 			annuler.addMouseListener(this);
@@ -106,11 +106,11 @@ public class WindowOuvrir extends JFrame {
 		public void mouseClicked(MouseEvent e) {
 			if (e.getClickCount() == 2) {
 				int index = bdd.locationToIndex(e.getPoint());
-			     ListModel dlm = bdd.getModel();
-			     Object item = dlm.getElementAt(index);;
-			     bdd.ensureIndexIsVisible(index);
-			     nFichier.setText(null);
-			     nFichier.setText((String) item);
+				ListModel dlm = bdd.getModel();
+				Object item = dlm.getElementAt(index);;
+				bdd.ensureIndexIsVisible(index);
+				nFichier.setText(null);
+				nFichier.setText((String) item);
 			}
 			else if(e.getSource().equals(ouvrir)){
 				String ouvrir = nFichier.getText();
@@ -118,7 +118,7 @@ public class WindowOuvrir extends JFrame {
 					Onglet onglet = new Onglet(new MyDeskTopPane(obdd.getLinkFile(ouvrir)),tabbedPane,ouvrir,listeOnglets);
 					tabbedPane.addTab(ouvrir, onglet);
 					onglet.dessineOnglet();
-					Window.nbOnglets++;
+					tabbedPane.setSelectedComponent(onglet);
 					windowO.dispose();
 				}
 				else{
@@ -128,27 +128,27 @@ public class WindowOuvrir extends JFrame {
 			else if(e.getSource().equals(annuler)){
 				windowO.dispose();
 			}
-			
+
 		}
 
 		public void mouseEntered(MouseEvent arg0) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		public void mouseExited(MouseEvent arg0) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		public void mousePressed(MouseEvent arg0) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		public void mouseReleased(MouseEvent arg0) {
 			// TODO Auto-generated method stub
-			
+
 		}
 	}
 }

@@ -25,7 +25,6 @@ public class Window extends JFrame{
 	private final JPanel container;
 	public static JFrame frame;
 	private final JTabbedPane tabbedPane;
-	public static int nbOnglets=0;
 	private final ArrayList<Onglet> listeOnglets;
 
 	public Window(MyDeskTopPane dp) {

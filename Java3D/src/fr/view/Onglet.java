@@ -9,7 +9,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -72,18 +71,16 @@ public class Onglet extends JPanel implements MouseListener{
 
 	public void mouseClicked(MouseEvent e) {
 		if(e.getSource().equals(closeButon)){
-			System.out.println("fermer");
 			tabbedPane.remove(this);
 			listeOnglets.remove(this);
-			Window.nbOnglets--;
 		}
 
 	}
 	public void mouseEntered(MouseEvent arg0) {
-		closeButon.setBorder(BorderFactory.createLineBorder(new Color(150,150,150)));
+		closeButon.setIcon(new ImageIcon(new ImageIcon("ressources/icones/fermer2.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT)));
 	}
 	public void mouseExited(MouseEvent arg0) {
-		closeButon.setBorder(null);
+		closeButon.setIcon(new ImageIcon(new ImageIcon("ressources/icones/fermer.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT)));
 	}
 	public void mousePressed(MouseEvent arg0) {
 		// TODO Auto-generated method stub
