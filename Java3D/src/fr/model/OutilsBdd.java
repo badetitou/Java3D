@@ -3,8 +3,6 @@ package fr.model;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
 
@@ -40,6 +38,18 @@ public class OutilsBdd {
 			System.out.println("Erreur lors de la fermeture de la base");
 			System.out.println(e.getMessage());
 		}
+	}
+	
+	public boolean estPresent(String name) {
+		String query = "SELECT * FROM files WHERE name='"+name+"'";
+    	try {
+    		ResultSet rs = statement.executeQuery(query);
+    		return rs.next();
+    	} catch (Exception e) {
+    		System.out.println("Erreur dans getLinkFile");
+    		System.out.println(e.getMessage());
+    		return false;
+    	}
 	}
 
 	
