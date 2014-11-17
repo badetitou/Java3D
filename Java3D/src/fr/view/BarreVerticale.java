@@ -107,6 +107,7 @@ public class BarreVerticale extends JPanel implements MouseListener{
 			 * Zoom automatique laisser dans cette ordre
 			 */
 			this.dp.getModel().zoomAuto(MyDeskTopPane.dimension);
+			dp.getPanel().getSelected().setSelected(false);
 		}
 		else if(e.getSource().equals(b2) && !bb2){
 			b2.setIcon(ic7);
@@ -124,6 +125,7 @@ public class BarreVerticale extends JPanel implements MouseListener{
 			 * Zoom automatique laisser dans cette ordre
 			 */
 			this.dp.getModel().zoomAuto(MyDeskTopPane.dimmini);
+			dp.getPanel().getSelected().setSelected(false);
 		}
 		else if(e.getSource().equals(b3) && !modeEdit){
 			b3.setIcon(ic8);
@@ -141,6 +143,7 @@ public class BarreVerticale extends JPanel implements MouseListener{
 			 * Zoom automatique laisser dans cette ordre
 			 */
 			this.dp.getModel().zoomAuto(MyDeskTopPane.dimension);
+			
 		}
 
 		this.dp.getPanel().repaint();
@@ -168,6 +171,10 @@ public class BarreVerticale extends JPanel implements MouseListener{
 
 	public void setModeEdit(boolean modeEdit) {
 		this.modeEdit = modeEdit;
+	}
+	
+	public boolean getModeEdit(){
+		return modeEdit;
 	}
 
 	public boolean isBb1() {

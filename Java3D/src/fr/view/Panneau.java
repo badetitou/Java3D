@@ -21,10 +21,16 @@ public class Panneau extends JPanel {
 	private final Model m;
 	private int coordMouseX = 0;
 	private int coordMouseY = 0;
+	private Face selected = null;
+	private BarreVerticale bv;
 
+	public void setBarreVerticale(BarreVerticale bv) {
+		this.bv = bv;
+	}
 
-
-
+	public Face getSelected() {
+		return selected;
+	}
 
 	public Model getM() {
 		return m;
@@ -46,17 +52,17 @@ public class Panneau extends JPanel {
 			repaint();
 		}
 
-		this.addMouseListener(new MouseListener(){
-			Face f;
-			
+		this.addMouseListener(new MouseListener() {
+
 			public void mouseClicked(MouseEvent arg0) {
-				if (f!= null){
-					f.setSelected(false);
+				if (bv.getModeEdit()) {
+					if (selected != null) {
+						selected.setSelected(false);
+					}
+					selected = m.getParticularFace(coordMouseX, coordMouseY);
+					selected.setSelected(true);
+					repaint();
 				}
-				f = m.getParticularFace(coordMouseX,coordMouseY);
-				f.setSelected(true);
-				System.out.println("Selected Face");
-				repaint();
 			}
 
 			public void mouseEntered(MouseEvent arg0) {
@@ -91,7 +97,6 @@ public class Panneau extends JPanel {
 
 		this.addMouseMotionListener(new MouseMotionListener() {
 
-
 			public void mouseMoved(MouseEvent e) {
 				coordMouseX = e.getX();
 				coordMouseY = e.getY();
@@ -111,27 +116,26 @@ public class Panneau extends JPanel {
 							coordMouseX = e.getX();
 							coordMouseY = e.getY();
 							repaint();
-						} else if (!Barre.boolButtonX && Barre.boolButtonY) {;
-						m.rotationX(e.getX() - coordMouseX);
-						coordMouseX = e.getX();
-						coordMouseY = e.getY();
-						repaint();
-						}
-					}
-					else if (Barre.boolButtonTranslation){
-						if(Barre.boolButtonX && Barre.boolButtonY){
-							m.translation(e.getX() - coordMouseX, e.getY() - coordMouseY);
+						} else if (!Barre.boolButtonX && Barre.boolButtonY) {
+							;
+							m.rotationX(e.getX() - coordMouseX);
 							coordMouseX = e.getX();
 							coordMouseY = e.getY();
 							repaint();
 						}
-						else if (Barre.boolButtonX){
-							m.translation(e.getX() - coordMouseX,0);
+					} else if (Barre.boolButtonTranslation) {
+						if (Barre.boolButtonX && Barre.boolButtonY) {
+							m.translation(e.getX() - coordMouseX, e.getY()
+									- coordMouseY);
 							coordMouseX = e.getX();
 							coordMouseY = e.getY();
 							repaint();
-						}
-						else if (Barre.boolButtonY){
+						} else if (Barre.boolButtonX) {
+							m.translation(e.getX() - coordMouseX, 0);
+							coordMouseX = e.getX();
+							coordMouseY = e.getY();
+							repaint();
+						} else if (Barre.boolButtonY) {
 							m.translation(0, e.getY() - coordMouseY);
 							coordMouseX = e.getX();
 							coordMouseY = e.getY();

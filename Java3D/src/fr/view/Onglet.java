@@ -37,6 +37,7 @@ public class Onglet extends JPanel implements MouseListener{
 		this.setPreferredSize(new Dimension(tk.getScreenSize().height,tk.getScreenSize().width));
 
 		bv=new BarreVerticale(this.dp);
+		dp.setBarreVerticale(bv);
 		JPanel jp2=new JPanel();
 		jp2.add(bv);
 		jp2.setBackground(new Color(190,190,190));
