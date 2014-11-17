@@ -27,29 +27,35 @@ public class PanelImages extends JPanel implements MouseListener{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public static int columns=25;
 	private final JPanel galerie;
 	private final ArrayList<JLabel> images;
-	private String url="";
 	private final JButton ajouterImage;
 	private final JButton supprimerImage;
 	public static boolean boutonAjouterImage;
 	public static boolean boutonSupprimerImage;
 	private final OutilsBdd obdd;
+	private final String lien;
+	private ArrayList<String>listeImages;
 	public PanelImages(String nomFichier){
 		this.setLayout(new FlowLayout(0,20,20));
 		this.setBackground(new Color(215,215,215));
 		obdd=new OutilsBdd("Database.db");
 		galerie=new JPanel();
-		galerie.setLayout(new GridLayout((columns/7)+1,7,8,8));
+		galerie.setLayout(new GridLayout(8,7,8,8));
 		images = new ArrayList<JLabel>();
-		JLabel label;
-		for (int i=0;i< columns;i++){
-			label=new JLabel();
-			url=obdd.getLinkImg(nomFichier);
-			label.setIcon(new ImageIcon(new ImageIcon(url).getImage().getScaledInstance(Window.outil.getScreenSize().width/10, Window.outil.getScreenSize().width/10, Image.SCALE_DEFAULT)));
-			images.add(label);
-			galerie.add(images.get(i));
+		lien=obdd.getLinkImg(nomFichier);
+		listeImages=listerRepertoire(lien);
+		if(listeImages!=null){
+			JLabel label;
+			for (int i=0;i< listeImages.size();i++){
+				label=new JLabel();
+				label.setIcon(new ImageIcon(new ImageIcon(listeImages.get(i)).getImage().getScaledInstance(Window.outil.getScreenSize().width/10, Window.outil.getScreenSize().width/10, Image.SCALE_DEFAULT)));
+				images.add(label);
+				galerie.add(images.get(i));
+			}
+		}
+		else {
+			listeImages=new ArrayList<String>();
 		}
 		JScrollPane scroll = new JScrollPane(galerie);
 		scroll.setPreferredSize(new Dimension(Window.outil.getScreenSize().width-(Window.outil.getScreenSize().width/3),Window.outil.getScreenSize().height/6));
@@ -69,6 +75,33 @@ public class PanelImages extends JPanel implements MouseListener{
 		this.add(pBoutons);
 
 	}
+
+
+	public ArrayList<String> listerRepertoire(String lien){
+		File repertoire=new File(lien);
+		String [] listefichiers;
+		ArrayList<String> listeImages=new ArrayList<String>();
+		int i;
+		if(repertoire.list()!=null){
+			listefichiers=repertoire.list();
+			for(i=0;i<listefichiers.length;i++){
+				if(listefichiers[i].endsWith(".jpg") || listefichiers[i].endsWith(".jpeg") || listefichiers[i].endsWith(".png")){
+					listeImages.add(listefichiers[i]);
+				}
+			}
+			return listeImages;
+		}
+		return null;
+	}
+
+	public void dessinerImages(String path){
+		JLabel l=new JLabel();
+		l.setIcon(new ImageIcon(new ImageIcon(path).getImage().getScaledInstance(Window.outil.getScreenSize().width/10, Window.outil.getScreenSize().width/10, Image.SCALE_DEFAULT)));
+		images.add(l);
+		galerie.add(images.get(images.size()-1));
+		this.revalidate();
+	}
+
 	public void mouseClicked(MouseEvent e) {
 		JFileChooser dialogue = new JFileChooser(new File("."));
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("Fichier Image","png","jpg","jpeg");
@@ -79,8 +112,12 @@ public class PanelImages extends JPanel implements MouseListener{
 		if(fichier!=null){
 			String name = fichier.getName();
 			name=name.substring(name.length()-4, name.length());
-			if(name.compareToIgnoreCase(".png")!=0 || name.compareToIgnoreCase(".jpg")!=0){
+			if(name.compareTo(".png")!=0 && name.compareTo(".jpg")!=0 && name.compareTo(".jpeg")!=0){
 				JOptionPane.showMessageDialog(null, "Le fichier que vous avez choisi n'est pas compatible !\nLes formats supportés sont le JPEG et le PNG.", "Attention", JOptionPane.ERROR_MESSAGE);
+			}
+			else {
+				listeImages.add(fichier.getPath());
+				dessinerImages(fichier.getPath());
 			}
 		}
 	}
