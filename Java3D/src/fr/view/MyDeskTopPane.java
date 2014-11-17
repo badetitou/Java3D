@@ -57,7 +57,7 @@ public class MyDeskTopPane extends JDesktopPane {
 
 	public MyDeskTopPane(String url) {
 		Toolkit tk = getToolkit();
-		dimension = new Dimension(tk.getScreenSize().width / 2,tk.getScreenSize().height / 2);
+		dimension = new Dimension(tk.getScreenSize().width / 2-50,tk.getScreenSize().height / 2-50);
 		dimmini = new Dimension(dimension.height / 2, dimension.height / 2);
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
