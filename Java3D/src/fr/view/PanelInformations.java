@@ -33,12 +33,12 @@ public class PanelInformations extends JPanel {
 
 	public PanelInformations(String nomFichier){
 		this.setBackground(new Color(215,215,215));
-		this.setLayout(new FlowLayout(0,30,30));
+		this.setLayout(new FlowLayout(0,30,20));
 		obdd=new OutilsBdd("Database.db");
 
 		JPanel panelInfo = new JPanel();
 		panelInfo.setLayout(new GridLayout(3,3,15,0));
-		panelInfo.setPreferredSize(new Dimension(Window.outil.getScreenSize().width-500,Window.outil.getScreenSize().height/6));
+		panelInfo.setPreferredSize(new Dimension(Window.outil.getScreenSize().width-(Window.outil.getScreenSize().width/3),Window.outil.getScreenSize().height/6));
 
 		nomObjet=new JLabel("Nom de l'objet : "+nomFichier);
 		font = nomObjet.getFont();

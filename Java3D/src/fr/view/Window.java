@@ -53,6 +53,6 @@ public class Window extends JFrame{
 		this.setJMenuBar(new Menu(tabbedPane,listeOnglets));
 		this.getContentPane().add(container);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.pack();
+		//this.pack();
 	}
 }

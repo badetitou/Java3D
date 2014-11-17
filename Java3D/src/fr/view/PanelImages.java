@@ -52,7 +52,7 @@ public class PanelImages extends JPanel implements MouseListener{
 			galerie.add(images.get(i));
 		}
 		JScrollPane scroll = new JScrollPane(galerie);
-		scroll.setPreferredSize(new Dimension(Window.outil.getScreenSize().width-500,Window.outil.getScreenSize().height/6));
+		scroll.setPreferredSize(new Dimension(Window.outil.getScreenSize().width-(Window.outil.getScreenSize().width/3),Window.outil.getScreenSize().height/6));
 
 		ajouterImage=new JButton("Ajouter une image");
 		supprimerImage=new JButton("Supprimer une image");
@@ -76,10 +76,12 @@ public class PanelImages extends JPanel implements MouseListener{
 		final File fichier;
 		dialogue.showOpenDialog(null);
 		fichier = dialogue.getSelectedFile();
-		String name = fichier.getName();
-		name=name.substring(name.length()-4, name.length());
-		if(name.compareToIgnoreCase(".png")!=0 || name.compareToIgnoreCase(".jpg")!=0){
-			JOptionPane.showMessageDialog(null, "Le fichier que vous avez choisi n'est pas compatible !\nLes formats supportés sont le JPEG et le PNG.", "Attention", JOptionPane.ERROR_MESSAGE);
+		if(fichier!=null){
+			String name = fichier.getName();
+			name=name.substring(name.length()-4, name.length());
+			if(name.compareToIgnoreCase(".png")!=0 || name.compareToIgnoreCase(".jpg")!=0){
+				JOptionPane.showMessageDialog(null, "Le fichier que vous avez choisi n'est pas compatible !\nLes formats supportés sont le JPEG et le PNG.", "Attention", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 	}
 	public void mouseEntered(MouseEvent arg0) {

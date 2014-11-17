@@ -31,12 +31,12 @@ public class PanelDescription extends JPanel implements MouseListener{
 	private final JLabel label;
 	private final OutilsBdd obdd;
 	public PanelDescription(String nomFichier){
-		this.setLayout(new FlowLayout(0,30,30));
+		this.setLayout(new FlowLayout(0,30,20));
 		this.setBackground(new Color(215,215,215));
 		obdd=new OutilsBdd("Database.db");
 
 		textArea=new JTextArea(obdd.getDesc(nomFichier));
-		textArea.setPreferredSize(new Dimension(Window.outil.getScreenSize().width-500,Window.outil.getScreenSize().height/6));
+		textArea.setPreferredSize(new Dimension(Window.outil.getScreenSize().width-(Window.outil.getScreenSize().width/3),Window.outil.getScreenSize().height/6));
 		textArea.setEditable(false);
 		textArea.setBackground(new Color(230,230,230));
 		Border border = BorderFactory.createLineBorder(new Color(190,190,190));

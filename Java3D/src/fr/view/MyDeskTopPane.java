@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Toolkit;
-import java.awt.image.BufferedImage;
 
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
@@ -29,8 +28,6 @@ public class MyDeskTopPane extends JDesktopPane {
 	private final JInternalFrame iFrameDessous;
 	private final JInternalFrame iFrameProfil;
 	private final Panneau panel;
-	private BufferedImage screen;
-
 	public void setBarreVerticale(BarreVerticale b) {
 		panel.setBarreVerticale(b);
 	}
@@ -60,16 +57,14 @@ public class MyDeskTopPane extends JDesktopPane {
 
 	public MyDeskTopPane(String url) {
 		Toolkit tk = getToolkit();
-		dimension = new Dimension(tk.getScreenSize().height / 2,
-				tk.getScreenSize().height / 2);
+		dimension = new Dimension(tk.getScreenSize().width / 2,tk.getScreenSize().height / 2);
 		dimmini = new Dimension(dimension.height / 2, dimension.height / 2);
-		this.setPreferredSize(new Dimension(800, 800));
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
 		panel = new Panneau(new Model(url, 0, dimension));
 
 		iFrameMain = new JInternalFrame("Vue principale", // le titre de la
-															// fenêtre
+				// fenêtre
 				true, // true si la fenêtre est retaillable
 				false, // true si la fenêtre est fermable
 				true, // true si la fenêtre est maximisable

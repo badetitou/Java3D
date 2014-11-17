@@ -54,7 +54,7 @@ public class Onglet extends JPanel implements MouseListener{
 		JPanel p1=new JPanel();
 		p1.setOpaque(false);
 		listeOnglets.add(this);
-		ic = new JLabel(new ImageIcon(new ImageIcon("ressources/screenshot0"+rechercheOnglet()+".png").getImage().getScaledInstance(26, 26, Image.SCALE_DEFAULT)));
+		ic = new JLabel(new ImageIcon(new ImageIcon("ressources/icones/iconeFichier.png").getImage().getScaledInstance(26, 26, Image.SCALE_DEFAULT)));
 		JLabel lbTitle=new JLabel(nomFichier);
 		p1.add(ic);
 		p1.add(lbTitle);
