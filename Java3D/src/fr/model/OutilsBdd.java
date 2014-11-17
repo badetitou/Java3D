@@ -105,6 +105,18 @@ public class OutilsBdd {
 		}
 		this.close();
 	}
+	
+	public void updateFile(String name, String desc, Date dateLastModif, int nbrOpen, int nbrImg, int nbrModif, String linkImg, int size) {
+		this.connect();
+		String dateM=dateLastModif.getYear()+"-"+dateLastModif.getMonth()+"-"+dateLastModif.getDay();
+		String requet = "UPDATE files SET desc='"
+				+ desc +"',lastModifDate='"
+				+ dateM +"',nbrOpen='"
+				+ nbrOpen +"',nbrImg='"
+				+ nbrImg +"',nbrModif='"
+				+ nbrModif+"'linkImg='"
+				+ linkImg+"' WHERE name='"+name+"'";
+	}
 
 	public void addTag(String tag, String file) {
 		this.connect();
@@ -203,9 +215,9 @@ public class OutilsBdd {
 		}
 	}
 
-	public int getnbrOppen (String name) {
+	public int getnbrOpen (String name) {
 		this.connect();
-		String query = "SELECT nbrOppen FROM files WHERE name='"+name+"'";
+		String query = "SELECT nbrOpen FROM files WHERE name='"+name+"'";
 		try {
 			ResultSet rs = statement.executeQuery(query);
 			int nb=rs.getInt(1);
