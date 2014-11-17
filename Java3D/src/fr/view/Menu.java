@@ -1,15 +1,11 @@
 package fr.view;
 
-import java.awt.AWTException;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Rectangle;
-import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -189,38 +185,15 @@ public class Menu extends JMenuBar implements ActionListener{
 				JOptionPane.showMessageDialog(null, "Le fichier que vous avez choisi n'est pas compatible !", "Attention", JOptionPane.ERROR_MESSAGE);
 			}
 			if(fichier!=null && name.substring(name.length()-4, name.length()).equals(".gts")){
-				final Thread t = new Thread() {
-					@Override
-					public void run() {
-						onglet=new Onglet(new MyDeskTopPane(fichier.getAbsolutePath()),tabbedPane,nomFichier,listeOnglets);
-					}
-				};
-				Thread t2=new Thread(){
-					@Override
-					public void run() {
-						while(t.isAlive()){
-							try {
-								this.sleep(10);
-							} catch (InterruptedException e) {}
-						}
-						System.out.println("cc3");
-						try {
-							this.sleep(50);
-						} catch (InterruptedException e) {}
-						BufferedImage screen=null;
-						try {
-							screen = new Robot().createScreenCapture(new Rectangle((int)Window.outil.getScreenSize().getWidth()/3-35,(int)Window.outil.getScreenSize().getHeight()/5-2,(int)MyDeskTopPane.dimension.getWidth()-35,(int)MyDeskTopPane.dimension.getHeight()-35));
-						} catch (AWTException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						tabbedPane.addTab(nomFichier, onglet);
-						onglet.dessineOnglet();
-						tabbedPane.setSelectedComponent(onglet);
-					}
-				};
-				t.start();
-				t2.start();
+				if(listeOnglets.size()+1<=5){
+					onglet=new Onglet(new MyDeskTopPane(fichier.getAbsolutePath()),tabbedPane,nomFichier,listeOnglets);
+					tabbedPane.addTab(nomFichier, onglet);
+					onglet.dessineOnglet();
+					tabbedPane.setSelectedComponent(onglet);
+				}
+				else{
+					JOptionPane.showMessageDialog(null, "Trop d'onglets sont ouverts, fermez des onglets puis reessayer !", "Attention", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		}
 		else if (e.getSource().equals(mIFFermer)){
