@@ -39,6 +39,7 @@ public class PanelImages extends JPanel implements MouseListener{
 	private pImage p;
 	private boolean estSelectionne;
 	private pImage imageSelection;
+	private int nbImages;
 	public PanelImages(String nomFichier){
 		this.setLayout(new FlowLayout(0,20,20));
 		this.setBackground(new Color(215,215,215));
@@ -51,6 +52,7 @@ public class PanelImages extends JPanel implements MouseListener{
 			JLabel label;
 			for (int i=0;i< listeImages.size();i++){
 				dessinerImages(listeImages.get(i));
+				nbImages++;
 			}
 		}
 		else {
@@ -119,6 +121,7 @@ public class PanelImages extends JPanel implements MouseListener{
 				else {
 					listeImages.add(fichier.getPath());
 					dessinerImages(fichier.getPath());
+					nbImages++;
 				}
 			}
 		}
@@ -126,8 +129,14 @@ public class PanelImages extends JPanel implements MouseListener{
 		if (e.getSource().equals(supprimerImage)){
 			galerie.remove(imageSelection);
 			listeImages.remove(imageSelection);
+			nbImages--;
 			this.repaint();
 			this.revalidate();
+			System.out.println(listeImages.size());
+			if(nbImages==0){
+				this.estSelectionne=false;
+				this.supprimerImage.setEnabled(false);
+			}
 		}
 
 		if(e.getSource().equals(p)){
