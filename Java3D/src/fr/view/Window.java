@@ -10,6 +10,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import fr.model.OutilsBdd;
+
 
 /**
  * 
@@ -36,11 +38,13 @@ public class Window extends JFrame{
 		this.setSize(outil.getScreenSize());
 		this.setResizable(false);
 		this.setState(Frame.NORMAL);
+		OutilsBdd obdd=new OutilsBdd("Database.db");
 
 		//onglets
 		listeOnglets=new ArrayList<Onglet>();
 		tabbedPane = new JTabbedPane();
-		Onglet onglet=new Onglet(dp,tabbedPane,"icosa","",false,listeOnglets);
+		String objet=obdd.getLastFiles();
+		Onglet onglet=new Onglet(dp,tabbedPane,objet,obdd.getAuthor(objet),false,listeOnglets);
 		tabbedPane.addTab("Icosa", onglet);
 		onglet.dessineOnglet();
 
