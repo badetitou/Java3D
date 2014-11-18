@@ -152,12 +152,15 @@ public class OutilsBdd {
 	}
 	
 	public void setLinkFile (String link, String name) {
-    	String req = "UPDATE files SET linkFile = "+link+" WHERE name='"+name+"'";
+		this.connect();
+		String req = "UPDATE files SET linkFile = "+link+" WHERE name='"+name+"'";
     	try {
     		statement.executeUpdate(req);
+			this.close();
     	} catch (Exception e) {
     		System.out.println("Erreur dans setLinkFile");
     		System.out.println(e.getMessage());    		
+			this.close();
     	}
     }
 	
@@ -178,12 +181,15 @@ public class OutilsBdd {
 	}
 	
 	public void setDesc (String desc, String name) {
+		this.connect();
     	String req = "UPDATE files SET desc = "+desc+" WHERE name='"+name+"'";
     	try {
     		statement.executeUpdate(req);
+			this.close();
     	} catch (Exception e) {
     		System.out.println("Erreur dans setDesc");
     		System.out.println(e.getMessage());    		
+			this.close();
     	}
     }
 
@@ -205,12 +211,15 @@ public class OutilsBdd {
 	}
 	
 	public void setAuthor (String author, String name) {
+		this.connect();
     	String req = "UPDATE files SET author = "+author+" WHERE name='"+name+"'";
     	try {
     		statement.executeUpdate(req);
+			this.close();
     	} catch (Exception e) {
     		System.out.println("Erreur dans setAuthor");
     		System.out.println(e.getMessage());    		
+			this.close();
     	}
     }
 
@@ -232,13 +241,16 @@ public class OutilsBdd {
 	}
 	
 	public void setDateAdd (String name) {
+		this.connect();
 		Calendar rightNow = Calendar.getInstance();
     	String req = "UPDATE files SET addDate = '"+rightNow.get(Calendar.YEAR)+"-"+rightNow.get(Calendar.MONTH)+"-"+rightNow.get(Calendar.DAY_OF_MONTH)+"' WHERE name='"+name+"'";
     	try {
     		statement.executeUpdate(req);
+			this.close();
     	} catch (Exception e) {
     		System.out.println("Erreur dans setDateAdd");
     		System.out.println(e.getMessage());    		
+			this.close();
     	}
     }
 
@@ -260,13 +272,16 @@ public class OutilsBdd {
 	}
 
 	public void setDateLastModif (String name) {
+		this.connect();
 		Calendar rightNow = Calendar.getInstance();
     	String req = "UPDATE files SET lastModifDate = '"+rightNow.get(Calendar.YEAR)+"-"+rightNow.get(Calendar.MONTH)+"-"+rightNow.get(Calendar.DAY_OF_MONTH)+"' WHERE name='"+name+"'";
     	try {
     		statement.executeUpdate(req);
+			this.close();
     	} catch (Exception e) {
     		System.out.println("Erreur dans setDateLastModif");
     		System.out.println(e.getMessage());    		
+			this.close();
     	}
     }
 	
@@ -287,12 +302,15 @@ public class OutilsBdd {
 	}
 
 	public void setNbrOpen (int i, String name) {
+		this.connect();
     	String req = "UPDATE files SET nbrOpen = "+i+" WHERE name='"+name+"'";
     	try {
     		statement.executeUpdate(req);
+			this.close();
     	} catch (Exception e) {
     		System.out.println("Erreur dans setNbrOpen");
     		System.out.println(e.getMessage());    		
+			this.close();
     	}
     }
 	
@@ -313,12 +331,15 @@ public class OutilsBdd {
 	}
 
 	public void setNbrImg (int i, String name) {
+		this.connect();
     	String req = "UPDATE files SET nbrImg = "+i+" WHERE name='"+name+"'";
     	try {
     		statement.executeUpdate(req);
+			this.close();
     	} catch (Exception e) {
     		System.out.println("Erreur dans setNbrImg");
     		System.out.println(e.getMessage());    		
+			this.close();
     	}
     }
 	
@@ -339,12 +360,15 @@ public class OutilsBdd {
 	}
 
 	public void setNbrModif (int i, String name) {
+		this.connect();
     	String req = "UPDATE files SET nbrModif = "+i+" WHERE name='"+name+"'";
     	try {
     		statement.executeUpdate(req);
+			this.close();
     	} catch (Exception e) {
     		System.out.println("Erreur dans setNbrModif");
     		System.out.println(e.getMessage());    		
+			this.close();
     	}
     }
 	
@@ -365,12 +389,15 @@ public class OutilsBdd {
 	}
 	
 	public void setLinkImg (String link, String name) {
+		this.connect();
     	String req = "UPDATE files SET linkImg = "+link+" WHERE name='"+name+"'";
     	try {
     		statement.executeUpdate(req);
+			this.close();
     	} catch (Exception e) {
     		System.out.println("Erreur dans setLinkImg");
     		System.out.println(e.getMessage());    		
+			this.close();
     	}
     }
 
@@ -391,12 +418,15 @@ public class OutilsBdd {
 	}
 
 	public void setSize (int i, String name) {
+		this.connect();
     	String req = "UPDATE files SET size = "+i+" WHERE name='"+name+"'";
     	try {
     		statement.executeUpdate(req);
+			this.close();
     	} catch (Exception e) {
     		System.out.println("Erreur dans setSize");
     		System.out.println(e.getMessage());    		
+			this.close();
     	}
     }
 	
