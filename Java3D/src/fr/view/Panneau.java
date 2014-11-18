@@ -8,6 +8,8 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JPanel;
 
@@ -30,6 +32,16 @@ public class Panneau extends JPanel {
 	private Graphics buffer;
 	private Image image;
 
+	public List<Face> getAllSelectedFace(){
+		List<Face> lf = new ArrayList<Face>();
+		for (int i = 0;i<m.getFace().size();++i){
+			if(m.getFace().get(i).isSelected()){
+				lf.add(m.getFace().get(i));
+			}
+		}
+		return lf;
+	}
+	
 	public RenderingThread getRenderingThread() {
 		return renderingThread;
 	}

@@ -4,10 +4,12 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Toolkit;
+import java.util.List;
 
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 
+import fr.model.Face;
 import fr.model.Model;
 
 /**
@@ -50,6 +52,10 @@ public class MyDeskTopPane extends JDesktopPane {
 
 	public Panneau getPanel() {
 		return panel;
+	}
+	
+	public List<Face> getListeFaceSelectionne(){
+		return this.panel.getAllSelectedFace();
 	}
 
 	public static Dimension dimension;
