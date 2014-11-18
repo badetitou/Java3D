@@ -109,12 +109,12 @@ public class OutilsBdd {
 	
 	public String getLastFiles () {
 		this.connect();
-		String query = "SELECT linkFile FROM files ORDER BY lastModifDate ASC";
+		String query = "SELECT name FROM files ORDER BY lastModifDate DESC";
 		try {
 			ResultSet rs = statement.executeQuery(query);
-			String lien = rs.getString(1);
+			String name = rs.getString(1);
 			this.close();
-			return lien;
+			return name;
 		} catch (Exception e) {
 			System.out.println("Erreur dans getLinkFile");
 			System.out.println(e.getMessage());
