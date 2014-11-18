@@ -22,7 +22,6 @@ public class Panneau extends JPanel {
 	private final Model m;
 	private int coordMouseX = 0;
 	private int coordMouseY = 0;
-	private Face selected = null;
 	private BarreVerticale bv;
 	/*
 	 * Graphics Buffering
@@ -37,10 +36,6 @@ public class Panneau extends JPanel {
 
 	public void setBarreVerticale(BarreVerticale bv) {
 		this.bv = bv;
-	}
-
-	public Face getSelected() {
-		return selected;
 	}
 
 	public Model getM() {
@@ -68,12 +63,14 @@ public class Panneau extends JPanel {
 			this.addMouseListener(new MouseListener() {
 				public void mouseClicked(MouseEvent arg0) {
 					if (bv.getModeEdit()) {
-						if (selected != null) {
-							selected.setSelected(false);
-						}
-						selected = m
+						Face selected = m
 								.getParticularFace(coordMouseX, coordMouseY);
-						selected.setSelected(true);
+						if (selected != null){
+							if (selected.isSelected())
+								selected.setSelected(false);
+							else
+								selected.setSelected(true);
+						}
 					}
 				}
 

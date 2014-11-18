@@ -50,6 +50,10 @@ public class Face implements Comparable<Face> {
 	public void setSelected(boolean b){
 		this.selected = b;
 	}
+	
+	public boolean isSelected(){
+		return selected;
+	}
 
 	@Override
 	public String toString() {

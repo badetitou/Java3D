@@ -45,7 +45,6 @@ public class ProgressBar extends JPanel{
 	}
 
 	private void startProgressBar() {
-		System.out.println("cc");
 		t = new Thread() {
 
 			@Override
@@ -54,7 +53,6 @@ public class ProgressBar extends JPanel{
 			}
 		};
 		t.start();
-		System.out.println("cc2");
 		t2=new Thread(){
 			@Override
 			public void run() {
@@ -65,7 +63,6 @@ public class ProgressBar extends JPanel{
 				}
 				ss.dispose();
 				new Window(dp);
-				System.out.println("cc3");
 			}
 		};
 		t2.start();
