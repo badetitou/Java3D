@@ -18,12 +18,12 @@ public class PanelBdd extends JPanel{
 	private final JPanel informations;
 	private final JPanel images;
 	private final JPanel realisations;
-	public PanelBdd(String nomFichier,String nomAuteur){
+	public PanelBdd(String nomFichier,String nomAuteur,boolean nouveau){
 		this.setLayout(new CardLayout());
 		Toolkit tk=getToolkit();
 		this.setPreferredSize(new Dimension(tk.getScreenSize().height,tk.getScreenSize().width/6));
 		description=new PanelDescription(nomFichier);
-		informations = new PanelInformations(nomFichier,nomAuteur);
+		informations = new PanelInformations(nomFichier,nomAuteur,nouveau);
 		images=new PanelImages(nomFichier);
 		realisations=new PanelRealisations(nomFichier);
 		JTabbedPane tabbedPane = new JTabbedPane();

@@ -193,11 +193,17 @@ public class Menu extends JMenuBar implements ActionListener{
 					list.add("Nom auteur : \n");
 					list.add(j1);
 					list.add("Nom objet : \n");
+					list.add(j2);
 
-					String nomObjet=JOptionPane.showInputDialog(null, list.toArray(),"Saisissez les champs",JOptionPane.INFORMATION_MESSAGE);
-					nomFichier=nomObjet;
-
-					onglet=new Onglet(new MyDeskTopPane(fichier.getAbsolutePath()),tabbedPane,nomFichier,j1.getText(),listeOnglets);
+					JOptionPane.showMessageDialog(null, list.toArray(),"Saisissez les champs",JOptionPane.INFORMATION_MESSAGE);
+					if(j2.getText().isEmpty() || j1.getText().isEmpty())
+						list.add("les champs sont obligatoires");
+					while(j2.getText().isEmpty() || j1.getText().isEmpty()){
+						JOptionPane.showMessageDialog(null, list.toArray(),"Saisissez les champs",JOptionPane.INFORMATION_MESSAGE);
+					}
+					String nomAuteur=j1.getText();
+					nomFichier=j2.getText();
+					onglet=new Onglet(new MyDeskTopPane(fichier.getAbsolutePath()),tabbedPane,nomFichier,nomAuteur,true,listeOnglets);
 					tabbedPane.addTab(nomFichier, onglet);
 					onglet.dessineOnglet();
 					tabbedPane.setSelectedComponent(onglet);

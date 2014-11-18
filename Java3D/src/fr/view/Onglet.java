@@ -26,11 +26,9 @@ public class Onglet extends JPanel implements MouseListener{
 	private final String nomFichier;
 	private JLabel ic;
 	private final ArrayList<Onglet>listeOnglets;
-	private String nomAuteur;
-	public Onglet(MyDeskTopPane dp, JTabbedPane tabbedPane,String nomFichier,String nomAuteur,ArrayList<Onglet>listeOnglets){
+	public Onglet(MyDeskTopPane dp, JTabbedPane tabbedPane,String nomFichier,String nomAuteur,boolean nouveau,ArrayList<Onglet>listeOnglets){
 		this.listeOnglets=listeOnglets;
 		this.dp=dp;
-		this.nomAuteur=nomAuteur;
 		this.tabbedPane=tabbedPane;
 		this.nomFichier=nomFichier;
 		//tabbedPane.setSelectedIndex(rechercheOnglet());
@@ -46,7 +44,7 @@ public class Onglet extends JPanel implements MouseListener{
 		this.add(dp,BorderLayout.CENTER);
 		this.add(jp2,BorderLayout.WEST);
 		this.add(new PanelEdit(this.dp,bv),BorderLayout.EAST);
-		this.add(new PanelBdd(nomFichier,nomAuteur),BorderLayout.SOUTH);
+		this.add(new PanelBdd(nomFichier,nomAuteur,nouveau),BorderLayout.SOUTH);
 
 	}
 

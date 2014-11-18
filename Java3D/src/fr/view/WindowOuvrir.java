@@ -115,7 +115,7 @@ public class WindowOuvrir extends JFrame {
 			else if(e.getSource().equals(ouvrir)){
 				String ouvrir = nFichier.getText();
 				if(obdd.estPresent(ouvrir)){
-					Onglet onglet = new Onglet(new MyDeskTopPane(obdd.getLinkFile(ouvrir)),tabbedPane,ouvrir,obdd.getAuthor(ouvrir),listeOnglets);
+					Onglet onglet = new Onglet(new MyDeskTopPane(obdd.getLinkFile(ouvrir)),tabbedPane,ouvrir,obdd.getAuthor(ouvrir),false,listeOnglets);
 					tabbedPane.addTab(ouvrir, onglet);
 					onglet.dessineOnglet();
 					tabbedPane.setSelectedComponent(onglet);

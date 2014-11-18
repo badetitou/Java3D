@@ -6,6 +6,8 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -31,7 +33,7 @@ public class PanelInformations extends JPanel {
 
 	private Font font;
 
-	public PanelInformations(String nomFichier,String nomAuteur){
+	public PanelInformations(String nomFichier,String nomAuteur,boolean nouveau){
 		this.setBackground(new Color(215,215,215));
 		this.setLayout(new FlowLayout(0,30,20));
 		obdd=new OutilsBdd("Database.db");
@@ -50,7 +52,16 @@ public class PanelInformations extends JPanel {
 		auteur.setFont(new Font(font.getFontName(), Font.BOLD, font.getSize()));
 		auteur.setIcon(new ImageIcon(new ImageIcon("ressources/icones/iconesInformations/auteur.png").getImage().getScaledInstance(size, size, Image.SCALE_DEFAULT)));
 
-		dateAjout=new JLabel("Date d'ajout : "+obdd.getDateAdd(nomFichier));
+		String dateAjoutt="";
+		if(nouveau){
+			String format = "yyyy-dd-mm";
+			SimpleDateFormat formater = new SimpleDateFormat( format );
+			dateAjoutt=formater.format(new Date());
+		}
+		else
+			dateAjoutt=obdd.getDateAdd(nomFichier);
+
+		dateAjout=new JLabel("Date d'ajout : "+dateAjoutt);
 		font = dateAjout.getFont();
 		dateAjout.setFont(new Font(font.getFontName(), Font.BOLD, font.getSize()));
 		dateAjout.setIcon(new ImageIcon(new ImageIcon("ressources/icones/iconesInformations/dateAjout.png").getImage().getScaledInstance(size,size, Image.SCALE_DEFAULT)));
@@ -60,7 +71,7 @@ public class PanelInformations extends JPanel {
 		derniereModif.setFont(new Font(font.getFontName(), Font.BOLD, font.getSize()));
 		derniereModif.setIcon(new ImageIcon(new ImageIcon("ressources/icones/iconesInformations/derniereModif.png").getImage().getScaledInstance(size, size, Image.SCALE_DEFAULT)));
 
-		nbChargements=new JLabel("Nombre de chargements : "+obdd.getnbrOpen(nomFichier));
+		nbChargements=new JLabel("Nombre de chargements : "+obdd.getnbrOpen(nomFichier)+1);
 		font = nbChargements.getFont();
 		nbChargements.setFont(new Font(font.getFontName(), Font.BOLD, font.getSize()));
 		nbChargements.setIcon(new ImageIcon(new ImageIcon("ressources/icones/iconesInformations/nbChargements.png").getImage().getScaledInstance(size, size, Image.SCALE_DEFAULT)));
