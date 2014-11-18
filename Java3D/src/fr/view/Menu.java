@@ -15,6 +15,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -52,7 +53,7 @@ public class Menu extends JMenuBar implements ActionListener{
 
 	private final JTabbedPane tabbedPane;
 
-	private final String nomFichier="new";
+	private String nomFichier="UNNAME";
 	private Onglet onglet;
 
 	private final ArrayList<Onglet>listeOnglets;
@@ -186,7 +187,17 @@ public class Menu extends JMenuBar implements ActionListener{
 			}
 			if(fichier!=null && name.substring(name.length()-4, name.length()).equals(".gts")){
 				if(listeOnglets.size()+1<=5){
-					onglet=new Onglet(new MyDeskTopPane(fichier.getAbsolutePath()),tabbedPane,nomFichier,listeOnglets);
+					JTextField j1=new JTextField();
+					JTextField j2=new JTextField();
+					ArrayList list = new ArrayList();
+					list.add("Nom auteur : \n");
+					list.add(j1);
+					list.add("Nom objet : \n");
+
+					String nomObjet=JOptionPane.showInputDialog(null, list.toArray(),"Saisissez les champs",JOptionPane.INFORMATION_MESSAGE);
+					nomFichier=nomObjet;
+
+					onglet=new Onglet(new MyDeskTopPane(fichier.getAbsolutePath()),tabbedPane,nomFichier,j1.getText(),listeOnglets);
 					tabbedPane.addTab(nomFichier, onglet);
 					onglet.dessineOnglet();
 					tabbedPane.setSelectedComponent(onglet);

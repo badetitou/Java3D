@@ -1,12 +1,8 @@
 package fr.view;
 
-import java.awt.AWTException;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.Rectangle;
-import java.awt.Robot;
-import java.awt.image.BufferedImage;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -49,6 +45,7 @@ public class ProgressBar extends JPanel{
 	}
 
 	private void startProgressBar() {
+		System.out.println("cc");
 		t = new Thread() {
 
 			@Override
@@ -57,6 +54,7 @@ public class ProgressBar extends JPanel{
 			}
 		};
 		t.start();
+		System.out.println("cc2");
 		t2=new Thread(){
 			@Override
 			public void run() {
@@ -67,19 +65,7 @@ public class ProgressBar extends JPanel{
 				}
 				ss.dispose();
 				new Window(dp);
-
-				try {
-					this.sleep(50);
-				} catch (InterruptedException e) {}
-				BufferedImage screen=null;
-				try {
-					//System.out.println(Window.outil.getScreenSize());
-					screen = new Robot().createScreenCapture(new Rectangle((int)Window.outil.getScreenSize().getWidth()/3-35,(int)Window.outil.getScreenSize().getHeight()/5-2,(int)MyDeskTopPane.dimension.getWidth()-35,(int)MyDeskTopPane.dimension.getHeight()-35));
-				} catch (AWTException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				//ImageIO.write(screen, "png", new File("ressources/screenshot00.png"));
+				System.out.println("cc3");
 			}
 		};
 		t2.start();

@@ -31,7 +31,7 @@ public class PanelInformations extends JPanel {
 
 	private Font font;
 
-	public PanelInformations(String nomFichier){
+	public PanelInformations(String nomFichier,String nomAuteur){
 		this.setBackground(new Color(215,215,215));
 		this.setLayout(new FlowLayout(0,30,20));
 		obdd=new OutilsBdd("Database.db");
@@ -45,7 +45,7 @@ public class PanelInformations extends JPanel {
 		nomObjet.setFont(new Font(font.getFontName(), Font.BOLD, font.getSize()));
 		nomObjet.setIcon(new ImageIcon(new ImageIcon("ressources/icones/iconesInformations/nomObjet.png").getImage().getScaledInstance(size, size, Image.SCALE_DEFAULT)));
 
-		auteur=new JLabel("Nom auteur : "+obdd.getAuthor(nomFichier));
+		auteur=new JLabel("Nom auteur : "+nomAuteur);
 		font = auteur.getFont();
 		auteur.setFont(new Font(font.getFontName(), Font.BOLD, font.getSize()));
 		auteur.setIcon(new ImageIcon(new ImageIcon("ressources/icones/iconesInformations/auteur.png").getImage().getScaledInstance(size, size, Image.SCALE_DEFAULT)));
