@@ -47,7 +47,9 @@ public class PanelImages extends JPanel implements MouseListener{
 		galerie=new JPanel();
 		galerie.setLayout(new FlowLayout(0,15,2));
 		lien=obdd.getLinkImg(nomFichier);
+		//System.out.println(lien);
 		listeImages=listerRepertoire(lien);
+		//System.out.println(listeImages.toString());
 		listePanels=new ArrayList<PImage>();
 		if(listeImages!=null){
 			JLabel label;
@@ -90,7 +92,7 @@ public class PanelImages extends JPanel implements MouseListener{
 			listefichiers=repertoire.list();
 			for(i=0;i<listefichiers.length;i++){
 				if(listefichiers[i].endsWith(".jpg") || listefichiers[i].endsWith(".jpeg") || listefichiers[i].endsWith(".png")){
-					listeImages.add(listefichiers[i]);
+					listeImages.add(lien+"/"+listefichiers[i]);
 				}
 			}
 			return listeImages;
@@ -172,7 +174,7 @@ public class PanelImages extends JPanel implements MouseListener{
 		public void dessinerP(){
 			l=new JLabel();
 			this.addMouseListener(this);
-			l.setIcon(new ImageIcon(new ImageIcon(path).getImage().getScaledInstance(Window.outil.getScreenSize().width/12, Window.outil.getScreenSize().width/12, Image.SCALE_DEFAULT)));
+			l.setIcon(new ImageIcon(new ImageIcon(path).getImage().getScaledInstance(Window.outil.getScreenSize().width/13, Window.outil.getScreenSize().width/13, Image.SCALE_DEFAULT)));
 			this.add(l);
 			this.setBorder(BorderFactory.createLineBorder(new Color(190,190,190)));
 			listePanels.add(this);
