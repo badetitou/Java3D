@@ -36,18 +36,19 @@ public class PanelImages extends JPanel implements MouseListener{
 	private final OutilsBdd obdd;
 	private final String lien;
 	private ArrayList<String>listeImages;
-	private pImage p;
-	private boolean estSelectionne;
-	private pImage imageSelection;
+	private final ArrayList<PImage> listePanels;
+	private PImage p;
 	private int nbImages;
+	private int nbImagesSelection;
 	public PanelImages(String nomFichier){
 		this.setLayout(new FlowLayout(0,20,20));
 		this.setBackground(new Color(215,215,215));
 		obdd=new OutilsBdd("Database.db");
 		galerie=new JPanel();
-		galerie.setLayout(new FlowLayout(0,15,0));
+		galerie.setLayout(new FlowLayout(0,15,2));
 		lien=obdd.getLinkImg(nomFichier);
 		listeImages=listerRepertoire(lien);
+		listePanels=new ArrayList<PImage>();
 		if(listeImages!=null){
 			JLabel label;
 			for (int i=0;i< listeImages.size();i++){
@@ -62,7 +63,7 @@ public class PanelImages extends JPanel implements MouseListener{
 		scroll.setPreferredSize(new Dimension(Window.outil.getScreenSize().width-(Window.outil.getScreenSize().width/3),Window.outil.getScreenSize().height/6));
 
 		ajouterImage=new JButton("Ajouter une image");
-		supprimerImage=new JButton("Supprimer l'image");
+		supprimerImage=new JButton("Supprimer image(s)");
 		supprimerImage.setEnabled(false);
 
 		JPanel pBoutons =new JPanel();
@@ -98,10 +99,9 @@ public class PanelImages extends JPanel implements MouseListener{
 	}
 
 	public void dessinerImages(String path){
-		p=new pImage(path);
-		p.addMouseListener(this);
+		p=new PImage(path);
 		galerie.add(p);
-		this.revalidate();
+		galerie.revalidate();
 	}
 
 	public void mouseClicked(MouseEvent e) {
@@ -119,44 +119,26 @@ public class PanelImages extends JPanel implements MouseListener{
 					JOptionPane.showMessageDialog(null, "Le fichier que vous avez choisi n'est pas compatible !\nLes formats supportés sont le JPEG et le PNG.", "Attention", JOptionPane.ERROR_MESSAGE);
 				}
 				else {
-					listeImages.add(fichier.getPath());
 					dessinerImages(fichier.getPath());
+					listeImages.add(fichier.getPath());
 					nbImages++;
 				}
 			}
 		}
 
 		if (e.getSource().equals(supprimerImage)){
-			galerie.remove(imageSelection);
-			listeImages.remove(imageSelection);
-			nbImages--;
-			this.repaint();
-			this.revalidate();
-			System.out.println(listeImages.size());
+			for (int i=0;i<listePanels.size();i++){
+				if(listePanels.get(i).getSelection()){
+					galerie.remove(listePanels.get(i));
+					listeImages.remove(listePanels.get(i));
+					nbImages--;
+				}
+			}
 			if(nbImages==0){
-				this.estSelectionne=false;
 				this.supprimerImage.setEnabled(false);
 			}
-		}
-
-		if(e.getSource().equals(p)){
-			if(!this.estSelectionne){
-				imageSelection=p;
-				p.setBackground(new Color(119,181,254));
-				supprimerImage.setEnabled(true);
-				this.estSelectionne=true;
-			}
-			else {
-				imageSelection=null;
-				String pPath=p.getPath();
-				galerie.remove(p);
-				this.p=new pImage(pPath);
-				galerie.add(p);
-				p.addMouseListener(this);
-				this.revalidate();
-				supprimerImage.setEnabled(false);
-				this.estSelectionne=false;
-			}
+			this.repaint();
+			this.revalidate();
 		}
 	}
 	public void mouseEntered(MouseEvent arg0) {
@@ -177,22 +159,75 @@ public class PanelImages extends JPanel implements MouseListener{
 	}
 
 
-	public class pImage extends JPanel{
+	public class PImage extends JPanel implements MouseListener{
 		private final String path;
-		public pImage(String path){
+		private boolean selection;
+		private JLabel l;
+		public PImage(String path){
 			this.path=path;
 			this.dessinerP();
+			this.setBackground(new Color(215,215,215));
 		}
 
 		public void dessinerP(){
-			JLabel l=new JLabel();
+			l=new JLabel();
+			this.addMouseListener(this);
 			l.setIcon(new ImageIcon(new ImageIcon(path).getImage().getScaledInstance(Window.outil.getScreenSize().width/12, Window.outil.getScreenSize().width/12, Image.SCALE_DEFAULT)));
 			this.add(l);
 			this.setBorder(BorderFactory.createLineBorder(new Color(190,190,190)));
+			listePanels.add(this);
 		}
 
 		public String getPath(){
 			return this.path;
+		}
+
+		public boolean getSelection(){
+			return this.selection;
+		}
+
+		public void setSelection(boolean selection){
+			this.selection=selection;
+		}
+
+		public void mouseClicked(MouseEvent arg0) {
+			if(!this.selection){
+				this.setBackground(new Color(119,181,254));
+				supprimerImage.setEnabled(true);
+				this.selection=true;
+				nbImagesSelection++;
+
+			}
+			else {
+				this.setBackground(new Color(215,215,215));
+				this.revalidate();
+				nbImagesSelection--;
+				if(nbImagesSelection==0){
+					supprimerImage.setEnabled(false);
+				}
+				this.selection=false;
+			}
+
+		}
+
+		public void mouseEntered(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+
+		}
+
+		public void mouseExited(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+
+		}
+
+		public void mousePressed(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+
+		}
+
+		public void mouseReleased(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+
 		}
 	}
 
