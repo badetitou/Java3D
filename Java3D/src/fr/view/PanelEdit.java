@@ -44,12 +44,10 @@ public class PanelEdit extends JPanel implements MouseListener{
 		if(e.getSource().equals(boutonCentre)){
 			if(bv.isBb1() || bv.isModeEdit() ){
 				this.dp.getModel().zoomAuto(MyDeskTopPane.dimension);
-				this.dp.getPanel().repaint();
 			}
 			else{
 				this.dp.getModel().zoomAuto(MyDeskTopPane.dimmini);
 				this.dp.getModel().recentrer();
-				this.dp.getPanel().repaint();
 			}
 		}
 

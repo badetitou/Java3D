@@ -26,6 +26,7 @@ public class Onglet extends JPanel implements MouseListener{
 	private final String nomFichier;
 	private JLabel ic;
 	private final ArrayList<Onglet>listeOnglets;
+	
 	public Onglet(MyDeskTopPane dp, JTabbedPane tabbedPane,String nomFichier,String nomAuteur,boolean nouveau,ArrayList<Onglet>listeOnglets){
 		this.listeOnglets=listeOnglets;
 		this.dp=dp;
@@ -38,6 +39,7 @@ public class Onglet extends JPanel implements MouseListener{
 
 		bv=new BarreVerticale(this.dp);
 		dp.setBarreVerticale(bv);
+		
 		JPanel jp2=new JPanel();
 		jp2.add(bv);
 		jp2.setBackground(new Color(190,190,190));
@@ -72,6 +74,7 @@ public class Onglet extends JPanel implements MouseListener{
 
 	public void mouseClicked(MouseEvent e) {
 		if(e.getSource().equals(closeButon)){
+			dp.getPanel().getRenderingThread().interrupt();
 			tabbedPane.remove(this);
 			listeOnglets.remove(this);
 		}
