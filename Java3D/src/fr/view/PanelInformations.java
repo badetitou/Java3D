@@ -52,21 +52,25 @@ public class PanelInformations extends JPanel {
 		auteur.setFont(new Font(font.getFontName(), Font.BOLD, font.getSize()));
 		auteur.setIcon(new ImageIcon(new ImageIcon("ressources/icones/iconesInformations/auteur.png").getImage().getScaledInstance(size, size, Image.SCALE_DEFAULT)));
 
+		String dateModiff="";
 		String dateAjoutt="";
 		if(nouveau){
-			String format = "yyyy-dd-mm";
+			String format = "yyyy-dd-MM";
 			SimpleDateFormat formater = new SimpleDateFormat( format );
 			dateAjoutt=formater.format(new Date());
+			dateModiff=dateAjoutt;
 		}
-		else
+		else{
 			dateAjoutt=obdd.getDateAdd(nomFichier);
+			dateModiff=obdd.getDateLastModif(nomFichier);
+		}
 
 		dateAjout=new JLabel("Date d'ajout : "+dateAjoutt);
 		font = dateAjout.getFont();
 		dateAjout.setFont(new Font(font.getFontName(), Font.BOLD, font.getSize()));
 		dateAjout.setIcon(new ImageIcon(new ImageIcon("ressources/icones/iconesInformations/dateAjout.png").getImage().getScaledInstance(size,size, Image.SCALE_DEFAULT)));
 
-		derniereModif=new JLabel("Dernière modification : "+obdd.getDateLastModif(nomFichier));
+		derniereModif=new JLabel("Dernière modification : "+dateModiff);
 		font = derniereModif.getFont();
 		derniereModif.setFont(new Font(font.getFontName(), Font.BOLD, font.getSize()));
 		derniereModif.setIcon(new ImageIcon(new ImageIcon("ressources/icones/iconesInformations/derniereModif.png").getImage().getScaledInstance(size, size, Image.SCALE_DEFAULT)));
@@ -81,7 +85,7 @@ public class PanelInformations extends JPanel {
 		nbImages.setFont(new Font(font.getFontName(), Font.BOLD, font.getSize()));
 		nbImages.setIcon(new ImageIcon(new ImageIcon("ressources/icones/iconesInformations/nbImages.png").getImage().getScaledInstance(size, size, Image.SCALE_DEFAULT)));
 
-		nbRealisations=new JLabel("Nombre de réalisations : ");
+		nbRealisations=new JLabel("Nombre de réalisations : 0");
 		font = nbRealisations.getFont();
 		nbRealisations.setFont(new Font(font.getFontName(), Font.BOLD, font.getSize()));
 		nbRealisations.setIcon(new ImageIcon(new ImageIcon("ressources/icones/iconesInformations/nbRealisations.png").getImage().getScaledInstance(size, size, Image.SCALE_DEFAULT)));
