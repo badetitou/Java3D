@@ -81,17 +81,17 @@ public class OutilsBdd {
 		}
 	}
 
-	public void addFile(String name, String linkFile, String desc, String author, Date dateAdd, Date dateLastModif, int nbrOpen, int nbrImg, int nbrModif, String linkImg, int size) {
+	public void addFile(String name, String linkFile, String desc, String author, int nbrOpen, int nbrImg, int nbrModif, String linkImg, int size) {
 		this.connect();
-		String dateA=dateAdd.getYear()+"-"+dateAdd.getMonth()+"-"+dateAdd.getDay();
-		String dateM=dateLastModif.getYear()+"-"+dateLastModif.getMonth()+"-"+dateLastModif.getDay();
+		Calendar rightNow = Calendar.getInstance();
+    	String date = rightNow.get(Calendar.YEAR)+"-"+rightNow.get(Calendar.MONTH)+"-"+rightNow.get(Calendar.DAY_OF_MONTH);
 		String requet = "INSERT INTO files VALUES('"
 				+ name +"','"
 				+ linkFile +"','"
 				+ desc +"','"
 				+ author +"','"
-				+ dateA +"','"
-				+ dateM +"','"
+				+ date +"','"
+				+ date +"','"
 				+ nbrOpen +"','"
 				+ nbrImg +"','"
 				+ nbrModif +"','"
@@ -107,16 +107,41 @@ public class OutilsBdd {
 		this.close();
 	}
 	
+	public String getLastFiles () {
+		this.connect();
+		String query = "SELECT linkFile FROM files ORDER BY lastModifDate ASC";
+		try {
+			ResultSet rs = statement.executeQuery(query);
+			String lien = rs.getString(1);
+			this.close();
+			return lien;
+		} catch (Exception e) {
+			System.out.println("Erreur dans getLinkFile");
+			System.out.println(e.getMessage());
+			this.close();
+			return "";
+		}
+	}
+	
 	public void updateFile(String name, String desc, Date dateLastModif, int nbrOpen, int nbrImg, int nbrModif, String linkImg, int size) {
 		this.connect();
-		String dateM=dateLastModif.getYear()+"-"+dateLastModif.getMonth()+"-"+dateLastModif.getDay();
-		String requet = "UPDATE files SET desc='"
+		Calendar rightNow = Calendar.getInstance();
+    	String date = rightNow.get(Calendar.YEAR)+"-"+rightNow.get(Calendar.MONTH)+"-"+rightNow.get(Calendar.DAY_OF_MONTH);
+		String req = "UPDATE files SET desc='"
 				+ desc +"',lastModifDate='"
-				+ dateM +"',nbrOpen='"
+				+ date +"',nbrOpen='"
 				+ nbrOpen +"',nbrImg='"
 				+ nbrImg +"',nbrModif='"
 				+ nbrModif+"'linkImg='"
 				+ linkImg+"' WHERE name='"+name+"'";
+		try {
+    		statement.executeUpdate(req);
+			this.close();
+    	} catch (Exception e) {
+    		System.out.println("Erreur dans UpdateFile");
+    		System.out.println(e.getMessage());    		
+			this.close();
+    	}
 	}
 
 	public void addTag(String tag, String file) {
@@ -223,15 +248,14 @@ public class OutilsBdd {
     	}
     }
 
-
-	public Date getDateAdd (String name) {
+	public String getDateAdd (String name) {
 		this.connect();
 		String query = "SELECT addDate FROM files WHERE name='"+name+"'";
 		try {
 			ResultSet rs = statement.executeQuery(query);
-			Date dateAjout=rs.getDate(1);
+			String date = rs.getString(1);
 			this.close();
-			return dateAjout;
+			return date;
 		} catch (Exception e) {
 			System.out.println("Erreur dans getDateAdd");
 			System.out.println(e.getMessage());
@@ -254,15 +278,14 @@ public class OutilsBdd {
     	}
     }
 
-
-	public Date getDateLastModif (String name) {
+	public String getDateLastModif (String name) {
 		this.connect();
 		String query = "SELECT lastModifDate FROM files WHERE name='"+name+"'";
 		try {
 			ResultSet rs = statement.executeQuery(query);
-			Date dateModif=rs.getDate(1);
+			String date = rs.getString(1);
 			this.close();
-			return dateModif;
+			return date;
 		} catch (Exception e) {
 			System.out.println("Erreur dans getDateLastModif");
 			System.out.println(e.getMessage());
