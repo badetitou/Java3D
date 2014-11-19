@@ -31,29 +31,37 @@ public class PanelInformations extends JPanel {
 	private final int size=Window.outil.getScreenSize().height/27;
 	private final OutilsBdd obdd;
 
+	private final String nomAuteur;
+	private final String nomFichier;
+	private String dateModiff;
+	private String dateAjoutt;
+	private final int nImages;
+	private final int nRealisations;
+	private final int nChargements;
+
 	private Font font;
 
 	public PanelInformations(String nomFichier,String nomAuteur,boolean nouveau){
 		this.setBackground(new Color(215,215,215));
 		this.setLayout(new FlowLayout(0,30,20));
+		this.nomFichier=nomFichier;
+		this.nomAuteur=nomAuteur;
 		obdd=new OutilsBdd("Database.db");
 
 		JPanel panelInfo = new JPanel();
 		panelInfo.setLayout(new GridLayout(3,3,15,0));
 		panelInfo.setPreferredSize(new Dimension(Window.outil.getScreenSize().width-(Window.outil.getScreenSize().width/3),Window.outil.getScreenSize().height/6));
 
-		nomObjet=new JLabel("Nom de l'objet : "+nomFichier);
+		nomObjet=new JLabel("Nom de l'objet : "+this.nomFichier);
 		font = nomObjet.getFont();
 		nomObjet.setFont(new Font(font.getFontName(), Font.BOLD, font.getSize()));
 		nomObjet.setIcon(new ImageIcon(new ImageIcon("ressources/icones/iconesInformations/nomObjet.png").getImage().getScaledInstance(size, size, Image.SCALE_DEFAULT)));
 
-		auteur=new JLabel("Nom auteur : "+nomAuteur);
+		auteur=new JLabel("Nom auteur : "+this.nomAuteur);
 		font = auteur.getFont();
 		auteur.setFont(new Font(font.getFontName(), Font.BOLD, font.getSize()));
 		auteur.setIcon(new ImageIcon(new ImageIcon("ressources/icones/iconesInformations/auteur.png").getImage().getScaledInstance(size, size, Image.SCALE_DEFAULT)));
 
-		String dateModiff="";
-		String dateAjoutt="";
 		if(nouveau){
 			String format = "yyyy-dd-MM";
 			SimpleDateFormat formater = new SimpleDateFormat( format );
@@ -75,17 +83,22 @@ public class PanelInformations extends JPanel {
 		derniereModif.setFont(new Font(font.getFontName(), Font.BOLD, font.getSize()));
 		derniereModif.setIcon(new ImageIcon(new ImageIcon("ressources/icones/iconesInformations/derniereModif.png").getImage().getScaledInstance(size, size, Image.SCALE_DEFAULT)));
 
-		nbChargements=new JLabel("Nombre de chargements : "+(obdd.getnbrOpen(nomFichier)+1));
+
+		nChargements=(obdd.getnbrOpen(nomFichier)+1);
+		nbChargements=new JLabel("Nombre de chargements : "+nChargements);
 		font = nbChargements.getFont();
 		nbChargements.setFont(new Font(font.getFontName(), Font.BOLD, font.getSize()));
 		nbChargements.setIcon(new ImageIcon(new ImageIcon("ressources/icones/iconesInformations/nbChargements.png").getImage().getScaledInstance(size, size, Image.SCALE_DEFAULT)));
 
-		nbImages=new JLabel("Nombre d'images : "+obdd.getnbrImg(nomFichier));
+
+		nImages=obdd.getnbrImg(nomFichier);
+		nbImages=new JLabel("Nombre d'images : "+nImages);
 		font = nbImages.getFont();
 		nbImages.setFont(new Font(font.getFontName(), Font.BOLD, font.getSize()));
 		nbImages.setIcon(new ImageIcon(new ImageIcon("ressources/icones/iconesInformations/nbImages.png").getImage().getScaledInstance(size, size, Image.SCALE_DEFAULT)));
 
-		nbRealisations=new JLabel("Nombre de réalisations : 0");
+		nRealisations=0;
+		nbRealisations=new JLabel("Nombre de réalisations : "+nRealisations);
 		font = nbRealisations.getFont();
 		nbRealisations.setFont(new Font(font.getFontName(), Font.BOLD, font.getSize()));
 		nbRealisations.setIcon(new ImageIcon(new ImageIcon("ressources/icones/iconesInformations/nbRealisations.png").getImage().getScaledInstance(size, size, Image.SCALE_DEFAULT)));
@@ -103,6 +116,35 @@ public class PanelInformations extends JPanel {
 		this.add(panelInfo);
 
 
+	}
+
+	public String getDateModiff() {
+		return dateModiff;
+	}
+
+	public String getDateAjoutt() {
+		return dateAjoutt;
+	}
+
+
+	public String getNomAuteur() {
+		return nomAuteur;
+	}
+
+	public String getNomFichier() {
+		return nomFichier;
+	}
+
+	public int getnImages() {
+		return nImages;
+	}
+
+	public int getnRealisations() {
+		return nRealisations;
+	}
+
+	public int getnChargements() {
+		return nChargements;
 	}
 
 }
