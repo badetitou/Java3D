@@ -171,7 +171,7 @@ public class Menu extends JMenuBar implements ActionListener {
 		if (e.getSource().equals(mIFOuvrir)) {
 			WindowOuvrir windowO = new WindowOuvrir(tabbedPane, listeOnglets);
 
-		} 
+		}
 		else if (e.getSource().equals(mIFEnregistrer)) {
 			WindowEnregistrer windowE = new WindowEnregistrer(tabbedPane,listeOnglets);
 		}
@@ -188,10 +188,8 @@ public class Menu extends JMenuBar implements ActionListener {
 
 		else if (e.getSource().equals(mIFImporter)) {
 			// blabla ouverture d'une fenetre pour chercher le .gts
-			JFileChooser dialogue = new JFileChooser(new File(
-					"ressources/image"));
-			FileNameExtensionFilter filter = new FileNameExtensionFilter(
-					"Fichier gts", "gts");
+			JFileChooser dialogue = new JFileChooser(new File("ressources/image"));
+			FileNameExtensionFilter filter = new FileNameExtensionFilter("Fichier gts", "gts");
 			dialogue.setFileFilter(filter);
 			final File fichier;
 			dialogue.showOpenDialog(null);
@@ -200,15 +198,9 @@ public class Menu extends JMenuBar implements ActionListener {
 			name = name.substring(name.length() - 4, name.length());
 			int comparaison = name.compareToIgnoreCase(".gts");
 			if (comparaison != 0) {
-				JOptionPane
-						.showMessageDialog(
-								null,
-								"Le fichier que vous avez choisi n'est pas compatible !",
-								"Attention", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null,"Le fichier que vous avez choisi n'est pas compatible !","Attention", JOptionPane.ERROR_MESSAGE);
 			}
-			if (fichier != null
-					&& name.substring(name.length() - 4, name.length()).equals(
-							".gts")) {
+			if (fichier != null && name.substring(name.length() - 4, name.length()).equals(".gts")) {
 				if (listeOnglets.size() + 1 <= 5) {
 					JTextField j1 = new JTextField();
 					JTextField j2 = new JTextField();
@@ -217,31 +209,22 @@ public class Menu extends JMenuBar implements ActionListener {
 					list.add(j1);
 					list.add("Nom objet : \n");
 					list.add(j2);
-
-					JOptionPane.showMessageDialog(null, list.toArray(),
-							"Saisissez les champs",
-							JOptionPane.INFORMATION_MESSAGE);
+					int res = JOptionPane.showOptionDialog(null, list.toArray(), "Saisissez les champs", JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE, null, null, null);
 					if (j2.getText().isEmpty() || j1.getText().isEmpty())
 						list.add("les champs sont obligatoires");
-					while (j2.getText().isEmpty() || j1.getText().isEmpty()) {
-						JOptionPane.showMessageDialog(null, list.toArray(),
-								"Saisissez les champs",
-								JOptionPane.INFORMATION_MESSAGE);
+					while ((j2.getText().isEmpty() || j1.getText().isEmpty()) && res!=-1) {
+						res=JOptionPane.showOptionDialog(null, list.toArray(), "Saisissez les champs", JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE, null, null, null);
 					}
-					String nomAuteur = j1.getText();
-					nomFichier = j2.getText();
-					onglet = new Onglet(new MyDeskTopPane(
-							fichier.getAbsolutePath()), tabbedPane, nomFichier,
-							nomAuteur, true, listeOnglets);
-					tabbedPane.addTab(nomFichier, onglet);
-					onglet.dessineOnglet();
-					tabbedPane.setSelectedComponent(onglet);
+					if(res!=-1){
+						String nomAuteur = j1.getText();
+						nomFichier = j2.getText();
+						onglet = new Onglet(new MyDeskTopPane(fichier.getAbsolutePath()), tabbedPane, nomFichier,nomAuteur, true, listeOnglets);
+						tabbedPane.addTab(nomFichier, onglet);
+						onglet.dessineOnglet();
+						tabbedPane.setSelectedComponent(onglet);
+					}
 				} else {
-					JOptionPane
-							.showMessageDialog(
-									null,
-									"Trop d'onglets sont ouverts, fermez des onglets puis reessayer !",
-									"Attention", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null,"Trop d'onglets sont ouverts, fermez des onglets puis reessayer !","Attention", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		} else if (e.getSource().equals(mIFFermer)) {
