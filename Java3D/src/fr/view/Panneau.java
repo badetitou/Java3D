@@ -98,8 +98,6 @@ public class Panneau extends JPanel {
 			});
 
 			this.addMouseMotionListener(new MouseMotionListener() {
-				int  coordMouseX = 0;
-				int coordMouseY = 0;
 				
 				public void mouseMoved(MouseEvent e) {
 					coordMouseX = e.getX();

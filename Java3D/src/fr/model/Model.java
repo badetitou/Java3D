@@ -163,8 +163,7 @@ public class Model {
 	public Face getParticularFace(double coordMouseX, double coordMouseY) {
 		Face f = null;
 		for (int i = 0; i < rt.getFaceList().size(); ++i) {
-			if (rt.getFaceList().get(i)
-					.pointDansTriangle(new Point(coordMouseX, coordMouseY, 0))) {
+			if (rt.getFaceList().get(i).getTriangle().contains(coordMouseX, coordMouseY)) {
 				if (f != null) {
 					if (rt.getFaceList().get(i).getP1().z
 							+ rt.getFaceList().get(i).getP2().z

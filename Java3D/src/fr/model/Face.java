@@ -89,8 +89,4 @@ public class Face implements Comparable<Face> {
 		return (new Color((cosPositifR), (cosPositifV),
 				(cosPositifB)));
 	}
-	
-	public boolean pointDansTriangle(Point p){
-		return this.getTriangle().contains((int) p.x, (int) p.y);
-	}
 }
