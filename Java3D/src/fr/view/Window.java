@@ -15,7 +15,7 @@ import fr.model.OutilsBdd;
 
 /**
  * 
- * @author Loic
+ * @author Loic 
  * Fenêtre du logiciel après l'écran du chargement. Elle contient tous les JPanel.
  *
  */
@@ -45,6 +45,7 @@ public class Window extends JFrame{
 		tabbedPane = new JTabbedPane();
 		String objet=obdd.getLastFiles();
 		Onglet onglet=new Onglet(dp,tabbedPane,objet,obdd.getAuthor(objet),false,listeOnglets);
+		PanelInformations panelInfos = onglet.getPinfos();
 		tabbedPane.addTab("Icosa", onglet);
 		onglet.dessineOnglet();
 
@@ -54,7 +55,7 @@ public class Window extends JFrame{
 		container.add(tabbedPane,BorderLayout.CENTER);
 
 
-		this.setJMenuBar(new Menu(tabbedPane,listeOnglets));
+		this.setJMenuBar(new Menu(tabbedPane,listeOnglets, panelInfos));
 		this.getContentPane().add(container);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//this.pack();

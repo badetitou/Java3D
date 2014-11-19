@@ -25,6 +25,9 @@ public class Menu extends JMenuBar implements ActionListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private PanelInformations panelInfos;
+	
 	private final JMenu mFichier;
 	private final JMenu mEdition;
 	private final JMenu mOptions;
@@ -56,11 +59,11 @@ public class Menu extends JMenuBar implements ActionListener {
 
 	private final ArrayList<Onglet> listeOnglets;
 
-	public Menu(JTabbedPane tabbedPane, ArrayList<Onglet> listeOnglets) {
+	public Menu(JTabbedPane tabbedPane, ArrayList<Onglet> listeOnglets, PanelInformations panelInfos) {
 		this.tabbedPane = tabbedPane;
 		this.listeOnglets = listeOnglets;
-		this.setPreferredSize(new Dimension((int) Window.outil.getScreenSize()
-				.getWidth(), 30));
+		this.panelInfos = panelInfos;
+		this.setPreferredSize(new Dimension((int) Window.outil.getScreenSize().getWidth(), 30));
 
 		// Création du Menu
 		mFichier = new JMenu("Fichier");
@@ -170,10 +173,10 @@ public class Menu extends JMenuBar implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(mIFOuvrir)) {
 			WindowOuvrir windowO = new WindowOuvrir(tabbedPane, listeOnglets);
-
+			panelInfos = windowO.getPanelInfos();
 		}
 		else if (e.getSource().equals(mIFEnregistrer)) {
-			WindowEnregistrer windowE = new WindowEnregistrer(tabbedPane,listeOnglets);
+			WindowEnregistrer windowE = new WindowEnregistrer(tabbedPane,listeOnglets, panelInfos);
 		}
 
 		else if (e.getSource().equals(mIFQuitter)) {
@@ -219,6 +222,7 @@ public class Menu extends JMenuBar implements ActionListener {
 						String nomAuteur = j1.getText();
 						nomFichier = j2.getText();
 						onglet = new Onglet(new MyDeskTopPane(fichier.getAbsolutePath()), tabbedPane, nomFichier,nomAuteur, true, listeOnglets);
+						panelInfos = onglet.getPinfos();
 						tabbedPane.addTab(nomFichier, onglet);
 						onglet.dessineOnglet();
 						tabbedPane.setSelectedComponent(onglet);

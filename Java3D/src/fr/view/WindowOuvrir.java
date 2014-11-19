@@ -18,6 +18,12 @@ import javax.swing.ListModel;
 import fr.model.OutilsBdd;
 
 public class WindowOuvrir extends JFrame {
+	
+	private PanelInformations panelInfos;
+
+	public PanelInformations getPanelInfos() {
+		return panelInfos;
+	}
 
 	public WindowOuvrir(JTabbedPane tabbedPane, ArrayList<Onglet> listeOnglets) {
 		PanelOuvrir pO = new PanelOuvrir(this, tabbedPane, listeOnglets);
@@ -116,6 +122,7 @@ public class WindowOuvrir extends JFrame {
 				String ouvrir = nFichier.getText();
 				if(obdd.estPresent(ouvrir)){
 					Onglet onglet = new Onglet(new MyDeskTopPane(obdd.getLinkFile(ouvrir)),tabbedPane,ouvrir,obdd.getAuthor(ouvrir),false,listeOnglets);
+					panelInfos = onglet.getPinfos(); 
 					tabbedPane.addTab(ouvrir, onglet);
 					onglet.dessineOnglet();
 					tabbedPane.setSelectedComponent(onglet);

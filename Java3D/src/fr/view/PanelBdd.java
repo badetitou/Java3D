@@ -15,7 +15,11 @@ public class PanelBdd extends JPanel{
 	 */
 	private static final long serialVersionUID = 1L;
 	private final JPanel description;
-	private final JPanel informations;
+	private final PanelInformations informations;
+	
+	public PanelInformations getInformations() {
+		return informations;
+	}
 	private final JPanel images;
 	private final JPanel realisations;
 	public PanelBdd(String nomFichier,String nomAuteur,boolean nouveau){

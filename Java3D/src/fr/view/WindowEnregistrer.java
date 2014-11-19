@@ -17,8 +17,8 @@ import fr.model.OutilsBdd;
 
 public class WindowEnregistrer extends JFrame {
 
-	public WindowEnregistrer(JTabbedPane tabbedPane, ArrayList<Onglet> listeOnglets) {
-		PanelEnregistrer pE = new PanelEnregistrer(this, tabbedPane, listeOnglets);
+	public WindowEnregistrer(JTabbedPane tabbedPane, ArrayList<Onglet> listeOnglets, PanelInformations panelInfos) {
+		PanelEnregistrer pE = new PanelEnregistrer(this, tabbedPane, listeOnglets, panelInfos);
 		this.setTitle("Enregistrer dans la BDD");
 		this.setSize(500, 300);
 		this.setResizable(false);
@@ -44,25 +44,29 @@ public class WindowEnregistrer extends JFrame {
 		private final OutilsBdd obdd;
 		private final JTabbedPane tabbedPane;
 		private final ArrayList<Onglet> listeOnglets;
+		private final JPanel panelInfos;
 
-		public PanelEnregistrer(JFrame windowE, JTabbedPane tabbedPane, ArrayList<Onglet> listeOnglets) {
+		public PanelEnregistrer(JFrame windowE, JTabbedPane tabbedPane, ArrayList<Onglet> listeOnglets, PanelInformations panelInfos) {
 			this.windowE = windowE;
 			this.tabbedPane = tabbedPane;
 			this.listeOnglets = listeOnglets;
 			this.setPreferredSize(new Dimension(500, 300));
 			obdd = new OutilsBdd("Database.db");
-			//obdd.addFile(name, linkFile, desc, author, nbrOpen, nbrImg, nbrModif, linkImg, size);
-			
+
+			//obdd.addFile(panelInfos.get, linkFile, desc, author, nbrOpen, nbrImg, nbrModif, linkImg, size);
+
+			this.panelInfos = panelInfos;
+		
 			jbOk = new JButton("Ok");
 			jlFen = new JLabel("Vous avez enregistré l'objet " + " dans la BDD avec les informations suivantes:");
-			jlNomAuteur = new JLabel("Nom Auteur : ");
-			jlNomObjet = new JLabel("Nom Objet : ");
-			jlDateAjout = new JLabel("Date d'ajout : ");
-			jlDerniereModif = new JLabel(" Dernière modification : ");
-			jlNbChargements = new JLabel("Nombre de chargements : ");
-			jlNbRealisations = new JLabel("Nombre de réalisations : ");
+			jlNomAuteur = new JLabel("Nom Auteur : " + panelInfos.getNomAuteur());
+			jlNomObjet = new JLabel("Nom Objet : " + panelInfos.getNomFichier());
+			jlDateAjout = new JLabel("Date d'ajout : " + panelInfos.getDateAjoutt());
+			jlDerniereModif = new JLabel(" Dernière modification : " + panelInfos.getDateModiff());
+			jlNbChargements = new JLabel("Nombre de chargements : " + panelInfos.getnChargements());
+			jlNbRealisations = new JLabel("Nombre de réalisations : " + panelInfos.getnRealisations());
 			
-			
+		
 			this.setLayout(new GridLayout(9, 1));		
 			
 			this.add(jlFen);

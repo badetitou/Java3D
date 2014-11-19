@@ -19,6 +19,7 @@ public class Onglet extends JPanel implements MouseListener{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private PanelBdd pbdd;
 	private final MyDeskTopPane dp;
 	private final BarreVerticale bv;
 	private final JTabbedPane tabbedPane;
@@ -26,6 +27,7 @@ public class Onglet extends JPanel implements MouseListener{
 	private final String nomFichier;
 	private JLabel ic;
 	private final ArrayList<Onglet>listeOnglets;
+	private PanelInformations pinfos;
 	
 	public Onglet(MyDeskTopPane dp, JTabbedPane tabbedPane,String nomFichier,String nomAuteur,boolean nouveau,ArrayList<Onglet>listeOnglets){
 		this.listeOnglets=listeOnglets;
@@ -36,7 +38,8 @@ public class Onglet extends JPanel implements MouseListener{
 		Toolkit tk=getToolkit();
 		this.setLayout(new BorderLayout());
 		this.setPreferredSize(new Dimension(tk.getScreenSize().height,tk.getScreenSize().width));
-
+		pbdd = new PanelBdd(nomFichier,nomAuteur,nouveau);
+		pinfos = pbdd.getInformations();
 		bv=new BarreVerticale(this.dp);
 		dp.setBarreVerticale(bv);
 		
@@ -46,8 +49,12 @@ public class Onglet extends JPanel implements MouseListener{
 		this.add(dp,BorderLayout.CENTER);
 		this.add(jp2,BorderLayout.WEST);
 		this.add(new PanelEdit(this.dp,bv),BorderLayout.EAST);
-		this.add(new PanelBdd(nomFichier,nomAuteur,nouveau),BorderLayout.SOUTH);
+		this.add(pbdd, BorderLayout.SOUTH);
 
+	}
+
+	public PanelInformations getPinfos() {
+		return pinfos;
 	}
 
 	public void dessineOnglet(){
