@@ -46,7 +46,6 @@ public class ProgressBar extends JPanel{
 
 	private void startProgressBar() {
 		t = new Thread() {
-
 			@Override
 			public void run() {
 				dp=new MyDeskTopPane(url);

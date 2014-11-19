@@ -74,7 +74,6 @@ public class Onglet extends JPanel implements MouseListener{
 
 	public void mouseClicked(MouseEvent e) {
 		if(e.getSource().equals(closeButon)){
-			dp.getPanel().getRenderingThread().interrupt();
 			tabbedPane.remove(this);
 			listeOnglets.remove(this);
 		}

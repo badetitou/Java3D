@@ -46,7 +46,7 @@ public class Model {
 		yTranslate = 0;
 	}
 
-	private void trieFace() {
+	public void trieFace() {
 		Collections.sort(rt.getFaceList());
 	}
 
@@ -56,6 +56,34 @@ public class Model {
 	 */
 	public List<Face> getFace() {
 		return rt.getFaceList();
+	}
+
+	/**
+	 * 
+	 * @param r
+	 *            est la valeur de la rotation à faire en X
+	 */
+	public void rotationX(int r) {
+
+		int sensRotation = 1;
+		if (r < 0) {
+			r = -r;
+			sensRotation = -1;
+		}
+
+		for (int i = 0; i < rt.getPointList().size(); ++i) {
+			for (int j = 0; j < r; ++j) {
+				rt.getPointList().get(i).x = rt.getPointList().get(i).x
+						* Math.cos(sensRotation * Math.PI / 1024.0)
+						+ rt.getPointList().get(i).z
+						* Math.sin(sensRotation * Math.PI / 1024.0);
+				rt.getPointList().get(i).z = rt.getPointList().get(i).x
+						* -Math.sin(sensRotation * Math.PI / 1024.0)
+						+ rt.getPointList().get(i).z
+						* Math.cos(sensRotation * Math.PI / 1024.0);
+			}
+		}
+
 	}
 
 	/**
@@ -71,28 +99,16 @@ public class Model {
 		}
 		for (int i = 0; i < rt.getPointList().size(); ++i) {
 			for (int j = 0; j < r; ++j) {
-
-				rt.getPointList()
-						.get(i)
-						.multiplier(
-								new double[][] {
-										{ 1, 0, 0, 0 },
-										{
-												0,
-												Math.cos(sensRotation * Math.PI
-														/ 1024),
-												-Math.sin(sensRotation
-														* Math.PI / 1024), 0 },
-										{
-												0,
-												Math.sin(sensRotation * Math.PI
-														/ 1024),
-												Math.cos(sensRotation * Math.PI
-														/ 1024), 0 },
-										{ 0, 0, 0, 1 } });
+				rt.getPointList().get(i).y = rt.getPointList().get(i).y
+						* Math.cos(sensRotation * Math.PI / 1024.0)
+						+ rt.getPointList().get(i).z
+						* -Math.sin(sensRotation * Math.PI / 1024.0);
+				rt.getPointList().get(i).z = rt.getPointList().get(i).y
+						* Math.sin(sensRotation * Math.PI / 1024.0)
+						+ rt.getPointList().get(i).z
+						* Math.cos(sensRotation * Math.PI / 1024.0);
 			}
 		}
-		trieFace();
 	}
 
 	/**
@@ -131,77 +147,6 @@ public class Model {
 	}
 
 	/**
-	 * 
-	 * @param r
-	 *            est la valeur de la rotation à faire en X
-	 */
-	public void rotationX(int r) {
-		int sensRotation = 1;
-		if (r < 0) {
-			r = -r;
-			sensRotation = -1;
-		}
-		for (int i = 0; i < rt.getPointList().size(); ++i) {
-			for (int j = 0; j < r; ++j) {
-				rt.getPointList()
-						.get(i)
-						.multiplier(
-								new double[][] {
-										{
-												Math.cos(sensRotation * Math.PI
-														/ 1024),
-												0,
-												Math.sin(sensRotation * Math.PI
-														/ 1024), 0 },
-										{ 0, 1, 0, 0 },
-										{
-												-Math.sin(sensRotation
-														* Math.PI / 1024),
-												0,
-												Math.cos(sensRotation * Math.PI
-														/ 1024), 0 },
-										{ 0, 0, 0, 1 } });
-			}
-		}
-		trieFace();
-	}
-
-	/**
-	 * Je sais aps si ça va servir mais dans le doute maintenant on l'a
-	 * 
-	 * @param r
-	 *            est la valeur de la rotation à faire en Z
-	 */
-	public void rotationZ(int r) {
-		int sensRotation = 1;
-		if (r < 0) {
-			r = -r;
-			sensRotation = -1;
-
-		}
-		for (int i = 0; i < rt.getPointList().size(); ++i) {
-			for (int j = 0; j < r; ++j) {
-				rt.getPointList()
-						.get(i)
-						.multiplier(
-								new double[][] {
-										{
-												Math.cos(sensRotation * Math.PI
-														/ 1024),
-												-Math.sin(sensRotation
-														* Math.PI / 1024), 0, 0 },
-										{
-												Math.sin(sensRotation * Math.PI
-														/ 1024),
-												Math.cos(sensRotation * Math.PI
-														/ 1024), 0, 0 },
-										{ 0, 0, 0, 0 }, { 0, 0, 0, 1 } });
-			}
-		}
-		trieFace();
-	}
-
-	/**
 	 * Double pour plus de precision possible
 	 * 
 	 * @param k
@@ -209,21 +154,17 @@ public class Model {
 	 */
 	public void zoom(double k) {
 		for (int i = 0; i < rt.getPointList().size(); ++i) {
-			rt.getPointList()
-					.get(i)
-					.multiplier(
-							new double[][] { { k, 0, 0, 0 }, { 0, k, 0, 0 },
-									{ 0, 0, k, 0 }, { 0, 0, 0, 1 } });
+			rt.getPointList().get(i).x *= k;
+			rt.getPointList().get(i).y *= k;
+			rt.getPointList().get(i).z *= k;
 		}
 	}
 
 	public Face getParticularFace(double coordMouseX, double coordMouseY) {
 		Face f = null;
-		coordMouseX = coordMouseX - xTranslate - d.getWidth() / 2;
-		coordMouseY = coordMouseY - yTranslate - d.getHeight() / 2;
 		for (int i = 0; i < rt.getFaceList().size(); ++i) {
 			if (rt.getFaceList().get(i)
-					.pointDansTriangle(new Point(coordMouseX, -coordMouseY, 0))) {
+					.pointDansTriangle(new Point(coordMouseX, coordMouseY, 0))) {
 				if (f != null) {
 					if (rt.getFaceList().get(i).getP1().z
 							+ rt.getFaceList().get(i).getP2().z

@@ -180,6 +180,10 @@ public class BarreVerticale extends JPanel implements MouseListener {
 	public boolean isBb1() {
 		return bb1;
 	}
+	
+	public boolean isBb2() {
+		return bb2;
+	}
 
 	public void setBb1(boolean bb1) {
 		this.bb1 = bb1;

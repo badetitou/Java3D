@@ -47,8 +47,8 @@ public class PanelEdit extends JPanel implements MouseListener{
 			}
 			else{
 				this.dp.getModel().zoomAuto(MyDeskTopPane.dimmini);
-				this.dp.getModel().recentrer();
 			}
+			this.dp.repaint();
 		}
 
 	}
