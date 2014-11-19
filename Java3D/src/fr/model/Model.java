@@ -31,6 +31,11 @@ public class Model {
 			rt.getFaceList().get(i).setModel(this);
 		}
 		this.d = d;
+		centrage();
+	}
+	
+	private void centrage(){
+		//TO DO centre le point x de l'image;
 	}
 
 	public Dimension getD() {
