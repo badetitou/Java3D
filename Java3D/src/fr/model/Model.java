@@ -19,10 +19,11 @@ public class Model {
 	/**
 	 * 
 	 * @param url
-	 *            est le chemin vers le fichier à étudier
+	 *            est le chemin vers le fichier ï¿½ ï¿½tudier
 	 */
 	public Model(String url, int vue, Dimension d) {
 		rt = new ReadText(url);
+		centrage();
 		trieFace();
 		this.zoomAuto(d);
 		this.vue = vue;
@@ -31,11 +32,35 @@ public class Model {
 			rt.getFaceList().get(i).setModel(this);
 		}
 		this.d = d;
-		centrage();
 	}
-	
+
+
 	private void centrage(){
-		//TO DO centre le point x de l'image;
+		double xMax = 0;
+		double xMin = 0;
+		double yMax = 0;
+		double yMin = 0;
+		double zMax = 0;
+		double zMin = 0;
+		for (int i = 0; i<rt.getPointList().size(); ++i){
+			if (rt.getPointList().get(i).x > xMax)
+				xMax = rt.getPointList().get(i).x;
+			else if (rt.getPointList().get(i).x < xMin)
+				xMin = rt.getPointList().get(i).x;
+			if (rt.getPointList().get(i).y > yMax)
+				yMax = rt.getPointList().get(i).y;
+			else if (rt.getPointList().get(i).y < yMin)
+				yMin = rt.getPointList().get(i).y;
+			if (rt.getPointList().get(i).z > zMax)
+				zMax = rt.getPointList().get(i).z;
+			else if (rt.getPointList().get(i).z < zMin)
+				zMin = rt.getPointList().get(i).z;
+		}
+		for(int i = 0;i < rt.getPointList().size();++i){
+			rt.getPointList().get(i).x = rt.getPointList().get(i).x - ((xMax + xMin)/2);
+			rt.getPointList().get(i).y = rt.getPointList().get(i).y - ((yMax + yMin)/2);
+			rt.getPointList().get(i).z = rt.getPointList().get(i).z - ((zMax + zMin)/2);
+		}
 	}
 
 	public Dimension getD() {
@@ -66,7 +91,7 @@ public class Model {
 	/**
 	 * 
 	 * @param r
-	 *            est la valeur de la rotation à faire en X
+	 *            est la valeur de la rotation ï¿½ faire en X
 	 */
 	public void rotationX(int r) {
 
@@ -94,7 +119,7 @@ public class Model {
 	/**
 	 * 
 	 * @param r
-	 *            est la valeur en radiant de la rotation à faire en Y
+	 *            est la valeur en radiant de la rotation ï¿½ faire en Y
 	 */
 	public void rotationY(int r) {
 		int sensRotation = 1;
@@ -124,7 +149,7 @@ public class Model {
 	 * @param y
 	 *            deplace sur l'axe y
 	 * @param z
-	 *            deplace sur l'axe z ( ne sert à rien dans ce programme)
+	 *            deplace sur l'axe z ( ne sert ï¿½ rien dans ce programme)
 	 */
 	public void translation(double x, double y) {
 		xTranslate += x;
