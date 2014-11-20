@@ -1,8 +1,10 @@
 package fr.view;
 
 import java.awt.BorderLayout;
-import java.awt.Frame;
+import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -20,7 +22,7 @@ import fr.model.OutilsBdd;
  *
  */
 @SuppressWarnings("serial")
-public class Window extends JFrame{
+public class Window extends JFrame implements ComponentListener{
 
 	Panneau panel;
 	public static Toolkit outil;
@@ -29,16 +31,17 @@ public class Window extends JFrame{
 	private final JTabbedPane tabbedPane;
 	private final ArrayList<Onglet> listeOnglets;
 
+
 	public Window(MyDeskTopPane dp) {
 		super("3D Lib");
+		this.setVisible(true);
 		Window.frame=this;
 		outil = getToolkit();
 		this.setIconImage(new ImageIcon("ressources/image/logoforreal2.png").getImage());
-		this.setVisible(true);
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		//this.setSize(outil.getScreenSize());
-		this.setResizable(false);
-		this.setState(Frame.NORMAL);
+		this.setMinimumSize(new Dimension(this.getSize().width,this.getSize().height));
+		//this.setResizable(false);
+		//this.setState(JFrame.MAXIMIZED_BOTH);
 		OutilsBdd obdd=new OutilsBdd("Database.db");
 
 		//onglets
@@ -54,11 +57,31 @@ public class Window extends JFrame{
 		container.setLayout(new BorderLayout());
 		container.add(new Barre(),BorderLayout.NORTH);
 		container.add(tabbedPane,BorderLayout.CENTER);
+		addComponentListener(this);
 
-
+		//this.setMinimumSize(new Dimension((int)outil.getScreenSize().getWidth()/2,(int)outil.getScreenSize().getHeight()/2));
 		this.setJMenuBar(new Menu(tabbedPane,listeOnglets, panelInfos));
 		this.getContentPane().add(container);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//this.pack();
+	}
+
+	public void componentHidden(ComponentEvent arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public void componentMoved(ComponentEvent arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public void componentResized(ComponentEvent e) {
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+	}
+
+	public void componentShown(ComponentEvent arg0) {
+		// TODO Auto-generated method stub
+
 	}
 }
