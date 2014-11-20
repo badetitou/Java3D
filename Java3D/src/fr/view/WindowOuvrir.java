@@ -106,6 +106,7 @@ public class WindowOuvrir extends JFrame {
 
 			bdd.addMouseListener(this);
 			annuler.addMouseListener(this);
+			ouvrir.addMouseListener(this);
 		}
 
 		public void mouseClicked(MouseEvent e) {
@@ -121,6 +122,7 @@ public class WindowOuvrir extends JFrame {
 				String ouvrir = nFichier.getText();
 				if(obdd.estPresent(ouvrir)){
 					Onglet onglet = new Onglet(new MyDeskTopPane(obdd.getLinkFile(ouvrir)),tabbedPane,ouvrir,obdd.getAuthor(ouvrir),false,listeOnglets);
+					System.out.println(obdd.getLinkFile(ouvrir));
 					panelInfos = onglet.getPinfos();
 					tabbedPane.addTab(ouvrir, onglet);
 					onglet.dessineOnglet();

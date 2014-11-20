@@ -4,20 +4,23 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
 
 import fr.model.OutilsBdd;
 
 public class WindowEnregistrer extends JFrame {
 
-	public WindowEnregistrer(JTabbedPane tabbedPane, ArrayList<Onglet> listeOnglets, PanelInformations panelInfos) {
-		PanelEnregistrer pE = new PanelEnregistrer(this, tabbedPane, listeOnglets, panelInfos);
+	public WindowEnregistrer(JTabbedPane tabbedPane, ArrayList<Onglet> listeOnglets, PanelInformations panelInfos,boolean nouveau) {
+		PanelEnregistrer pE = new PanelEnregistrer(this, tabbedPane, listeOnglets, panelInfos,nouveau);
 		this.setTitle("Enregistrer dans la BDD");
 		this.setSize(500, 300);
 		this.setResizable(false);
@@ -30,38 +33,83 @@ public class WindowEnregistrer extends JFrame {
 
 	public class PanelEnregistrer extends JPanel implements MouseListener{
 
-		private final JButton jbOk;
-		private final JLabel jlFen;
-		private final JLabel jlNomAuteur;
-		private final JLabel jlNomObjet;
-		private final JLabel jlDateAjout;
-		private final JLabel jlDerniereModif;
-		private final JLabel jlNbChargements;
-		private final JLabel jlNbImages;
-		private final JLabel jlNbRealisations;
+		private JButton jbOk=null;
+		private JLabel jlFen=null;
+		private JLabel jlNomAuteur=null;
+		private JLabel jlNomObjet=null;
+		private JLabel jlDateAjout=null;
+		private JLabel jlDerniereModif=null;
+		private JLabel jlNbChargements=null;
+		private JLabel jlNbImages=null;
+		private JLabel jlNbRealisations=null;
 		private final JFrame windowE;
 		private final OutilsBdd obdd;
-		public PanelEnregistrer(JFrame windowE, JTabbedPane tabbedPane, ArrayList<Onglet> listeOnglets, PanelInformations panelInfos) {
+		private final boolean nouveau;
+		private String nomAuteur;
+		private String nomFichier;
+		private String dateModiff;
+		private String dateAjoutt;
+		private int nImages;
+		private int nRealisations;
+		private int nChargements;
+
+		public PanelEnregistrer(JFrame windowE, JTabbedPane tabbedPane, ArrayList<Onglet> listeOnglets, PanelInformations panelInfos,boolean nouveau) {
 			this.windowE = windowE;
+			this.nouveau=nouveau;
 			this.setPreferredSize(new Dimension(500, 300));
 			obdd = new OutilsBdd("Database.db");
+			if(nouveau){
+				JTextField j1 = new JTextField();
+				JTextField j2 = new JTextField();
+				ArrayList list = new ArrayList();
+				list.add("Nom objet : \n");
+				list.add(j1);
+				list.add("Nom auteur : \n");
+				list.add(j2);
+				int res = JOptionPane.showOptionDialog(null, list.toArray(), "Saisissez les champs", JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE, null, null, null);
+				if (j2.getText().isEmpty() || j1.getText().isEmpty())
+					list.add("les champs sont obligatoires");
+				while ((j2.getText().isEmpty() || j1.getText().isEmpty()) && res!=-1) {
+					res=JOptionPane.showOptionDialog(null, list.toArray(), "Saisissez les champs", JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE, null, null, null);
+				}
+				if(res!=-1){
+					this.nomFichier=j1.getText();
+					this.nomAuteur=j2.getText();
+					this.dateAjoutt=panelInfos.getDateAjoutt();
+					this.dateModiff=panelInfos.getDateModiff();
+					this.nChargements=panelInfos.getnChargements();
+					this.nRealisations=panelInfos.getnRealisations();
+					this.nImages=panelInfos.getnImages();
+					jbOk = new JButton("Ok");
+					jlFen = new JLabel("Vous avez enregistré l'objet " +this.nomFichier+ " dans la BDD avec les informations suivantes:");
+					jlNomAuteur = new JLabel("Nom Auteur : " + this.nomAuteur);
+					jlNomObjet = new JLabel("Nom Objet : " + this.nomFichier);
+					jlDateAjout = new JLabel("Date d'ajout : " + this.dateAjoutt);
+					jlDerniereModif = new JLabel("Dernière modification : " + this.dateModiff);
+					jlNbChargements = new JLabel("Nombre de chargements : " + this.nChargements);
+					jlNbRealisations = new JLabel("Nombre de réalisations : " + this.nRealisations);
+					jlNbImages=new JLabel("Nombre d'images : "+this.nImages);
 
-			//obdd.addFile(panelInfos.get, linkFile, desc, author, nbrOpen, nbrImg, nbrModif, linkImg, size);
-			//if import :
-			//new File("fichiers/"+panelInfos.getNomFichier()+"/images).mkdirs();
-			//new File("fichiers/"+panelInfos.getNomFichier()+"/realisations).mkdirs();
-
-			jbOk = new JButton("Ok");
-			jlFen = new JLabel("Vous avez enregistré l'objet " + " dans la BDD avec les informations suivantes:");
-			jlNomAuteur = new JLabel("Nom Auteur : " + panelInfos.getNomAuteur());
-			jlNomObjet = new JLabel("Nom Objet : " + panelInfos.getNomFichier());
-			jlDateAjout = new JLabel("Date d'ajout : " + panelInfos.getDateAjoutt());
-			jlDerniereModif = new JLabel("Dernière modification : " + panelInfos.getDateModiff());
-			jlNbChargements = new JLabel("Nombre de chargements : " + panelInfos.getnChargements());
-			jlNbRealisations = new JLabel("Nombre de réalisations : " + panelInfos.getnRealisations());
-			jlNbImages=new JLabel("Nombre d'images : "+panelInfos.getnImages());
-
-
+				}
+			}
+			else {
+				this.nomFichier=panelInfos.getNomFichier();
+				this.nomAuteur=panelInfos.getNomAuteur();
+				this.dateAjoutt=panelInfos.getDateAjoutt();
+				this.dateModiff=panelInfos.getDateModiff();
+				this.nChargements=panelInfos.getnChargements();
+				this.nRealisations=panelInfos.getnRealisations();
+				this.nImages=panelInfos.getnImages();
+				jbOk = new JButton("Ok");
+				jlFen = new JLabel("Vous allez enregistré l'objet " +this.nomFichier+ " dans la BDD avec les informations suivantes:");
+				jlNomAuteur = new JLabel("Nom Auteur : " + this.nomAuteur);
+				jlNomObjet = new JLabel("Nom Objet : " + this.nomFichier);
+				jlDateAjout = new JLabel("Date d'ajout : " + this.dateAjoutt);
+				jlDerniereModif = new JLabel("Dernière modification : " + this.dateModiff);
+				jlNbChargements = new JLabel("Nombre de chargements : " + this.nChargements);
+				jlNbRealisations = new JLabel("Nombre de réalisations : " + this.nRealisations);
+				jlNbImages=new JLabel("Nombre d'images : "+this.nImages);
+			}
 			this.setLayout(new GridLayout(10, 1));
 
 			this.add(jlFen);
@@ -80,6 +128,11 @@ public class WindowEnregistrer extends JFrame {
 
 		public void mouseClicked(MouseEvent e) {
 			if(e.getSource().equals(jbOk)){
+				if (nouveau){
+					new File("fichiers/"+this.nomFichier+"/images").mkdirs();
+					new File("fichiers/"+this.nomFichier+"/realisations").mkdirs();
+				}
+				obdd.addFile(this.nomFichier, "fichiers/"+this.nomFichier, "", this.nomAuteur, this.nChargements, this.nImages, this.nRealisations, "fichiers/"+this.nomFichier+"/images", 0);
 				windowE.dispose();
 			}
 		}

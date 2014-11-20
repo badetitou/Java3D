@@ -178,7 +178,7 @@ public class Menu extends JMenuBar implements ActionListener {
 		}
 		else if (e.getSource().equals(mIFEnregistrer)) {
 			Component onglet = tabbedPane.getSelectedComponent();
-			WindowEnregistrer windowE = new WindowEnregistrer(tabbedPane,listeOnglets, ((Onglet) onglet).getPinfos());
+			WindowEnregistrer windowE = new WindowEnregistrer(tabbedPane,listeOnglets, ((Onglet) onglet).getPinfos(),((Onglet) onglet).isNouveau());
 		}
 
 		else if (e.getSource().equals(mIFQuitter)) {
@@ -208,20 +208,6 @@ public class Menu extends JMenuBar implements ActionListener {
 				}
 				if (fichier != null && name.substring(name.length() - 4, name.length()).equals(".gts")) {
 					if (listeOnglets.size() + 1 <= 5) {
-						/*JTextField j1 = new JTextField();
-					JTextField j2 = new JTextField();
-					ArrayList list = new ArrayList();
-					list.add("Nom auteur : \n");
-					list.add(j1);
-					list.add("Nom objet : \n");
-					list.add(j2);
-					int res = JOptionPane.showOptionDialog(null, list.toArray(), "Saisissez les champs", JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE, null, null, null);
-					if (j2.getText().isEmpty() || j1.getText().isEmpty())
-						list.add("les champs sont obligatoires");
-					while ((j2.getText().isEmpty() || j1.getText().isEmpty()) && res!=-1) {
-						res=JOptionPane.showOptionDialog(null, list.toArray(), "Saisissez les champs", JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE, null, null, null);
-					}
-					if(res!=-1){*/
 						String nomAuteur = "Non renseigné";
 						if(nbOngletsImport==0)
 							nomFichier="New";
@@ -233,7 +219,6 @@ public class Menu extends JMenuBar implements ActionListener {
 						tabbedPane.addTab(nomFichier, onglet);
 						onglet.dessineOnglet();
 						tabbedPane.setSelectedComponent(onglet);
-						//}
 					} else {
 						JOptionPane.showMessageDialog(null,"Trop d'onglets sont ouverts, fermez des onglets puis reessayer !","Attention", JOptionPane.ERROR_MESSAGE);
 					}

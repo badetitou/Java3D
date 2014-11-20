@@ -28,12 +28,18 @@ public class Onglet extends JPanel implements MouseListener{
 	private JLabel ic;
 	private final ArrayList<Onglet>listeOnglets;
 	private final PanelInformations pinfos;
+	private final boolean nouveau;
+
+	public boolean isNouveau() {
+		return nouveau;
+	}
 
 	public Onglet(MyDeskTopPane dp, JTabbedPane tabbedPane,String nomFichier,String nomAuteur,boolean nouveau,ArrayList<Onglet>listeOnglets){
 		this.listeOnglets=listeOnglets;
 		this.dp=dp;
 		this.tabbedPane=tabbedPane;
 		this.nomFichier=nomFichier;
+		this.nouveau=nouveau;
 		//tabbedPane.setSelectedIndex(rechercheOnglet());
 		Toolkit tk=getToolkit();
 		this.setLayout(new BorderLayout());

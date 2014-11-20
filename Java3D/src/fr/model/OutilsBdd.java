@@ -96,7 +96,7 @@ public class OutilsBdd {
 				+ nbrImg +"','"
 				+ nbrModif +"','"
 				+ linkImg +"','"
-				+ size +")";
+				+ size +"')";
 		try {
 			statement.executeUpdate(requet);
 		} catch (Exception e) {
