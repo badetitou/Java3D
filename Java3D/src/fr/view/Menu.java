@@ -196,18 +196,19 @@ public class Menu extends JMenuBar implements ActionListener {
 			JFileChooser dialogue = new JFileChooser(new File("ressources/image"));
 			FileNameExtensionFilter filter = new FileNameExtensionFilter("Fichier gts", "gts");
 			dialogue.setFileFilter(filter);
-			final File fichier;
-			dialogue.showOpenDialog(null);
+			File fichier=null;
+			int a =dialogue.showOpenDialog(null);
 			fichier = dialogue.getSelectedFile();
-			String name = fichier.getName();
-			name = name.substring(name.length() - 4, name.length());
-			int comparaison = name.compareToIgnoreCase(".gts");
-			if (comparaison != 0) {
-				JOptionPane.showMessageDialog(null,"Le fichier que vous avez choisi n'est pas compatible !","Attention", JOptionPane.ERROR_MESSAGE);
-			}
-			if (fichier != null && name.substring(name.length() - 4, name.length()).equals(".gts")) {
-				if (listeOnglets.size() + 1 <= 5) {
-					/*JTextField j1 = new JTextField();
+			if(fichier !=null && a == JFileChooser.APPROVE_OPTION){
+				String name = fichier.getName();
+				name = name.substring(name.length() - 4, name.length());
+				int comparaison = name.compareToIgnoreCase(".gts");
+				if (comparaison != 0) {
+					JOptionPane.showMessageDialog(null,"Le fichier que vous avez choisi n'est pas compatible !","Attention", JOptionPane.ERROR_MESSAGE);
+				}
+				if (fichier != null && name.substring(name.length() - 4, name.length()).equals(".gts")) {
+					if (listeOnglets.size() + 1 <= 5) {
+						/*JTextField j1 = new JTextField();
 					JTextField j2 = new JTextField();
 					ArrayList list = new ArrayList();
 					list.add("Nom auteur : \n");
@@ -221,20 +222,21 @@ public class Menu extends JMenuBar implements ActionListener {
 						res=JOptionPane.showOptionDialog(null, list.toArray(), "Saisissez les champs", JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE, null, null, null);
 					}
 					if(res!=-1){*/
-					String nomAuteur = "Non renseigné";
-					if(nbOngletsImport==0)
-						nomFichier="New";
-					else
-						nomFichier="New("+nbOngletsImport+")";
-					onglet = new Onglet(new MyDeskTopPane(fichier.getAbsolutePath()), tabbedPane, nomFichier,nomAuteur, true, listeOnglets);
-					panelInfos = onglet.getPinfos();
-					nbOngletsImport++;
-					tabbedPane.addTab(nomFichier, onglet);
-					onglet.dessineOnglet();
-					tabbedPane.setSelectedComponent(onglet);
-					//}
-				} else {
-					JOptionPane.showMessageDialog(null,"Trop d'onglets sont ouverts, fermez des onglets puis reessayer !","Attention", JOptionPane.ERROR_MESSAGE);
+						String nomAuteur = "Non renseigné";
+						if(nbOngletsImport==0)
+							nomFichier="New";
+						else
+							nomFichier="New("+nbOngletsImport+")";
+						onglet = new Onglet(new MyDeskTopPane(fichier.getAbsolutePath()), tabbedPane, nomFichier,nomAuteur, true, listeOnglets);
+						panelInfos = onglet.getPinfos();
+						nbOngletsImport++;
+						tabbedPane.addTab(nomFichier, onglet);
+						onglet.dessineOnglet();
+						tabbedPane.setSelectedComponent(onglet);
+						//}
+					} else {
+						JOptionPane.showMessageDialog(null,"Trop d'onglets sont ouverts, fermez des onglets puis reessayer !","Attention", JOptionPane.ERROR_MESSAGE);
+					}
 				}
 			}
 		} else if (e.getSource().equals(mIFFermer)) {
