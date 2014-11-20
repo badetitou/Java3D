@@ -15,7 +15,7 @@ import fr.model.OutilsBdd;
 
 /**
  * 
- * @author Loic 
+ * @author Loic
  * Fenêtre du logiciel après l'écran du chargement. Elle contient tous les JPanel.
  *
  */
@@ -35,7 +35,8 @@ public class Window extends JFrame{
 		outil = getToolkit();
 		this.setIconImage(new ImageIcon("ressources/image/logoforreal2.png").getImage());
 		this.setVisible(true);
-		this.setSize(outil.getScreenSize());
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		//this.setSize(outil.getScreenSize());
 		this.setResizable(false);
 		this.setState(Frame.NORMAL);
 		OutilsBdd obdd=new OutilsBdd("Database.db");
