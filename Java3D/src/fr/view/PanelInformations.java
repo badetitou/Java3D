@@ -55,12 +55,12 @@ public class PanelInformations extends JPanel {
 		nomObjet=new JLabel("Nom de l'objet : "+this.nomFichier);
 		font = nomObjet.getFont();
 		nomObjet.setFont(new Font(font.getFontName(), Font.BOLD, font.getSize()));
-		nomObjet.setIcon(new ImageIcon(new ImageIcon("ressources/icones/iconesInformations/nomObjet.png").getImage().getScaledInstance(size, size, Image.SCALE_DEFAULT)));
+		nomObjet.setIcon(new ImageIcon(new ImageIcon("ressources/icones/iconesInformations/nomObjet.png").getImage().getScaledInstance(size, size, Image.SCALE_SMOOTH)));
 
 		auteur=new JLabel("Nom auteur : "+this.nomAuteur);
 		font = auteur.getFont();
 		auteur.setFont(new Font(font.getFontName(), Font.BOLD, font.getSize()));
-		auteur.setIcon(new ImageIcon(new ImageIcon("ressources/icones/iconesInformations/auteur.png").getImage().getScaledInstance(size, size, Image.SCALE_DEFAULT)));
+		auteur.setIcon(new ImageIcon(new ImageIcon("ressources/icones/iconesInformations/auteur.png").getImage().getScaledInstance(size, size, Image.SCALE_SMOOTH)));
 
 		if(nouveau){
 			String format = "yyyy-dd-MM";
@@ -76,32 +76,32 @@ public class PanelInformations extends JPanel {
 		dateAjout=new JLabel("Date d'ajout : "+dateAjoutt);
 		font = dateAjout.getFont();
 		dateAjout.setFont(new Font(font.getFontName(), Font.BOLD, font.getSize()));
-		dateAjout.setIcon(new ImageIcon(new ImageIcon("ressources/icones/iconesInformations/dateAjout.png").getImage().getScaledInstance(size,size, Image.SCALE_DEFAULT)));
+		dateAjout.setIcon(new ImageIcon(new ImageIcon("ressources/icones/iconesInformations/dateAjout.png").getImage().getScaledInstance(size,size, Image.SCALE_SMOOTH)));
 
 		derniereModif=new JLabel("Dernière modification : "+dateModiff);
 		font = derniereModif.getFont();
 		derniereModif.setFont(new Font(font.getFontName(), Font.BOLD, font.getSize()));
-		derniereModif.setIcon(new ImageIcon(new ImageIcon("ressources/icones/iconesInformations/derniereModif.png").getImage().getScaledInstance(size, size, Image.SCALE_DEFAULT)));
+		derniereModif.setIcon(new ImageIcon(new ImageIcon("ressources/icones/iconesInformations/derniereModif.png").getImage().getScaledInstance(size, size, Image.SCALE_SMOOTH)));
 
 
 		nChargements=(obdd.getnbrOpen(nomFichier)+1);
 		nbChargements=new JLabel("Nombre de chargements : "+nChargements);
 		font = nbChargements.getFont();
 		nbChargements.setFont(new Font(font.getFontName(), Font.BOLD, font.getSize()));
-		nbChargements.setIcon(new ImageIcon(new ImageIcon("ressources/icones/iconesInformations/nbChargements.png").getImage().getScaledInstance(size, size, Image.SCALE_DEFAULT)));
+		nbChargements.setIcon(new ImageIcon(new ImageIcon("ressources/icones/iconesInformations/nbChargements.png").getImage().getScaledInstance(size, size, Image.SCALE_SMOOTH)));
 
 
 		nImages=obdd.getnbrImg(nomFichier);
 		nbImages=new JLabel("Nombre d'images : "+nImages);
 		font = nbImages.getFont();
 		nbImages.setFont(new Font(font.getFontName(), Font.BOLD, font.getSize()));
-		nbImages.setIcon(new ImageIcon(new ImageIcon("ressources/icones/iconesInformations/nbImages.png").getImage().getScaledInstance(size, size, Image.SCALE_DEFAULT)));
+		nbImages.setIcon(new ImageIcon(new ImageIcon("ressources/icones/iconesInformations/nbImages.png").getImage().getScaledInstance(size, size, Image.SCALE_SMOOTH)));
 
 		nRealisations=0;
 		nbRealisations=new JLabel("Nombre de réalisations : "+nRealisations);
 		font = nbRealisations.getFont();
 		nbRealisations.setFont(new Font(font.getFontName(), Font.BOLD, font.getSize()));
-		nbRealisations.setIcon(new ImageIcon(new ImageIcon("ressources/icones/iconesInformations/nbRealisations.png").getImage().getScaledInstance(size, size, Image.SCALE_DEFAULT)));
+		nbRealisations.setIcon(new ImageIcon(new ImageIcon("ressources/icones/iconesInformations/nbRealisations.png").getImage().getScaledInstance(size, size, Image.SCALE_SMOOTH)));
 
 
 

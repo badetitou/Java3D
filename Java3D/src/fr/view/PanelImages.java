@@ -174,7 +174,7 @@ public class PanelImages extends JPanel implements MouseListener{
 		public void dessinerP(){
 			l=new JLabel();
 			this.addMouseListener(this);
-			l.setIcon(new ImageIcon(new ImageIcon(path).getImage().getScaledInstance(Window.outil.getScreenSize().width/13, Window.outil.getScreenSize().width/13, Image.SCALE_DEFAULT)));
+			l.setIcon(new ImageIcon(new ImageIcon(path).getImage().getScaledInstance(Window.outil.getScreenSize().width/13, Window.outil.getScreenSize().width/13, Image.SCALE_SMOOTH)));
 			this.add(l);
 			this.setBorder(BorderFactory.createLineBorder(new Color(190,190,190)));
 			listePanels.add(this);

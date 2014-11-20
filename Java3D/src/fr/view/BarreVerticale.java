@@ -51,19 +51,19 @@ public class BarreVerticale extends JPanel implements MouseListener {
 		b3.setToolTipText("Mode edit");
 
 		ic1 = new ImageIcon(new ImageIcon("ressources/icones/oneview.png")
-				.getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
+		.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH));
 		ic2 = new ImageIcon(new ImageIcon("ressources/icones/multipanel.png")
-				.getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
+		.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH));
 		ic3 = new ImageIcon(new ImageIcon("ressources/icones/edit.png")
-				.getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
+		.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH));
 
 		ic6 = new ImageIcon(new ImageIcon("ressources/icones/oneviewclic.png")
-				.getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
+		.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH));
 		ic7 = new ImageIcon(new ImageIcon(
 				"ressources/icones/multipanelclic.png").getImage()
-				.getScaledInstance(60, 60, Image.SCALE_DEFAULT));
+				.getScaledInstance(60, 60, Image.SCALE_SMOOTH));
 		ic8 = new ImageIcon(new ImageIcon("ressources/icones/editclic.png")
-				.getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
+		.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH));
 
 		b1.setMargin(new Insets(0, 0, 0, 0));
 		b2.setMargin(new Insets(0, 0, 0, 0));
@@ -114,11 +114,11 @@ public class BarreVerticale extends JPanel implements MouseListener {
 			bb1 = false;
 			modeEdit = false;
 			dp.getPanel().setD(new Dimension(MyDeskTopPane.dimmini)); // NE PAS
-																		// TOUCHER
-																		// CECI
-																		// PERMET
-																		// L'AFFICHAGE
-																		// CENTRE
+			// TOUCHER
+			// CECI
+			// PERMET
+			// L'AFFICHAGE
+			// CENTRE
 			this.dp.getiFrameMain().setPreferredSize(MyDeskTopPane.dimmini);
 			this.dp.getiFrameDessous().setVisible(true);
 			this.dp.getiFrameDessus().setVisible(true);
@@ -180,7 +180,7 @@ public class BarreVerticale extends JPanel implements MouseListener {
 	public boolean isBb1() {
 		return bb1;
 	}
-	
+
 	public boolean isBb2() {
 		return bb2;
 	}

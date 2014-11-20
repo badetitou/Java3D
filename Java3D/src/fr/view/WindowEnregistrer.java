@@ -1,7 +1,6 @@
 package fr.view;
 
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -30,58 +29,55 @@ public class WindowEnregistrer extends JFrame {
 	}
 
 	public class PanelEnregistrer extends JPanel implements MouseListener{
-		
-		public final JButton jbOk;
-		public JLabel jlFen;
-		public JLabel jlNomAuteur;
-		public JLabel jlNomObjet;
-		public JLabel jlDateAjout;
-		public JLabel jlDerniereModif;
-		public JLabel jlNbChargements;
-		public JLabel jlNbImages;
-		public JLabel jlNbRealisations;	
+
+		private final JButton jbOk;
+		private final JLabel jlFen;
+		private final JLabel jlNomAuteur;
+		private final JLabel jlNomObjet;
+		private final JLabel jlDateAjout;
+		private final JLabel jlDerniereModif;
+		private final JLabel jlNbChargements;
+		private final JLabel jlNbImages;
+		private final JLabel jlNbRealisations;
 		private final JFrame windowE;
 		private final OutilsBdd obdd;
-		private final JTabbedPane tabbedPane;
-		private final ArrayList<Onglet> listeOnglets;
-		private final JPanel panelInfos;
-
 		public PanelEnregistrer(JFrame windowE, JTabbedPane tabbedPane, ArrayList<Onglet> listeOnglets, PanelInformations panelInfos) {
 			this.windowE = windowE;
-			this.tabbedPane = tabbedPane;
-			this.listeOnglets = listeOnglets;
 			this.setPreferredSize(new Dimension(500, 300));
 			obdd = new OutilsBdd("Database.db");
 
 			//obdd.addFile(panelInfos.get, linkFile, desc, author, nbrOpen, nbrImg, nbrModif, linkImg, size);
+			//if import :
+			//new File("fichiers/"+panelInfos.getNomFichier()+"/images).mkdirs();
+			//new File("fichiers/"+panelInfos.getNomFichier()+"/realisations).mkdirs();
 
-			this.panelInfos = panelInfos;
-		
 			jbOk = new JButton("Ok");
 			jlFen = new JLabel("Vous avez enregistré l'objet " + " dans la BDD avec les informations suivantes:");
 			jlNomAuteur = new JLabel("Nom Auteur : " + panelInfos.getNomAuteur());
 			jlNomObjet = new JLabel("Nom Objet : " + panelInfos.getNomFichier());
 			jlDateAjout = new JLabel("Date d'ajout : " + panelInfos.getDateAjoutt());
-			jlDerniereModif = new JLabel(" Dernière modification : " + panelInfos.getDateModiff());
+			jlDerniereModif = new JLabel("Dernière modification : " + panelInfos.getDateModiff());
 			jlNbChargements = new JLabel("Nombre de chargements : " + panelInfos.getnChargements());
 			jlNbRealisations = new JLabel("Nombre de réalisations : " + panelInfos.getnRealisations());
-			
-		
-			this.setLayout(new GridLayout(9, 1));		
-			
+			jlNbImages=new JLabel("Nombre d'images : "+panelInfos.getnImages());
+
+
+			this.setLayout(new GridLayout(10, 1));
+
 			this.add(jlFen);
 			this.add(jlNomAuteur);
 			this.add(jlNomObjet);
 			this.add(jlDateAjout);
 			this.add(jlDerniereModif);
+			this.add(jlNbImages);
 			this.add(jlNbChargements);
 			this.add(jlNbRealisations);
 			this.add(jbOk);
-						
+
 			jbOk.addMouseListener(this);
 
 		}
-		
+
 		public void mouseClicked(MouseEvent e) {
 			if(e.getSource().equals(jbOk)){
 				windowE.dispose();

@@ -19,7 +19,7 @@ public class Onglet extends JPanel implements MouseListener{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private PanelBdd pbdd;
+	private final PanelBdd pbdd;
 	private final MyDeskTopPane dp;
 	private final BarreVerticale bv;
 	private final JTabbedPane tabbedPane;
@@ -27,8 +27,8 @@ public class Onglet extends JPanel implements MouseListener{
 	private final String nomFichier;
 	private JLabel ic;
 	private final ArrayList<Onglet>listeOnglets;
-	private PanelInformations pinfos;
-	
+	private final PanelInformations pinfos;
+
 	public Onglet(MyDeskTopPane dp, JTabbedPane tabbedPane,String nomFichier,String nomAuteur,boolean nouveau,ArrayList<Onglet>listeOnglets){
 		this.listeOnglets=listeOnglets;
 		this.dp=dp;
@@ -42,7 +42,7 @@ public class Onglet extends JPanel implements MouseListener{
 		pinfos = pbdd.getInformations();
 		bv=new BarreVerticale(this.dp);
 		dp.setBarreVerticale(bv);
-		
+
 		JPanel jp2=new JPanel();
 		jp2.add(bv);
 		jp2.setBackground(new Color(190,190,190));
@@ -58,12 +58,12 @@ public class Onglet extends JPanel implements MouseListener{
 	}
 
 	public void dessineOnglet(){
-		closeButon = new JLabel(new ImageIcon(new ImageIcon("ressources/icones/fermer.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT)));
+		closeButon = new JLabel(new ImageIcon(new ImageIcon("ressources/icones/fermer.png").getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH)));
 		closeButon.addMouseListener(this);
 		JPanel p1=new JPanel();
 		p1.setOpaque(false);
 		listeOnglets.add(this);
-		ic = new JLabel(new ImageIcon(new ImageIcon("ressources/icones/iconeFichier.png").getImage().getScaledInstance(26, 26, Image.SCALE_DEFAULT)));
+		ic = new JLabel(new ImageIcon(new ImageIcon("ressources/icones/iconeFichier.png").getImage().getScaledInstance(26, 26, Image.SCALE_SMOOTH)));
 		JLabel lbTitle=new JLabel(nomFichier);
 		p1.add(ic);
 		p1.add(lbTitle);
@@ -87,10 +87,10 @@ public class Onglet extends JPanel implements MouseListener{
 
 	}
 	public void mouseEntered(MouseEvent arg0) {
-		closeButon.setIcon(new ImageIcon(new ImageIcon("ressources/icones/fermer2.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT)));
+		closeButon.setIcon(new ImageIcon(new ImageIcon("ressources/icones/fermer2.png").getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH)));
 	}
 	public void mouseExited(MouseEvent arg0) {
-		closeButon.setIcon(new ImageIcon(new ImageIcon("ressources/icones/fermer.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT)));
+		closeButon.setIcon(new ImageIcon(new ImageIcon("ressources/icones/fermer.png").getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH)));
 	}
 	public void mousePressed(MouseEvent arg0) {
 		// TODO Auto-generated method stub

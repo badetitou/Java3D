@@ -15,7 +15,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
-import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -25,9 +24,9 @@ public class Menu extends JMenuBar implements ActionListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	private PanelInformations panelInfos;
-	
+
 	private final JMenu mFichier;
 	private final JMenu mEdition;
 	private final JMenu mOptions;
@@ -54,7 +53,9 @@ public class Menu extends JMenuBar implements ActionListener {
 
 	private final JTabbedPane tabbedPane;
 
-	private String nomFichier = "UNNAME";
+	private static int nbOngletsImport=0;
+
+	private String nomFichier;
 	private Onglet onglet;
 
 	private final ArrayList<Onglet> listeOnglets;
@@ -176,7 +177,8 @@ public class Menu extends JMenuBar implements ActionListener {
 			panelInfos = windowO.getPanelInfos();
 		}
 		else if (e.getSource().equals(mIFEnregistrer)) {
-			WindowEnregistrer windowE = new WindowEnregistrer(tabbedPane,listeOnglets, panelInfos);
+			Component onglet = tabbedPane.getSelectedComponent();
+			WindowEnregistrer windowE = new WindowEnregistrer(tabbedPane,listeOnglets, ((Onglet) onglet).getPinfos());
 		}
 
 		else if (e.getSource().equals(mIFQuitter)) {
@@ -205,7 +207,7 @@ public class Menu extends JMenuBar implements ActionListener {
 			}
 			if (fichier != null && name.substring(name.length() - 4, name.length()).equals(".gts")) {
 				if (listeOnglets.size() + 1 <= 5) {
-					JTextField j1 = new JTextField();
+					/*JTextField j1 = new JTextField();
 					JTextField j2 = new JTextField();
 					ArrayList list = new ArrayList();
 					list.add("Nom auteur : \n");
@@ -218,15 +220,19 @@ public class Menu extends JMenuBar implements ActionListener {
 					while ((j2.getText().isEmpty() || j1.getText().isEmpty()) && res!=-1) {
 						res=JOptionPane.showOptionDialog(null, list.toArray(), "Saisissez les champs", JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE, null, null, null);
 					}
-					if(res!=-1){
-						String nomAuteur = j1.getText();
-						nomFichier = j2.getText();
-						onglet = new Onglet(new MyDeskTopPane(fichier.getAbsolutePath()), tabbedPane, nomFichier,nomAuteur, true, listeOnglets);
-						panelInfos = onglet.getPinfos();
-						tabbedPane.addTab(nomFichier, onglet);
-						onglet.dessineOnglet();
-						tabbedPane.setSelectedComponent(onglet);
-					}
+					if(res!=-1){*/
+					String nomAuteur = "Non renseigné";
+					if(nbOngletsImport==0)
+						nomFichier="New";
+					else
+						nomFichier="New("+nbOngletsImport+")";
+					onglet = new Onglet(new MyDeskTopPane(fichier.getAbsolutePath()), tabbedPane, nomFichier,nomAuteur, true, listeOnglets);
+					panelInfos = onglet.getPinfos();
+					nbOngletsImport++;
+					tabbedPane.addTab(nomFichier, onglet);
+					onglet.dessineOnglet();
+					tabbedPane.setSelectedComponent(onglet);
+					//}
 				} else {
 					JOptionPane.showMessageDialog(null,"Trop d'onglets sont ouverts, fermez des onglets puis reessayer !","Attention", JOptionPane.ERROR_MESSAGE);
 				}
