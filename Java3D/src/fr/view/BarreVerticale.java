@@ -208,6 +208,10 @@ public class BarreVerticale extends JPanel implements MouseListener {
 	public boolean getModeEdit() {
 		return modeEdit;
 	}
+	
+	public boolean isSquelette(){
+		return modeSquelette;
+	}
 
 	public boolean isBb1() {
 		return bb1;

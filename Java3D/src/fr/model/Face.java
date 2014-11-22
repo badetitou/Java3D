@@ -66,7 +66,6 @@ public class Face implements Comparable<Face> {
 		return new Polygon(new int[]{(int)(p1.x + mod.getD().getWidth() / 2 + mod.xTranslate), (int)(p2.x + mod.getD().getWidth() / 2 + mod.xTranslate), (int)(p3.x + mod.getD().getWidth() / 2 + mod.xTranslate)}, new int[]{(int)(p1.y + mod.getD().getHeight() / 2 + mod.yTranslate), (int)(p2.y+ mod.getD().getHeight() / 2 + mod.yTranslate), (int)(p3.y+ mod.getD().getHeight() / 2 + mod.yTranslate)}, 3);
 	}
 
-	
 	public Color calculLumiere(){
 		Point N = new Point((p2.y - p1.y) * (p3.z - p1.z) - (p2.z - p1.z)
 				* (p3.y - p1.y), (p2.z - p1.z) * (p3.x - p1.x) - (p2.x - p1.x)

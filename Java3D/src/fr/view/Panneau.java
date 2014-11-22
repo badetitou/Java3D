@@ -148,6 +148,9 @@ public class Panneau extends JPanel {
 						.getColor().getGreen(), 255 - g.getColor().getBlue()));
 				g.drawPolygon(f.getTriangle());
 			}
+			if (bv.isSquelette()) {
+				g.fillPolygon(f.getTriangle());
+			}
 		}
 	}
 
