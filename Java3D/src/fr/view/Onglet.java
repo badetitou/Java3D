@@ -47,8 +47,7 @@ public class Onglet extends JPanel implements MouseListener{
 		pbdd = new PanelBdd(nomFichier,nomAuteur,nouveau);
 		pinfos = pbdd.getInformations();
 		bv=new BarreVerticale(this.dp);
-		dp.setBarreVerticale(bv);
-
+		
 		JPanel jp2=new JPanel();
 		jp2.add(bv);
 		jp2.setBackground(new Color(190,190,190));
@@ -56,6 +55,7 @@ public class Onglet extends JPanel implements MouseListener{
 		this.add(jp2,BorderLayout.WEST);
 		this.add(new PanelEdit(this.dp,bv),BorderLayout.EAST);
 		this.add(pbdd, BorderLayout.SOUTH);
+		dp.setBV(bv);
 
 	}
 

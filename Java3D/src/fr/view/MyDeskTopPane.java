@@ -30,10 +30,16 @@ public class MyDeskTopPane extends JDesktopPane {
 	private final JInternalFrame iFrameDessous;
 	private final JInternalFrame iFrameProfil;
 	private final Panneau panel;
-	public void setBarreVerticale(BarreVerticale b) {
-		panel.setBarreVerticale(b);
-	}
+	private BarreVerticale bv;
 
+	public void setBV(BarreVerticale bv){
+		this.bv = bv;
+	}
+	
+	public BarreVerticale getBarreVerticale(){
+		return bv;
+	}
+	
 	public JInternalFrame getiFrameMain() {
 		return iFrameMain;
 	}
@@ -67,7 +73,7 @@ public class MyDeskTopPane extends JDesktopPane {
 		dimmini = new Dimension(dimension.height / 2, dimension.height / 2);
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
-		panel = new Panneau(new Model(url, 0, dimension));
+		panel = new Panneau(new Model(url, 0, dimension), this);
 
 		iFrameMain = new JInternalFrame("Vue principale", // le titre de la
 				// fenêtre
@@ -98,9 +104,9 @@ public class MyDeskTopPane extends JDesktopPane {
 		iFrameProfil.setPreferredSize(dimmini);
 
 		iFrameMain.add(panel);
-		iFrameDessus.add(new Panneau(new Model(url, 1, dimmini)));
-		iFrameDessous.add(new Panneau(new Model(url, 2, dimmini)));
-		iFrameProfil.add(new Panneau(new Model(url, 3, dimmini)));
+		iFrameDessus.add(new Panneau(new Model(url, 1, dimmini), this));
+		iFrameDessous.add(new Panneau(new Model(url, 2, dimmini), this));
+		iFrameProfil.add(new Panneau(new Model(url, 3, dimmini), this));
 
 		gbc.gridx = 0;
 		gbc.gridy = 0;

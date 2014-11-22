@@ -100,6 +100,7 @@ public class BarreVerticale extends JPanel implements MouseListener {
 		this.add(b2);
 		this.add(b3);
 		this.add(b4);
+		
 
 	}
 
@@ -177,8 +178,7 @@ public class BarreVerticale extends JPanel implements MouseListener {
 			modeEdit = false;
 			modeSquelette=true;
 		}
-
-		this.dp.getPanel().repaint();
+		this.dp.repaint();
 	}
 
 	public void mouseEntered(MouseEvent arg0) {

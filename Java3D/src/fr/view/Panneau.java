@@ -26,11 +26,15 @@ public class Panneau extends JPanel {
 	private final Model m;
 	private int coordMouseX = 0;
 	private int coordMouseY = 0;
-	private BarreVerticale bv;
+	MyDeskTopPane dp;
 
 	Thread t;
 	Image img;
 	Graphics2D g2d;
+	
+	public BarreVerticale getBarreVerticale(){
+		return dp.getBarreVerticale();
+	}
 
 	public List<Face> getAllSelectedFace() {
 		List<Face> lf = new ArrayList<Face>();
@@ -42,15 +46,12 @@ public class Panneau extends JPanel {
 		return lf;
 	}
 
-	public void setBarreVerticale(BarreVerticale bv) {
-		this.bv = bv;
-	}
-
 	public Model getM() {
 		return m;
 	}
 
-	public Panneau(Model mod) {
+	public Panneau(Model mod, MyDeskTopPane dp) {
+		this.dp = dp;
 		this.m = mod;
 		if (m.vue == 1) {
 			m.rotationX(0);
@@ -64,7 +65,7 @@ public class Panneau extends JPanel {
 		} else {
 			this.addMouseListener(new MouseListener() {
 				public void mouseClicked(MouseEvent arg0) {
-					if (bv.getModeEdit()) {
+					if (getBarreVerticale().getModeEdit()) {
 						Face selected = m.getParticularFace(coordMouseX,
 								coordMouseY);
 						if (selected != null) {
@@ -98,7 +99,7 @@ public class Panneau extends JPanel {
 			});
 
 			this.addMouseMotionListener(new MouseMotionListener() {
-				
+
 				public void mouseMoved(MouseEvent e) {
 					coordMouseX = e.getX();
 					coordMouseY = e.getY();
@@ -108,14 +109,14 @@ public class Panneau extends JPanel {
 					if (m.vue == 0) {
 						if (Barre.boolButtonRotation) {
 							if (Barre.boolButtonX && Barre.boolButtonY) {
-								m.rotationX(e.getX() -coordMouseX );
+								m.rotationX(e.getX() - coordMouseX);
 								m.rotationY(coordMouseY - e.getY());
 							} else if (Barre.boolButtonX) {
 								m.rotationX(e.getX() - coordMouseX);
 							} else {
 								m.rotationY(coordMouseY - e.getY());
 							}
-							
+
 						} else if (Barre.boolButtonTranslation) {
 							if (Barre.boolButtonX && Barre.boolButtonY) {
 								m.translation(e.getX() - coordMouseX, e.getY()
@@ -125,7 +126,7 @@ public class Panneau extends JPanel {
 							} else if (Barre.boolButtonY) {
 								m.translation(0, e.getY() - coordMouseY);
 							}
-							
+
 						}
 						coordMouseX = e.getX();
 						coordMouseY = e.getY();
@@ -142,14 +143,15 @@ public class Panneau extends JPanel {
 		super.paintComponent(g);
 		for (Face f : m.getFace()) {
 			g.setColor(f.calculLumiere());
-			g.fillPolygon(f.getTriangle());
-			if (f.isSelected()) {
+			if (getBarreVerticale().isSquelette()) {
+				g.drawPolygon(f.getTriangle());
+			}else {
+				g.fillPolygon(f.getTriangle());
+			}
+			if (f.isSelected() && getBarreVerticale().isModeEdit()) {
 				g.setColor(new Color(255 - g.getColor().getRed(), 255 - g
 						.getColor().getGreen(), 255 - g.getColor().getBlue()));
 				g.drawPolygon(f.getTriangle());
-			}
-			if (bv.isSquelette()) {
-				g.fillPolygon(f.getTriangle());
 			}
 		}
 	}
