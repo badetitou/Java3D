@@ -1,5 +1,6 @@
 package fr.view;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
@@ -52,10 +53,13 @@ public class WindowEnregistrer extends JFrame {
 		private int nImages;
 		private int nRealisations;
 		private int nChargements;
+		private final JTabbedPane tabbedPane;
+		private String description;
 
 		public PanelEnregistrer(JFrame windowE, JTabbedPane tabbedPane, ArrayList<Onglet> listeOnglets, PanelInformations panelInfos,boolean nouveau) {
 			this.windowE = windowE;
 			this.nouveau=nouveau;
+			this.tabbedPane=tabbedPane;
 			this.setPreferredSize(new Dimension(500, 300));
 			obdd = new OutilsBdd("Database.db");
 			if(nouveau){
@@ -100,7 +104,7 @@ public class WindowEnregistrer extends JFrame {
 				this.nChargements=panelInfos.getnChargements();
 				this.nRealisations=panelInfos.getnRealisations();
 				this.nImages=panelInfos.getnImages();
-				jbOk = new JButton("Ok");
+				jbOk = new JButton("Valider la sauvegarde");
 				jlFen = new JLabel("Vous allez enregistré l'objet " +this.nomFichier+ " dans la BDD avec les informations suivantes:");
 				jlNomAuteur = new JLabel("Nom Auteur : " + this.nomAuteur);
 				jlNomObjet = new JLabel("Nom Objet : " + this.nomFichier);
@@ -126,13 +130,90 @@ public class WindowEnregistrer extends JFrame {
 
 		}
 
+		public boolean copier( File source, File destination ){ //Methode permettant la copie d'un fichier
+			boolean resultat = false;
+
+			// Declaration des flux
+			java.io.FileInputStream sourceFile=null;
+			java.io.FileOutputStream destinationFile=null;
+			try {
+				// Création du fichier :
+				destination.createNewFile();
+				// Ouverture des flux
+				sourceFile = new java.io.FileInputStream(source);
+				destinationFile = new java.io.FileOutputStream(destination);
+				// Lecture par segment de 0.5Mo
+				byte buffer[]=new byte[512*1024];
+				int nbLecture;
+				while( (nbLecture = sourceFile.read(buffer)) != -1 ) {
+					destinationFile.write(buffer, 0, nbLecture);
+				}
+
+				// Copie réussie
+				resultat = true;
+			} catch( java.io.FileNotFoundException f ) {
+			} catch( java.io.IOException e ) {
+			} finally {
+				// Quoi qu'il arrive, on ferme les flux
+				try {
+					sourceFile.close();
+				} catch(Exception e) { }
+				try {
+					destinationFile.close();
+				} catch(Exception e) { }
+			}
+			return( resultat );
+		}
+
 		public void mouseClicked(MouseEvent e) {
 			if(e.getSource().equals(jbOk)){
+				Component onglet = tabbedPane.getSelectedComponent();
+				ArrayList<String>listeImages=((Onglet) onglet).getListeImages();
+				description=((Onglet)onglet).getPbdd().getDescription().getDescription();
+
 				if (nouveau){
 					new File("fichiers/"+this.nomFichier+"/images").mkdirs();
 					new File("fichiers/"+this.nomFichier+"/realisations").mkdirs();
+					//enregistrer les images.
+					int nb = this.nImages+1;//futur probleme
+					for (int i=0;i<listeImages.size();i++){
+						nb++;
+						if (copier( new File(listeImages.get(i)), new File("fichiers/"+this.nomFichier+"/images/"+this.nomFichier+nb) )){
+							System.out.println("Sauvegarde réussie");
+						}
+					}
+					obdd.addFile(this.nomFichier, "fichiers/"+this.nomFichier, this.description, this.nomAuteur, this.nChargements, listeImages.size(), this.nRealisations, "fichiers/"+this.nomFichier+"/images", 0);
 				}
-				obdd.addFile(this.nomFichier, "fichiers/"+this.nomFichier, "", this.nomAuteur, this.nChargements, this.nImages, this.nRealisations, "fichiers/"+this.nomFichier+"/images", 0);
+				else {
+
+					String lien=obdd.getLinkImg(nomFichier);
+					File repertoire = new File(lien);
+					String[] listefichiers;
+					File f;
+					int i;
+					if(repertoire.list()!=null){
+						listefichiers=repertoire.list();
+						for(i=0;i<listefichiers.length;i++){
+							if(!(listeImages.contains(listefichiers[i]))){
+								f = new File(listefichiers[i]);
+								f.delete();
+							}
+						}
+						ArrayList<String> fichiers=new ArrayList<String>();
+						for (int j =0;j<listefichiers.length;j++){
+							fichiers.add(listefichiers[j]);
+						}
+						for(int k=0;k<listeImages.size();k++){
+							if(!(fichiers.contains(listeImages.get(k)))){
+								copier( new File(listeImages.get(i)), new File("fichiers/"+this.nomFichier+"/images/"+this.nomFichier));
+							}
+						}
+					}
+
+
+
+					obdd.updateFile(this.nomFichier,this.description, this.nChargements, listeImages.size(), this.nRealisations, "fichiers/"+this.nomFichier+"/images",0);
+				}
 				windowE.dispose();
 			}
 		}

@@ -27,11 +27,19 @@ public class Onglet extends JPanel implements MouseListener{
 	private final String nomFichier;
 	private JLabel ic;
 	private final ArrayList<Onglet>listeOnglets;
+	public PanelBdd getPbdd() {
+		return pbdd;
+	}
 	private final PanelInformations pinfos;
 	private final boolean nouveau;
+	private final ArrayList<String>listeImages;
 
 	public boolean isNouveau() {
 		return nouveau;
+	}
+
+	public ArrayList<String> getListeImages() {
+		return listeImages;
 	}
 
 	public Onglet(MyDeskTopPane dp, JTabbedPane tabbedPane,String nomFichier,String nomAuteur,boolean nouveau,ArrayList<Onglet>listeOnglets){
@@ -45,9 +53,10 @@ public class Onglet extends JPanel implements MouseListener{
 		this.setLayout(new BorderLayout());
 		this.setPreferredSize(new Dimension(tk.getScreenSize().height,tk.getScreenSize().width));
 		pbdd = new PanelBdd(nomFichier,nomAuteur,nouveau);
+		listeImages=pbdd.getListeImages();
 		pinfos = pbdd.getInformations();
 		bv=new BarreVerticale(this.dp);
-		
+
 		JPanel jp2=new JPanel();
 		jp2.add(bv);
 		jp2.setBackground(new Color(190,190,190));

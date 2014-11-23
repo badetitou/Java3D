@@ -36,6 +36,11 @@ public class PanelImages extends JPanel implements MouseListener{
 	private final OutilsBdd obdd;
 	private final String lien;
 	private ArrayList<String>listeImages;
+	public ArrayList<String> getListeImages() {
+		return listeImages;
+	}
+
+
 	private final ArrayList<PImage> listePanels;
 	private PImage p;
 	private int nbImages;
@@ -49,7 +54,6 @@ public class PanelImages extends JPanel implements MouseListener{
 		lien=obdd.getLinkImg(nomFichier);
 		//System.out.println(lien);
 		listeImages=listerRepertoire(lien);
-		//System.out.println(listeImages.toString());
 		listePanels=new ArrayList<PImage>();
 		if(listeImages!=null){
 			JLabel label;
@@ -112,9 +116,9 @@ public class PanelImages extends JPanel implements MouseListener{
 			FileNameExtensionFilter filter = new FileNameExtensionFilter("Fichier Image","png","jpg","jpeg");
 			dialogue.setFileFilter(filter);
 			final File fichier;
-			dialogue.showOpenDialog(null);
+			int a =dialogue.showOpenDialog(null);
 			fichier = dialogue.getSelectedFile();
-			if(fichier!=null){
+			if(fichier!=null && a == JFileChooser.APPROVE_OPTION){
 				String name = fichier.getName();
 				name=name.substring(name.length()-4, name.length());
 				if(name.compareTo(".png")!=0 && name.compareTo(".jpg")!=0 && name.compareTo(".jpeg")!=0){
@@ -123,6 +127,7 @@ public class PanelImages extends JPanel implements MouseListener{
 				else {
 					dessinerImages(fichier.getPath());
 					listeImages.add(fichier.getPath());
+					System.out.println(listeImages.toString());
 					nbImages++;
 				}
 			}

@@ -27,6 +27,7 @@ public class PanelDescription extends JPanel implements MouseListener{
 	private final JPanel panelBouton;
 	private final JButton valider;
 	private final JButton modifier;
+	private String description;
 
 	private final JLabel label;
 	private final OutilsBdd obdd;
@@ -87,8 +88,13 @@ public class PanelDescription extends JPanel implements MouseListener{
 			modifier.setEnabled(true);
 			textArea.setBackground(new Color(230,230,230));
 			textArea.setForeground(new Color(130,130,130));
+			description=textArea.getText();
 		}
 
+	}
+
+	public String getDescription() {
+		return description;
 	}
 
 	public void mouseEntered(MouseEvent arg0) {

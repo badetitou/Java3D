@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Calendar;
-import java.util.Date;
 
 
 
@@ -123,7 +122,7 @@ public class OutilsBdd {
 		}
 	}
 
-	public void updateFile(String name, String desc, Date dateLastModif, int nbrOpen, int nbrImg, int nbrModif, String linkImg, int size) {
+	public void updateFile(String name, String desc,int nbrOpen, int nbrImg, int nbrModif, String linkImg, int size) {
 		this.connect();
 		Calendar rightNow = Calendar.getInstance();
 		String date = rightNow.get(Calendar.YEAR)+"-"+rightNow.get(Calendar.MONTH)+"-"+rightNow.get(Calendar.DAY_OF_MONTH);
