@@ -53,15 +53,17 @@ public class WindowEnregistrer extends JFrame {
 		private int nImages;
 		private int nRealisations;
 		private int nChargements;
-		private final JTabbedPane tabbedPane;
-		private String description;
+		private final String description;
+		private final ArrayList<String>listeImages;
 
 		public PanelEnregistrer(JFrame windowE, JTabbedPane tabbedPane, ArrayList<Onglet> listeOnglets, PanelInformations panelInfos,boolean nouveau) {
 			this.windowE = windowE;
 			this.nouveau=nouveau;
-			this.tabbedPane=tabbedPane;
 			this.setPreferredSize(new Dimension(500, 300));
 			obdd = new OutilsBdd("Database.db");
+			Component onglet = tabbedPane.getSelectedComponent();
+			listeImages=((Onglet) onglet).getListeImages();
+			description=((Onglet)onglet).getPbdd().getDescription().getDescription();
 			if(nouveau){
 				JTextField j1 = new JTextField();
 				JTextField j2 = new JTextField();
@@ -84,7 +86,7 @@ public class WindowEnregistrer extends JFrame {
 					this.nChargements=panelInfos.getnChargements();
 					this.nRealisations=panelInfos.getnRealisations();
 					this.nImages=panelInfos.getnImages();
-					jbOk = new JButton("Ok");
+					jbOk = new JButton("Valider la sauvegarde");
 					jlFen = new JLabel("Vous avez enregistré l'objet " +this.nomFichier+ " dans la BDD avec les informations suivantes:");
 					jlNomAuteur = new JLabel("Nom Auteur : " + this.nomAuteur);
 					jlNomObjet = new JLabel("Nom Objet : " + this.nomFichier);
@@ -92,7 +94,7 @@ public class WindowEnregistrer extends JFrame {
 					jlDerniereModif = new JLabel("Dernière modification : " + this.dateModiff);
 					jlNbChargements = new JLabel("Nombre de chargements : " + this.nChargements);
 					jlNbRealisations = new JLabel("Nombre de réalisations : " + this.nRealisations);
-					jlNbImages=new JLabel("Nombre d'images : "+this.nImages);
+					jlNbImages=new JLabel("Nombre d'images : "+listeImages.size());
 
 				}
 			}
@@ -112,7 +114,7 @@ public class WindowEnregistrer extends JFrame {
 				jlDerniereModif = new JLabel("Dernière modification : " + this.dateModiff);
 				jlNbChargements = new JLabel("Nombre de chargements : " + this.nChargements);
 				jlNbRealisations = new JLabel("Nombre de réalisations : " + this.nRealisations);
-				jlNbImages=new JLabel("Nombre d'images : "+this.nImages);
+				jlNbImages=new JLabel("Nombre d'images : "+listeImages.size());
 			}
 			this.setLayout(new GridLayout(10, 1));
 
@@ -167,22 +169,16 @@ public class WindowEnregistrer extends JFrame {
 
 		public void mouseClicked(MouseEvent e) {
 			if(e.getSource().equals(jbOk)){
-				Component onglet = tabbedPane.getSelectedComponent();
-				ArrayList<String>listeImages=((Onglet) onglet).getListeImages();
-				description=((Onglet)onglet).getPbdd().getDescription().getDescription();
-
 				if (nouveau){
 					new File("fichiers/"+this.nomFichier+"/images").mkdirs();
 					new File("fichiers/"+this.nomFichier+"/realisations").mkdirs();
 					//enregistrer les images.
-					int nb = this.nImages+1;//futur probleme
 					for (int i=0;i<listeImages.size();i++){
-						nb++;
-						if (copier( new File(listeImages.get(i)), new File("fichiers/"+this.nomFichier+"/images/"+this.nomFichier+nb) )){
+						if (copier( new File(listeImages.get(i)), new File("fichiers/"+this.nomFichier+"/images/"+this.nomFichier+listeImages.size()+".png") )){
 							System.out.println("Sauvegarde réussie");
 						}
 					}
-					obdd.addFile(this.nomFichier, "fichiers/"+this.nomFichier, this.description, this.nomAuteur, this.nChargements, listeImages.size(), this.nRealisations, "fichiers/"+this.nomFichier+"/images", 0);
+					obdd.addFile(this.nomFichier, "fichiers/"+this.nomFichier, this.description, this.nomAuteur, this.nChargements, listeImages.size(), this.nRealisations, "fichiers/"+this.nomFichier+"/images/", 0);
 				}
 				else {
 
@@ -205,14 +201,15 @@ public class WindowEnregistrer extends JFrame {
 						}
 						for(int k=0;k<listeImages.size();k++){
 							if(!(fichiers.contains(listeImages.get(k)))){
-								copier( new File(listeImages.get(i)), new File("fichiers/"+this.nomFichier+"/images/"+this.nomFichier));
+								copier( new File(listeImages.get(k)), new File("fichiers/"+this.nomFichier+"/images/"+this.nomFichier+listeImages.size()+".png"));
+								System.out.println("Sauvegarde réussie");
 							}
 						}
 					}
 
 
 
-					obdd.updateFile(this.nomFichier,this.description, this.nChargements, listeImages.size(), this.nRealisations, "fichiers/"+this.nomFichier+"/images",0);
+					obdd.updateFile(this.nomFichier,this.description, this.nChargements, listeImages.size(), this.nRealisations, "fichiers/"+this.nomFichier+"/images/",0);
 				}
 				windowE.dispose();
 			}
