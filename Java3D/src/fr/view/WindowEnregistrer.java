@@ -20,7 +20,9 @@ import fr.model.OutilsBdd;
 
 public class WindowEnregistrer extends JFrame {
 
-	public WindowEnregistrer(JTabbedPane tabbedPane, ArrayList<Onglet> listeOnglets, PanelInformations panelInfos,boolean nouveau) {
+	private final String lienGts;
+	public WindowEnregistrer(JTabbedPane tabbedPane, ArrayList<Onglet> listeOnglets, PanelInformations panelInfos,boolean nouveau,String lienGts) {
+		this.lienGts=lienGts;
 		PanelEnregistrer pE = new PanelEnregistrer(this, tabbedPane, listeOnglets, panelInfos,nouveau);
 		this.setTitle("Enregistrer dans la BDD");
 		this.setSize(500, 300);
@@ -170,15 +172,18 @@ public class WindowEnregistrer extends JFrame {
 		public void mouseClicked(MouseEvent e) {
 			if(e.getSource().equals(jbOk)){
 				if (nouveau){
+					new File("fichiers/"+this.nomFichier).mkdirs();
 					new File("fichiers/"+this.nomFichier+"/images").mkdirs();
 					new File("fichiers/"+this.nomFichier+"/realisations").mkdirs();
+					//copier le point gts
+					copier( new File(lienGts), new File("fichiers/"+this.nomFichier+"/"+this.nomFichier+".gts"));
 					//enregistrer les images.
 					for (int i=0;i<listeImages.size();i++){
 						if (copier( new File(listeImages.get(i)), new File("fichiers/"+this.nomFichier+"/images/"+this.nomFichier+listeImages.size()+".png") )){
 							System.out.println("Sauvegarde réussie");
 						}
 					}
-					obdd.addFile(this.nomFichier, "fichiers/"+this.nomFichier, this.description, this.nomAuteur, this.nChargements, listeImages.size(), this.nRealisations, "fichiers/"+this.nomFichier+"/images/", 0);
+					obdd.addFile(this.nomFichier, "fichiers/"+this.nomFichier+"/"+this.nomFichier+".gts", this.description, this.nomAuteur, this.nChargements, listeImages.size(), this.nRealisations, "fichiers/"+this.nomFichier+"/images/", 0);
 				}
 				else {
 

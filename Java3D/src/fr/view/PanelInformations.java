@@ -83,15 +83,19 @@ public class PanelInformations extends JPanel {
 		derniereModif.setFont(new Font(font.getFontName(), Font.BOLD, font.getSize()));
 		derniereModif.setIcon(new ImageIcon(new ImageIcon("ressources/icones/iconesInformations/derniereModif.png").getImage().getScaledInstance(size, size, Image.SCALE_SMOOTH)));
 
-
-		nChargements=(obdd.getnbrOpen(nomFichier)+1);
+		if(nouveau)
+			nChargements=1;
+		else
+			nChargements=(obdd.getnbrOpen(nomFichier)+1);
 		nbChargements=new JLabel("Nombre de chargements : "+nChargements);
 		font = nbChargements.getFont();
 		nbChargements.setFont(new Font(font.getFontName(), Font.BOLD, font.getSize()));
 		nbChargements.setIcon(new ImageIcon(new ImageIcon("ressources/icones/iconesInformations/nbChargements.png").getImage().getScaledInstance(size, size, Image.SCALE_SMOOTH)));
 
-
-		nImages=obdd.getnbrImg(nomFichier);
+		if(nouveau)
+			nImages=0;
+		else
+			nImages=obdd.getnbrImg(nomFichier);
 		nbImages=new JLabel("Nombre d'images : "+nImages);
 		font = nbImages.getFont();
 		nbImages.setFont(new Font(font.getFontName(), Font.BOLD, font.getSize()));

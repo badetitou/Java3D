@@ -58,6 +58,8 @@ public class Menu extends JMenuBar implements ActionListener {
 	private String nomFichier;
 	private Onglet onglet;
 
+	private String lienGts;
+
 	private final ArrayList<Onglet> listeOnglets;
 
 	public Menu(JTabbedPane tabbedPane, ArrayList<Onglet> listeOnglets, PanelInformations panelInfos) {
@@ -178,7 +180,7 @@ public class Menu extends JMenuBar implements ActionListener {
 		}
 		else if (e.getSource().equals(mIFEnregistrer)) {
 			Component onglet = tabbedPane.getSelectedComponent();
-			WindowEnregistrer windowE = new WindowEnregistrer(tabbedPane,listeOnglets, ((Onglet) onglet).getPinfos(),((Onglet) onglet).isNouveau());
+			WindowEnregistrer windowE = new WindowEnregistrer(tabbedPane,listeOnglets, ((Onglet) onglet).getPinfos(),((Onglet) onglet).isNouveau(),lienGts);
 		}
 
 		else if (e.getSource().equals(mIFQuitter)) {
@@ -201,6 +203,7 @@ public class Menu extends JMenuBar implements ActionListener {
 			fichier = dialogue.getSelectedFile();
 			if(fichier !=null && a == JFileChooser.APPROVE_OPTION){
 				String name = fichier.getName();
+				lienGts=fichier.getAbsolutePath();
 				name = name.substring(name.length() - 4, name.length());
 				int comparaison = name.compareToIgnoreCase(".gts");
 				if (comparaison != 0) {

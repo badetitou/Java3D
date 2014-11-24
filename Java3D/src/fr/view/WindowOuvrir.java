@@ -136,7 +136,7 @@ public class WindowOuvrir extends JFrame {
 			else if(e.getSource().equals(annuler)){
 				windowO.dispose();
 			}
-
+			//windowO.dispose();
 		}
 
 		public void mouseEntered(MouseEvent arg0) {
