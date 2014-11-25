@@ -26,10 +26,6 @@ public class Face implements Comparable<Face> {
 	public Point getP3() {
 		return p3;
 	}
-	
-	public Color getColor(){
-		return this.color;
-	}
 
 	public Face(Point p1, Point p2, Point p3,Color c) {
 		this.p1 = p1;
@@ -80,7 +76,6 @@ public class Face implements Comparable<Face> {
 		double amplN = Math.pow(N.x, 2) + Math.pow(N.y, 2) + Math.pow(N.z, 2);
 		double amplL = Math.pow(L.x, 2) + Math.pow(L.y, 2) + Math.pow(L.z, 2);
 		double cosValue = scal / ((Math.sqrt(amplL)) * (Math.sqrt(amplN)));
-		
 		int cosPositifR = (int) (this.color.getRed() * cosValue);
 		int cosPositifV = (int) (this.color.getGreen() * cosValue);
 		int cosPositifB = (int) (this.color.getBlue() * cosValue);

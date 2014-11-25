@@ -12,10 +12,4 @@ public class Point {
 		this.y=y;
 		this.z=z;
 	}
-	
-	public Point(Point p){
-		x = p.x;
-		y = p.y;
-		z = p.z;
-	}
 }

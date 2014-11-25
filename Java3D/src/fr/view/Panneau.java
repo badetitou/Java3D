@@ -31,8 +31,8 @@ public class Panneau extends JPanel {
 	Thread t;
 	Image img;
 	Graphics2D g2d;
-
-	public BarreVerticale getBarreVerticale() {
+	
+	public BarreVerticale getBarreVerticale(){
 		return dp.getBarreVerticale();
 	}
 
@@ -141,13 +141,18 @@ public class Panneau extends JPanel {
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-
-		if (getBarreVerticale().isSquelette()) {
-			m.paintMod(g, 2);
-		} else if (getBarreVerticale().isModeEdit()) {
-			m.paintMod(g, 1);
-		} else {
-			m.paintMod(g, 0);
+		for (Face f : m.getFace()) {
+			g.setColor(f.calculLumiere());
+			if (getBarreVerticale().isSquelette()) {
+				g.drawPolygon(f.getTriangle());
+			}else {
+				g.fillPolygon(f.getTriangle());
+			}
+			if (f.isSelected() && getBarreVerticale().isModeEdit()) {
+				g.setColor(new Color(255 - g.getColor().getRed(), 255 - g
+						.getColor().getGreen(), 255 - g.getColor().getBlue()));
+				g.drawPolygon(f.getTriangle());
+			}
 		}
 	}
 
