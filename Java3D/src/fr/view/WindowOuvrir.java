@@ -2,7 +2,8 @@ package fr.view;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -57,7 +58,9 @@ public class WindowOuvrir extends JFrame {
 			this.windowO = windowO;
 			this.tabbedPane = tabbedPane;
 			this.listeOnglets = listeOnglets;
-			this.setLayout(new GridLayout(5,1));
+			this.setLayout(new GridBagLayout());
+			GridBagConstraints gbc = new GridBagConstraints();
+			//this.setLayout(new GridLayout(5,1));
 			this.setPreferredSize(new Dimension(500, 300));
 			rTag = new JTextArea();
 			rTag.setPreferredSize(new Dimension(100, 20));
@@ -78,15 +81,9 @@ public class WindowOuvrir extends JFrame {
 
 			obdd = new OutilsBdd("Database.db");
 			String[] data = obdd.getData();
-			//	String[] data = { "green", "red", "orange", "dark blue" };
-			/*		for(int i=0; i<data.length; ++i){
-				System.out.println(data[i]);
-			}
-			 */
-			JPanel p3 = new JPanel();
 			bdd = new JList(data);
 			bdd.setPreferredSize(new Dimension(300,120));
-			jlb1 = new JLabel("Recherche par mots clés: ");
+			jlb1 = new JLabel("Recherche par nom : ");
 			jlb2 = new JLabel("Nom du fichier: ");
 
 			JPanel p1=new JPanel();
@@ -102,12 +99,60 @@ public class WindowOuvrir extends JFrame {
 			JScrollPane scroll = new JScrollPane(bdd);
 			//scroll.setPreferredSize(new Dimension(Window.outil.getScreenSize().width-(Window.outil.getScreenSize().width/3),Window.outil.getScreenSize().height/6));
 
+
+			gbc.gridx = 0;
+			gbc.gridy = 0;
+			gbc.gridheight = 1;
+			gbc.gridwidth = 1;
+			this.add(jlb1, gbc);
+
+			gbc.gridx = 1;
+			gbc.gridheight = 1;
+			gbc.gridwidth = 1;
+			this.add(rTag, gbc);
+
+			gbc.gridx = 0;
+			gbc.gridy = 1;
+			gbc.gridheight = 4;
+			gbc.gridwidth = 4;
+			this.add(scroll, gbc);
+
+			gbc.gridx = 1;
+			gbc.gridy = 6;
+			gbc.gridheight = 1;
+			gbc.gridwidth = 1;
+			this.add(jlb2, gbc);
+
+			gbc.gridx = 2;
+			gbc.gridy = 6;
+			gbc.gridheight = 1;
+			gbc.gridwidth = 1;
+			gbc.ipadx=0;
+			this.add(nFichier, gbc);
+
+			gbc.gridx = 4;
+			gbc.gridy = 7;
+			gbc.gridheight = 1;
+			gbc.gridwidth = 1;
+			this.add(rAvancee, gbc);
+
+
+			gbc.gridx = 2;
+			gbc.gridy = 8;
+			this.add(ouvrir, gbc);
+
+			gbc.gridx = 4;
+			gbc.gridy = 8;
+			this.add(annuler, gbc);
+
+
+			/*
 			this.add(p1);
 			this.add(p2);
 			this.add(scroll);
 			this.add(rAvancee);
 			this.add(p);
-
+			 */
 			bdd.addMouseListener(this);
 			annuler.addMouseListener(this);
 			ouvrir.addMouseListener(this);
