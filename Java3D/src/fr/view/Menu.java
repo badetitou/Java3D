@@ -180,7 +180,7 @@ public class Menu extends JMenuBar implements ActionListener {
 		}
 		else if (e.getSource().equals(mIFEnregistrer)) {
 			Component onglet = tabbedPane.getSelectedComponent();
-			WindowEnregistrer windowE = new WindowEnregistrer(tabbedPane,listeOnglets, ((Onglet) onglet).getPinfos(),((Onglet) onglet).isNouveau(),lienGts);
+			WindowEnregistrer windowE = new WindowEnregistrer(tabbedPane,listeOnglets, ((Onglet) onglet).getPinfos(),((Onglet) onglet).isNouveau(),((Onglet) onglet).getDp().getUrl());
 		}
 
 		else if (e.getSource().equals(mIFQuitter)) {

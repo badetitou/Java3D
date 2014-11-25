@@ -45,24 +45,31 @@ public class PanelImages extends JPanel implements MouseListener{
 	private PImage p;
 	private int nbImages;
 	private int nbImagesSelection;
-	public PanelImages(String nomFichier){
+	public PanelImages(String nomFichier,boolean nouveau){
 		this.setLayout(new FlowLayout(0,20,20));
 		this.setBackground(new Color(215,215,215));
 		obdd=new OutilsBdd("Database.db");
 		galerie=new JPanel();
 		galerie.setLayout(new FlowLayout(0,15,2));
-		lien=obdd.getLinkImg(nomFichier);
-		//System.out.println(lien);
-		listeImages=listerRepertoire(lien);
-		listePanels=new ArrayList<PImage>();
-		if(listeImages!=null){
-			JLabel label;
-			for (int i=0;i< listeImages.size();i++){
-				dessinerImages(listeImages.get(i));
-				nbImages++;
+		if(!nouveau){
+			lien=obdd.getLinkImg(nomFichier);
+			listeImages=listerRepertoire(lien);
+			listePanels=new ArrayList<PImage>();
+			if(listeImages!=null){
+				JLabel label;
+				for (int i=0;i< listeImages.size();i++){
+					dessinerImages(listeImages.get(i));
+					nbImages++;
+					System.out.println(nbImages);
+				}
+			}
+			else {
+				listeImages=new ArrayList<String>();
 			}
 		}
 		else {
+			lien=null;
+			listePanels=new ArrayList<PImage>();
 			listeImages=new ArrayList<String>();
 		}
 		JScrollPane scroll = new JScrollPane(galerie);
@@ -127,18 +134,24 @@ public class PanelImages extends JPanel implements MouseListener{
 				else {
 					dessinerImages(fichier.getPath());
 					listeImages.add(fichier.getPath());
-					System.out.println(listeImages.toString());
 					nbImages++;
+					System.out.println(nbImages);
 				}
 			}
 		}
 
 		if (e.getSource().equals(supprimerImage)){
-			for (int i=0;i<listePanels.size();i++){
+			for (int i=0;i<nbImages;i++){
 				if(listePanels.get(i).getSelection()){
-					galerie.remove(listePanels.get(i));
+					galerie.remove(listePanels.get(i));        //bug
 					listeImages.remove(listePanels.get(i));
+					listePanels.get(i).setSelection(false);
 					nbImages--;
+					System.out.println(nbImages);
+					if(nbImages==0 && !listePanels.get(i).getSelection()){
+						this.supprimerImage.setEnabled(false);
+						break;
+					}
 				}
 			}
 			if(nbImages==0){
@@ -148,6 +161,11 @@ public class PanelImages extends JPanel implements MouseListener{
 			this.revalidate();
 		}
 	}
+	public int getNbImages() {
+		return nbImages;
+	}
+
+
 	public void mouseEntered(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 

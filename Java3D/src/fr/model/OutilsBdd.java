@@ -131,7 +131,7 @@ public class OutilsBdd {
 				+ date +"',nbrOpen='"
 				+ nbrOpen +"',nbrImg='"
 				+ nbrImg +"',nbrModif='"
-				+ nbrModif+"'linkImg='"
+				+ nbrModif+"',linkImg='"
 				+ linkImg+"' WHERE name='"+name+"'";
 		try {
 			statement.executeUpdate(req);
@@ -194,6 +194,7 @@ public class OutilsBdd {
 		try {
 			ResultSet rs = statement.executeQuery(query);
 			String description=rs.getString(1);
+			System.out.println(description);
 			this.close();
 			return description;
 		} catch (Exception e) {

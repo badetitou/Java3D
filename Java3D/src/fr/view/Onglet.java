@@ -21,12 +21,16 @@ public class Onglet extends JPanel implements MouseListener{
 	private static final long serialVersionUID = 1L;
 	private final PanelBdd pbdd;
 	private final MyDeskTopPane dp;
+	public MyDeskTopPane getDp() {
+		return dp;
+	}
 	private final BarreVerticale bv;
 	private final JTabbedPane tabbedPane;
 	private JLabel closeButon;
 	private final String nomFichier;
 	private JLabel ic;
 	private final ArrayList<Onglet>listeOnglets;
+	private final int nbIm;
 	public PanelBdd getPbdd() {
 		return pbdd;
 	}
@@ -55,6 +59,7 @@ public class Onglet extends JPanel implements MouseListener{
 		pbdd = new PanelBdd(nomFichier,nomAuteur,nouveau);
 		listeImages=pbdd.getListeImages();
 		pinfos = pbdd.getInformations();
+		nbIm=pbdd.getNbImages();
 		bv=new BarreVerticale(this.dp);
 
 		JPanel jp2=new JPanel();
@@ -66,6 +71,10 @@ public class Onglet extends JPanel implements MouseListener{
 		this.add(pbdd, BorderLayout.SOUTH);
 		dp.setBV(bv);
 
+	}
+
+	public int getNbIm() {
+		return nbIm;
 	}
 
 	public PanelInformations getPinfos() {

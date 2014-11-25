@@ -2,6 +2,7 @@ package fr.view;
 
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
+import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -55,6 +56,7 @@ public class WindowOuvrir extends JFrame {
 			this.windowO = windowO;
 			this.tabbedPane = tabbedPane;
 			this.listeOnglets = listeOnglets;
+			this.setLayout(new GridLayout(3,3));
 			this.setPreferredSize(new Dimension(500, 300));
 			rTag = new JTextArea();
 			rTag.setPreferredSize(new Dimension(100, 20));
@@ -122,11 +124,11 @@ public class WindowOuvrir extends JFrame {
 				String ouvrir = nFichier.getText();
 				if(obdd.estPresent(ouvrir)){
 					Onglet onglet = new Onglet(new MyDeskTopPane(obdd.getLinkFile(ouvrir)),tabbedPane,ouvrir,obdd.getAuthor(ouvrir),false,listeOnglets);
-					System.out.println(obdd.getLinkFile(ouvrir));
-					panelInfos = onglet.getPinfos();
+					//System.out.println(obdd.getLinkFile(ouvrir));
 					tabbedPane.addTab(ouvrir, onglet);
 					onglet.dessineOnglet();
 					tabbedPane.setSelectedComponent(onglet);
+					panelInfos = onglet.getPinfos();
 					windowO.dispose();
 				}
 				else{

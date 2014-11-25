@@ -31,15 +31,20 @@ public class MyDeskTopPane extends JDesktopPane {
 	private final JInternalFrame iFrameProfil;
 	private final Panneau panel;
 	private BarreVerticale bv;
+	private final String url;
+
+	public String getUrl() {
+		return url;
+	}
 
 	public void setBV(BarreVerticale bv){
 		this.bv = bv;
 	}
-	
+
 	public BarreVerticale getBarreVerticale(){
 		return bv;
 	}
-	
+
 	public JInternalFrame getiFrameMain() {
 		return iFrameMain;
 	}
@@ -59,7 +64,7 @@ public class MyDeskTopPane extends JDesktopPane {
 	public Panneau getPanel() {
 		return panel;
 	}
-	
+
 	public List<Face> getListeFaceSelectionne(){
 		return this.panel.getAllSelectedFace();
 	}
@@ -68,6 +73,7 @@ public class MyDeskTopPane extends JDesktopPane {
 	public static Dimension dimmini;
 
 	public MyDeskTopPane(String url) {
+		this.url=url;
 		Toolkit tk = getToolkit();
 		dimension = new Dimension(tk.getScreenSize().width / 2-50,tk.getScreenSize().height / 2-50);
 		dimmini = new Dimension(dimension.height / 2, dimension.height / 2);
