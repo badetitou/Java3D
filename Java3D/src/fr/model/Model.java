@@ -1,6 +1,10 @@
 package fr.model;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Polygon;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -15,6 +19,8 @@ public class Model {
 	public double xTranslate = 0;
 	public double yTranslate = 0;
 	private Dimension d;
+	private int rotationX = 0;
+	private int rotationY = 0;
 
 	/**
 	 * 
@@ -27,22 +33,20 @@ public class Model {
 		trieFace();
 		this.zoomAuto(d);
 		this.vue = vue;
-
 		for (int i = 0; i < rt.getFaceList().size(); ++i) {
 			rt.getFaceList().get(i).setModel(this);
 		}
 		this.d = d;
 	}
 
-
-	private void centrage(){
+	private void centrage() {
 		double xMax = 0;
 		double xMin = 0;
 		double yMax = 0;
 		double yMin = 0;
 		double zMax = 0;
 		double zMin = 0;
-		for (int i = 0; i<rt.getPointList().size(); ++i){
+		for (int i = 0; i < rt.getPointList().size(); ++i) {
 			if (rt.getPointList().get(i).x > xMax)
 				xMax = rt.getPointList().get(i).x;
 			else if (rt.getPointList().get(i).x < xMin)
@@ -56,10 +60,13 @@ public class Model {
 			else if (rt.getPointList().get(i).z < zMin)
 				zMin = rt.getPointList().get(i).z;
 		}
-		for(int i = 0;i < rt.getPointList().size();++i){
-			rt.getPointList().get(i).x = rt.getPointList().get(i).x - ((xMax + xMin)/2);
-			rt.getPointList().get(i).y = rt.getPointList().get(i).y - ((yMax + yMin)/2);
-			rt.getPointList().get(i).z = rt.getPointList().get(i).z - ((zMax + zMin)/2);
+		for (int i = 0; i < rt.getPointList().size(); ++i) {
+			rt.getPointList().get(i).x = rt.getPointList().get(i).x
+					- ((xMax + xMin) / 2);
+			rt.getPointList().get(i).y = rt.getPointList().get(i).y
+					- ((yMax + yMin) / 2);
+			rt.getPointList().get(i).z = rt.getPointList().get(i).z
+					- ((zMax + zMin) / 2);
 		}
 	}
 
@@ -85,7 +92,39 @@ public class Model {
 	 * @return la liste des Faces
 	 */
 	public List<Face> getFace() {
-		return rt.getFaceList();
+		List<Face> lf = new ArrayList<Face>();
+		for (Face f : rt.getFaceList()) {
+			lf.add(new Face(rotationPointY(rotationPointX(f.getP1())), rotationPointY(rotationPointX(f.getP2())), rotationPointY(rotationPointX(f.getP3())), f.getColor()));
+		}
+		Collections.sort(lf);
+		return lf;
+	}
+
+	private Point rotationPointX(Point p){
+		Point u = new Point(p);
+		int sensRotation = 1;
+		if (rotationX < 0) {
+			sensRotation = -1;
+		}
+		int nbr = Math.abs(rotationX);
+		for(int i = 0;i<nbr;++i){
+			u.x = u.x * Math.cos(sensRotation *Math.PI / 1024.0) + u.z * Math.sin(sensRotation * Math.PI / 1024.0);
+			u.z = u.x* -Math.sin(sensRotation * Math.PI / 1024.0) + u.z * Math.cos(sensRotation * Math.PI / 1024.0);
+		}
+		return u;
+	}
+
+	private Point rotationPointY(Point p) {
+		int sensRotation = 1;
+		if (rotationY < 0) {
+			sensRotation = -1;
+		}
+		int nbr = Math.abs(rotationY);
+		for(int i = 0;i<nbr;++i){
+			p.y = p.y * Math.cos(sensRotation * Math.PI / 1024.0) + p.z* -Math.sin(sensRotation * Math.PI / 1024.0);
+			p.z = p.y* Math.sin(sensRotation * Math.PI / 1024.0)+ p.z* Math.cos(sensRotation * Math.PI / 1024.0);
+		}
+		return p;
 	}
 
 	/**
@@ -94,26 +133,14 @@ public class Model {
 	 *            est la valeur de la rotation � faire en X
 	 */
 	public void rotationX(int r) {
-
-		int sensRotation = 1;
-		if (r < 0) {
-			r = -r;
-			sensRotation = -1;
+		rotationX += r;
+		if (rotationX < -1024){
+			rotationX = 1024;
 		}
-
-		for (int i = 0; i < rt.getPointList().size(); ++i) {
-			for (int j = 0; j < r; ++j) {
-				rt.getPointList().get(i).x = rt.getPointList().get(i).x
-						* Math.cos(sensRotation * Math.PI / 1024.0)
-						+ rt.getPointList().get(i).z
-						* Math.sin(sensRotation * Math.PI / 1024.0);
-				rt.getPointList().get(i).z = rt.getPointList().get(i).x
-						* -Math.sin(sensRotation * Math.PI / 1024.0)
-						+ rt.getPointList().get(i).z
-						* Math.cos(sensRotation * Math.PI / 1024.0);
-			}
+		else if (rotationX > 1024){
+			rotationX = -1024;
 		}
-
+		System.out.println(rotationX);
 	}
 
 	/**
@@ -122,22 +149,12 @@ public class Model {
 	 *            est la valeur en radiant de la rotation � faire en Y
 	 */
 	public void rotationY(int r) {
-		int sensRotation = 1;
-		if (r < 0) {
-			r = -r;
-			sensRotation = -1;
+		rotationY += r;
+		if (rotationY < -1024){
+			rotationY = 1024;
 		}
-		for (int i = 0; i < rt.getPointList().size(); ++i) {
-			for (int j = 0; j < r; ++j) {
-				rt.getPointList().get(i).y = rt.getPointList().get(i).y
-						* Math.cos(sensRotation * Math.PI / 1024.0)
-						+ rt.getPointList().get(i).z
-						* -Math.sin(sensRotation * Math.PI / 1024.0);
-				rt.getPointList().get(i).z = rt.getPointList().get(i).y
-						* Math.sin(sensRotation * Math.PI / 1024.0)
-						+ rt.getPointList().get(i).z
-						* Math.cos(sensRotation * Math.PI / 1024.0);
-			}
+		else if (rotationY > 1024){
+			rotationY = -1024;
 		}
 	}
 
@@ -193,7 +210,8 @@ public class Model {
 	public Face getParticularFace(double coordMouseX, double coordMouseY) {
 		Face f = null;
 		for (int i = 0; i < rt.getFaceList().size(); ++i) {
-			if (rt.getFaceList().get(i).getTriangle().contains(coordMouseX, coordMouseY)) {
+			if (rt.getFaceList().get(i).getTriangle()
+					.contains(coordMouseX, coordMouseY)) {
 				if (f != null) {
 					if (rt.getFaceList().get(i).getP1().z
 							+ rt.getFaceList().get(i).getP2().z
@@ -208,5 +226,26 @@ public class Model {
 
 		}
 		return f;
+	}
+	
+	public Polygon getTriangle(Face f){
+		f.setModel(this);
+		return f.getTriangle();
+	}
+
+	public void paintMod(Graphics g, int i) {
+		for (Face f : getFace()) {
+			g.setColor(f.calculLumiere());
+			if (i == 2) {
+				g.drawPolygon(getTriangle(f));
+			} else {
+				g.fillPolygon(getTriangle(f));
+			}
+			if (f.isSelected() && i == 1) {
+				g.setColor(new Color(255 - g.getColor().getRed(), 255 - g
+						.getColor().getGreen(), 255 - g.getColor().getBlue()));
+				g.drawPolygon(getTriangle(f));
+			}
+		}
 	}
 }
