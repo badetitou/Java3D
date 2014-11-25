@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Polygon;
+import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -14,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import fr.model.Face;
 import fr.model.Model;
@@ -31,8 +34,8 @@ public class Panneau extends JPanel {
 	Thread t;
 	Image img;
 	Graphics2D g2d;
-	
-	public BarreVerticale getBarreVerticale(){
+
+	public BarreVerticale getBarreVerticale() {
 		return dp.getBarreVerticale();
 	}
 
@@ -139,21 +142,36 @@ public class Panneau extends JPanel {
 	}
 
 	@Override
-	public void paintComponent(Graphics g) {
+	public void paintComponent(Graphics g2) {
+		Graphics2D g = (Graphics2D) g2;
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+				RenderingHints.VALUE_ANTIALIAS_ON);
 		super.paintComponent(g);
-		for (Face f : m.getFace()) {
-			g.setColor(f.calculLumiere());
-			if (getBarreVerticale().isSquelette()) {
+		
+		if (getBarreVerticale().isSquelette()) {
+			for (Face f : m.getFace()) {
+				g.setColor(f.calculLumiere());
 				g.drawPolygon(f.getTriangle());
-			}else {
+			}
+		} else if (getBarreVerticale().isModeEdit()){
+			for (Face f : m.getFace()){
+				g.setColor(f.calculLumiere());
+				g.drawPolygon(f.getTriangle());
+				if (f.isSelected()){
+					g.setColor(new Color(255 - g.getColor().getRed(), 255 - g
+							.getColor().getGreen(), 255 - g.getColor().getBlue()));
+					g.drawPolygon(f.getTriangle());
+				} else {
+					
+				}
+			}
+		} else if (getBarreVerticale().isBb1()){
+			for (Face f : m.getFace()) {
+				g.setColor(f.calculLumiere());
 				g.fillPolygon(f.getTriangle());
 			}
-			if (f.isSelected() && getBarreVerticale().isModeEdit()) {
-				g.setColor(new Color(255 - g.getColor().getRed(), 255 - g
-						.getColor().getGreen(), 255 - g.getColor().getBlue()));
-				g.drawPolygon(f.getTriangle());
-			}
 		}
+		g.dispose();
 	}
 
 	public void setD(Dimension dimension) {

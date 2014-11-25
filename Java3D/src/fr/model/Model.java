@@ -95,10 +95,10 @@ public class Model {
 	 */
 	public void rotationX(int r) {
 
-		int sensRotation = 1;
+		double sensRotation = 1.0;
 		if (r < 0) {
 			r = -r;
-			sensRotation = -1;
+			sensRotation = -1.0;
 		}
 
 		for (int i = 0; i < rt.getPointList().size(); ++i) {
@@ -122,10 +122,10 @@ public class Model {
 	 *            est la valeur en radiant de la rotation � faire en Y
 	 */
 	public void rotationY(int r) {
-		int sensRotation = 1;
+		double sensRotation = 1.0;
 		if (r < 0) {
 			r = -r;
-			sensRotation = -1;
+			sensRotation = -1.0;
 		}
 		for (int i = 0; i < rt.getPointList().size(); ++i) {
 			for (int j = 0; j < r; ++j) {
