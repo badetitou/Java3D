@@ -147,25 +147,24 @@ public class Panneau extends JPanel {
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
 		super.paintComponent(g);
-		
+
 		if (getBarreVerticale().isSquelette()) {
 			for (Face f : m.getFace()) {
 				g.setColor(f.calculLumiere());
-				g.drawPolygon(f.getTriangle());
+				g.draw(f.getTriangle());
 			}
-		} else if (getBarreVerticale().isModeEdit()){
-			for (Face f : m.getFace()){
+		} else if (getBarreVerticale().isModeEdit()) {
+			for (Face f : m.getFace()) {
 				g.setColor(f.calculLumiere());
-				g.drawPolygon(f.getTriangle());
-				if (f.isSelected()){
+				g.draw(f.getTriangle());
+				if (f.isSelected()) {
 					g.setColor(new Color(255 - g.getColor().getRed(), 255 - g
-							.getColor().getGreen(), 255 - g.getColor().getBlue()));
-					g.drawPolygon(f.getTriangle());
-				} else {
-					
+							.getColor().getGreen(), 255 - g.getColor()
+							.getBlue()));
+					g.draw(f.getTriangle());
 				}
 			}
-		} else if (getBarreVerticale().isBb1()){
+		} else if (getBarreVerticale().isBb1()) {
 			for (Face f : m.getFace()) {
 				g.setColor(f.calculLumiere());
 				g.fillPolygon(f.getTriangle());
