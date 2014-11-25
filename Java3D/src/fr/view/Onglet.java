@@ -21,6 +21,9 @@ public class Onglet extends JPanel implements MouseListener{
 	private static final long serialVersionUID = 1L;
 	private final PanelBdd pbdd;
 	private final MyDeskTopPane dp;
+	public MyDeskTopPane getDp() {
+		return dp;
+	}
 	private final BarreVerticale bv;
 	private final JTabbedPane tabbedPane;
 	private JLabel closeButon;

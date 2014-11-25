@@ -2,6 +2,7 @@ package fr.view;
 
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
+import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -55,6 +56,7 @@ public class WindowOuvrir extends JFrame {
 			this.windowO = windowO;
 			this.tabbedPane = tabbedPane;
 			this.listeOnglets = listeOnglets;
+			this.setLayout(new GridLayout(3,3));
 			this.setPreferredSize(new Dimension(500, 300));
 			rTag = new JTextArea();
 			rTag.setPreferredSize(new Dimension(100, 20));
