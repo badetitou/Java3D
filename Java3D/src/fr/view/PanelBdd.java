@@ -25,16 +25,21 @@ public class PanelBdd extends JPanel{
 	public PanelInformations getInformations() {
 		return informations;
 	}
+	private final int nbImages;
+	public int getNbImages() {
+		return nbImages;
+	}
 	private final PanelImages images;
 	private final JPanel realisations;
 	public PanelBdd(String nomFichier,String nomAuteur,boolean nouveau){
 		this.setLayout(new CardLayout());
 		Toolkit tk=getToolkit();
 		this.setPreferredSize(new Dimension(tk.getScreenSize().height,tk.getScreenSize().width/6));
-		description=new PanelDescription(nomFichier);
+		description=new PanelDescription(nomFichier,nouveau);
 		informations = new PanelInformations(nomFichier,nomAuteur,nouveau);
-		images=new PanelImages(nomFichier);
+		images=new PanelImages(nomFichier,nouveau);
 		listeImages=images.getListeImages();
+		nbImages=images.getNbImages();
 		realisations=new PanelRealisations(nomFichier);
 		JTabbedPane tabbedPane = new JTabbedPane();
 		tabbedPane.addTab("Description",new ImageIcon(new ImageIcon("ressources/icones/description.png").getImage().getScaledInstance(26, 26, Image.SCALE_DEFAULT)), description);

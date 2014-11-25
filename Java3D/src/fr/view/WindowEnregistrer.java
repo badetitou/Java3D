@@ -57,6 +57,7 @@ public class WindowEnregistrer extends JFrame {
 		private int nChargements;
 		private final String description;
 		private final ArrayList<String>listeImages;
+		private final int nbImages;
 
 		public PanelEnregistrer(JFrame windowE, JTabbedPane tabbedPane, ArrayList<Onglet> listeOnglets, PanelInformations panelInfos,boolean nouveau) {
 			this.windowE = windowE;
@@ -66,6 +67,7 @@ public class WindowEnregistrer extends JFrame {
 			Component onglet = tabbedPane.getSelectedComponent();
 			listeImages=((Onglet) onglet).getListeImages();
 			description=((Onglet)onglet).getPbdd().getDescription().getDescription();
+			nbImages=((Onglet)onglet).getNbIm();
 			if(nouveau){
 				JTextField j1 = new JTextField();
 				JTextField j2 = new JTextField();
@@ -183,7 +185,7 @@ public class WindowEnregistrer extends JFrame {
 							System.out.println("Sauvegarde réussie");
 						}
 					}
-					obdd.addFile(this.nomFichier, "fichiers/"+this.nomFichier+"/"+this.nomFichier+".gts", this.description, this.nomAuteur, this.nChargements, listeImages.size(), this.nRealisations, "fichiers/"+this.nomFichier+"/images/", 0);
+					obdd.addFile(this.nomFichier, "fichiers/"+this.nomFichier+"/"+this.nomFichier+".gts", this.description, this.nomAuteur, this.nChargements, listeImages.size(), this.nRealisations, "fichiers/"+this.nomFichier+"/images", 0);
 				}
 				else {
 
@@ -194,6 +196,7 @@ public class WindowEnregistrer extends JFrame {
 					int i;
 					if(repertoire.list()!=null){
 						listefichiers=repertoire.list();
+						//System.out.println(listefichiers.toString());
 						for(i=0;i<listefichiers.length;i++){
 							if(!(listeImages.contains(listefichiers[i]))){
 								f = new File(listefichiers[i]);
@@ -213,7 +216,7 @@ public class WindowEnregistrer extends JFrame {
 					}
 
 
-
+					System.out.println("cc");
 					obdd.updateFile(this.nomFichier,this.description, this.nChargements, listeImages.size(), this.nRealisations, "fichiers/"+this.nomFichier+"/images/",0);
 				}
 				windowE.dispose();

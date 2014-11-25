@@ -122,11 +122,11 @@ public class WindowOuvrir extends JFrame {
 				String ouvrir = nFichier.getText();
 				if(obdd.estPresent(ouvrir)){
 					Onglet onglet = new Onglet(new MyDeskTopPane(obdd.getLinkFile(ouvrir)),tabbedPane,ouvrir,obdd.getAuthor(ouvrir),false,listeOnglets);
-					System.out.println(obdd.getLinkFile(ouvrir));
-					panelInfos = onglet.getPinfos();
+					//System.out.println(obdd.getLinkFile(ouvrir));
 					tabbedPane.addTab(ouvrir, onglet);
 					onglet.dessineOnglet();
 					tabbedPane.setSelectedComponent(onglet);
+					panelInfos = onglet.getPinfos();
 					windowO.dispose();
 				}
 				else{
