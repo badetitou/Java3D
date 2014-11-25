@@ -1,7 +1,7 @@
 package fr.view;
 
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.ListModel;
@@ -41,7 +42,7 @@ public class WindowOuvrir extends JFrame {
 	public class PanelOuvrir extends JPanel implements MouseListener{
 		private final JTextArea rTag;
 		private final JTextArea nFichier;
-		private final JButton rAvancee;
+		private final JLabel rAvancee;
 		private final JButton ouvrir;
 		private final JButton annuler;
 		private final JList bdd;
@@ -56,7 +57,7 @@ public class WindowOuvrir extends JFrame {
 			this.windowO = windowO;
 			this.tabbedPane = tabbedPane;
 			this.listeOnglets = listeOnglets;
-			this.setLayout(new GridLayout(3,3));
+			this.setLayout(new GridLayout(5,1));
 			this.setPreferredSize(new Dimension(500, 300));
 			rTag = new JTextArea();
 			rTag.setPreferredSize(new Dimension(100, 20));
@@ -64,9 +65,17 @@ public class WindowOuvrir extends JFrame {
 			nFichier = new JTextArea();
 			nFichier.setPreferredSize(new Dimension(100, 20));
 			nFichier.setEditable(true);
-			rAvancee = new JButton("Recherche Avancée");
+			rAvancee = new JLabel("Recherche Avancée >>");
+
+
 			ouvrir = new JButton("Ouvrir");
 			annuler = new JButton("Annuler");
+
+			JPanel p = new JPanel();
+			p.setLayout(new FlowLayout(0,70,0));
+			p.add(ouvrir);
+			p.add(annuler);
+
 			obdd = new OutilsBdd("Database.db");
 			String[] data = obdd.getData();
 			//	String[] data = { "green", "red", "orange", "dark blue" };
@@ -74,37 +83,30 @@ public class WindowOuvrir extends JFrame {
 				System.out.println(data[i]);
 			}
 			 */
+			JPanel p3 = new JPanel();
 			bdd = new JList(data);
-			jlb1 = new JLabel();
-			jlb1.setText("Recherche par mots clés: ");
-			jlb2 = new JLabel();
-			jlb2.setText("Nom du fichier: ");
+			bdd.setPreferredSize(new Dimension(300,120));
+			jlb1 = new JLabel("Recherche par mots clés: ");
+			jlb2 = new JLabel("Nom du fichier: ");
 
-			//	this.setLayout(new GridBagLayout());
-			GridBagConstraints gbc = new GridBagConstraints();
-			gbc.gridx = 0;
-			gbc.gridy = 0;
-			this.add(jlb1);
-			gbc.gridx = 1;
-			this.add(rTag);
-			gbc.gridx = 2;
-			gbc.gridwidth = GridBagConstraints.REMAINDER;
+			JPanel p1=new JPanel();
+			p1.setLayout(new FlowLayout(0,30,10));
+			p1.add(jlb1);
+			p1.add(rTag);
+
+			JPanel p2=new JPanel();
+			p2.setLayout(new FlowLayout(0,50,0));
+			p2.add(jlb2);
+			p2.add(nFichier);
+
+			JScrollPane scroll = new JScrollPane(bdd);
+			//scroll.setPreferredSize(new Dimension(Window.outil.getScreenSize().width-(Window.outil.getScreenSize().width/3),Window.outil.getScreenSize().height/6));
+
+			this.add(p1);
+			this.add(p2);
+			this.add(scroll);
 			this.add(rAvancee);
-			gbc.gridx = 0;
-			gbc.gridy = 1;
-			gbc.gridwidth = GridBagConstraints.REMAINDER;
-			this.add(bdd);
-			gbc.gridx = 0;
-			gbc.gridy = 4;
-			this.add(jlb2);
-			gbc.gridx = 1;
-			gbc.gridwidth = GridBagConstraints.REMAINDER;
-			this.add(nFichier);
-			gbc.gridx = 0;
-			gbc.gridy = 5;
-			this.add(ouvrir);
-			gbc.gridx = 1;
-			this.add(annuler);
+			this.add(p);
 
 			bdd.addMouseListener(this);
 			annuler.addMouseListener(this);

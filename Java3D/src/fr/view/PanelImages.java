@@ -141,20 +141,17 @@ public class PanelImages extends JPanel implements MouseListener{
 		}
 
 		if (e.getSource().equals(supprimerImage)){
-			for (int i=0;i<nbImages;i++){
+			for (int i=0;i<listeImages.size();i++){
 				if(listePanels.get(i).getSelection()){
 					galerie.remove(listePanels.get(i));        //bug
 					listeImages.remove(listePanels.get(i));
 					listePanels.get(i).setSelection(false);
 					nbImages--;
-					System.out.println(nbImages);
-					if(nbImages==0 && !listePanels.get(i).getSelection()){
-						this.supprimerImage.setEnabled(false);
-						break;
-					}
 				}
 			}
-			if(nbImages==0){
+			nbImagesSelection=0;
+			System.out.println(nbImages);
+			if(nbImages==0 || nbImagesSelection==0){
 				this.supprimerImage.setEnabled(false);
 			}
 			this.repaint();
