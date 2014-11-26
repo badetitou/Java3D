@@ -137,8 +137,10 @@ public class Panneau extends JPanel {
 						repaint();
 					}
 				}
-			});
+			});	
 		}
+		m.trieFace();
+		repaint();
 	}
 
 	@Override
@@ -156,7 +158,7 @@ public class Panneau extends JPanel {
 		} else if (getBarreVerticale().isModeEdit()) {
 			for (Face f : m.getFace()) {
 				g.setColor(f.calculLumiere());
-				g.draw(f.getTriangle());
+				g.fill(f.getTriangle());
 				if (f.isSelected()) {
 					g.setColor(new Color(255 - g.getColor().getRed(), 255 - g
 							.getColor().getGreen(), 255 - g.getColor()
@@ -164,16 +166,12 @@ public class Panneau extends JPanel {
 					g.draw(f.getTriangle());
 				}
 			}
-		} else if (getBarreVerticale().isBb1()) {
+		} else if (getBarreVerticale().isBb1() || getBarreVerticale().isBb2()) {
 			for (Face f : m.getFace()) {
 				g.setColor(f.calculLumiere());
 				g.fillPolygon(f.getTriangle());
 			}
 		}
 		g.dispose();
-	}
-
-	public void setD(Dimension dimension) {
-		this.m.setD(dimension);
 	}
 }

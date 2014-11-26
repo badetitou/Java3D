@@ -23,15 +23,14 @@ public class Model {
 	 */
 	public Model(String url, int vue, Dimension d) {
 		rt = new ReadText(url);
+		this.d = d;
 		centrage();
 		trieFace();
-		this.zoomAuto(d);
+		this.zoomAuto();
 		this.vue = vue;
-
 		for (int i = 0; i < rt.getFaceList().size(); ++i) {
 			rt.getFaceList().get(i).setModel(this);
 		}
-		this.d = d;
 	}
 
 
@@ -66,14 +65,14 @@ public class Model {
 	public Dimension getD() {
 		return d;
 	}
-
-	public void setD(Dimension d) {
+	
+	public void setDimension(Dimension d){
 		this.d = d;
 	}
 
 	public void recentrer() {
-		xTranslate = 0;
-		yTranslate = 0;
+		xTranslate =  getD().getWidth() / 2;
+		yTranslate =  getD().getHeight() / 2;
 	}
 
 	public void trieFace() {
@@ -156,7 +155,7 @@ public class Model {
 		yTranslate += y;
 	}
 
-	public void zoomAuto(Dimension d) {
+	public void zoomAuto() {
 		recentrer();
 		double maxX = 0.0;
 		for (int i = 0; i < rt.getPointList().size(); ++i) {

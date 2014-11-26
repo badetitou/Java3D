@@ -114,16 +114,12 @@ public class BarreVerticale extends JPanel implements MouseListener {
 			bb1 = true;
 			bb2 = false;
 			modeEdit = false;
-			dp.getPanel().setD(new Dimension(MyDeskTopPane.dimension));
 			this.dp.getiFrameMain().setPreferredSize(
 					new Dimension(MyDeskTopPane.dimension));
 			this.dp.getiFrameDessous().setVisible(false);
 			this.dp.getiFrameDessus().setVisible(false);
 			this.dp.getiFrameProfil().setVisible(false);
-			/*
-			 * Zoom automatique laisser dans cette ordre
-			 */
-			this.dp.getModel().zoomAuto(MyDeskTopPane.dimension);
+			this.dp.getModel().setDimension(MyDeskTopPane.dimension);
 		} else if (e.getSource().equals(b2) && !bb2) {
 			b2.setIcon(ic7);
 			b1.setIcon(ic1);
@@ -133,20 +129,13 @@ public class BarreVerticale extends JPanel implements MouseListener {
 			bb1 = false;
 			modeEdit = false;
 			modeSquelette=false;
-			dp.getPanel().setD(new Dimension(MyDeskTopPane.dimmini)); // NE PAS
-			// TOUCHER
-			// CECI
-			// PERMET
-			// L'AFFICHAGE
-			// CENTRE
 			this.dp.getiFrameMain().setPreferredSize(MyDeskTopPane.dimmini);
 			this.dp.getiFrameDessous().setVisible(true);
 			this.dp.getiFrameDessus().setVisible(true);
 			this.dp.getiFrameProfil().setVisible(true);
-			/*
-			 * Zoom automatique laisser dans cette ordre
-			 */
-			this.dp.getModel().zoomAuto(MyDeskTopPane.dimmini);
+			
+			this.dp.getModel().setDimension(MyDeskTopPane.dimmini);
+			
 		} else if (e.getSource().equals(b3) && !modeEdit) {
 			b3.setIcon(ic8);
 			b2.setIcon(ic2);
@@ -156,15 +145,11 @@ public class BarreVerticale extends JPanel implements MouseListener {
 			bb2 = false;
 			modeEdit = true;
 			modeSquelette=false;
-			dp.getPanel().setD(new Dimension(MyDeskTopPane.dimension));
 			this.dp.getiFrameMain().setPreferredSize(MyDeskTopPane.dimension);
 			this.dp.getiFrameDessous().setVisible(false);
 			this.dp.getiFrameDessus().setVisible(false);
 			this.dp.getiFrameProfil().setVisible(false);
-			/*
-			 * Zoom automatique laisser dans cette ordre
-			 */
-			this.dp.getModel().zoomAuto(MyDeskTopPane.dimension);
+			this.dp.getModel().setDimension(MyDeskTopPane.dimension);
 
 		}
 
@@ -177,8 +162,12 @@ public class BarreVerticale extends JPanel implements MouseListener {
 			bb2 = false;
 			modeEdit = false;
 			modeSquelette=true;
+			this.dp.getModel().setDimension(MyDeskTopPane.dimension);
+
 		}
-		this.dp.repaint();
+		this.dp.getPanel().getM().recentrer();
+		this.dp.getPanel().getM().zoomAuto();
+		this.dp.getPanel().repaint();
 	}
 
 	public void mouseEntered(MouseEvent arg0) {

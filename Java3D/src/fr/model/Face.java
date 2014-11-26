@@ -63,7 +63,7 @@ public class Face implements Comparable<Face> {
 	}
 	
 	public Polygon getTriangle(){
-		return new Polygon(new int[]{(int)(p1.x + mod.getD().getWidth() / 2 + mod.xTranslate), (int)(p2.x + mod.getD().getWidth() / 2 + mod.xTranslate), (int)(p3.x + mod.getD().getWidth() / 2 + mod.xTranslate)}, new int[]{(int)(p1.y + mod.getD().getHeight() / 2 + mod.yTranslate), (int)(p2.y+ mod.getD().getHeight() / 2 + mod.yTranslate), (int)(p3.y+ mod.getD().getHeight() / 2 + mod.yTranslate)}, 3);
+		return new Polygon(new int[]{(int)(p1.x + mod.xTranslate), (int)(p2.x + mod.xTranslate), (int)(p3.x + mod.xTranslate)}, new int[]{(int)(p1.y + mod.yTranslate), (int)(p2.y + mod.yTranslate), (int)(p3.y + mod.yTranslate)}, 3);
 	}
 
 	public Color calculLumiere(){
