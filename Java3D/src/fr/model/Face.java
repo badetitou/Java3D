@@ -88,4 +88,8 @@ public class Face implements Comparable<Face> {
 		return (new Color((cosPositifR), (cosPositifV),
 				(cosPositifB)));
 	}
+
+	public void setColor(Color c) {
+		this.color = c;
+	}
 }

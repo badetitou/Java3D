@@ -1,5 +1,6 @@
 package fr.model;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.util.Collections;
 import java.util.List;
@@ -32,7 +33,12 @@ public class Model {
 			rt.getFaceList().get(i).setModel(this);
 		}
 	}
-
+	
+	public void changeColor(Color c){
+		for(Face f : getFace())
+			if (f.isSelected())
+				f.setColor(c);
+	}
 
 	private void centrage(){
 		double xMax = 0;
