@@ -29,7 +29,7 @@ public class PanelEdit extends JPanel implements MouseListener, ChangeListener{
 	private final JLabel red;
 	private final JLabel blue;
 	private final JLabel green;
-	
+
 	public PanelEdit(MyDeskTopPane dp,BarreVerticale bv){
 		this.bv=bv;
 		this.dp=dp;
@@ -37,41 +37,44 @@ public class PanelEdit extends JPanel implements MouseListener, ChangeListener{
 		this.setBackground(new Color(190,190,190));
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
-		
+
 		/*
 		 * JBouton Centre
 		 */
 		boutonCentre=new JButton("Recentrer");
 		boutonCentre.addMouseListener(this);
-		
+
 		/*
 		 * JSlider
 		 */
 		js1 = new JSlider(0, 255);
+		js1.setOpaque(false);
 		js1.setPaintLabels(true);
 		js1.setPaintTicks(true);
 		js1.setMinorTickSpacing(1);
 		js1.setMajorTickSpacing(50);
 		js1.setValue(0);
 		js1.addChangeListener(this);
-		
+
 		js2 = new JSlider(0, 255);
+		js2.setOpaque(false);
 		js2.setPaintLabels(true);
 		js2.setPaintTicks(true);
 		js2.setMinorTickSpacing(1);
 		js2.setMajorTickSpacing(50);
 		js2.setValue(0);
 		js2.addChangeListener(this);
-		
+
 		js3 = new JSlider(0, 255);
 		js3.setPaintLabels(true);
+		js3.setOpaque(false);
 		js3.setPaintTicks(true);
 		js3.setMinorTickSpacing(1);
 		js3.setMajorTickSpacing(50);
 		js3.setValue(0);
 		js3.addChangeListener(this);
-		
-		
+
+
 		/*
 		 * JLabel
 		 */
@@ -79,7 +82,7 @@ public class PanelEdit extends JPanel implements MouseListener, ChangeListener{
 		blue = new JLabel("Bleu : " + js2.getValue());
 		green = new JLabel("Vert : " + js3.getValue());
 
-		
+
 		/*
 		 * Grid Bag
 		 */

@@ -130,7 +130,7 @@ public class WindowOuvrir extends JFrame {
 			gbc.ipadx=0;
 			this.add(nFichier, gbc);
 
-			gbc.gridx = 4;
+			gbc.gridx = 0;
 			gbc.gridy = 7;
 			gbc.gridheight = 1;
 			gbc.gridwidth = 1;
@@ -141,7 +141,7 @@ public class WindowOuvrir extends JFrame {
 			gbc.gridy = 8;
 			this.add(ouvrir, gbc);
 
-			gbc.gridx = 4;
+			gbc.gridx = 3;
 			gbc.gridy = 8;
 			this.add(annuler, gbc);
 

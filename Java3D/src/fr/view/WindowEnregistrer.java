@@ -181,7 +181,13 @@ public class WindowEnregistrer extends JFrame {
 					copier( new File(lienGts), new File("fichiers/"+this.nomFichier+"/"+this.nomFichier+".gts"));
 					//enregistrer les images.
 					for (int i=0;i<listeImages.size();i++){
-						if (copier( new File(listeImages.get(i)), new File("fichiers/"+this.nomFichier+"/images/"+this.nomFichier+listeImages.size()+".png") )){
+						File ff=new File("fichiers/"+this.nomFichier+"/images/"+this.nomFichier+i+".png");
+						int j=i;
+						while(ff.exists()){
+							ff=new File("fichiers/"+this.nomFichier+"/images/"+this.nomFichier+j+".png");
+							j++;
+						}
+						if (copier( new File(listeImages.get(i)), ff )){
 							System.out.println("Sauvegarde réussie");
 						}
 					}
