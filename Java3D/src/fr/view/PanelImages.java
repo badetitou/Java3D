@@ -60,7 +60,7 @@ public class PanelImages extends JPanel implements MouseListener{
 				for (int i=0;i< listeImages.size();i++){
 					dessinerImages(listeImages.get(i));
 					nbImages++;
-					System.out.println(nbImages);
+					//System.out.println(nbImages);
 				}
 			}
 			else {
@@ -135,7 +135,7 @@ public class PanelImages extends JPanel implements MouseListener{
 					dessinerImages(fichier.getPath());
 					listeImages.add(fichier.getPath());
 					nbImages++;
-					System.out.println(nbImages);
+					//System.out.println(nbImages);
 				}
 			}
 		}
@@ -150,7 +150,7 @@ public class PanelImages extends JPanel implements MouseListener{
 				}
 			}
 			nbImagesSelection=0;
-			System.out.println(nbImages);
+			//System.out.println(nbImages);
 			if(nbImages==0 || nbImagesSelection==0){
 				this.supprimerImage.setEnabled(false);
 			}

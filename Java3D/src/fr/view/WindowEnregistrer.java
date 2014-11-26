@@ -188,7 +188,7 @@ public class WindowEnregistrer extends JFrame {
 							j++;
 						}
 						if (copier( new File(listeImages.get(i)), ff )){
-							System.out.println("Sauvegarde réussie");
+							//System.out.println("Sauvegarde réussie");
 						}
 					}
 					obdd.addFile(this.nomFichier, "fichiers/"+this.nomFichier+"/"+this.nomFichier+".gts", this.description, this.nomAuteur, this.nChargements, listeImages.size(), this.nRealisations, "fichiers/"+this.nomFichier+"/images", 0);
@@ -202,27 +202,28 @@ public class WindowEnregistrer extends JFrame {
 					int i;
 					if(repertoire.list()!=null){
 						listefichiers=repertoire.list();
-						//System.out.println(listefichiers.toString());
-						for(i=0;i<listefichiers.length;i++){
-							if(!(listeImages.contains(listefichiers[i]))){
-								f = new File(listefichiers[i]);
+
+						ArrayList<String> fichiers=new ArrayList<String>();
+						for (int j =0;j<listefichiers.length;j++){
+							fichiers.add(lien+"/"+listefichiers[j]);
+						}
+
+						for(i=0;i<fichiers.size();i++){
+							if(!(listeImages.contains(fichiers.get(i)))){
+								f = new File(fichiers.get(i));
 								f.delete();
 							}
 						}
-						ArrayList<String> fichiers=new ArrayList<String>();
-						for (int j =0;j<listefichiers.length;j++){
-							fichiers.add(listefichiers[j]);
-						}
+
 						for(int k=0;k<listeImages.size();k++){
 							if(!(fichiers.contains(listeImages.get(k)))){
-								copier( new File(listeImages.get(k)), new File("fichiers/"+this.nomFichier+"/images/"+this.nomFichier+listeImages.size()+".png"));
-								System.out.println("Sauvegarde réussie");
+								File ff=new File("fichiers/"+this.nomFichier+"/images/"+this.nomFichier+k+".png");
+								copier( new File(listeImages.get(k)), ff);
+								System.out.println("cc");
 							}
 						}
 					}
 
-
-					System.out.println("cc");
 					obdd.updateFile(this.nomFichier,this.description, this.nChargements, listeImages.size(), this.nRealisations, "fichiers/"+this.nomFichier+"/images/",0);
 				}
 				windowE.dispose();
