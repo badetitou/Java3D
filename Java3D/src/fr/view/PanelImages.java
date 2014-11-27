@@ -103,7 +103,7 @@ public class PanelImages extends JPanel implements MouseListener{
 			listefichiers=repertoire.list();
 			for(i=0;i<listefichiers.length;i++){
 				if(listefichiers[i].endsWith(".jpg") || listefichiers[i].endsWith(".jpeg") || listefichiers[i].endsWith(".png")){
-					listeImages.add(lien+"/"+listefichiers[i]);
+					listeImages.add(lien+listefichiers[i]);
 				}
 			}
 			return listeImages;
@@ -141,16 +141,20 @@ public class PanelImages extends JPanel implements MouseListener{
 		}
 
 		if (e.getSource().equals(supprimerImage)){
+			int g=0;
 			for (int i=0;i<listeImages.size();i++){
 				if(listePanels.get(i).getSelection()){
 					galerie.remove(listePanels.get(i));        //bug
-					listeImages.remove(listePanels.get(i));
+					listeImages.remove(listePanels.get(i).getPath());
+					listePanels.remove(i);
+					System.out.println(listeImages.toString()+"   cc");
 					listePanels.get(i).setSelection(false);
 					nbImages--;
+					g++;
 				}
 			}
+			System.out.println(g);
 			nbImagesSelection=0;
-			//System.out.println(nbImages);
 			if(nbImages==0 || nbImagesSelection==0){
 				this.supprimerImage.setEnabled(false);
 			}

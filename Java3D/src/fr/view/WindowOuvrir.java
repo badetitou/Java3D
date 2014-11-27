@@ -97,7 +97,7 @@ public class WindowOuvrir extends JFrame {
 			p2.add(nFichier);
 
 			JScrollPane scroll = new JScrollPane(bdd);
-			//scroll.setPreferredSize(new Dimension(Window.outil.getScreenSize().width-(Window.outil.getScreenSize().width/3),Window.outil.getScreenSize().height/6));
+			scroll.setPreferredSize(new Dimension(200,150));
 
 
 			gbc.gridx = 0;

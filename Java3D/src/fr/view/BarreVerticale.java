@@ -100,7 +100,7 @@ public class BarreVerticale extends JPanel implements MouseListener {
 		this.add(b2);
 		this.add(b3);
 		this.add(b4);
-		
+
 
 	}
 
@@ -133,9 +133,9 @@ public class BarreVerticale extends JPanel implements MouseListener {
 			this.dp.getiFrameDessous().setVisible(true);
 			this.dp.getiFrameDessus().setVisible(true);
 			this.dp.getiFrameProfil().setVisible(true);
-			
+
 			this.dp.getModel().setDimension(MyDeskTopPane.dimmini);
-			
+
 		} else if (e.getSource().equals(b3) && !modeEdit) {
 			b3.setIcon(ic8);
 			b2.setIcon(ic2);
@@ -162,6 +162,10 @@ public class BarreVerticale extends JPanel implements MouseListener {
 			bb2 = false;
 			modeEdit = false;
 			modeSquelette=true;
+			this.dp.getiFrameMain().setPreferredSize(MyDeskTopPane.dimension);
+			this.dp.getiFrameDessous().setVisible(false);
+			this.dp.getiFrameDessus().setVisible(false);
+			this.dp.getiFrameProfil().setVisible(false);
 			this.dp.getModel().setDimension(MyDeskTopPane.dimension);
 
 		}
@@ -197,7 +201,7 @@ public class BarreVerticale extends JPanel implements MouseListener {
 	public boolean getModeEdit() {
 		return modeEdit;
 	}
-	
+
 	public boolean isSquelette(){
 		return modeSquelette;
 	}

@@ -1,11 +1,9 @@
 package fr.view;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.Polygon;
 import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -16,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 
 import fr.model.Face;
 import fr.model.Model;
@@ -116,7 +113,7 @@ public class Panneau extends JPanel {
 								m.rotationY(coordMouseY - e.getY());
 							} else if (Barre.boolButtonX) {
 								m.rotationX(e.getX() - coordMouseX);
-							} else {
+							} else if(Barre.boolButtonY){
 								m.rotationY(coordMouseY - e.getY());
 							}
 
@@ -137,7 +134,7 @@ public class Panneau extends JPanel {
 						repaint();
 					}
 				}
-			});	
+			});
 		}
 		m.trieFace();
 		repaint();
