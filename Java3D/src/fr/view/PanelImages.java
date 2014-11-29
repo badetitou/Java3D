@@ -141,7 +141,6 @@ public class PanelImages extends JPanel implements MouseListener{
 		}
 
 		if (e.getSource().equals(supprimerImage)){
-			int g=0;
 			for (int i=0;i<listeImages.size();i++){
 				if(listePanels.get(i).getSelection()){
 					galerie.remove(listePanels.get(i));        //bug
@@ -149,11 +148,10 @@ public class PanelImages extends JPanel implements MouseListener{
 					listePanels.remove(i);
 					System.out.println(listeImages.toString()+"   cc");
 					listePanels.get(i).setSelection(false);
+					//i--;
 					nbImages--;
-					g++;
 				}
 			}
-			System.out.println(g);
 			nbImagesSelection=0;
 			if(nbImages==0 || nbImagesSelection==0){
 				this.supprimerImage.setEnabled(false);
