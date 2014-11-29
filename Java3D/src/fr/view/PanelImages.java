@@ -146,9 +146,9 @@ public class PanelImages extends JPanel implements MouseListener{
 					galerie.remove(listePanels.get(i));        //bug
 					listeImages.remove(listePanels.get(i).getPath());
 					listePanels.remove(i);
-					System.out.println(listeImages.toString()+"   cc");
-					listePanels.get(i).setSelection(false);
-					//i--;
+					//System.out.println(listeImages.toString()+"   cc");
+					//listePanels.get(i).setSelection(false);
+					i--;
 					nbImages--;
 				}
 			}

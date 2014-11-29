@@ -208,13 +208,18 @@ public class WindowEnregistrer extends JFrame {
 							fichiers.add(listefichiers[j]+"");
 						}
 
+						int g=0;
 						for(i=0;i<fichiers.size();i++){
 							System.out.println(listeImages.toString());
 							System.out.println("sonpere : "+fichiers.get(i));
 							if(!(listeImages.contains(fichiers.get(i)))){
-								listefichiers[i].delete();
+								System.out.println(listefichiers[i]);
+								listefichiers[g].delete();
 								fichiers.remove(i);
+								System.out.println("yo");
+								i--;
 							}
+							g++;
 						}
 
 						for(int k=0;k<listeImages.size();k++){
