@@ -39,6 +39,7 @@ public class PanelDescription extends JPanel implements MouseListener{
 			textArea=new JTextArea();
 		else
 			textArea=new JTextArea(obdd.getDesc(nomFichier));
+		//System.out.println("desc : "+textArea.getText());
 		textArea.setPreferredSize(new Dimension(Window.outil.getScreenSize().width-(Window.outil.getScreenSize().width/3),Window.outil.getScreenSize().height/6));
 		textArea.setEditable(false);
 		textArea.setBackground(new Color(230,230,230));
@@ -69,7 +70,7 @@ public class PanelDescription extends JPanel implements MouseListener{
 		panelDescription.add(label);
 		panelDescription.add(textArea);
 		 */
-
+		description=textArea.getText();
 		this.add(textArea);
 		this.add(panelBouton);
 	}

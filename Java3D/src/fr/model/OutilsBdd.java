@@ -194,7 +194,7 @@ public class OutilsBdd {
 		try {
 			ResultSet rs = statement.executeQuery(query);
 			String description=rs.getString(1);
-			System.out.println(description);
+			//System.out.println(description);
 			this.close();
 			return description;
 		} catch (Exception e) {

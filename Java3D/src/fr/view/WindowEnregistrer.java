@@ -58,13 +58,14 @@ public class WindowEnregistrer extends JFrame {
 		private final String description;
 		private final ArrayList<String>listeImages;
 		private final int nbImages;
+		private final Component onglet;
 
 		public PanelEnregistrer(JFrame windowE, JTabbedPane tabbedPane, ArrayList<Onglet> listeOnglets, PanelInformations panelInfos,boolean nouveau) {
 			this.windowE = windowE;
 			this.nouveau=nouveau;
 			this.setPreferredSize(new Dimension(500, 300));
 			obdd = new OutilsBdd("Database.db");
-			Component onglet = tabbedPane.getSelectedComponent();
+			onglet = tabbedPane.getSelectedComponent();
 			listeImages=((Onglet) onglet).getListeImages();
 			description=((Onglet)onglet).getPbdd().getDescription().getDescription();
 			nbImages=((Onglet)onglet).getNbIm();
@@ -210,13 +211,13 @@ public class WindowEnregistrer extends JFrame {
 
 						int g=0;
 						for(i=0;i<fichiers.size();i++){
-							System.out.println(listeImages.toString());
-							System.out.println("sonpere : "+fichiers.get(i));
+							//System.out.println(listeImages.toString());
+							//System.out.println("sonpere : "+fichiers.get(i));
 							if(!(listeImages.contains(fichiers.get(i)))){
-								System.out.println(listefichiers[i]);
+								//System.out.println(listefichiers[i]);
 								listefichiers[g].delete();
 								fichiers.remove(i);
-								System.out.println("yo");
+								//System.out.println("yo");
 								i--;
 							}
 							g++;
@@ -226,12 +227,12 @@ public class WindowEnregistrer extends JFrame {
 							if(!(fichiers.contains(listeImages.get(k)))){
 								File ff=new File("fichiers"+File.separator+this.nomFichier+File.separator+"images"+File.separator+this.nomFichier+k+".png");
 								copier( new File(listeImages.get(k)), ff);
-								System.out.println("cc");
+								//System.out.println("cc");
 							}
 						}
 					}
-
-					obdd.updateFile(this.nomFichier,this.description, this.nChargements, listeImages.size(), this.nRealisations, "fichiers"+File.separator+this.nomFichier+File.separator+"images"+File.separator,0);
+					//System.out.println(((Onglet)onglet).getPbdd().getDescription().getDescription());
+					obdd.updateFile(this.nomFichier,((Onglet)onglet).getPbdd().getDescription().getDescription(), this.nChargements, listeImages.size(), this.nRealisations, "fichiers"+File.separator+this.nomFichier+File.separator+"images"+File.separator,0);
 				}
 				windowE.dispose();
 			}
