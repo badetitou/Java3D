@@ -98,27 +98,16 @@ public class Model {
 	 * @param r
 	 *            est la valeur de la rotation � faire en X
 	 */
-	public void rotationX(int r) {
-
-		double sensRotation = 1.0;
-		if (r < 0) {
-			r = -r;
-			sensRotation = -1.0;
+	public void rotationX(double r) {
+		r = r/360.0;
+		double tmpX;
+		double tmpZ;
+		for (Point p : rt.getPointList()){
+			tmpX = p.x;
+			tmpZ = p.z;
+			p.x = tmpX * Math.cos(r) + tmpZ * Math.sin(r);
+			p.z = tmpZ * Math.cos(r) - tmpX * Math.sin(r);
 		}
-
-		for (int i = 0; i < rt.getPointList().size(); ++i) {
-			for (int j = 0; j < r; ++j) {
-				rt.getPointList().get(i).x = rt.getPointList().get(i).x
-						* Math.cos(sensRotation * Math.PI / 1024.0)
-						+ rt.getPointList().get(i).z
-						* Math.sin(sensRotation * Math.PI / 1024.0);
-				rt.getPointList().get(i).z = rt.getPointList().get(i).x
-						* -Math.sin(sensRotation * Math.PI / 1024.0)
-						+ rt.getPointList().get(i).z
-						* Math.cos(sensRotation * Math.PI / 1024.0);
-			}
-		}
-
 	}
 
 	/**
@@ -126,23 +115,16 @@ public class Model {
 	 * @param r
 	 *            est la valeur en radiant de la rotation � faire en Y
 	 */
-	public void rotationY(int r) {
-		double sensRotation = 1.0;
-		if (r < 0) {
-			r = -r;
-			sensRotation = -1.0;
-		}
-		for (int i = 0; i < rt.getPointList().size(); ++i) {
-			for (int j = 0; j < r; ++j) {
-				rt.getPointList().get(i).y = rt.getPointList().get(i).y
-						* Math.cos(sensRotation * Math.PI / 1024.0)
-						+ rt.getPointList().get(i).z
-						* -Math.sin(sensRotation * Math.PI / 1024.0);
-				rt.getPointList().get(i).z = rt.getPointList().get(i).y
-						* Math.sin(sensRotation * Math.PI / 1024.0)
-						+ rt.getPointList().get(i).z
-						* Math.cos(sensRotation * Math.PI / 1024.0);
-			}
+	public void rotationY(double r) {
+		
+		r = r/360.0;
+		double tmpY;
+		double tmpZ;
+		for (Point p : rt.getPointList()){
+			tmpY = p.y;
+			tmpZ = p.z;
+			p.y = tmpY * Math.cos(r) - tmpZ * Math.sin(r);
+			p.z = tmpZ * Math.cos(r) + tmpY * Math.sin(r);
 		}
 	}
 
