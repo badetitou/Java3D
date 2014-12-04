@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -15,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.JTree;
 
 import fr.model.OutilsBdd;
 
@@ -109,11 +111,19 @@ public class OngletMenu extends JPanel implements MouseListener{
 
 		private final JPanel panelTree;
 		private final JPanel panelImage;
-
+		private final JTree tree;
 		public PanelArboPreview(){
+			File repertoire = new File("fichiers"+File.separator);
+			File[] listefichiers;
+			listefichiers=repertoire.listFiles();
+
+			tree=new JTree(listefichiers);
+
 			this.setLayout(new BorderLayout());
 			this.setBorder(BorderFactory.createLoweredBevelBorder());
 			panelTree=new JPanel();
+
+			panelTree.add(tree);
 			panelImage=new JPanel();
 			JPanel panelPreview=new JPanel();
 			JLabel l=new JLabel();
@@ -122,7 +132,7 @@ public class OngletMenu extends JPanel implements MouseListener{
 			panelPreview.add(l);
 			panelPreview.setBorder(BorderFactory.createLoweredBevelBorder());
 			panelImage.add(panelPreview);
-			//panelTree.setBorder(BorderFactory.createLoweredBevelBorder());
+			panelTree.setBorder(BorderFactory.createLoweredBevelBorder());
 
 			this.add(panelTree,BorderLayout.CENTER);
 			this.add(panelImage,BorderLayout.SOUTH);
