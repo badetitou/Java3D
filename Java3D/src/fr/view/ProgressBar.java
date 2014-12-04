@@ -61,7 +61,7 @@ public class ProgressBar extends JPanel{
 			public void run() {
 				while(t.isAlive()){
 					try {
-						this.sleep(2000);
+						this.sleep(1000);
 					} catch (InterruptedException e) {}
 				}
 				ss.dispose();

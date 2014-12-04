@@ -60,7 +60,7 @@ public class Window extends JFrame implements ComponentListener{
 		container.add(tabbedPane,BorderLayout.CENTER);
 		addComponentListener(this);
 
-		this.setJMenuBar(new Menu(tabbedPane,listeOnglets, null));
+		this.setJMenuBar(new Menu(tabbedPane,listeOnglets));
 		this.getContentPane().add(container);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);

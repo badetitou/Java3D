@@ -35,7 +35,6 @@ public class OngletMenu extends JPanel implements MouseListener{
 		closeButon.addMouseListener(this);
 		ic = new JLabel(new ImageIcon(new ImageIcon("ressources/icones/iconeMenu.png").getImage().getScaledInstance(26, 26, Image.SCALE_SMOOTH)));
 		p1=new JPanel();
-		this.setVisible(true);
 	}
 
 	public void dessineOnglet(){
