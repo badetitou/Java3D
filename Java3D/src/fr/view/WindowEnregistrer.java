@@ -47,7 +47,7 @@ public class WindowEnregistrer extends JFrame {
 		private JLabel jlNbRealisations=null;
 		private final JFrame windowE;
 		private final OutilsBdd obdd;
-		private final boolean nouveau;
+		private boolean nouveau;
 		private String nomAuteur;
 		private String nomFichier;
 		private String dateModiff;
@@ -55,7 +55,7 @@ public class WindowEnregistrer extends JFrame {
 		private int nImages;
 		private int nRealisations;
 		private int nChargements;
-		private final String description;
+		private String description;
 		private final ArrayList<String>listeImages;
 		private final int nbImages;
 		private final Component onglet;
@@ -69,14 +69,16 @@ public class WindowEnregistrer extends JFrame {
 			listeImages=((Onglet) onglet).getListeImages();
 			description=((Onglet)onglet).getPbdd().getDescription().getDescription();
 			nbImages=((Onglet)onglet).getNbIm();
-			if(nouveau){
+			if(this.nouveau){
 				JTextField j1 = new JTextField();
 				JTextField j2 = new JTextField();
+				//JButton bAnnul=new JButton("Annuler");
 				ArrayList list = new ArrayList();
 				list.add("Nom objet : \n");
 				list.add(j1);
 				list.add("Nom auteur : \n");
 				list.add(j2);
+				//list.add(bAnnul);
 				int res = JOptionPane.showOptionDialog(null, list.toArray(), "Saisissez les champs", JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE, null, null, null);
 				if (j2.getText().isEmpty() || j1.getText().isEmpty())
 					list.add("les champs sont obligatoires");
@@ -174,7 +176,7 @@ public class WindowEnregistrer extends JFrame {
 
 		public void mouseClicked(MouseEvent e) {
 			if(e.getSource().equals(jbOk)){
-				if (nouveau){
+				if (this.nouveau){
 					new File("fichiers"+File.separator+this.nomFichier).mkdirs();
 					new File("fichiers"+File.separator+this.nomFichier+File.separator+"images").mkdirs();
 					new File("fichiers"+File.separator+this.nomFichier+File.separator+"realisations").mkdirs();
@@ -193,6 +195,12 @@ public class WindowEnregistrer extends JFrame {
 						}
 					}
 					obdd.addFile(this.nomFichier, "fichiers"+File.separator+this.nomFichier+File.separator+this.nomFichier+".gts", this.description, this.nomAuteur, this.nChargements, listeImages.size(), this.nRealisations, "fichiers"+File.separator+this.nomFichier+File.separator+"images"+File.separator, 0);
+					this.nouveau=false;
+					((Onglet)onglet).setNouveau(false);
+					((Onglet)onglet).actualiserOnglet(this.nomFichier);
+					((Onglet)onglet).getPbdd().getInformations().setNouveau(false);
+					((Onglet)onglet).getPbdd().getPanelDescription().setNouveau(false);
+					((Onglet)onglet).getPbdd().getImages().setNouveau(false);
 				}
 				else {
 
@@ -211,13 +219,9 @@ public class WindowEnregistrer extends JFrame {
 
 						int g=0;
 						for(i=0;i<fichiers.size();i++){
-							//System.out.println(listeImages.toString());
-							//System.out.println("sonpere : "+fichiers.get(i));
 							if(!(listeImages.contains(fichiers.get(i)))){
-								//System.out.println(listefichiers[i]);
 								listefichiers[g].delete();
 								fichiers.remove(i);
-								//System.out.println("yo");
 								i--;
 							}
 							g++;
@@ -227,13 +231,14 @@ public class WindowEnregistrer extends JFrame {
 							if(!(fichiers.contains(listeImages.get(k)))){
 								File ff=new File("fichiers"+File.separator+this.nomFichier+File.separator+"images"+File.separator+this.nomFichier+k+".png");
 								copier( new File(listeImages.get(k)), ff);
-								//System.out.println("cc");
 							}
 						}
 					}
-					//System.out.println(((Onglet)onglet).getPbdd().getDescription().getDescription());
-					obdd.updateFile(this.nomFichier,((Onglet)onglet).getPbdd().getDescription().getDescription(), this.nChargements, listeImages.size(), this.nRealisations, "fichiers"+File.separator+this.nomFichier+File.separator+"images"+File.separator,0);
+					this.description=((Onglet)onglet).getPbdd().getDescription().getDescription();
+					obdd.updateFile(this.nomFichier,this.description, this.nChargements, listeImages.size(), this.nRealisations, "fichiers"+File.separator+this.nomFichier+File.separator+"images"+File.separator,0);
 				}
+				((Onglet)onglet).getPbdd().getInformations().actualiserInfos(this.nomFichier, this.nomAuteur, this.nbImages, 0,obdd.getDateLastModif(nomFichier));
+				((Onglet)onglet).getPbdd().getPanelDescription().actualiserDesc(this.description);
 				windowE.dispose();
 			}
 		}

@@ -26,16 +26,19 @@ public class Onglet extends JPanel implements MouseListener{
 	}
 	private final BarreVerticale bv;
 	private final JTabbedPane tabbedPane;
-	private JLabel closeButon;
-	private final String nomFichier;
-	private JLabel ic;
+	private final JLabel closeButon;
+	private String nomFichier;
+	private final JLabel ic;
 	private final ArrayList<Onglet>listeOnglets;
 	private final int nbIm;
 	public PanelBdd getPbdd() {
 		return pbdd;
 	}
 	private final PanelInformations pinfos;
-	private final boolean nouveau;
+	private boolean nouveau;
+	public void setNouveau(boolean nouveau) {
+		this.nouveau = nouveau;
+	}
 	private final ArrayList<String>listeImages;
 
 	public boolean isNouveau() {
@@ -45,6 +48,7 @@ public class Onglet extends JPanel implements MouseListener{
 	public ArrayList<String> getListeImages() {
 		return listeImages;
 	}
+	private final JPanel p1;
 
 	public Onglet(MyDeskTopPane dp, JTabbedPane tabbedPane,String nomFichier,String nomAuteur,boolean nouveau,ArrayList<Onglet>listeOnglets){
 		this.listeOnglets=listeOnglets;
@@ -67,10 +71,15 @@ public class Onglet extends JPanel implements MouseListener{
 		jp2.setBackground(new Color(190,190,190));
 		this.add(dp,BorderLayout.CENTER);
 		this.add(jp2,BorderLayout.WEST);
-		this.add(new OngletOutils(this.dp,bv),BorderLayout.EAST);
+		this.add(new PanelEdit(this.dp,bv),BorderLayout.EAST);
 		this.add(pbdd, BorderLayout.SOUTH);
 		dp.setBV(bv);
 
+		listeOnglets.add(this);
+		closeButon = new JLabel(new ImageIcon(new ImageIcon("ressources/icones/fermer.png").getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH)));
+		closeButon.addMouseListener(this);
+		ic = new JLabel(new ImageIcon(new ImageIcon("ressources/icones/iconeFichier.png").getImage().getScaledInstance(26, 26, Image.SCALE_SMOOTH)));
+		p1=new JPanel();
 	}
 
 	public int getNbIm() {
@@ -82,17 +91,18 @@ public class Onglet extends JPanel implements MouseListener{
 	}
 
 	public void dessineOnglet(){
-		closeButon = new JLabel(new ImageIcon(new ImageIcon("ressources/icones/fermer.png").getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH)));
-		closeButon.addMouseListener(this);
-		JPanel p1=new JPanel();
 		p1.setOpaque(false);
-		listeOnglets.add(this);
-		ic = new JLabel(new ImageIcon(new ImageIcon("ressources/icones/iconeFichier.png").getImage().getScaledInstance(26, 26, Image.SCALE_SMOOTH)));
 		JLabel lbTitle=new JLabel(nomFichier);
 		p1.add(ic);
 		p1.add(lbTitle);
 		p1.add(closeButon);
 		this.tabbedPane.setTabComponentAt(rechercheOnglet(),p1);
+	}
+
+	public void actualiserOnglet(String nomFichier){
+		p1.removeAll();
+		this.nomFichier=nomFichier;
+		dessineOnglet();
 	}
 
 	public int rechercheOnglet(){

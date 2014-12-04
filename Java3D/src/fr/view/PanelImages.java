@@ -45,13 +45,18 @@ public class PanelImages extends JPanel implements MouseListener{
 	private PImage p;
 	private int nbImages;
 	private int nbImagesSelection;
+	private boolean nouveau;
+	public void setNouveau(boolean nouveau) {
+		this.nouveau = nouveau;
+	}
 	public PanelImages(String nomFichier,boolean nouveau){
 		this.setLayout(new FlowLayout(0,20,20));
+		this.nouveau=nouveau;
 		this.setBackground(new Color(215,215,215));
 		obdd=new OutilsBdd("Database.db");
 		galerie=new JPanel();
 		galerie.setLayout(new FlowLayout(0,15,2));
-		if(!nouveau){
+		if(!this.nouveau){
 			lien=obdd.getLinkImg(nomFichier);
 			listeImages=listerRepertoire(lien);
 			listePanels=new ArrayList<PImage>();

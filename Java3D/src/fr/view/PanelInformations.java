@@ -21,37 +21,74 @@ public class PanelInformations extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final JLabel nomObjet;
-	private final JLabel auteur;
-	private final JLabel dateAjout;
-	private final JLabel derniereModif;
-	private final JLabel nbChargements;
-	private final JLabel nbImages;
-	private final JLabel nbRealisations;
+	private JLabel nomObjet;
+	private JLabel auteur;
+	private JLabel dateAjout;
+	private JLabel derniereModif;
+	private JLabel nbChargements;
+	private JLabel nbImages;
+	private JLabel nbRealisations;
 	private final int size=Window.outil.getScreenSize().height/27;
 	private final OutilsBdd obdd;
 
-	private final String nomAuteur;
-	private final String nomFichier;
+	private String nomAuteur;
+	private String nomFichier;
+	public void setNomAuteur(String nomAuteur) {
+		this.nomAuteur = nomAuteur;
+	}
+
+	public void setNomFichier(String nomFichier) {
+		this.nomFichier = nomFichier;
+	}
+
 	private String dateModiff;
 	private String dateAjoutt;
-	private final int nImages;
-	private final int nRealisations;
-	private final int nChargements;
+	private int nImages;
+	private int nRealisations;
+	private int nChargements;
+	private boolean nouveau;
+	public void setNouveau(boolean nouveau) {
+		this.nouveau = nouveau;
+	}
+
+	private final JPanel panelInfo;
 
 	private Font font;
+
+	public void actualiserInfos(String nomFichier,String nomAuteur, int nbImages,int nbRéalisations,String dateMod){
+		this.nomFichier=nomFichier;
+		this.nomAuteur=nomAuteur;
+		this.nImages=nbImages;
+		this.dateModiff=dateMod;
+		this.nRealisations=nbRéalisations;
+		panelInfo.removeAll();
+		this.dessinerPanel();
+		this.revalidate();
+	}
 
 	public PanelInformations(String nomFichier,String nomAuteur,boolean nouveau){
 		this.setBackground(new Color(215,215,215));
 		this.setLayout(new FlowLayout(0,30,20));
+		this.nouveau=nouveau;
 		this.nomFichier=nomFichier;
 		this.nomAuteur=nomAuteur;
 		obdd=new OutilsBdd("Database.db");
 
-		JPanel panelInfo = new JPanel();
+		panelInfo = new JPanel();
 		panelInfo.setLayout(new GridLayout(3,3,15,0));
 		panelInfo.setPreferredSize(new Dimension(Window.outil.getScreenSize().width-(Window.outil.getScreenSize().width/3),Window.outil.getScreenSize().height/6));
 
+
+		this.dessinerPanel();
+
+
+
+		this.add(panelInfo);
+
+
+	}
+
+	public void dessinerPanel(){
 		nomObjet=new JLabel("Nom de l'objet : "+this.nomFichier);
 		font = nomObjet.getFont();
 		nomObjet.setFont(new Font(font.getFontName(), Font.BOLD, font.getSize()));
@@ -107,8 +144,6 @@ public class PanelInformations extends JPanel {
 		nbRealisations.setFont(new Font(font.getFontName(), Font.BOLD, font.getSize()));
 		nbRealisations.setIcon(new ImageIcon(new ImageIcon("ressources/icones/iconesInformations/nbRealisations.png").getImage().getScaledInstance(size, size, Image.SCALE_SMOOTH)));
 
-
-
 		panelInfo.add(nomObjet);
 		panelInfo.add(auteur);
 		panelInfo.add(dateAjout);
@@ -116,10 +151,6 @@ public class PanelInformations extends JPanel {
 		panelInfo.add(nbChargements);
 		panelInfo.add(nbImages);
 		panelInfo.add(nbRealisations);
-
-		this.add(panelInfo);
-
-
 	}
 
 	public String getDateModiff() {

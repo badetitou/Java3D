@@ -41,9 +41,8 @@ public class WindowOuvrir extends JFrame {
 	}
 
 	public class PanelOuvrir extends JPanel implements MouseListener{
-		private final JTextArea rTag;
+		private final JTextArea rName;
 		private final JTextArea nFichier;
-		private final JLabel rAvancee;
 		private final JButton ouvrir;
 		private final JButton annuler;
 		private final JList bdd;
@@ -62,13 +61,12 @@ public class WindowOuvrir extends JFrame {
 			GridBagConstraints gbc = new GridBagConstraints();
 			//this.setLayout(new GridLayout(5,1));
 			this.setPreferredSize(new Dimension(500, 300));
-			rTag = new JTextArea();
-			rTag.setPreferredSize(new Dimension(100, 20));
-			rTag.setEditable(true);
+			rName = new JTextArea();
+			rName.setPreferredSize(new Dimension(100, 20));
+			rName.setEditable(true);
 			nFichier = new JTextArea();
 			nFichier.setPreferredSize(new Dimension(100, 20));
 			nFichier.setEditable(true);
-			rAvancee = new JLabel("Recherche Avancée >>");
 
 
 			ouvrir = new JButton("Ouvrir");
@@ -89,7 +87,7 @@ public class WindowOuvrir extends JFrame {
 			JPanel p1=new JPanel();
 			p1.setLayout(new FlowLayout(0,30,10));
 			p1.add(jlb1);
-			p1.add(rTag);
+			p1.add(rName);
 
 			JPanel p2=new JPanel();
 			p2.setLayout(new FlowLayout(0,50,0));
@@ -109,7 +107,7 @@ public class WindowOuvrir extends JFrame {
 			gbc.gridx = 1;
 			gbc.gridheight = 1;
 			gbc.gridwidth = 1;
-			this.add(rTag, gbc);
+			this.add(rName, gbc);
 
 			gbc.gridx = 0;
 			gbc.gridy = 1;
@@ -129,13 +127,6 @@ public class WindowOuvrir extends JFrame {
 			gbc.gridwidth = 1;
 			gbc.ipadx=0;
 			this.add(nFichier, gbc);
-
-			gbc.gridx = 0;
-			gbc.gridy = 7;
-			gbc.gridheight = 1;
-			gbc.gridwidth = 1;
-			this.add(rAvancee, gbc);
-
 
 			gbc.gridx = 2;
 			gbc.gridy = 8;

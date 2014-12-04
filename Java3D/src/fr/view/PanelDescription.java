@@ -9,7 +9,6 @@ import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.Border;
@@ -28,28 +27,28 @@ public class PanelDescription extends JPanel implements MouseListener{
 	private final JButton valider;
 	private final JButton modifier;
 	private String description;
-
-	private final JLabel label;
 	private final OutilsBdd obdd;
+	public void actualiserDesc(String desc){
+		this.description=desc;
+		this.textArea.removeAll();
+		this.dessinerDesc();
+		this.revalidate();
+	}
+	private boolean nouveau;
+	public void setNouveau(boolean nouveau) {
+		this.nouveau = nouveau;
+	}
 	public PanelDescription(String nomFichier,boolean nouveau){
 		this.setLayout(new FlowLayout(0,30,20));
+		this.nouveau=nouveau;
 		this.setBackground(new Color(215,215,215));
 		obdd=new OutilsBdd("Database.db");
-		if(nouveau)
-			textArea=new JTextArea();
+		if(this.nouveau)
+			description="";
 		else
-			textArea=new JTextArea(obdd.getDesc(nomFichier));
-		//System.out.println("desc : "+textArea.getText());
-		textArea.setPreferredSize(new Dimension(Window.outil.getScreenSize().width-(Window.outil.getScreenSize().width/3),Window.outil.getScreenSize().height/6));
-		textArea.setEditable(false);
-		textArea.setBackground(new Color(230,230,230));
-		Border border = BorderFactory.createLineBorder(new Color(190,190,190));
-		textArea.setBorder(BorderFactory.createCompoundBorder(border, BorderFactory.createEmptyBorder(10, 10, 10, 10)));
-		textArea.setForeground(new Color(130,130,130));
-
-		label=new JLabel("Description de l'objet "+nomFichier+ " : ");
-		label.setPreferredSize(new Dimension(70,30));
-
+			description=obdd.getDesc(nomFichier);
+		textArea=new JTextArea();
+		this.dessinerDesc();
 		panelBouton=new JPanel();
 		panelBouton.setLayout(new GridLayout(3,1,0,20));
 
@@ -64,15 +63,19 @@ public class PanelDescription extends JPanel implements MouseListener{
 		panelBouton.add(modifier);
 		panelBouton.add(valider);
 		panelBouton.setBackground(new Color(215,215,215));
-		/*
-		panelDescription=new JPanel();
-		panelDescription.setLayout(new GridLayout(2,1));
-		panelDescription.add(label);
-		panelDescription.add(textArea);
-		 */
 		description=textArea.getText();
 		this.add(textArea);
 		this.add(panelBouton);
+	}
+
+	public void dessinerDesc(){
+		textArea.setText(description);
+		textArea.setPreferredSize(new Dimension(Window.outil.getScreenSize().width-(Window.outil.getScreenSize().width/3),Window.outil.getScreenSize().height/6));
+		textArea.setEditable(false);
+		textArea.setBackground(new Color(230,230,230));
+		Border border = BorderFactory.createLineBorder(new Color(190,190,190));
+		textArea.setBorder(BorderFactory.createCompoundBorder(border, BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+		textArea.setForeground(new Color(130,130,130));
 	}
 
 	public void mouseClicked(MouseEvent e) {

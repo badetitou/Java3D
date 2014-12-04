@@ -17,6 +17,7 @@ public class PanelBdd extends JPanel{
 	private static final long serialVersionUID = 1L;
 	private final PanelDescription description;
 	private final PanelInformations informations;
+	private final JTabbedPane tabbedPane;
 	public PanelDescription getDescription() {
 		return description;
 	}
@@ -29,7 +30,13 @@ public class PanelBdd extends JPanel{
 	public int getNbImages() {
 		return nbImages;
 	}
-	private final PanelImages images;
+	public PanelDescription getPanelDescription(){
+		return this.description;
+	}
+	private PanelImages images;
+	public PanelImages getImages() {
+		return images;
+	}
 	private final JPanel realisations;
 	public PanelBdd(String nomFichier,String nomAuteur,boolean nouveau){
 		this.setLayout(new CardLayout());
@@ -41,7 +48,7 @@ public class PanelBdd extends JPanel{
 		listeImages=images.getListeImages();
 		nbImages=images.getNbImages();
 		realisations=new PanelRealisations(nomFichier);
-		JTabbedPane tabbedPane = new JTabbedPane();
+		tabbedPane = new JTabbedPane();
 		tabbedPane.addTab("Description",new ImageIcon(new ImageIcon("ressources/icones/description.png").getImage().getScaledInstance(26, 26, Image.SCALE_DEFAULT)), description);
 		tabbedPane.addTab("Informations",new ImageIcon(new ImageIcon("ressources/icones/informations.png").getImage().getScaledInstance(26, 26, Image.SCALE_DEFAULT)), informations);
 		tabbedPane.addTab("Images/photos",new ImageIcon(new ImageIcon("ressources/icones/galerie.png").getImage().getScaledInstance(26, 26, Image.SCALE_DEFAULT)), images);
