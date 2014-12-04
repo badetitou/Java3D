@@ -60,9 +60,9 @@ public class Menu extends JMenuBar implements ActionListener {
 
 	private String lienGts;
 
-	private final ArrayList<Onglet> listeOnglets;
+	private final ArrayList<Object> listeOnglets;
 
-	public Menu(JTabbedPane tabbedPane, ArrayList<Onglet> listeOnglets, PanelInformations panelInfos) {
+	public Menu(JTabbedPane tabbedPane, ArrayList<Object> listeOnglets, PanelInformations panelInfos) {
 		this.tabbedPane = tabbedPane;
 		this.listeOnglets = listeOnglets;
 		this.panelInfos = panelInfos;

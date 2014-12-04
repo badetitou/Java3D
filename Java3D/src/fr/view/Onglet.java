@@ -29,7 +29,7 @@ public class Onglet extends JPanel implements MouseListener{
 	private final JLabel closeButon;
 	private String nomFichier;
 	private final JLabel ic;
-	private final ArrayList<Onglet>listeOnglets;
+	private final ArrayList<Object>listeOnglets;
 	private final int nbIm;
 	public PanelBdd getPbdd() {
 		return pbdd;
@@ -50,7 +50,7 @@ public class Onglet extends JPanel implements MouseListener{
 	}
 	private final JPanel p1;
 
-	public Onglet(MyDeskTopPane dp, JTabbedPane tabbedPane,String nomFichier,String nomAuteur,boolean nouveau,ArrayList<Onglet>listeOnglets){
+	public Onglet(MyDeskTopPane dp, JTabbedPane tabbedPane,String nomFichier,String nomAuteur,boolean nouveau,ArrayList<Object>listeOnglets){
 		this.listeOnglets=listeOnglets;
 		this.dp=dp;
 		this.tabbedPane=tabbedPane;

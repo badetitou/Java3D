@@ -28,7 +28,7 @@ public class WindowOuvrir extends JFrame {
 		return panelInfos;
 	}
 
-	public WindowOuvrir(JTabbedPane tabbedPane, ArrayList<Onglet> listeOnglets) {
+	public WindowOuvrir(JTabbedPane tabbedPane, ArrayList<Object> listeOnglets) {
 		PanelOuvrir pO = new PanelOuvrir(this, tabbedPane, listeOnglets);
 		this.setTitle("Ouvrir");
 		this.setSize(500, 300);
@@ -51,9 +51,9 @@ public class WindowOuvrir extends JFrame {
 		private final JFrame windowO;
 		private final OutilsBdd obdd;
 		private final JTabbedPane tabbedPane;
-		private final ArrayList<Onglet> listeOnglets;
+		private final ArrayList<Object> listeOnglets;
 
-		public PanelOuvrir(JFrame windowO, JTabbedPane tabbedPane, ArrayList<Onglet> listeOnglets) {
+		public PanelOuvrir(JFrame windowO, JTabbedPane tabbedPane, ArrayList<Object> listeOnglets) {
 			this.windowO = windowO;
 			this.tabbedPane = tabbedPane;
 			this.listeOnglets = listeOnglets;

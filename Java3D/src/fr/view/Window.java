@@ -29,29 +29,30 @@ public class Window extends JFrame implements ComponentListener{
 	private final JPanel container;
 	public static JFrame frame;
 	private final JTabbedPane tabbedPane;
-	private final ArrayList<Onglet> listeOnglets;
+	private final ArrayList<Object> listeOnglets;
 
 
-	public Window(MyDeskTopPane dp) {
+	public Window() {
 		super("3D Lib");
-		this.setVisible(true);
 		Window.frame=this;
 		outil = getToolkit();
 		this.setIconImage(new ImageIcon("ressources/image/logoforreal2.png").getImage());
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.setMinimumSize(new Dimension(this.getSize().width,this.getSize().height));
-		//this.setResizable(false);
-		//this.setState(JFrame.MAXIMIZED_BOTH);
+
 		OutilsBdd obdd=new OutilsBdd("Database.db");
 
 		//onglets
-		listeOnglets=new ArrayList<Onglet>();
+		listeOnglets=new ArrayList<Object>();
 		tabbedPane = new JTabbedPane();
-		String objet=obdd.getLastFiles();
-		Onglet onglet=new Onglet(dp,tabbedPane,objet,obdd.getAuthor(objet),false,listeOnglets);
-		PanelInformations panelInfos = onglet.getPinfos();
-		tabbedPane.addTab("Icosa", onglet);
-		onglet.dessineOnglet();
+		//String objet=obdd.getLastFiles();
+		//Onglet onglet=new Onglet(dp,tabbedPane,objet,obdd.getAuthor(objet),false,listeOnglets);
+		//PanelInformations panelInfos = onglet.getPinfos();
+		OngletMenu menu=new OngletMenu(tabbedPane,listeOnglets);
+		tabbedPane.addTab("Menu", menu);
+		menu.dessineOnglet();
+		//tabbedPane.addTab("Onglet",onglet);
+		//onglet.dessineOnglet();
 
 		container = new JPanel();
 		container.setLayout(new BorderLayout());
@@ -59,10 +60,10 @@ public class Window extends JFrame implements ComponentListener{
 		container.add(tabbedPane,BorderLayout.CENTER);
 		addComponentListener(this);
 
-		//this.setMinimumSize(new Dimension((int)outil.getScreenSize().getWidth()/2,(int)outil.getScreenSize().getHeight()/2));
-		this.setJMenuBar(new Menu(tabbedPane,listeOnglets, panelInfos));
+		this.setJMenuBar(new Menu(tabbedPane,listeOnglets, null));
 		this.getContentPane().add(container);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setVisible(true);
 		//this.pack();
 	}
 

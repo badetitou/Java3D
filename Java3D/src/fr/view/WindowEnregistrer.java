@@ -21,7 +21,7 @@ import fr.model.OutilsBdd;
 public class WindowEnregistrer extends JFrame {
 
 	private final String lienGts;
-	public WindowEnregistrer(JTabbedPane tabbedPane, ArrayList<Onglet> listeOnglets, PanelInformations panelInfos,boolean nouveau,String lienGts) {
+	public WindowEnregistrer(JTabbedPane tabbedPane, ArrayList<Object> listeOnglets, PanelInformations panelInfos,boolean nouveau,String lienGts) {
 		this.lienGts=lienGts;
 		PanelEnregistrer pE = new PanelEnregistrer(this, tabbedPane, listeOnglets, panelInfos,nouveau);
 		this.setTitle("Enregistrer dans la BDD");
@@ -60,7 +60,7 @@ public class WindowEnregistrer extends JFrame {
 		private final int nbImages;
 		private final Component onglet;
 
-		public PanelEnregistrer(JFrame windowE, JTabbedPane tabbedPane, ArrayList<Onglet> listeOnglets, PanelInformations panelInfos,boolean nouveau) {
+		public PanelEnregistrer(JFrame windowE, JTabbedPane tabbedPane, ArrayList<Object> listeOnglets, PanelInformations panelInfos,boolean nouveau) {
 			this.windowE = windowE;
 			this.nouveau=nouveau;
 			this.setPreferredSize(new Dimension(500, 300));
