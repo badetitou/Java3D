@@ -37,8 +37,6 @@ public class Window extends JFrame implements ComponentListener{
 		Window.frame=this;
 		outil = getToolkit();
 		this.setIconImage(new ImageIcon("ressources/image/logoforreal2.png").getImage());
-		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		this.setMinimumSize(new Dimension(this.getSize().width,this.getSize().height));
 
 		OutilsBdd obdd=new OutilsBdd("Database.db");
 
@@ -63,8 +61,10 @@ public class Window extends JFrame implements ComponentListener{
 		this.setJMenuBar(new Menu(tabbedPane,listeOnglets));
 		this.getContentPane().add(container);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setVisible(true);
 		//this.pack();
+		this.setVisible(true);
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		this.setMinimumSize(new Dimension(this.getSize().width,this.getSize().height));
 	}
 
 	public void componentHidden(ComponentEvent arg0) {

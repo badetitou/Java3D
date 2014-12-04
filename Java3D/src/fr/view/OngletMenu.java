@@ -1,11 +1,14 @@
 package fr.view;
 
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -61,19 +64,28 @@ public class OngletMenu extends JPanel implements MouseListener{
 	public class PanelCrit extends JPanel{
 
 		private final JButton valider;
-		private final JButton sensASC;
-		private final JButton sensDESC;
+		private final JLabel sensASC;
+		private final JLabel sensDESC;
 		private final JLabel jt1;
 		private final JLabel jt2;
 		private final JLabel jt3;
 
 		public PanelCrit(){
+			this.setLayout(new FlowLayout());
 			this.valider = new JButton("Valider");
 			this.jt1 = new JLabel("Recherche Avancée: ");
 			this.jt2 = new JLabel("Critère: ");
 			this.jt3 = new JLabel("Sens: ");
-			this.sensASC = new JButton();
-			this.sensDESC = new JButton();
+			this.sensASC = new JLabel(new ImageIcon(new ImageIcon("ressources/icones/flecheHaut.png").getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH)));
+			this.sensDESC = new JLabel(new ImageIcon(new ImageIcon("ressources/icones/flecheBas.png").getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH)));
+			this.add(jt1);
+			this.add(jt2);
+			this.add(jt3);
+			this.add(sensASC);
+			this.add(sensDESC);
+			this.add(valider);
+			this.setBorder(BorderFactory.createLoweredBevelBorder());
+
 		}
 
 	}
@@ -87,13 +99,33 @@ public class OngletMenu extends JPanel implements MouseListener{
 			obdd = new OutilsBdd("Database.db");
 			String[] data = obdd.getData();
 			bdd = new JList(data);
+			this.add(bdd);
+			this.setBorder(BorderFactory.createLoweredBevelBorder());
 
 		}
 	}
 
 	public class PanelArboPreview extends JPanel{
 
+		private final JPanel panelTree;
+		private final JPanel panelImage;
+
 		public PanelArboPreview(){
+			this.setLayout(new BorderLayout());
+			this.setBorder(BorderFactory.createLoweredBevelBorder());
+			panelTree=new JPanel();
+			panelImage=new JPanel();
+			JPanel panelPreview=new JPanel();
+			JLabel l=new JLabel();
+			String path="ressources/image/800x400.png";
+			l.setIcon(new ImageIcon(new ImageIcon(path).getImage().getScaledInstance(Window.outil.getScreenSize().width/9, Window.outil.getScreenSize().width/9, Image.SCALE_SMOOTH)));
+			panelPreview.add(l);
+			panelPreview.setBorder(BorderFactory.createLoweredBevelBorder());
+			panelImage.add(panelPreview);
+			//panelTree.setBorder(BorderFactory.createLoweredBevelBorder());
+
+			this.add(panelTree,BorderLayout.CENTER);
+			this.add(panelImage,BorderLayout.SOUTH);
 			/* POUR LOIC GGWP */
 		}
 	}
