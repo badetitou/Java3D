@@ -145,6 +145,10 @@ public class Panneau extends JPanel {
 		Graphics2D g = (Graphics2D) g2;
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
+		g.setRenderingHint(RenderingHints.KEY_RENDERING,
+				RenderingHints.VALUE_RENDER_QUALITY);
+		g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING,
+				RenderingHints.VALUE_COLOR_RENDER_QUALITY);
 		super.paintComponent(g);
 
 		if (getBarreVerticale().isSquelette()) {
