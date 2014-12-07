@@ -197,4 +197,10 @@ public class Model {
 		}
 		return f;
 	}
+	
+	public void reinitSelected(){
+		for (Face f : rt.getFaceList()){
+			f.setSelected(false);
+		}
+	}
 }

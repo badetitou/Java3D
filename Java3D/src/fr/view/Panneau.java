@@ -5,6 +5,9 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -14,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 
 import fr.model.Face;
 import fr.model.Model;
@@ -27,10 +31,8 @@ public class Panneau extends JPanel {
 	private int coordMouseX = 0;
 	private int coordMouseY = 0;
 	MyDeskTopPane dp;
-
-	Thread t;
-	Image img;
-	Graphics2D g2d;
+	private boolean control = false;
+	
 
 	public BarreVerticale getBarreVerticale() {
 		return dp.getBarreVerticale();
@@ -63,9 +65,25 @@ public class Panneau extends JPanel {
 			m.rotationX(515);
 			m.rotationY(0);
 		} else {
+			this.setFocusable(true);
+			this.addKeyListener(new KeyListener() {
+				
+				public void keyTyped(KeyEvent e) {}
+				
+				public void keyReleased(KeyEvent e) {
+					control = false;										
+				}
+				
+				public void keyPressed(KeyEvent e) {
+					control = true;										
+				}
+			});
 			this.addMouseListener(new MouseListener() {
 				public void mouseClicked(MouseEvent arg0) {
 					if (getBarreVerticale().getModeEdit()) {
+						if (!control){
+							m.reinitSelected();
+						}
 						Face selected = m.getParticularFace(coordMouseX,
 								coordMouseY);
 						if (selected != null) {
@@ -79,6 +97,7 @@ public class Panneau extends JPanel {
 				}
 
 				public void mouseEntered(MouseEvent arg0) {
+					requestFocus();
 				}
 
 				public void mouseExited(MouseEvent arg0) {
@@ -97,14 +116,11 @@ public class Panneau extends JPanel {
 					repaint();
 				}
 			});
-
 			this.addMouseMotionListener(new MouseMotionListener() {
-
 				public void mouseMoved(MouseEvent e) {
 					coordMouseX = e.getX();
 					coordMouseY = e.getY();
 				}
-
 				public void mouseDragged(MouseEvent e) {
 					if (m.vue == 0) {
 						if (Barre.boolButtonRotation) {
