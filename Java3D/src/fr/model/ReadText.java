@@ -23,7 +23,7 @@ public class ReadText {
 	private Scanner scanner;
 	private final String file;
 	private boolean corrupt;
-
+	Map<Integer,CouplePoint> segment;
 	/**
 	 * 
 	 * @param String file
@@ -34,7 +34,6 @@ public class ReadText {
 	public ReadText(String file) {
 		pointList=new ArrayList<Point>();
 		faceList=new ArrayList<Face>();
-		Map<Integer,CouplePoint> map;
 		this.file=file;
 		try {
 			scanner = new Scanner(new File(file));
@@ -45,9 +44,11 @@ public class ReadText {
 			int nbFaces=0;
 			String line="";
 			double tab[];
-			map = new HashMap<Integer,CouplePoint>();
+			segment = new HashMap<Integer,CouplePoint>();
 
 			// On boucle sur chaque champ detecté
+			
+			int positionBoucle = 0;
 			while (scanner.hasNextLine()) {
 				line = scanner.nextLine();
 				tab=extractLine(line);
@@ -59,27 +60,29 @@ public class ReadText {
 
 				else if (i<=nbPoints){
 					pointList.add(new Point(tab[0], tab[1], tab[2]));
+					pointList.get(positionBoucle).setPosition(positionBoucle);
+					++positionBoucle;
 				}
 
 				else if (i> nbPoints && i<= nbPoints+nbSegments){
-					map.put(j, new CouplePoint(pointList.get((int) (tab[0]-1)),pointList.get((int) (tab[1]-1))));
+					segment.put(j, new CouplePoint(pointList.get((int) (tab[0]-1)),pointList.get((int) (tab[1]-1)), tab[0], tab[1]));
 					j++;
 				}
 
 				else {
 					Point p3=null;
-					if (!((map.get((int)tab[0]-1).getP1().equals(map.get((int)tab[2]-1).getP1())))&& !(map.get((int)tab[0]-1).getP2().equals((map.get((int)tab[2]-1).getP1())))){
-						p3=map.get((int)tab[2]-1).getP1();
+					if (!((segment.get((int)tab[0]-1).getP1().equals(segment.get((int)tab[2]-1).getP1())))&& !(segment.get((int)tab[0]-1).getP2().equals((segment.get((int)tab[2]-1).getP1())))){
+						p3=segment.get((int)tab[2]-1).getP1();
 					}
 					else {
-						p3=map.get((int)tab[2]-1).getP2();
+						p3=segment.get((int)tab[2]-1).getP2();
 					}
 
 					if(this.corrupt){
 						//JOptionPane.showMessageDialog(new JFrame(),"Fichier Corrumpu","Error",JOptionPane.ERROR_MESSAGE);
 						break;
 					}
-					faceList.add(new Face(map.get((int)tab[0]-1).getP1(),map.get((int)tab[0]-1).getP2(),p3,new Color((int)tab[3],(int)tab[4],(int)tab[5])));
+					faceList.add(new Face(tab[0], tab[1], tab[2], segment.get((int)tab[0]-1).getP1(),segment.get((int)tab[0]-1).getP2(),p3 ,new Color((int)tab[3],(int)tab[4],(int)tab[5])));
 				}
 				i++;
 			}
@@ -165,4 +168,9 @@ public class ReadText {
 		return this.faceList;
 	}
 
+	public Map<Integer, CouplePoint> getSegment() {
+		return segment;
+	}
+
+	
 }

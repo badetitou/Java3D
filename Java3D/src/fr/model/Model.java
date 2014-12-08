@@ -2,8 +2,10 @@ package fr.model;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 
@@ -176,6 +178,14 @@ public class Model {
 			rt.getPointList().get(i).y *= k;
 			rt.getPointList().get(i).z *= k;
 		}
+	}
+	
+	public List<Point> getListPoint(){
+		return rt.getPointList();
+	}
+	
+	public  Map<Integer, CouplePoint> getSegment(){
+		return rt.getSegment();
 	}
 
 	public Face getParticularFace(double coordMouseX, double coordMouseY) {

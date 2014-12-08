@@ -6,7 +6,12 @@ import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,14 +21,22 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
+import fr.model.CouplePoint;
+import fr.model.Face;
+import fr.model.Model;
 import fr.model.OutilsBdd;
+import fr.model.Point;
 
 public class WindowEnregistrer extends JFrame {
 
 	private final String lienGts;
-	public WindowEnregistrer(JTabbedPane tabbedPane, ArrayList<Object> listeOnglets, PanelInformations panelInfos,boolean nouveau,String lienGts) {
-		this.lienGts=lienGts;
-		PanelEnregistrer pE = new PanelEnregistrer(this, tabbedPane, listeOnglets, panelInfos,nouveau);
+
+	public WindowEnregistrer(JTabbedPane tabbedPane,
+			ArrayList<Object> listeOnglets, PanelInformations panelInfos,
+			boolean nouveau, String lienGts) {
+		this.lienGts = lienGts;
+		PanelEnregistrer pE = new PanelEnregistrer(this, tabbedPane,
+				panelInfos, nouveau);
 		this.setTitle("Enregistrer dans la BDD");
 		this.setSize(500, 300);
 		this.setResizable(false);
@@ -34,17 +47,17 @@ public class WindowEnregistrer extends JFrame {
 		this.setVisible(true);
 	}
 
-	public class PanelEnregistrer extends JPanel implements MouseListener{
+	public class PanelEnregistrer extends JPanel implements MouseListener {
 
-		private JButton jbOk=null;
-		private JLabel jlFen=null;
-		private JLabel jlNomAuteur=null;
-		private JLabel jlNomObjet=null;
-		private JLabel jlDateAjout=null;
-		private JLabel jlDerniereModif=null;
-		private JLabel jlNbChargements=null;
-		private JLabel jlNbImages=null;
-		private JLabel jlNbRealisations=null;
+		private JButton jbOk = null;
+		private JLabel jlFen = null;
+		private JLabel jlNomAuteur = null;
+		private JLabel jlNomObjet = null;
+		private JLabel jlDateAjout = null;
+		private JLabel jlDerniereModif = null;
+		private JLabel jlNbChargements = null;
+		private JLabel jlNbImages = null;
+		private JLabel jlNbRealisations = null;
 		private final JFrame windowE;
 		private final OutilsBdd obdd;
 		private boolean nouveau;
@@ -56,122 +69,167 @@ public class WindowEnregistrer extends JFrame {
 		private int nRealisations;
 		private int nChargements;
 		private String description;
-		private final ArrayList<String>listeImages;
+		private final ArrayList<String> listeImages;
 		private final int nbImages;
 		private final Component onglet;
-
-		public PanelEnregistrer(JFrame windowE, JTabbedPane tabbedPane, ArrayList<Object> listeOnglets, PanelInformations panelInfos,boolean nouveau) {
+		
+		private Model m;
+		
+		public PanelEnregistrer(JFrame windowE, JTabbedPane tabbedPane,
+				PanelInformations panelInfos, boolean nouveau) {
 			this.windowE = windowE;
-			this.nouveau=nouveau;
+			this.nouveau = nouveau;
 			this.setPreferredSize(new Dimension(500, 300));
 			obdd = new OutilsBdd("Database.db");
 			onglet = tabbedPane.getSelectedComponent();
-			listeImages=((Onglet) onglet).getListeImages();
-			description=((Onglet)onglet).getPbdd().getDescription().getDescription();
-			nbImages=((Onglet)onglet).getNbIm();
-			if(this.nouveau){
-				JTextField j1 = new JTextField();
-				JTextField j2 = new JTextField();
-				//JButton bAnnul=new JButton("Annuler");
-				ArrayList list = new ArrayList();
-				list.add("Nom objet : \n");
-				list.add(j1);
-				list.add("Nom auteur : \n");
-				list.add(j2);
-				//list.add(bAnnul);
-				int res = JOptionPane.showOptionDialog(null, list.toArray(), "Saisissez les champs", JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE, null, null, null);
-				if (j2.getText().isEmpty() || j1.getText().isEmpty())
-					list.add("les champs sont obligatoires");
-				while ((j2.getText().isEmpty() || j1.getText().isEmpty()) && res!=-1) {
-					res=JOptionPane.showOptionDialog(null, list.toArray(), "Saisissez les champs", JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE, null, null, null);
-				}
-				if(res!=-1){
-					this.nomFichier=j1.getText();
-					this.nomAuteur=j2.getText();
-					this.dateAjoutt=panelInfos.getDateAjoutt();
-					this.dateModiff=panelInfos.getDateModiff();
-					this.nChargements=panelInfos.getnChargements();
-					this.nRealisations=panelInfos.getnRealisations();
-					this.nImages=panelInfos.getnImages();
+			listeImages = ((Onglet) onglet).getListeImages();
+			description = ((Onglet) onglet).getPbdd().getDescription()
+					.getDescription();
+			nbImages = ((Onglet) onglet).getNbIm();
+			try {
+				m = ((Onglet)onglet).getDp().getModel();
+				if (this.nouveau) {
+					JTextField j1 = new JTextField();
+					JTextField j2 = new JTextField();
+					// JButton bAnnul=new JButton("Annuler");
+					ArrayList list = new ArrayList();
+					list.add("Nom objet : \n");
+					list.add(j1);
+					list.add("Nom auteur : \n");
+					list.add(j2);
+					// list.add(bAnnul);
+					int res = JOptionPane.showOptionDialog(null,
+							list.toArray(), "Saisissez les champs",
+							JOptionPane.DEFAULT_OPTION,
+							JOptionPane.INFORMATION_MESSAGE, null, null, null);
+					if (j2.getText().isEmpty() || j1.getText().isEmpty())
+						list.add("les champs sont obligatoires");
+					while ((j2.getText().isEmpty() || j1.getText().isEmpty())
+							&& res != -1) {
+						res = JOptionPane.showOptionDialog(null,
+								list.toArray(), "Saisissez les champs",
+								JOptionPane.DEFAULT_OPTION,
+								JOptionPane.INFORMATION_MESSAGE, null, null,
+								null);
+					}
+					if (res != -1) {
+						this.nomFichier = j1.getText();
+						this.nomAuteur = j2.getText();
+						this.dateAjoutt = panelInfos.getDateAjoutt();
+						this.dateModiff = panelInfos.getDateModiff();
+						this.nChargements = panelInfos.getnChargements();
+						this.nRealisations = panelInfos.getnRealisations();
+						this.nImages = panelInfos.getnImages();
+						jbOk = new JButton("Valider la sauvegarde");
+						jlFen = new JLabel(
+								"Vous avez enregistré l'objet "
+										+ this.nomFichier
+										+ " dans la BDD avec les informations suivantes:");
+						jlNomAuteur = new JLabel("Nom Auteur : "
+								+ this.nomAuteur);
+						jlNomObjet = new JLabel("Nom Objet : "
+								+ this.nomFichier);
+						jlDateAjout = new JLabel("Date d'ajout : "
+								+ this.dateAjoutt);
+						jlDerniereModif = new JLabel("Dernière modification : "
+								+ this.dateModiff);
+						jlNbChargements = new JLabel("Nombre de chargements : "
+								+ this.nChargements);
+						jlNbRealisations = new JLabel(
+								"Nombre de réalisations : "
+										+ this.nRealisations);
+						jlNbImages = new JLabel("Nombre d'images : "
+								+ listeImages.size());
+
+					}
+				} else {
+					this.nomFichier = panelInfos.getNomFichier();
+					this.nomAuteur = panelInfos.getNomAuteur();
+					this.dateAjoutt = panelInfos.getDateAjoutt();
+					this.dateModiff = panelInfos.getDateModiff();
+					this.nChargements = panelInfos.getnChargements();
+					this.nRealisations = panelInfos.getnRealisations();
+					this.nImages = panelInfos.getnImages();
 					jbOk = new JButton("Valider la sauvegarde");
-					jlFen = new JLabel("Vous avez enregistré l'objet " +this.nomFichier+ " dans la BDD avec les informations suivantes:");
+					jlFen = new JLabel("Vous allez enregistré l'objet "
+							+ this.nomFichier
+							+ " dans la BDD avec les informations suivantes:");
 					jlNomAuteur = new JLabel("Nom Auteur : " + this.nomAuteur);
 					jlNomObjet = new JLabel("Nom Objet : " + this.nomFichier);
-					jlDateAjout = new JLabel("Date d'ajout : " + this.dateAjoutt);
-					jlDerniereModif = new JLabel("Dernière modification : " + this.dateModiff);
-					jlNbChargements = new JLabel("Nombre de chargements : " + this.nChargements);
-					jlNbRealisations = new JLabel("Nombre de réalisations : " + this.nRealisations);
-					jlNbImages=new JLabel("Nombre d'images : "+listeImages.size());
-
+					jlDateAjout = new JLabel("Date d'ajout : "
+							+ this.dateAjoutt);
+					jlDerniereModif = new JLabel("Dernière modification : "
+							+ this.dateModiff);
+					jlNbChargements = new JLabel("Nombre de chargements : "
+							+ this.nChargements);
+					jlNbRealisations = new JLabel("Nombre de réalisations : "
+							+ this.nRealisations);
+					jlNbImages = new JLabel("Nombre d'images : "
+							+ listeImages.size());
 				}
+				this.setLayout(new GridLayout(10, 1));
+
+				this.add(jlFen);
+				this.add(jlNomAuteur);
+				this.add(jlNomObjet);
+				this.add(jlDateAjout);
+				this.add(jlDerniereModif);
+				this.add(jlNbImages);
+				this.add(jlNbChargements);
+				this.add(jlNbRealisations);
+				this.add(jbOk);
+
+				jbOk.addMouseListener(this);
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-			else {
-				this.nomFichier=panelInfos.getNomFichier();
-				this.nomAuteur=panelInfos.getNomAuteur();
-				this.dateAjoutt=panelInfos.getDateAjoutt();
-				this.dateModiff=panelInfos.getDateModiff();
-				this.nChargements=panelInfos.getnChargements();
-				this.nRealisations=panelInfos.getnRealisations();
-				this.nImages=panelInfos.getnImages();
-				jbOk = new JButton("Valider la sauvegarde");
-				jlFen = new JLabel("Vous allez enregistré l'objet " +this.nomFichier+ " dans la BDD avec les informations suivantes:");
-				jlNomAuteur = new JLabel("Nom Auteur : " + this.nomAuteur);
-				jlNomObjet = new JLabel("Nom Objet : " + this.nomFichier);
-				jlDateAjout = new JLabel("Date d'ajout : " + this.dateAjoutt);
-				jlDerniereModif = new JLabel("Dernière modification : " + this.dateModiff);
-				jlNbChargements = new JLabel("Nombre de chargements : " + this.nChargements);
-				jlNbRealisations = new JLabel("Nombre de réalisations : " + this.nRealisations);
-				jlNbImages=new JLabel("Nombre d'images : "+listeImages.size());
-			}
-			this.setLayout(new GridLayout(10, 1));
-
-			this.add(jlFen);
-			this.add(jlNomAuteur);
-			this.add(jlNomObjet);
-			this.add(jlDateAjout);
-			this.add(jlDerniereModif);
-			this.add(jlNbImages);
-			this.add(jlNbChargements);
-			this.add(jlNbRealisations);
-			this.add(jbOk);
-
-			jbOk.addMouseListener(this);
-
 		}
 
-		public boolean copier( File source, File destination ){ //Methode permettant la copie d'un fichier
+		/**
+		 * Copie d'un model courament selectionner à un fichier donner en paramètre
+		 * 
+		 * @param source Le model
+		 * @param destination Le fichier 
+		 * @return true si opération réussi false sinon
+		 */
+		public boolean copier(File destination) {
 			boolean resultat = false;
 
 			// Declaration des flux
-			java.io.FileInputStream sourceFile=null;
-			java.io.FileOutputStream destinationFile=null;
+			java.io.FileOutputStream destinationFile = null;
 			try {
 				// Création du fichier :
 				destination.createNewFile();
 				// Ouverture des flux
-				sourceFile = new java.io.FileInputStream(source);
 				destinationFile = new java.io.FileOutputStream(destination);
-				// Lecture par segment de 0.5Mo
-				byte buffer[]=new byte[512*1024];
-				int nbLecture;
-				while( (nbLecture = sourceFile.read(buffer)) != -1 ) {
-					destinationFile.write(buffer, 0, nbLecture);
+				PrintWriter pw = new PrintWriter(destination);
+				Collections.sort(m.getListPoint());
+				
+				pw.println(m.getListPoint().size() + " " + m.getSegment().size() + " " + m.getFace().size());
+				for (Point p : m.getListPoint()){
+					pw.println((float)p.x + " " + (float)p.y + " " + (float)p.z);
 				}
-
+				Set<Entry<Integer, CouplePoint>> s = m.getSegment().entrySet();
+				Iterator<Entry<Integer, CouplePoint>> it = s.iterator();
+				while (it.hasNext()){
+					pw.println(it.next().getValue());
+				}
+				for (Face f : m.getFace()){
+					pw.println(f.getSegment1() + " " + f.getSegment2() + " " + f.getSegment3());
+				}
+				
 				// Copie réussie
 				resultat = true;
-			} catch( java.io.FileNotFoundException f ) {
-			} catch( java.io.IOException e ) {
+			} catch (java.io.FileNotFoundException f) {
+			} catch (java.io.IOException e) {
 			} finally {
 				// Quoi qu'il arrive, on ferme les flux
 				try {
-					sourceFile.close();
-				} catch(Exception e) { }
-				try {
 					destinationFile.close();
-				} catch(Exception e) { }
+				} catch (Exception e) {
+				}
 			}
-			return( resultat );
+			return (resultat);
 		}
 
 		public void mouseClicked(MouseEvent e) {
@@ -181,7 +239,7 @@ public class WindowEnregistrer extends JFrame {
 					new File("fichiers"+File.separator+this.nomFichier+File.separator+"images").mkdirs();
 					new File("fichiers"+File.separator+this.nomFichier+File.separator+"realisations").mkdirs();
 					//copier le point gts
-					copier( new File(lienGts), new File("fichiers"+File.separator+this.nomFichier+File.separator+this.nomFichier+".gts"));
+					copier(new File("fichiers"+File.separator+this.nomFichier+File.separator+this.nomFichier+".gts"));
 					//enregistrer les images.
 					for (int i=0;i<listeImages.size();i++){
 						File ff=new File("fichiers"+File.separator+this.nomFichier+File.separator+"images"+File.separator+this.nomFichier+i+".png");
@@ -189,9 +247,6 @@ public class WindowEnregistrer extends JFrame {
 						while(ff.exists()){
 							ff=new File("fichiers"+File.separator+this.nomFichier+File.separator+"images"+File.separator+this.nomFichier+j+".png");
 							j++;
-						}
-						if (copier( new File(listeImages.get(i)), ff )){
-							//System.out.println("Sauvegarde réussie");
 						}
 					}
 					obdd.addFile(this.nomFichier, "fichiers"+File.separator+this.nomFichier+File.separator+this.nomFichier+".gts", this.description, this.nomAuteur, this.nChargements, listeImages.size(), this.nRealisations, "fichiers"+File.separator+this.nomFichier+File.separator+"images"+File.separator, 0);
@@ -230,7 +285,7 @@ public class WindowEnregistrer extends JFrame {
 						for(int k=0;k<listeImages.size();k++){
 							if(!(fichiers.contains(listeImages.get(k)))){
 								File ff=new File("fichiers"+File.separator+this.nomFichier+File.separator+"images"+File.separator+this.nomFichier+k+".png");
-								copier( new File(listeImages.get(k)), ff);
+								copier(ff);
 							}
 						}
 					}

@@ -8,13 +8,28 @@ import java.awt.Polygon;
  */
 public class Face implements Comparable<Face> {
 
-	private final Point p1;
-	private final Point p2;
-	private final Point p3;
+	private final int segment1;
+	private final int segment2;
+	private final int segment3;
+	private Point p1;
+	private Point p2;
+	private Point p3;
 	private Color color;
 	private Model mod;
 	private boolean selected = false;
 	
+	public int getSegment1() {
+		return segment1;
+	}
+
+	public int getSegment2() {
+		return segment2;
+	}
+
+	public int getSegment3() {
+		return segment3;
+	}
+
 	public Point getP1() {
 		return p1;
 	}
@@ -27,7 +42,11 @@ public class Face implements Comparable<Face> {
 		return p3;
 	}
 
-	public Face(Point p1, Point p2, Point p3,Color c) {
+	public Face(double tab, double tab2, double tab3,Point p1, Point p2, Point p3, Color c) {
+		
+		this.segment1 = (int) tab;
+		this.segment2 = (int) tab2;
+		this.segment3 = (int) tab3;
 		this.p1 = p1;
 		this.p2 = p2;
 		this.p3 = p3;
@@ -53,24 +72,24 @@ public class Face implements Comparable<Face> {
 	 * permet de trier avec Collections.sort()
 	 */
 	public int compareTo(Face f) {
-		if ((this.p3.z + this.p2.z + this.p1.z) / 3.0 < (f.p3.z + f.p2.z + f.p1.z) / 3.0) {
+		if ((this.getP3().z + this.getP2().z + this.getP1().z) / 3.0 < (f.getP3().z + f.getP2().z + f.getP1().z) / 3.0) {
 			return -1;
 			
-		} else if ((this.p3.z + this.p2.z + this.p1.z) / 3.0 > (f.p3.z + f.p2.z + f.p1.z) / 3.0) {
+		} else if ((this.getP3().z + this.getP2().z + this.getP1().z) / 3.0 > (f.getP3().z + f.getP2().z + f.getP1().z) / 3.0) {
 			return 1;
 		}
 		return 0;
 	}
 	
 	public Polygon getTriangle(){
-		return new Polygon(new int[]{(int)(p1.x + mod.xTranslate), (int)(p2.x + mod.xTranslate), (int)(p3.x + mod.xTranslate)}, new int[]{(int)(p1.y + mod.yTranslate), (int)(p2.y + mod.yTranslate), (int)(p3.y + mod.yTranslate)}, 3);
+		return new Polygon(new int[]{(int)(getP1().x + mod.xTranslate), (int)(getP2().x + mod.xTranslate), (int)(getP3().x + mod.xTranslate)}, new int[]{(int)(getP1().y + mod.yTranslate), (int)(getP2().y + mod.yTranslate), (int)(getP3().y + mod.yTranslate)}, 3);
 	}
 
 	public Color calculLumiere(){
-		Point N = new Point((p2.y - p1.y) * (p3.z - p1.z) - (p2.z - p1.z)
-				* (p3.y - p1.y), (p2.z - p1.z) * (p3.x - p1.x) - (p2.x - p1.x)
-				* (p3.z - p1.z), (p2.x - p1.x) * (p3.y - p1.y) - (p2.y - p1.y)
-				* (p3.x - p1.x));
+		Point N = new Point((getP2().y - getP1().y) * (getP3().z - getP1().z) - (getP2().z - getP1().z)
+				* (getP3().y - getP1().y), (getP2().z - getP1().z) * (getP3().x - getP1().x) - (getP2().x - getP1().x)
+				* (getP3().z - getP1().z), (getP2().x - getP1().x) * (getP3().y - getP1().y) - (getP2().y - getP1().y)
+				* (getP3().x - getP1().x));
 		Point L = new Point(0, 0, 1);
 		double scal = N.x * L.x - N.y * L.y + N.z * L.z;
 		double amplN = Math.pow(N.x, 2) + Math.pow(N.y, 2) + Math.pow(N.z, 2);

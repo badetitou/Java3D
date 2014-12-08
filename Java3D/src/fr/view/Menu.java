@@ -36,7 +36,7 @@ public class Menu extends JMenuBar implements ActionListener {
 	private final JMenuItem mIFOuvrir;
 	private final JMenuItem mIFRecents;
 	private final JMenuItem mIFEnregistrer;
-	// private final JMenuItem mIFEnregistrerSous;
+	//private final JMenuItem mExporter; 			TO DO IMPORTANT
 	private final JMenuItem mIFFermer;
 	private final JMenuItem mIFImprimer;
 	private final JMenuItem mIFProprietes;
@@ -86,7 +86,7 @@ public class Menu extends JMenuBar implements ActionListener {
 		mIFOuvrir = new JMenuItem("Ouvrir");
 		mIFRecents = new JMenuItem("Fichiers récents");
 		mIFEnregistrer = new JMenuItem("Enregistrer dans la BDD");
-		// mIFEnregistrerSous = new JMenuItem("Enregistrer sous");
+		
 		mIFFermer = new JMenuItem("Fermer");
 		mIFImprimer = new JMenuItem("Imprimer");
 		mIFProprietes = new JMenuItem("Propriétés");

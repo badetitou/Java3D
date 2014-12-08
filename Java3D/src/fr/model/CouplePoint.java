@@ -6,10 +6,14 @@ package fr.model;
 public class CouplePoint {
 	private final Point p1;
 	private final Point p2;
+	private int t1;
+	private int t2;
 
-	public CouplePoint(Point p1,Point p2){
+	public CouplePoint(Point p1,Point p2, double tab, double tab2){
 		this.p1=p1;
 		this.p2=p2;
+		this.t1 = (int) tab;
+		this.t2 = (int) tab2;
 	}
 
 	public Point getP1(){
@@ -22,6 +26,6 @@ public class CouplePoint {
 
 	@Override
 	public String toString(){
-		return p1+" " +p2;
+		return t1 + " " + t2;
 	}
 }
