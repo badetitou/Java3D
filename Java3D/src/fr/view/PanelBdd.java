@@ -33,7 +33,7 @@ public class PanelBdd extends JPanel{
 	public PanelDescription getPanelDescription(){
 		return this.description;
 	}
-	private PanelImages images;
+	private final PanelImages images;
 	public PanelImages getImages() {
 		return images;
 	}
@@ -47,7 +47,7 @@ public class PanelBdd extends JPanel{
 		images=new PanelImages(nomFichier,nouveau);
 		listeImages=images.getListeImages();
 		nbImages=images.getNbImages();
-		realisations=new PanelRealisations(nomFichier);
+		realisations=new PanelRealisations(nomFichier,nouveau);
 		tabbedPane = new JTabbedPane();
 		tabbedPane.addTab("Description",new ImageIcon(new ImageIcon("ressources/icones/description.png").getImage().getScaledInstance(26, 26, Image.SCALE_DEFAULT)), description);
 		tabbedPane.addTab("Informations",new ImageIcon(new ImageIcon("ressources/icones/informations.png").getImage().getScaledInstance(26, 26, Image.SCALE_DEFAULT)), informations);
