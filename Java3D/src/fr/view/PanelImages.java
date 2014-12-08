@@ -133,7 +133,7 @@ public class PanelImages extends JPanel implements MouseListener{
 			if(fichier!=null && a == JFileChooser.APPROVE_OPTION){
 				String name = fichier.getName();
 				name=name.substring(name.length()-4, name.length());
-				if(name.compareTo(".png")!=0 && name.compareTo(".jpg")!=0 && name.compareTo(".jpeg")!=0){
+				if(name.compareToIgnoreCase(".png")!=0 && name.compareToIgnoreCase(".jpg")!=0 && name.compareToIgnoreCase(".jpeg")!=0){
 					JOptionPane.showMessageDialog(null, "Le fichier que vous avez choisi n'est pas compatible !\nLes formats supportés sont le JPEG et le PNG.", "Attention", JOptionPane.ERROR_MESSAGE);
 				}
 				else {
