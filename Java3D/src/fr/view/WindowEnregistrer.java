@@ -188,6 +188,7 @@ public class WindowEnregistrer extends JFrame {
 		/**
 		 * Copie d'un model courament selectionner à un fichier donner en
 		 * paramètre
+		 * Si le fichier existe déjà. En crée une réalisation
 		 * 
 		 * @param source
 		 *            Le model
