@@ -18,6 +18,10 @@ public class Face implements Comparable<Face> {
 	private Model mod;
 	private boolean selected = false;
 	
+	public Color getColor(){
+		return color;
+	}
+	
 	public int getSegment1() {
 		return segment1;
 	}

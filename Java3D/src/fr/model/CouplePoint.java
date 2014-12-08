@@ -23,6 +23,14 @@ public class CouplePoint {
 	public Point getP2(){
 		return this.p2;
 	}
+	
+	public int getPosition1(){
+		return t1;
+	}
+	
+	public int getPosition2(){
+		return t2;
+	}
 
 	@Override
 	public String toString(){

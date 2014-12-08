@@ -72,9 +72,9 @@ public class WindowEnregistrer extends JFrame {
 		private final ArrayList<String> listeImages;
 		private final int nbImages;
 		private final Component onglet;
-		
+
 		private Model m;
-		
+
 		public PanelEnregistrer(JFrame windowE, JTabbedPane tabbedPane,
 				PanelInformations panelInfos, boolean nouveau) {
 			this.windowE = windowE;
@@ -87,7 +87,7 @@ public class WindowEnregistrer extends JFrame {
 					.getDescription();
 			nbImages = ((Onglet) onglet).getNbIm();
 			try {
-				m = ((Onglet)onglet).getDp().getModel();
+				m = ((Onglet) onglet).getDp().getModel();
 				if (this.nouveau) {
 					JTextField j1 = new JTextField();
 					JTextField j2 = new JTextField();
@@ -186,38 +186,53 @@ public class WindowEnregistrer extends JFrame {
 		}
 
 		/**
-		 * Copie d'un model courament selectionner à un fichier donner en paramètre
+		 * Copie d'un model courament selectionner à un fichier donner en
+		 * paramètre
 		 * 
-		 * @param source Le model
-		 * @param destination Le fichier 
+		 * @param source
+		 *            Le model
+		 * @param string
+		 *            Le fichier
 		 * @return true si opération réussi false sinon
 		 */
-		public boolean copier(File destination) {
+		public boolean copier(String string) {
+			File file = new File(string);
 			boolean resultat = false;
-
 			// Declaration des flux
 			java.io.FileOutputStream destinationFile = null;
 			try {
 				// Création du fichier :
-				destination.createNewFile();
+				while (file.exists()) {
+					int i = 0;
+					file = new File("fichiers" + File.separator
+							+ this.nomFichier + File.separator + "realisations"
+							+ File.separator + this.nomFichier + "-" + i+".gts");
+					++i;
+				}
+				file.createNewFile();
 				// Ouverture des flux
-				destinationFile = new java.io.FileOutputStream(destination);
-				PrintWriter pw = new PrintWriter(destination);
+				destinationFile = new java.io.FileOutputStream(file);
 				Collections.sort(m.getListPoint());
-				
-				pw.println(m.getListPoint().size() + " " + m.getSegment().size() + " " + m.getFace().size());
-				for (Point p : m.getListPoint()){
-					pw.println((float)p.x + " " + (float)p.y + " " + (float)p.z);
+				PrintWriter pw = new PrintWriter(file);
+				pw.println(m.getListPoint().size() + " "
+						+ m.getSegment().size() + " " + m.getFace().size());
+				for (Point p : m.getListPoint()) {
+					pw.println((float) p.x + " " + (float) p.y + " "
+							+ (float) p.z);
 				}
 				Set<Entry<Integer, CouplePoint>> s = m.getSegment().entrySet();
 				Iterator<Entry<Integer, CouplePoint>> it = s.iterator();
-				while (it.hasNext()){
+				while (it.hasNext()) {
 					pw.println(it.next().getValue());
 				}
-				for (Face f : m.getFace()){
-					pw.println(f.getSegment1() + " " + f.getSegment2() + " " + f.getSegment3());
+				for (Face f : m.getFace()) {
+					pw.println(f.getSegment1() + " " + f.getSegment2() + " "
+							+ f.getSegment3() + " " + f.getColor().getRed()
+							+ " " + f.getColor().getGreen() + " "
+							+ f.getColor().getBlue());
 				}
-				
+				pw.close();
+
 				// Copie réussie
 				resultat = true;
 			} catch (java.io.FileNotFoundException f) {
@@ -233,48 +248,65 @@ public class WindowEnregistrer extends JFrame {
 		}
 
 		public void mouseClicked(MouseEvent e) {
-			if(e.getSource().equals(jbOk)){
-				if (this.nouveau){
-					new File("fichiers"+File.separator+this.nomFichier).mkdirs();
-					new File("fichiers"+File.separator+this.nomFichier+File.separator+"images").mkdirs();
-					new File("fichiers"+File.separator+this.nomFichier+File.separator+"realisations").mkdirs();
-					//copier le point gts
-					copier(new File("fichiers"+File.separator+this.nomFichier+File.separator+this.nomFichier+".gts"));
-					//enregistrer les images.
-					for (int i=0;i<listeImages.size();i++){
-						File ff=new File("fichiers"+File.separator+this.nomFichier+File.separator+"images"+File.separator+this.nomFichier+i+".png");
-						int j=i;
-						while(ff.exists()){
-							ff=new File("fichiers"+File.separator+this.nomFichier+File.separator+"images"+File.separator+this.nomFichier+j+".png");
+			if (e.getSource().equals(jbOk)) {
+				if (this.nouveau) {
+					new File("fichiers" + File.separator + this.nomFichier)
+							.mkdirs();
+					new File("fichiers" + File.separator + this.nomFichier
+							+ File.separator + "images").mkdirs();
+					new File("fichiers" + File.separator + this.nomFichier
+							+ File.separator + "realisations").mkdirs();
+					// copier le point gts
+					copier("fichiers" + File.separator + this.nomFichier
+							+ File.separator + this.nomFichier + ".gts");
+					// enregistrer les images.
+					for (int i = 0; i < listeImages.size(); i++) {
+						File ff = new File("fichiers" + File.separator
+								+ this.nomFichier + File.separator + "images"
+								+ File.separator + this.nomFichier + i + ".png");
+						int j = i;
+						while (ff.exists()) {
+							ff = new File("fichiers" + File.separator
+									+ this.nomFichier + File.separator
+									+ "images" + File.separator
+									+ this.nomFichier + j + ".png");
 							j++;
 						}
 					}
-					obdd.addFile(this.nomFichier, "fichiers"+File.separator+this.nomFichier+File.separator+this.nomFichier+".gts", this.description, this.nomAuteur, this.nChargements, listeImages.size(), this.nRealisations, "fichiers"+File.separator+this.nomFichier+File.separator+"images"+File.separator, 0);
-					this.nouveau=false;
-					((Onglet)onglet).setNouveau(false);
-					((Onglet)onglet).actualiserOnglet(this.nomFichier);
-					((Onglet)onglet).getPbdd().getInformations().setNouveau(false);
-					((Onglet)onglet).getPbdd().getPanelDescription().setNouveau(false);
-					((Onglet)onglet).getPbdd().getImages().setNouveau(false);
-				}
-				else {
-
-					String lien=obdd.getLinkImg(nomFichier);
+					obdd.addFile(this.nomFichier, "fichiers" + File.separator
+							+ this.nomFichier + File.separator
+							+ this.nomFichier + ".gts", this.description,
+							this.nomAuteur, this.nChargements,
+							listeImages.size(), this.nRealisations, "fichiers"
+									+ File.separator + this.nomFichier
+									+ File.separator + "images"
+									+ File.separator, 0);
+					this.nouveau = false;
+					((Onglet) onglet).setNouveau(false);
+					((Onglet) onglet).actualiserOnglet(this.nomFichier);
+					((Onglet) onglet).getPbdd().getInformations()
+							.setNouveau(false);
+					((Onglet) onglet).getPbdd().getPanelDescription()
+							.setNouveau(false);
+					((Onglet) onglet).getPbdd().getImages().setNouveau(false);
+				} else {
+					copier("fichiers" + File.separator + this.nomFichier
+							+ File.separator + this.nomFichier + ".gts");
+					String lien = obdd.getLinkImg(nomFichier);
 					File repertoire = new File(lien);
 					File[] listefichiers;
-					File f;
 					int i;
-					if(repertoire.list()!=null){
-						listefichiers=repertoire.listFiles();
+					if (repertoire.list() != null) {
+						listefichiers = repertoire.listFiles();
 
-						ArrayList<String> fichiers=new ArrayList<String>();
-						for (int j =0;j<listefichiers.length;j++){
-							fichiers.add(listefichiers[j]+"");
+						ArrayList<String> fichiers = new ArrayList<String>();
+						for (int j = 0; j < listefichiers.length; j++) {
+							fichiers.add(listefichiers[j] + "");
 						}
 
-						int g=0;
-						for(i=0;i<fichiers.size();i++){
-							if(!(listeImages.contains(fichiers.get(i)))){
+						int g = 0;
+						for (i = 0; i < fichiers.size(); i++) {
+							if (!(listeImages.contains(fichiers.get(i)))) {
 								listefichiers[g].delete();
 								fichiers.remove(i);
 								i--;
@@ -282,18 +314,31 @@ public class WindowEnregistrer extends JFrame {
 							g++;
 						}
 
-						for(int k=0;k<listeImages.size();k++){
-							if(!(fichiers.contains(listeImages.get(k)))){
-								File ff=new File("fichiers"+File.separator+this.nomFichier+File.separator+"images"+File.separator+this.nomFichier+k+".png");
-								copier(ff);
+						for (int k = 0; k < listeImages.size(); k++) {
+							if (!(fichiers.contains(listeImages.get(k)))) {
+								copier("fichiers" + File.separator
+										+ this.nomFichier + File.separator
+										+ "images" + File.separator
+										+ this.nomFichier + k + ".png");
 							}
 						}
 					}
-					this.description=((Onglet)onglet).getPbdd().getDescription().getDescription();
-					obdd.updateFile(this.nomFichier,this.description, this.nChargements, listeImages.size(), this.nRealisations, "fichiers"+File.separator+this.nomFichier+File.separator+"images"+File.separator,0);
+					this.description = ((Onglet) onglet).getPbdd()
+							.getDescription().getDescription();
+					obdd.updateFile(this.nomFichier, this.description,
+							this.nChargements, listeImages.size(),
+							this.nRealisations, "fichiers" + File.separator
+									+ this.nomFichier + File.separator
+									+ "images" + File.separator, 0);
 				}
-				((Onglet)onglet).getPbdd().getInformations().actualiserInfos(this.nomFichier, this.nomAuteur, this.nbImages, 0,obdd.getDateLastModif(nomFichier));
-				((Onglet)onglet).getPbdd().getPanelDescription().actualiserDesc(this.description);
+				((Onglet) onglet)
+						.getPbdd()
+						.getInformations()
+						.actualiserInfos(this.nomFichier, this.nomAuteur,
+								this.nbImages, 0,
+								obdd.getDateLastModif(nomFichier));
+				((Onglet) onglet).getPbdd().getPanelDescription()
+						.actualiserDesc(this.description);
 				windowE.dispose();
 			}
 		}

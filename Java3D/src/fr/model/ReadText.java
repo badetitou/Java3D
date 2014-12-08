@@ -57,18 +57,15 @@ public class ReadText {
 					nbSegments=(int)tab[1];
 					nbFaces=(int)tab[2];
 				}
-
 				else if (i<=nbPoints){
 					pointList.add(new Point(tab[0], tab[1], tab[2]));
 					pointList.get(positionBoucle).setPosition(positionBoucle);
 					++positionBoucle;
 				}
-
 				else if (i> nbPoints && i<= nbPoints+nbSegments){
 					segment.put(j, new CouplePoint(pointList.get((int) (tab[0]-1)),pointList.get((int) (tab[1]-1)), tab[0], tab[1]));
 					j++;
 				}
-
 				else {
 					Point p3=null;
 					if (!((segment.get((int)tab[0]-1).getP1().equals(segment.get((int)tab[2]-1).getP1())))&& !(segment.get((int)tab[0]-1).getP2().equals((segment.get((int)tab[2]-1).getP1())))){
@@ -82,7 +79,7 @@ public class ReadText {
 						//JOptionPane.showMessageDialog(new JFrame(),"Fichier Corrumpu","Error",JOptionPane.ERROR_MESSAGE);
 						break;
 					}
-					faceList.add(new Face(tab[0], tab[1], tab[2], segment.get((int)tab[0]-1).getP1(),segment.get((int)tab[0]-1).getP2(),p3 ,new Color((int)tab[3],(int)tab[4],(int)tab[5])));
+					faceList.add(new Face(tab[0], tab[1] , tab[2] , segment.get((int)tab[0]-1).getP1(),segment.get((int)tab[0]-1).getP2(),p3 ,new Color((int)tab[3],(int)tab[4],(int)tab[5])));
 				}
 				i++;
 			}
