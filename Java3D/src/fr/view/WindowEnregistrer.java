@@ -194,7 +194,7 @@ public class WindowEnregistrer extends JFrame {
 		 *            Le model
 		 * @param string
 		 *            Le fichier
-		 * @return true si opération réussi false sinon
+		 * @return true si opération  réussi false sinon
 		 */
 		public boolean copier(String string) {
 			File file = new File(string);
