@@ -24,16 +24,19 @@ public class BarreVerticale extends JPanel implements MouseListener {
 	private final JButton b2;
 	private final JButton b3;
 	private final JButton b4;
+	private final JButton b5;
 
 	private final ImageIcon ic1;
 	private final ImageIcon ic2;
 	private final ImageIcon ic3;
 	private final ImageIcon ic4;
+	private final ImageIcon ic5;
 
 	private final ImageIcon ic6;
 	private final ImageIcon ic7;
 	private final ImageIcon ic8;
 	private final ImageIcon ic9;
+	private final ImageIcon ic10;
 
 	private boolean bb1 = true;
 	private boolean bb2 = false;
@@ -50,7 +53,7 @@ public class BarreVerticale extends JPanel implements MouseListener {
 
 	public BarreVerticale(MyDeskTopPane dp) {
 		this.dp = dp;
-		this.setLayout(new GridLayout(4, 1, 0, 4));
+		this.setLayout(new GridLayout(5, 1, 0, 4));
 		this.setBorder(BorderFactory.createLoweredBevelBorder());
 		this.setBackground(new Color(190, 190, 190));
 
@@ -58,11 +61,13 @@ public class BarreVerticale extends JPanel implements MouseListener {
 		b2 = new JButton();
 		b3 = new JButton();
 		b4 = new JButton();
+		b5=new JButton();
 
 		b1.setToolTipText("Mode 1 vue");
 		b2.setToolTipText("Mode 4 vues");
 		b3.setToolTipText("Mode edit");
 		b4.setToolTipText("Mode squelette");
+		b5.setToolTipText("Mode points");
 
 		ic1 = new ImageIcon(new ImageIcon("ressources/icones/oneview.png")
 		.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH));
@@ -71,6 +76,8 @@ public class BarreVerticale extends JPanel implements MouseListener {
 		ic3 = new ImageIcon(new ImageIcon("ressources/icones/edit.png")
 		.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH));
 		ic4=new ImageIcon(new ImageIcon("ressources/icones/squelette.png")
+		.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH));
+		ic5=new ImageIcon(new ImageIcon("ressources/icones/dot.png")
 		.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH));
 
 		ic6 = new ImageIcon(new ImageIcon("ressources/icones/oneviewclic.png")
@@ -82,32 +89,39 @@ public class BarreVerticale extends JPanel implements MouseListener {
 		.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH));
 		ic9 =new ImageIcon(new ImageIcon("ressources/icones/squeletteclic.png")
 		.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH));
+		ic10=new ImageIcon(new ImageIcon("ressources/icones/dotclic.png")
+		.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH));
 
 		b1.setMargin(new Insets(0, 0, 0, 0));
 		b2.setMargin(new Insets(0, 0, 0, 0));
 		b3.setMargin(new Insets(0, 0, 0, 0));
 		b4.setMargin(new Insets(0, 0, 0, 0));
+		b5.setMargin(new Insets(0, 0, 0, 0));
 
 		b1.setBorder(null);
 		b2.setBorder(null);
 		b3.setBorder(null);
 		b4.setBorder(null);
+		b5.setBorder(null);
 
 		b1.addMouseListener(this);
 		b2.addMouseListener(this);
 		b3.addMouseListener(this);
 		b4.addMouseListener(this);
+		b5.addMouseListener(this);
 
 		b1.setIcon(ic6);
 		bb1 = true;
 		b2.setIcon(ic2);
 		b3.setIcon(ic3);
 		b4.setIcon(ic4);
+		b5.setIcon(ic5);
 
 		this.add(b1);
 		this.add(b2);
 		this.add(b3);
 		this.add(b4);
+		this.add(b5);
 
 
 	}
@@ -118,6 +132,8 @@ public class BarreVerticale extends JPanel implements MouseListener {
 			b2.setIcon(ic2);
 			b3.setIcon(ic3);
 			b4.setIcon(ic4);
+			b5.setIcon(ic5);
+			dot=false;
 			modeSquelette=false;
 			bb1 = true;
 			bb2 = false;
@@ -135,6 +151,8 @@ public class BarreVerticale extends JPanel implements MouseListener {
 			b1.setIcon(ic1);
 			b3.setIcon(ic3);
 			b4.setIcon(ic4);
+			b5.setIcon(ic5);
+			dot=false;
 			bb2 = true;
 			bb1 = false;
 			modeEdit = false;
@@ -152,6 +170,8 @@ public class BarreVerticale extends JPanel implements MouseListener {
 			b2.setIcon(ic2);
 			b1.setIcon(ic1);
 			b4.setIcon(ic4);
+			b5.setIcon(ic5);
+			dot=false;
 			bb1 = false;
 			bb2 = false;
 			modeEdit = true;
@@ -171,10 +191,32 @@ public class BarreVerticale extends JPanel implements MouseListener {
 			b2.setIcon(ic2);
 			b1.setIcon(ic1);
 			b4.setIcon(ic9);
+			b5.setIcon(ic5);
+			dot=false;
 			bb1 = false;
 			bb2 = false;
 			modeEdit = false;
 			modeSquelette=true;
+			this.dp.getiFrameMain().setPreferredSize(MyDeskTopPane.dimension);
+			this.dp.getiFrameDessous().setVisible(false);
+			this.dp.getiFrameDessus().setVisible(false);
+			this.dp.getiFrameProfil().setVisible(false);
+			this.dp.getModel().setDimension(MyDeskTopPane.dimension);
+			this.jcc.setEnabled(false);
+			jcc.setVisible(false);
+		}
+
+		else if (e.getSource().equals(b5) && !dot){
+			b3.setIcon(ic3);
+			b2.setIcon(ic2);
+			b1.setIcon(ic1);
+			b4.setIcon(ic4);
+			b5.setIcon(ic10);
+			dot=true;
+			bb1 = false;
+			bb2 = false;
+			modeEdit = false;
+			modeSquelette=false;
 			this.dp.getiFrameMain().setPreferredSize(MyDeskTopPane.dimension);
 			this.dp.getiFrameDessous().setVisible(false);
 			this.dp.getiFrameDessus().setVisible(false);

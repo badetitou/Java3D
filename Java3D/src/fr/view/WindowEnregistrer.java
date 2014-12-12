@@ -93,7 +93,7 @@ public class WindowEnregistrer extends JFrame {
 				while ((j2.getText().isEmpty() || j1.getText().isEmpty()) && res!=-1) {
 					res=JOptionPane.showOptionDialog(null, list.toArray(), "Saisissez les champs", JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE, null, null, null);
 				}
-				if(res!=-1){
+				if(res!=-1 && res!=JOptionPane.CLOSED_OPTION){
 					this.nomFichier=j1.getText();
 					this.nomAuteur=j2.getText();
 					this.dateAjoutt=panelInfos.getDateAjoutt();
@@ -110,7 +110,6 @@ public class WindowEnregistrer extends JFrame {
 					jlNbChargements = new JLabel("Nombre de chargements : " + this.nChargements);
 					jlNbRealisations = new JLabel("Nombre de réalisations : " + this.nRealisations);
 					jlNbImages=new JLabel("Nombre d'images : "+listeImages.size());
-
 				}
 			}
 			else {
@@ -132,7 +131,6 @@ public class WindowEnregistrer extends JFrame {
 				jlNbImages=new JLabel("Nombre d'images : "+listeImages.size());
 			}
 			this.setLayout(new GridLayout(12, 1));
-
 			this.add(jlFen);
 			this.add(jlNomAuteur);
 			this.add(jlNomObjet);
@@ -146,7 +144,6 @@ public class WindowEnregistrer extends JFrame {
 			this.add(jbOk);
 
 			jbOk.addMouseListener(this);
-
 		}
 
 		public boolean copier( File source, File destination ){ //Methode permettant la copie d'un fichier
