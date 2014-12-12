@@ -3,9 +3,8 @@ package fr.view;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
+import java.awt.Point;
 import java.awt.RenderingHints;
-import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -17,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPanel;
-import javax.swing.KeyStroke;
 
 import fr.model.Face;
 import fr.model.Model;
@@ -188,6 +186,9 @@ public class Panneau extends JPanel {
 				g.setColor(f.calculLumiere());
 				g.fillPolygon(f.getTriangle());
 			}
+		} else if(getBarreVerticale().isDot()){
+			for(fr.model.Point p : m.getListPoint())
+				g.drawRect((int)p.x,(int) p.y, 1, 1);
 		}
 		g.dispose();
 	}

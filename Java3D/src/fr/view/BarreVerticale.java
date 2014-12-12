@@ -39,6 +39,7 @@ public class BarreVerticale extends JPanel implements MouseListener {
 	private boolean bb2 = false;
 	private boolean modeEdit = false;
 	private boolean modeSquelette=false;
+	private boolean dot = false;
 	private final MyDeskTopPane dp;
 
 	private JColorChooser jcc=null;
@@ -234,6 +235,10 @@ public class BarreVerticale extends JPanel implements MouseListener {
 
 	public boolean isModeEdit() {
 		return modeEdit;
+	}
+
+	public boolean isDot() {
+		return dot;
 	}
 
 }
