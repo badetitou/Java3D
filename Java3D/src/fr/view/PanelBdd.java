@@ -37,7 +37,8 @@ public class PanelBdd extends JPanel{
 	public PanelImages getImages() {
 		return images;
 	}
-	private final JPanel realisations;
+
+	private final PanelTag pt;
 	public PanelBdd(String nomFichier,String nomAuteur,boolean nouveau){
 		this.setLayout(new CardLayout());
 		Toolkit tk=getToolkit();
@@ -45,14 +46,14 @@ public class PanelBdd extends JPanel{
 		description=new PanelDescription(nomFichier,nouveau);
 		informations = new PanelInformations(nomFichier,nomAuteur,nouveau);
 		images=new PanelImages(nomFichier,nouveau);
+		pt=new PanelTag();
 		listeImages=images.getListeImages();
 		nbImages=images.getNbImages();
-		realisations=new PanelRealisations(nomFichier,nouveau);
 		tabbedPane = new JTabbedPane();
-		tabbedPane.addTab("Description",new ImageIcon(new ImageIcon("ressources/icones/description.png").getImage().getScaledInstance(26, 26, Image.SCALE_DEFAULT)), description);
 		tabbedPane.addTab("Informations",new ImageIcon(new ImageIcon("ressources/icones/informations.png").getImage().getScaledInstance(26, 26, Image.SCALE_DEFAULT)), informations);
+		tabbedPane.addTab("Description",new ImageIcon(new ImageIcon("ressources/icones/description.png").getImage().getScaledInstance(26, 26, Image.SCALE_DEFAULT)), description);
+		tabbedPane.addTab("  Tags    ",new ImageIcon(new ImageIcon("ressources/icones/galerie.png").getImage().getScaledInstance(26, 26, Image.SCALE_DEFAULT)), pt);
 		tabbedPane.addTab("Images/photos",new ImageIcon(new ImageIcon("ressources/icones/galerie.png").getImage().getScaledInstance(26, 26, Image.SCALE_DEFAULT)), images);
-		tabbedPane.addTab("Réalisations",new ImageIcon(new ImageIcon("ressources/icones/realisations.png").getImage().getScaledInstance(26, 26, Image.SCALE_DEFAULT)), realisations);
 		this.add(tabbedPane);
 	}
 	public ArrayList<String> getListeImages() {
