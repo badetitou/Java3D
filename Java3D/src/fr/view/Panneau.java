@@ -193,7 +193,6 @@ public class Panneau extends JPanel {
 
 		if (getBarreVerticale().isSquelette()) {
 			for (Face f : m.getFace()) {
-				g.setColor(f.calculLumiere());
 				g.draw(f.getTriangle());
 			}
 		} else if (getBarreVerticale().isModeEdit()) {
@@ -214,7 +213,7 @@ public class Panneau extends JPanel {
 			}
 		} else if (getBarreVerticale().isDot()) {
 			for (fr.model.Point p : m.getListPoint())
-				g.drawRect((int) p.x, (int) p.y, 1, 1);
+				g.drawRect((int) (p.x + m.xTranslate), (int) (p.y + m.yTranslate), 1, 1);
 		}
 		g.dispose();
 	}
