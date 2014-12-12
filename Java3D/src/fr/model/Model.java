@@ -37,12 +37,20 @@ public class Model {
 		}
 	}
 	
+	/**
+	 * Methode qui de donner une couleur a toute les faces seledtionne
+	 * 
+	 * @param c La nouvelle color
+	 */
 	public void changeColor(Color c){
 		for(Face f : getFace())
 			if (f.isSelected())
 				f.setColor(c);
 	}
 
+	/**
+	 * Permet de centrer l'image pour des rotations centrees
+	 */
 	private void centrage(){
 		double xMax = 0;
 		double xMin = 0;
@@ -71,19 +79,33 @@ public class Model {
 		}
 	}
 
+	/**
+	 * 
+	 * @return dimension dans laquel ce trouve le model
+	 */
 	public Dimension getD() {
 		return d;
 	}
 	
+	/**
+	 * 
+	 * @param d nouvelle dimension dans laquel le model ce situe
+	 */
 	public void setDimension(Dimension d){
 		this.d = d;
 	}
 
+	/**
+	 * centre l'image dans son panel
+	 */
 	public void recentrer() {
 		xTranslate =  getD().getWidth() / 2;
 		yTranslate =  getD().getHeight() / 2;
 	}
 
+	/**
+	 * trie les faces grace à Comparator de face
+	 */
 	public void trieFace() {
 		Collections.sort(rt.getFaceList());
 	}
@@ -146,6 +168,9 @@ public class Model {
 		yTranslate += y;
 	}
 
+	/**
+	 * centre et zoom automatiquement le model dans son panel
+	 */
 	public void zoomAuto() {
 		recentrer();
 		double maxX = 0.0;
@@ -180,14 +205,28 @@ public class Model {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return la liste des points du model
+	 */
 	public List<Point> getListPoint(){
 		return rt.getPointList();
 	}
 	
+	/**
+	 * 
+	 * @return la Map des segement
+	 */
 	public  Map<Integer, CouplePoint> getSegment(){
 		return rt.getSegment();
 	}
 
+	/**
+	 * 
+	 * @param coordMouseX position x clique
+	 * @param coordMouseY position y clique
+	 * @return la face clique sur l'ecran 
+	 */
 	public Face getParticularFace(double coordMouseX, double coordMouseY) {
 		Face f = null;
 		for (int i = 0; i < rt.getFaceList().size(); ++i) {
@@ -208,6 +247,9 @@ public class Model {
 		return f;
 	}
 	
+	/**
+	 * Enleve tout les faces selectionnés.
+	 */
 	public void reinitSelected(){
 		for (Face f : rt.getFaceList()){
 			f.setSelected(false);

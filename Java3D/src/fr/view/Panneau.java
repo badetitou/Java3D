@@ -30,7 +30,15 @@ public class Panneau extends JPanel {
 	private int coordMouseY = 0;
 	MyDeskTopPane dp;
 	private boolean control = false;
-	
+	/*
+	 * Low: 0 Medium: 1 Hight: 2
+	 */
+	private int qualite = 0;
+
+	public void setQualite(int i) {
+		qualite = i;
+		repaint();
+	}
 
 	public BarreVerticale getBarreVerticale() {
 		return dp.getBarreVerticale();
@@ -65,21 +73,22 @@ public class Panneau extends JPanel {
 		} else {
 			this.setFocusable(true);
 			this.addKeyListener(new KeyListener() {
-				
-				public void keyTyped(KeyEvent e) {}
-				
-				public void keyReleased(KeyEvent e) {
-					control = false;										
+
+				public void keyTyped(KeyEvent e) {
 				}
-				
+
+				public void keyReleased(KeyEvent e) {
+					control = false;
+				}
+
 				public void keyPressed(KeyEvent e) {
-					control = true;										
+					control = true;
 				}
 			});
 			this.addMouseListener(new MouseListener() {
 				public void mouseClicked(MouseEvent arg0) {
 					if (getBarreVerticale().getModeEdit()) {
-						if (!control){
+						if (!control) {
 							m.reinitSelected();
 						}
 						Face selected = m.getParticularFace(coordMouseX,
@@ -110,7 +119,7 @@ public class Panneau extends JPanel {
 
 			this.addMouseWheelListener(new MouseWheelListener() {
 				public void mouseWheelMoved(MouseWheelEvent e) {
-					m.zoom((double)((-e.getWheelRotation() + 15.0)) / 15.0);
+					m.zoom((double) ((-e.getWheelRotation() + 15.0)) / 15.0);
 					repaint();
 				}
 			});
@@ -119,6 +128,7 @@ public class Panneau extends JPanel {
 					coordMouseX = e.getX();
 					coordMouseY = e.getY();
 				}
+
 				public void mouseDragged(MouseEvent e) {
 					if (m.vue == 0) {
 						if (Barre.boolButtonRotation) {
@@ -127,7 +137,7 @@ public class Panneau extends JPanel {
 								m.rotationY(coordMouseY - e.getY());
 							} else if (Barre.boolButtonX) {
 								m.rotationX(e.getX() - coordMouseX);
-							} else if(Barre.boolButtonY){
+							} else if (Barre.boolButtonY) {
 								m.rotationY(coordMouseY - e.getY());
 							}
 
@@ -157,12 +167,28 @@ public class Panneau extends JPanel {
 	@Override
 	public void paintComponent(Graphics g2) {
 		Graphics2D g = (Graphics2D) g2;
-		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-				RenderingHints.VALUE_ANTIALIAS_ON);
-		g.setRenderingHint(RenderingHints.KEY_RENDERING,
-				RenderingHints.VALUE_RENDER_QUALITY);
-		g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING,
-				RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+		if (this.qualite == 2) {
+			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+					RenderingHints.VALUE_ANTIALIAS_ON);
+			g.setRenderingHint(RenderingHints.KEY_RENDERING,
+					RenderingHints.VALUE_RENDER_QUALITY);
+			g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING,
+					RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+		} else if (qualite == 1){
+			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+					RenderingHints.VALUE_ANTIALIAS_OFF);
+			g.setRenderingHint(RenderingHints.KEY_RENDERING,
+					RenderingHints.VALUE_RENDER_QUALITY);
+			g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING,
+					RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+		} else {
+			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+					RenderingHints.VALUE_ANTIALIAS_OFF);
+			g.setRenderingHint(RenderingHints.KEY_RENDERING,
+					RenderingHints.VALUE_RENDER_SPEED);
+			g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING,
+					RenderingHints.VALUE_COLOR_RENDER_SPEED);
+		}
 		super.paintComponent(g);
 
 		if (getBarreVerticale().isSquelette()) {
@@ -186,9 +212,9 @@ public class Panneau extends JPanel {
 				g.setColor(f.calculLumiere());
 				g.fillPolygon(f.getTriangle());
 			}
-		} else if(getBarreVerticale().isDot()){
-			for(fr.model.Point p : m.getListPoint())
-				g.drawRect((int)p.x,(int) p.y, 1, 1);
+		} else if (getBarreVerticale().isDot()) {
+			for (fr.model.Point p : m.getListPoint())
+				g.drawRect((int) p.x, (int) p.y, 1, 1);
 		}
 		g.dispose();
 	}
