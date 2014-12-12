@@ -27,7 +27,7 @@ public class PanelEdit extends JPanel implements MouseListener, ChangeListener{
 	public PanelEdit(MyDeskTopPane dp,BarreVerticale bv){
 		this.bv=bv;
 		this.dp=dp;
-		//this.setPreferredSize(new Dimension(Window.outil.getScreenSize().width/4-Window.outil.getScreenSize().width/10,Window.outil.getScreenSize().height/2));
+		//this.setPreferredSize(new Dimension(Window.outil.getScreenSize().width/4,Window.outil.getScreenSize().height/2));
 		this.setBackground(new Color(190,190,190));
 		this.setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
 		jcc=new JColorChooser();
