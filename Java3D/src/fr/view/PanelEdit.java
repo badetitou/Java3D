@@ -1,7 +1,6 @@
 package fr.view;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -25,12 +24,10 @@ public class PanelEdit extends JPanel implements MouseListener, ChangeListener{
 	private final MyDeskTopPane dp;
 	private final BarreVerticale bv;
 	private final JColorChooser jcc;
-	private ButtonGroup bg;
-
 	public PanelEdit(MyDeskTopPane dp,BarreVerticale bv){
 		this.bv=bv;
 		this.dp=dp;
-		this.setPreferredSize(new Dimension(Window.outil.getScreenSize().width/4,Window.outil.getScreenSize().height/2));
+		//this.setPreferredSize(new Dimension(Window.outil.getScreenSize().width/4-Window.outil.getScreenSize().width/10,Window.outil.getScreenSize().height/2));
 		this.setBackground(new Color(190,190,190));
 		this.setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
 		jcc=new JColorChooser();
@@ -39,15 +36,19 @@ public class PanelEdit extends JPanel implements MouseListener, ChangeListener{
 		 */
 		boutonCentre=new JButton("Recentrer");
 		boutonCentre.addMouseListener(this);
-		
+
 		/*
 		 * Button qualite !!
 		 */
 		JPanel qualite = new JPanel();
+		qualite.setBackground(new Color(190,190,190));
 		ButtonGroup bg = new ButtonGroup();
 		JRadioButton low = new JRadioButton("low");
 		JRadioButton medium = new JRadioButton("medium");
-		JRadioButton hight = new JRadioButton("hight");		
+		JRadioButton hight = new JRadioButton("hight");
+		low.setOpaque(false);
+		medium.setOpaque(false);
+		hight.setOpaque(false);
 		bg.add(low);
 		bg.add(medium);
 		bg.add(hight);
@@ -61,7 +62,7 @@ public class PanelEdit extends JPanel implements MouseListener, ChangeListener{
 		hight.setSelected(false);		low.addMouseListener(this);
 		medium.addMouseListener(this);
 		hight.addMouseListener(this);
-		
+
 		/*
 		 * Couleur
 		 */
@@ -75,7 +76,7 @@ public class PanelEdit extends JPanel implements MouseListener, ChangeListener{
 		jcc.setVisible(false);
 		this.add(jcc);
 	}
-	
+
 	public void mouseClicked(MouseEvent e) {
 		if(e.getSource().equals(boutonCentre)){
 			if(bv.isBb1() || bv.isModeEdit() ){
