@@ -46,6 +46,9 @@ public class PanelEdit extends JPanel implements MouseListener, ChangeListener{
 		}
 		jcc.getSelectionModel().addChangeListener(this);
 		this.add(panel);
+		bv.setJcc(jcc);
+		jcc.setEnabled(false);
+		jcc.setVisible(false);
 		this.add(jcc);
 	}
 	public void mouseClicked(MouseEvent e) {

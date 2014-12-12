@@ -6,9 +6,12 @@ import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -16,6 +19,8 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
+import fr.model.Face;
+import fr.model.Model;
 import fr.model.OutilsBdd;
 
 public class WindowEnregistrer extends JFrame {
@@ -59,7 +64,8 @@ public class WindowEnregistrer extends JFrame {
 		private final ArrayList<String>listeImages;
 		private final int nbImages;
 		private final Component onglet;
-
+		private final JCheckBox nouvelleRea;
+		private final JCheckBox ancienneRea;
 		public PanelEnregistrer(JFrame windowE, JTabbedPane tabbedPane, ArrayList<Object> listeOnglets, PanelInformations panelInfos,boolean nouveau) {
 			this.windowE = windowE;
 			this.nouveau=nouveau;
@@ -69,6 +75,8 @@ public class WindowEnregistrer extends JFrame {
 			listeImages=((Onglet) onglet).getListeImages();
 			description=((Onglet)onglet).getPbdd().getDescription().getDescription();
 			nbImages=((Onglet)onglet).getNbIm();
+			nouvelleRea= new JCheckBox(" Sauvegarder en tant que nouvelle realisation");
+			ancienneRea=new JCheckBox(" Ecraser la realisation courante");
 			if(this.nouveau){
 				JTextField j1 = new JTextField();
 				JTextField j2 = new JTextField();
@@ -94,7 +102,7 @@ public class WindowEnregistrer extends JFrame {
 					this.nRealisations=panelInfos.getnRealisations();
 					this.nImages=panelInfos.getnImages();
 					jbOk = new JButton("Valider la sauvegarde");
-					jlFen = new JLabel("Vous avez enregistré l'objet " +this.nomFichier+ " dans la BDD avec les informations suivantes:");
+					jlFen = new JLabel("Vous allez enregistré l'objet " +this.nomFichier+ " dans la BDD avec les informations suivantes:");
 					jlNomAuteur = new JLabel("Nom Auteur : " + this.nomAuteur);
 					jlNomObjet = new JLabel("Nom Objet : " + this.nomFichier);
 					jlDateAjout = new JLabel("Date d'ajout : " + this.dateAjoutt);
@@ -123,7 +131,7 @@ public class WindowEnregistrer extends JFrame {
 				jlNbRealisations = new JLabel("Nombre de réalisations : " + this.nRealisations);
 				jlNbImages=new JLabel("Nombre d'images : "+listeImages.size());
 			}
-			this.setLayout(new GridLayout(10, 1));
+			this.setLayout(new GridLayout(12, 1));
 
 			this.add(jlFen);
 			this.add(jlNomAuteur);
@@ -133,6 +141,8 @@ public class WindowEnregistrer extends JFrame {
 			this.add(jlNbImages);
 			this.add(jlNbChargements);
 			this.add(jlNbRealisations);
+			this.add(nouvelleRea);
+			this.add(ancienneRea);
 			this.add(jbOk);
 
 			jbOk.addMouseListener(this);
@@ -156,6 +166,43 @@ public class WindowEnregistrer extends JFrame {
 				int nbLecture;
 				while( (nbLecture = sourceFile.read(buffer)) != -1 ) {
 					destinationFile.write(buffer, 0, nbLecture);
+				}
+
+				// Copie réussie
+				resultat = true;
+			} catch( java.io.FileNotFoundException f ) {
+			} catch( java.io.IOException e ) {
+			} finally {
+				// Quoi qu'il arrive, on ferme les flux
+				try {
+					sourceFile.close();
+				} catch(Exception e) { }
+				try {
+					destinationFile.close();
+				} catch(Exception e) { }
+			}
+			return( resultat );
+		}
+
+		public boolean copieGTS(File source, File destination){
+			boolean resultat = false;
+			Model mod = ((Onglet) onglet).getDp().getPanel().getM();
+			// Declaration des flux
+			Scanner sourceFile= null;
+			PrintWriter destinationFile=null;
+			try {
+				// Création du fichier :
+				destination.createNewFile();
+				// Ouverture des flux
+				sourceFile = new Scanner(source);
+				destinationFile = new PrintWriter(destination);
+				// Lecture par segment de 0.5Mo
+				destinationFile.println(sourceFile.nextLine());
+				for(int i = 0;i<mod.getListPoint().size() + mod.getSegment().size();++i){
+					destinationFile.println(sourceFile.nextLine());
+				}
+				for(Face f : mod.getFace()){
+					destinationFile.println(f.getSegment1() + " " + f.getSegment2()+ " " + f.getSegment3() +" "+ f.getColor().getRed() + " "+f.getColor().getGreen()+" "+f.getColor().getBlue());
 				}
 
 				// Copie réussie

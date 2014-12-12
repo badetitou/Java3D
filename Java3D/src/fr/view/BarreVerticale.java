@@ -11,6 +11,7 @@ import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
 import javax.swing.JPanel;
 
 public class BarreVerticale extends JPanel implements MouseListener {
@@ -39,6 +40,12 @@ public class BarreVerticale extends JPanel implements MouseListener {
 	private boolean modeEdit = false;
 	private boolean modeSquelette=false;
 	private final MyDeskTopPane dp;
+
+	private JColorChooser jcc=null;
+
+	public void setJcc(JColorChooser jcc) {
+		this.jcc = jcc;
+	}
 
 	public BarreVerticale(MyDeskTopPane dp) {
 		this.dp = dp;
@@ -119,6 +126,8 @@ public class BarreVerticale extends JPanel implements MouseListener {
 			this.dp.getiFrameDessous().setVisible(false);
 			this.dp.getiFrameDessus().setVisible(false);
 			this.dp.getiFrameProfil().setVisible(false);
+			this.jcc.setEnabled(false);
+			jcc.setVisible(false);
 			this.dp.getModel().setDimension(MyDeskTopPane.dimension);
 		} else if (e.getSource().equals(b2) && !bb2) {
 			b2.setIcon(ic7);
@@ -133,7 +142,8 @@ public class BarreVerticale extends JPanel implements MouseListener {
 			this.dp.getiFrameDessous().setVisible(true);
 			this.dp.getiFrameDessus().setVisible(true);
 			this.dp.getiFrameProfil().setVisible(true);
-
+			this.jcc.setEnabled(false);
+			jcc.setVisible(false);
 			this.dp.getModel().setDimension(MyDeskTopPane.dimmini);
 
 		} else if (e.getSource().equals(b3) && !modeEdit) {
@@ -150,6 +160,8 @@ public class BarreVerticale extends JPanel implements MouseListener {
 			this.dp.getiFrameDessus().setVisible(false);
 			this.dp.getiFrameProfil().setVisible(false);
 			this.dp.getModel().setDimension(MyDeskTopPane.dimension);
+			this.jcc.setEnabled(true);
+			jcc.setVisible(true);
 
 		}
 
@@ -167,6 +179,8 @@ public class BarreVerticale extends JPanel implements MouseListener {
 			this.dp.getiFrameDessus().setVisible(false);
 			this.dp.getiFrameProfil().setVisible(false);
 			this.dp.getModel().setDimension(MyDeskTopPane.dimension);
+			this.jcc.setEnabled(false);
+			jcc.setVisible(false);
 
 		}
 		this.dp.getPanel().getM().recentrer();

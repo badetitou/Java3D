@@ -55,12 +55,12 @@ public class PanelInformations extends JPanel {
 
 	private Font font;
 
-	public void actualiserInfos(String nomFichier,String nomAuteur, int nbImages,int nbRéalisations,String dateMod){
+	public void actualiserInfos(String nomFichier,String nomAuteur, int nbImages,int nbRealisations,String dateMod){
 		this.nomFichier=nomFichier;
 		this.nomAuteur=nomAuteur;
 		this.nImages=nbImages;
 		this.dateModiff=dateMod;
-		this.nRealisations=nbRéalisations;
+		this.nRealisations=nbRealisations;
 		panelInfo.removeAll();
 		this.dessinerPanel();
 		this.revalidate();

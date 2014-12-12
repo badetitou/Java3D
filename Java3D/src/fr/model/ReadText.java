@@ -47,7 +47,7 @@ public class ReadText {
 			segment = new HashMap<Integer,CouplePoint>();
 
 			// On boucle sur chaque champ detecté
-			
+
 			int positionBoucle = 0;
 			while (scanner.hasNextLine()) {
 				line = scanner.nextLine();
@@ -85,9 +85,8 @@ public class ReadText {
 			}
 			scanner.close();
 		} catch (FileNotFoundException e) {
-			System.out.println("Fichier introuvable");
+			System.out.println("fichier introuvable");
 			JOptionPane.showMessageDialog(new JFrame(),"Fichier introuvable","Error",JOptionPane.ERROR_MESSAGE);
-			System.exit(0);
 			e.printStackTrace();
 		}
 
@@ -102,47 +101,52 @@ public class ReadText {
 
 	public double[] extractLine(String line){
 		double [] tab = new double [6];
-		int j=0;
-		int k=0;
-		for (int i=0;i<line.length();i++){
-			if(line.charAt(i)==' '){
-				if(k==3 || k==4 || k==5){
-					if(line.substring(j, i)!=null){
-						if(validColor(Integer.parseInt(line.substring(j, i)))){
-							tab[k]=Double.parseDouble(line.substring(j, i));
+		try {
+			int j=0;
+			int k=0;
+			for (int i=0;i<line.length();i++){
+				if(line.charAt(i)==' '){
+					if(k==3 || k==4 || k==5){
+						if(line.substring(j, i)!=null){
+							if(validColor(Integer.parseInt(line.substring(j, i)))){
+								tab[k]=Double.parseDouble(line.substring(j, i));
+							}
+							else {
+								this.corrupt=true;
+							}
 						}
 						else {
-							this.corrupt=true;
+							tab[k]=0;
 						}
 					}
 					else {
-						tab[k]=0;
+						tab[k]=Double.parseDouble(line.substring(j, i));
+					}
+					j=i+1;
+					k++;
+				}
+			}
+			if(k==3 || k==4 || k==5){
+				if(line.substring(j, line.length())!=null){
+					if(validColor(Integer.parseInt(line.substring(j, line.length())))){
+						tab[k]=Double.parseDouble(line.substring(j, line.length()));
+					}
+					else {
+						this.corrupt=true;
 					}
 				}
 				else {
-					tab[k]=Double.parseDouble(line.substring(j, i));
+					tab[k]=0;
 				}
-				j=i+1;
-				k++;
+				//System.out.println(tab[3]+" | "+tab[4]+" | "+tab[5]);
 			}
-		}
-		if(k==3 || k==4 || k==5){
-			if(line.substring(j, line.length())!=null){
-				if(validColor(Integer.parseInt(line.substring(j, line.length())))){
-					tab[k]=Double.parseDouble(line.substring(j, line.length()));
-				}
-				else {
-					this.corrupt=true;
-				}
-			}
-			else {
-				tab[k]=0;
-			}
-			//System.out.println(tab[3]+" | "+tab[4]+" | "+tab[5]);
-		}
 
-		tab[k]=Double.parseDouble(line.substring(j,line.length()));
-
+			tab[k]=Double.parseDouble(line.substring(j,line.length()));
+		}catch(Exception e){
+			JOptionPane.showMessageDialog(new JFrame(),"Fichier corrompu","Error",JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
+			return null;
+		};
 
 		return tab;
 	}
@@ -169,5 +173,5 @@ public class ReadText {
 		return segment;
 	}
 
-	
+
 }
