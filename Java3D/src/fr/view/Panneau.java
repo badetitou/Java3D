@@ -112,7 +112,7 @@ public class Panneau extends JPanel {
 
 			this.addMouseWheelListener(new MouseWheelListener() {
 				public void mouseWheelMoved(MouseWheelEvent e) {
-					m.zoom((-e.getPreciseWheelRotation() + 15) / 15);
+					m.zoom((-e.getWheelRotation() + 15) / 15);
 					repaint();
 				}
 			});
