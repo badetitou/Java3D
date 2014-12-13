@@ -13,16 +13,18 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 import javax.swing.JTree;
+import javax.swing.table.TableModel;
 
 import fr.model.OutilsBdd;
 
 public class OngletMenu extends JPanel implements MouseListener{
 
-	/* hey bonjour je push */
+
 	private final JLabel closeButon;
 	private final JLabel ic;
 	private final JPanel p1;
@@ -34,7 +36,7 @@ public class OngletMenu extends JPanel implements MouseListener{
 		this.tabbedPane=tabbedPane;
 		this.setLayout(new GridLayout(1,3));
 		this.add(new PanelCrit());
-		this.add(new PanelListebdd());
+		this.add(new PanelListebdd(null));
 		this.add(new PanelArboPreview());
 		listeOnglets.add(this);
 		closeButon = new JLabel(new ImageIcon(new ImageIcon("ressources/icones/fermer.png").getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH)));
@@ -95,14 +97,13 @@ public class OngletMenu extends JPanel implements MouseListener{
 
 	public class PanelListebdd extends JPanel{
 
-		private final JList bdd;
+	//	private final JTable bdd;
 		private final OutilsBdd obdd;
 
-		public PanelListebdd(){
+		public PanelListebdd(TableModel model){
 			obdd = new OutilsBdd("Database.db");
-			String[] data = obdd.getData();
-			bdd = new JList(data);
-			this.add(bdd);
+		//	bdd = new JTable(obdd.getDataAll());
+		//	add(new JScrollPane(bdd), BorderLayout.CENTER );
 			this.setBorder(BorderFactory.createLoweredBevelBorder());
 
 		}

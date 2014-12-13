@@ -3,8 +3,14 @@ package fr.model;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Calendar;
+
+import javax.swing.table.AbstractTableModel;
+
+
 
 
 
@@ -80,6 +86,23 @@ public class OutilsBdd {
 		}
 	}
 
+	
+	public ResultSetTableModel getDataAll() {
+		this.connect();
+		String query = "SELECT * from files";
+		try {
+			ResultSet rs = statement.executeQuery(query);
+			ResultSetTableModel rtm = new ResultSetTableModel(rs);
+			this.close();
+			return rtm;
+		} catch (Exception e) {
+			System.out.println("Erreur dans getData");
+			System.out.println(e.getMessage());
+			this.close();
+			return null;
+		}
+	}
+	
 	public void addFile(String name, String linkFile, String desc, String author, int nbrOpen, int nbrImg, int nbrModif, String linkImg, int size) {
 		this.connect();
 		Calendar rightNow = Calendar.getInstance();
@@ -453,4 +476,69 @@ public class OutilsBdd {
 		}
 	}
 
+	public class ResultSetTableModel extends AbstractTableModel{		  
+		  private ResultSet resultSet;
+		  private ResultSetMetaData resultSetMetaData;
+
+		
+		  public ResultSetTableModel( ResultSet resultSet ) {
+		    this.resultSet = resultSet;
+		    
+		    try {
+		      this.resultSetMetaData = resultSet.getMetaData();
+		    } 
+		    catch (SQLException e) {
+		      // TODO Auto-generated catch block
+		      e.printStackTrace();
+		    }
+		  }
+		  public int getColumnCount() {
+			try  {
+		      return resultSetMetaData.getColumnCount();
+		    } 
+		    catch (SQLException e) {
+		      // TODO Auto-generated catch block
+		      e.printStackTrace();
+		      return 0;
+		    }
+		  }
+
+		  public int getRowCount() {
+			try{
+		      resultSet.last();
+		      return resultSet.getRow();
+		    } 
+			catch (SQLException e){
+		      // TODO Auto-generated catch block
+		      e.printStackTrace();
+		      return 0;
+		    }
+		  }
+
+		  public Object getValueAt(int rowIndex, int columnIndex) {
+		    try{
+		      resultSet.absolute( rowIndex + 1 );
+		      return resultSet.getObject(columnIndex + 1 );
+		    } 
+		    catch (SQLException e)
+		    {
+		      // TODO Auto-generated catch block
+		      e.printStackTrace();
+		      return null;
+		    }
+		  }
+		  
+		  @Override
+		  public String getColumnName( int column ){
+		    try  {
+		      return resultSetMetaData.getColumnName( column + 1 );
+		    } 
+		    catch (SQLException e){
+		      // TODO Auto-generated catch block
+		      e.printStackTrace();
+		      return "";
+		    }
+		  }
+
+	}
 }
