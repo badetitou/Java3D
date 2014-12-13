@@ -8,7 +8,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Calendar;
 
+import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 
 
 
@@ -19,6 +21,7 @@ public class OutilsBdd {
 	private String DBPath = "Chemin aux base de donnée SQLite";
 	private Connection connection = null;
 	private Statement statement = null;
+	private JTable bdd;
 
 	public OutilsBdd(String dBPath) {
 		DBPath = dBPath;
@@ -28,6 +31,10 @@ public class OutilsBdd {
 		try {
 			Class.forName("org.sqlite.JDBC");
 			connection = DriverManager.getConnection("jdbc:sqlite:"+ DBPath);
+		//	int type = ResultSet.TYPE_SCROLL_INSENSITIVE;
+		//	int mode = ResultSet.CONCUR_UPDATABLE;
+		//	statement = connection.createStatement(type, mode);
+			/* SQLITE ne supporte pas le rs.last zz */
 			statement = connection.createStatement();
 		} catch (Exception e) {
 			System.out.println("Erreur de connexion");
@@ -87,16 +94,27 @@ public class OutilsBdd {
 	}
 
 	
-	public ResultSetTableModel getDataAll() {
+	public JTable getDataAll() {
 		this.connect();
 		String query = "SELECT * from files";
 		try {
 			ResultSet rs = statement.executeQuery(query);
-			ResultSetTableModel rtm = new ResultSetTableModel(rs);
+			int i = 0;
+			int g = 0;
+			Object[][] data = new Object[i][2];
+			while(rs.next()){
+				++i;
+				data[g][0] = rs.getString("author");
+				data[g][1] = rs.getString("name");
+				++g;
+			}
+				
+			String  title[] = {"name", "author"};
+			this.bdd = new JTable(new DefaultTableModel(data, title));
 			this.close();
-			return rtm;
+			return bdd;
 		} catch (Exception e) {
-			System.out.println("Erreur dans getData");
+			System.out.println("Erreur dans getAllData");
 			System.out.println(e.getMessage());
 			this.close();
 			return null;
@@ -476,7 +494,7 @@ public class OutilsBdd {
 		}
 	}
 
-	public class ResultSetTableModel extends AbstractTableModel{		  
+	/*public class ResultSetTableModel extends AbstractTableModel{		  
 		  private ResultSet resultSet;
 		  private ResultSetMetaData resultSetMetaData;
 
@@ -541,4 +559,5 @@ public class OutilsBdd {
 		  }
 
 	}
+	*/
 }

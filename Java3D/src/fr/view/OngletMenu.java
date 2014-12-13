@@ -97,13 +97,13 @@ public class OngletMenu extends JPanel implements MouseListener{
 
 	public class PanelListebdd extends JPanel{
 
-	//	private final JTable bdd;
+		private final JTable bdd;
 		private final OutilsBdd obdd;
 
 		public PanelListebdd(TableModel model){
 			obdd = new OutilsBdd("Database.db");
-		//	bdd = new JTable(obdd.getDataAll());
-		//	add(new JScrollPane(bdd), BorderLayout.CENTER );
+			bdd = obdd.getDataAll();
+			add(new JScrollPane(bdd), BorderLayout.CENTER );
 			this.setBorder(BorderFactory.createLoweredBevelBorder());
 
 		}
