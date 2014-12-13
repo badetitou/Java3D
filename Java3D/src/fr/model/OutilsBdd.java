@@ -22,6 +22,7 @@ public class OutilsBdd {
 	private Connection connection = null;
 	private Statement statement = null;
 	private JTable bdd;
+	private int i;
 
 	public OutilsBdd(String dBPath) {
 		DBPath = dBPath;
@@ -97,29 +98,38 @@ public class OutilsBdd {
 	public JTable getDataAll() {
 		this.connect();
 		String query = "SELECT * from files";
+		i=0;
 		try {
 			ResultSet rs = statement.executeQuery(query);
-			int i = 0;
-			int g = 0;
-			Object[][] data = new Object[i][2];
-			while(rs.next()){
-				++i;
-				data[g][0] = rs.getString("author");
-				data[g][1] = rs.getString("name");
-				++g;
-			}
-				
-			String  title[] = {"name", "author"};
-			this.bdd = new JTable(new DefaultTableModel(data, title));
-			this.close();
-			return bdd;
-		} catch (Exception e) {
-			System.out.println("Erreur dans getAllData");
-			System.out.println(e.getMessage());
+			while(rs.next())
+					i++;
+		}
+		catch(Exception e) {
+			System.out.println(e.toString());
 			this.close();
 			return null;
 		}
+		Object[][] data = new Object[i][2];
+		try{
+			ResultSet rs2 = statement.executeQuery(query);
+			int g=0;
+			while(rs2.next()){
+				data[g][0] = rs2.getString("author");
+				data[g][1] = rs2.getString("name");
+				++g;
+			}
+		} 
+		catch (Exception e) {System.out.println(e.toString());
+			e.printStackTrace();
+			this.close();
+			return null;
+		}
+		String title[] = { "author", "name"};
+		this.bdd = new JTable(new DefaultTableModel(data, title));
+		return bdd;
+		
 	}
+	
 	
 	public void addFile(String name, String linkFile, String desc, String author, int nbrOpen, int nbrImg, int nbrModif, String linkImg, int size) {
 		this.connect();
