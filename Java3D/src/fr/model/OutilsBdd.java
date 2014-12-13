@@ -3,13 +3,10 @@ package fr.model;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Calendar;
 
 import javax.swing.JTable;
-import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -22,7 +19,6 @@ public class OutilsBdd {
 	private Connection connection = null;
 	private Statement statement = null;
 	private JTable bdd;
-	private int i;
 
 	public OutilsBdd(String dBPath) {
 		DBPath = dBPath;
@@ -32,10 +28,6 @@ public class OutilsBdd {
 		try {
 			Class.forName("org.sqlite.JDBC");
 			connection = DriverManager.getConnection("jdbc:sqlite:"+ DBPath);
-		//	int type = ResultSet.TYPE_SCROLL_INSENSITIVE;
-		//	int mode = ResultSet.CONCUR_UPDATABLE;
-		//	statement = connection.createStatement(type, mode);
-			/* SQLITE ne supporte pas le rs.last zz */
 			statement = connection.createStatement();
 		} catch (Exception e) {
 			System.out.println("Erreur de connexion");
@@ -98,11 +90,11 @@ public class OutilsBdd {
 	public JTable getDataAll() {
 		this.connect();
 		String query = "SELECT * from files";
-		i=0;
+		int i = 0;
 		try {
 			ResultSet rs = statement.executeQuery(query);
 			while(rs.next())
-					i++;
+					++i;
 		}
 		catch(Exception e) {
 			System.out.println(e.toString());
@@ -504,70 +496,5 @@ public class OutilsBdd {
 		}
 	}
 
-	/*public class ResultSetTableModel extends AbstractTableModel{		  
-		  private ResultSet resultSet;
-		  private ResultSetMetaData resultSetMetaData;
-
-		
-		  public ResultSetTableModel( ResultSet resultSet ) {
-		    this.resultSet = resultSet;
-		    
-		    try {
-		      this.resultSetMetaData = resultSet.getMetaData();
-		    } 
-		    catch (SQLException e) {
-		      // TODO Auto-generated catch block
-		      e.printStackTrace();
-		    }
-		  }
-		  public int getColumnCount() {
-			try  {
-		      return resultSetMetaData.getColumnCount();
-		    } 
-		    catch (SQLException e) {
-		      // TODO Auto-generated catch block
-		      e.printStackTrace();
-		      return 0;
-		    }
-		  }
-
-		  public int getRowCount() {
-			try{
-		      resultSet.last();
-		      return resultSet.getRow();
-		    } 
-			catch (SQLException e){
-		      // TODO Auto-generated catch block
-		      e.printStackTrace();
-		      return 0;
-		    }
-		  }
-
-		  public Object getValueAt(int rowIndex, int columnIndex) {
-		    try{
-		      resultSet.absolute( rowIndex + 1 );
-		      return resultSet.getObject(columnIndex + 1 );
-		    } 
-		    catch (SQLException e)
-		    {
-		      // TODO Auto-generated catch block
-		      e.printStackTrace();
-		      return null;
-		    }
-		  }
-		  
-		  @Override
-		  public String getColumnName( int column ){
-		    try  {
-		      return resultSetMetaData.getColumnName( column + 1 );
-		    } 
-		    catch (SQLException e){
-		      // TODO Auto-generated catch block
-		      e.printStackTrace();
-		      return "";
-		    }
-		  }
-
-	}
-	*/
+	
 }

@@ -104,6 +104,8 @@ public class OngletMenu extends JPanel implements MouseListener{
 			obdd = new OutilsBdd("Database.db");
 			bdd = obdd.getDataAll();
 			add(new JScrollPane(bdd), BorderLayout.CENTER );
+			bdd.getTableHeader().setReorderingAllowed(false);
+			bdd.getTableHeader().setResizingAllowed(false);
 			this.setBorder(BorderFactory.createLoweredBevelBorder());
 
 		}
