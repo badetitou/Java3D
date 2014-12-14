@@ -89,13 +89,13 @@ public class Menu extends JMenuBar implements ActionListener {
 		// Sous menu Fichier
 		mIFImporter = new JMenuItem("Importer");
 		mIFOuvrir = new JMenuItem("Ouvrir");
-		mIFRecents = new JMenuItem("Fichiers rï¿½cents");
+		mIFRecents = new JMenuItem("Fichiers récents");
 		mIFEnregistrer = new JMenuItem("Enregistrer dans la BDD");
 		mIFExporter = new JMenuItem("Exporter");
 
 		mIFFermer = new JMenuItem("Fermer");
 		mIFImprimer = new JMenuItem("Imprimer");
-		mIFProprietes = new JMenuItem("Propriï¿½tï¿½s");
+		mIFProprietes = new JMenuItem("Propriétés");
 		mIFQuitter = new JMenuItem("Quitter");
 
 		// /Action des MenuItems Fichier
@@ -122,7 +122,7 @@ public class Menu extends JMenuBar implements ActionListener {
 				InputEvent.CTRL_MASK));
 
 		// Sous menu Edition
-		mIEDefaire = new JMenuItem("Dï¿½faire");
+		mIEDefaire = new JMenuItem("Défaire");
 		mIERefaire = new JMenuItem("Refaire");
 
 		// Action des MenuItems Edition
@@ -133,8 +133,8 @@ public class Menu extends JMenuBar implements ActionListener {
 				InputEvent.CTRL_MASK));
 
 		// Sous menu Options
-		mIOBoiteOutils = new JMenuItem("Boï¿½tes ï¿½ Outils");
-		mIOPreferences = new JMenuItem("Prï¿½fï¿½rences");
+		mIOBoiteOutils = new JMenuItem("Boîte à Outils");
+		mIOPreferences = new JMenuItem("Préférences");
 
 		// Action des MenuItems Options
 
@@ -182,6 +182,7 @@ public class Menu extends JMenuBar implements ActionListener {
 
 	}
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(mIFOuvrir)) {
 			WindowOuvrir windowO = new WindowOuvrir(tabbedPane, listeOnglets);
@@ -220,7 +221,7 @@ public class Menu extends JMenuBar implements ActionListener {
 				}
 				if (fichier != null && name.substring(name.length() - 4, name.length()).equals(".gts")) {
 					if (listeOnglets.size() + 1 <= 5) {
-						String nomAuteur = "Non renseignï¿½";
+						String nomAuteur = "Non renseigné";
 						if(nbOngletsImport==0)
 							nomFichier="New";
 						else
@@ -241,20 +242,18 @@ public class Menu extends JMenuBar implements ActionListener {
 		}else if (e.getSource().equals(mIFExporter)){
 			JFileChooser filechoose = new JFileChooser();
 			filechoose.setCurrentDirectory(new File("."));
-			filechoose.setDialogTitle("Exporter la rï¿½alisation");
+			filechoose.setDialogTitle("Exporter la réalisation");
 
 			filechoose.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
 			String approve = new String("Enregistrer");
 			int resultatEnregistrer = filechoose.showDialog(filechoose, approve);
 			if (resultatEnregistrer == JFileChooser.APPROVE_OPTION){
-				String chemin = filechoose.getSelectedFile().getAbsolutePath();
 				Component onglet = tabbedPane.getSelectedComponent();
+				String chemin = filechoose.getSelectedFile().getAbsolutePath()+File.separator+((Onglet) onglet).getNomFichier()+".gts";
 				String urlSource=((Onglet) onglet).getDp().getUrl();
-				System.out.println(urlSource);
-				System.out.println(chemin);
 				if(this.copieGTS(new File(urlSource), new File(chemin))){
-					JOptionPane.showMessageDialog(null,"L'exportation de "+urlSource+" a fonctionnï¿½ !","Exportation rï¿½ussie", JOptionPane.OK_OPTION);
+					JOptionPane.showMessageDialog(null,"L'exportation de : "+urlSource+" a fonctionné !","Exportation réussie", JOptionPane.OK_OPTION);
 				}
 			}
 		} else if (e.getSource().equals(mIFFermer)) {
@@ -273,7 +272,7 @@ public class Menu extends JMenuBar implements ActionListener {
 		Scanner sourceFile= null;
 		PrintWriter destinationFile=null;
 		try {
-			// Crï¿½ation du fichier :
+			// Création du fichier :
 			destination.createNewFile();
 			// Ouverture des flux
 			sourceFile = new Scanner(source);
@@ -287,7 +286,7 @@ public class Menu extends JMenuBar implements ActionListener {
 				destinationFile.println(f.getSegment1() + " " + f.getSegment2()+ " " + f.getSegment3() +" "+ f.getColor().getRed() + " "+f.getColor().getGreen()+" "+f.getColor().getBlue());
 			}
 
-			// Copie rï¿½ussie
+			// Copie réussie
 			resultat = true;
 		} catch( java.io.FileNotFoundException f ) {
 		} catch( java.io.IOException e ) {
