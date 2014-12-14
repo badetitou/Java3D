@@ -73,7 +73,7 @@ public class Menu extends JMenuBar implements ActionListener {
 		this.panelInfos = panelInfos;
 		this.setPreferredSize(new Dimension((int) Window.outil.getScreenSize().getWidth(), 30));
 
-		// Création du Menu
+		// Crï¿½ation du Menu
 		mFichier = new JMenu("Fichier");
 		mEdition = new JMenu("Edition");
 		mOptions = new JMenu("Options");
@@ -85,17 +85,17 @@ public class Menu extends JMenuBar implements ActionListener {
 		mOptions.setPreferredSize(new Dimension(60, 350));
 		mInfos.setPreferredSize(new Dimension(60, 350));
 
-		// Création des sous menus
+		// Crï¿½ation des sous menus
 		// Sous menu Fichier
 		mIFImporter = new JMenuItem("Importer");
 		mIFOuvrir = new JMenuItem("Ouvrir");
-		mIFRecents = new JMenuItem("Fichiers récents");
+		mIFRecents = new JMenuItem("Fichiers rï¿½cents");
 		mIFEnregistrer = new JMenuItem("Enregistrer dans la BDD");
 		mIFExporter = new JMenuItem("Exporter");
 
 		mIFFermer = new JMenuItem("Fermer");
 		mIFImprimer = new JMenuItem("Imprimer");
-		mIFProprietes = new JMenuItem("Propriétés");
+		mIFProprietes = new JMenuItem("Propriï¿½tï¿½s");
 		mIFQuitter = new JMenuItem("Quitter");
 
 		// /Action des MenuItems Fichier
@@ -122,7 +122,7 @@ public class Menu extends JMenuBar implements ActionListener {
 				InputEvent.CTRL_MASK));
 
 		// Sous menu Edition
-		mIEDefaire = new JMenuItem("Défaire");
+		mIEDefaire = new JMenuItem("Dï¿½faire");
 		mIERefaire = new JMenuItem("Refaire");
 
 		// Action des MenuItems Edition
@@ -133,8 +133,8 @@ public class Menu extends JMenuBar implements ActionListener {
 				InputEvent.CTRL_MASK));
 
 		// Sous menu Options
-		mIOBoiteOutils = new JMenuItem("Boîtes à Outils");
-		mIOPreferences = new JMenuItem("Préférences");
+		mIOBoiteOutils = new JMenuItem("Boï¿½tes ï¿½ Outils");
+		mIOPreferences = new JMenuItem("Prï¿½fï¿½rences");
 
 		// Action des MenuItems Options
 
@@ -147,7 +147,7 @@ public class Menu extends JMenuBar implements ActionListener {
 		mIIaPropos.setAccelerator(KeyStroke.getKeyStroke("F1"));
 		mIIContacts.setAccelerator(KeyStroke.getKeyStroke("F2"));
 
-		// Ajout de chaque sous menu à son menu
+		// Ajout de chaque sous menu ï¿½ son menu
 		mFichier.add(mIFImporter);
 		mFichier.add(mIFOuvrir);
 		mFichier.add(mIFRecents);
@@ -220,7 +220,7 @@ public class Menu extends JMenuBar implements ActionListener {
 				}
 				if (fichier != null && name.substring(name.length() - 4, name.length()).equals(".gts")) {
 					if (listeOnglets.size() + 1 <= 5) {
-						String nomAuteur = "Non renseigné";
+						String nomAuteur = "Non renseignï¿½";
 						if(nbOngletsImport==0)
 							nomFichier="New";
 						else
@@ -241,7 +241,7 @@ public class Menu extends JMenuBar implements ActionListener {
 		}else if (e.getSource().equals(mIFExporter)){
 			JFileChooser filechoose = new JFileChooser();
 			filechoose.setCurrentDirectory(new File("."));
-			filechoose.setDialogTitle("Exporter la réalisation");
+			filechoose.setDialogTitle("Exporter la rï¿½alisation");
 
 			filechoose.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
@@ -254,7 +254,7 @@ public class Menu extends JMenuBar implements ActionListener {
 				System.out.println(urlSource);
 				System.out.println(chemin);
 				if(this.copieGTS(new File(urlSource), new File(chemin))){
-					JOptionPane.showMessageDialog(null,"L'exportation de "+urlSource+" a fonctionné !","Exportation réussie", JOptionPane.OK_OPTION);
+					JOptionPane.showMessageDialog(null,"L'exportation de "+urlSource+" a fonctionnï¿½ !","Exportation rï¿½ussie", JOptionPane.OK_OPTION);
 				}
 			}
 		} else if (e.getSource().equals(mIFFermer)) {
@@ -267,12 +267,13 @@ public class Menu extends JMenuBar implements ActionListener {
 
 	public boolean copieGTS(File source, File destination){
 		boolean resultat = false;
+		Onglet onglet = (Onglet) tabbedPane.getSelectedComponent();
 		Model mod = onglet.getDp().getPanel().getM();
 		// Declaration des flux
 		Scanner sourceFile= null;
 		PrintWriter destinationFile=null;
 		try {
-			// Création du fichier :
+			// Crï¿½ation du fichier :
 			destination.createNewFile();
 			// Ouverture des flux
 			sourceFile = new Scanner(source);
@@ -286,7 +287,7 @@ public class Menu extends JMenuBar implements ActionListener {
 				destinationFile.println(f.getSegment1() + " " + f.getSegment2()+ " " + f.getSegment3() +" "+ f.getColor().getRed() + " "+f.getColor().getGreen()+" "+f.getColor().getBlue());
 			}
 
-			// Copie réussie
+			// Copie rï¿½ussie
 			resultat = true;
 		} catch( java.io.FileNotFoundException f ) {
 		} catch( java.io.IOException e ) {
