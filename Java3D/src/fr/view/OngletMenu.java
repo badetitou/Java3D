@@ -19,8 +19,10 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTree;
 import javax.swing.ListSelectionModel;
+import javax.swing.RowSorter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import fr.model.OutilsBdd;
 
@@ -107,11 +109,27 @@ public class OngletMenu extends JPanel implements MouseListener{
 			obdd = new OutilsBdd("Database.db");
 			data = obdd.getAllData();
 			String title[] = { "Nom", "Auteur", "Dernière Modif", "Nb ouverture", "Nb images"};
-			this.bdd = new JTable(new MyTableModel(data, title));
+			MyTableModel mtm = new MyTableModel(data, title);
+			this.bdd = new JTable(mtm);
+			RowSorter<MyTableModel> sorter = new TableRowSorter<>(mtm);
+			bdd.setRowSorter(sorter);
 			add(new JScrollPane(bdd), BorderLayout.CENTER );
 			bdd.getTableHeader().setReorderingAllowed(false);
 			bdd.getTableHeader().setResizingAllowed(false);
 			bdd.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+	        bdd.addMouseListener(new java.awt.event.MouseAdapter() {
+	            public void mouseClicked(java.awt.event.MouseEvent evt) {
+	                //N° de la ligne séléctionnée
+	                int row = bdd.getSelectedRow();
+	                //N° de ligne du tableau trié
+	                int sortedRow = bdd.convertRowIndexToModel(row);
+	                Object row1 = bdd.getModel().getValueAt(sortedRow, 0);
+	                Object row2 = bdd.getModel().getValueAt(sortedRow, 1);
+	                Object row3 = bdd.getModel().getValueAt(sortedRow, 2);
+	                Object row4 = bdd.getModel().getValueAt(sortedRow, 3);
+	                Object row5 = bdd.getModel().getValueAt(sortedRow, 4);
+	            }
+	        });
 			this.setBorder(BorderFactory.createLoweredBevelBorder());
 
 		}
@@ -183,7 +201,17 @@ public class OngletMenu extends JPanel implements MouseListener{
 	    MyTableModel(Object[][] rows, String[] headers) {
 	        super(rows, headers);
 	    }
-
+	    
+	    @Override
+	    public Class getColumnClass(int column) {
+	        Class returnValue;
+	        if ((column >= 0) && (column < getColumnCount())) {
+	            returnValue = getValueAt(0, column).getClass();
+	        } else {
+	            returnValue = Object.class;
+	        }
+	        return returnValue;
+	    }
 	    
 	    public boolean isCellEditable(int rowIndex, int columnIndex){
 	    	return false;
