@@ -240,8 +240,8 @@ public class Menu extends JMenuBar implements ActionListener {
 
 
 		}else if (e.getSource().equals(mIFExporter)){
-			JFileChooser filechoose = new JFileChooser();
-			filechoose.setCurrentDirectory(new File("."));
+			JFileChooser filechoose = new JFileChooser("");
+			//filechoose.setCurrentDirectory(new File(File.separator+"new"));
 			filechoose.setDialogTitle("Exporter la réalisation");
 
 			filechoose.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -254,6 +254,9 @@ public class Menu extends JMenuBar implements ActionListener {
 				String urlSource=((Onglet) onglet).getDp().getUrl();
 				if(this.copieGTS(new File(urlSource), new File(chemin))){
 					JOptionPane.showMessageDialog(null,"L'exportation de : "+urlSource+" a fonctionné !","Exportation réussie", JOptionPane.OK_OPTION);
+				}
+				else {
+					JOptionPane.showMessageDialog(null,"L'exportation de : "+urlSource+" a échoué !","Exportation échouée", JOptionPane.OK_OPTION);
 				}
 			}
 		} else if (e.getSource().equals(mIFFermer)) {
