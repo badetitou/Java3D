@@ -34,7 +34,7 @@ public class PanelTag extends JPanel implements KeyListener{
 		obdd=new OutilsBdd("Database.db");
 		listModel=new DefaultListModel();
 		liste=new JList(listModel);
-		jl=new JLabel("Saisissez un tag : ");
+		jl=new JLabel("Saisissez un mot-clé : ");
 		panel.setBackground(new Color(215,215,215));
 		liste.setBorder(BorderFactory.createLoweredBevelBorder());
 		scroll=new JScrollPane(liste);

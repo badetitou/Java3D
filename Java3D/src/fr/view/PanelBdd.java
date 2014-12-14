@@ -52,7 +52,7 @@ public class PanelBdd extends JPanel{
 		tabbedPane = new JTabbedPane();
 		tabbedPane.addTab("Informations",new ImageIcon(new ImageIcon("ressources/icones/informations.png").getImage().getScaledInstance(26, 26, Image.SCALE_DEFAULT)), informations);
 		tabbedPane.addTab("Description",new ImageIcon(new ImageIcon("ressources/icones/description.png").getImage().getScaledInstance(26, 26, Image.SCALE_DEFAULT)), description);
-		tabbedPane.addTab("  Tags    ",new ImageIcon(new ImageIcon("ressources/icones/galerie.png").getImage().getScaledInstance(26, 26, Image.SCALE_DEFAULT)), pt);
+		tabbedPane.addTab("Mots-clés",new ImageIcon(new ImageIcon("ressources/icones/tag.png").getImage().getScaledInstance(26, 26, Image.SCALE_DEFAULT)), pt);
 		tabbedPane.addTab("Images/photos",new ImageIcon(new ImageIcon("ressources/icones/galerie.png").getImage().getScaledInstance(26, 26, Image.SCALE_DEFAULT)), images);
 		this.add(tabbedPane);
 	}

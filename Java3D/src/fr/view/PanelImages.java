@@ -77,6 +77,7 @@ public class PanelImages extends JPanel implements MouseListener{
 			listePanels=new ArrayList<PImage>();
 			listeImages=new ArrayList<String>();
 		}
+		galerie.setBorder(BorderFactory.createLoweredBevelBorder());
 		JScrollPane scroll = new JScrollPane(galerie);
 		scroll.setPreferredSize(new Dimension(Window.outil.getScreenSize().width-(Window.outil.getScreenSize().width/3),Window.outil.getScreenSize().height/6));
 
