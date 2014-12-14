@@ -28,6 +28,9 @@ public class Onglet extends JPanel implements MouseListener{
 	private final JTabbedPane tabbedPane;
 	private final JLabel closeButon;
 	private String nomFichier;
+	public String getNomFichier() {
+		return nomFichier;
+	}
 	private final JLabel ic;
 	private final ArrayList<Object>listeOnglets;
 	private final int nbIm;

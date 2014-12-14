@@ -7,7 +7,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
@@ -17,6 +19,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import javax.swing.KeyStroke;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+import fr.model.Face;
+import fr.model.Model;
 
 public class Menu extends JMenuBar implements ActionListener {
 
@@ -36,7 +41,7 @@ public class Menu extends JMenuBar implements ActionListener {
 	private final JMenuItem mIFOuvrir;
 	private final JMenuItem mIFRecents;
 	private final JMenuItem mIFEnregistrer;
-	//private final JMenuItem mExporter; 			TO DO IMPORTANT
+	private final JMenuItem mIFExporter;
 	private final JMenuItem mIFFermer;
 	private final JMenuItem mIFImprimer;
 	private final JMenuItem mIFProprietes;
@@ -86,7 +91,8 @@ public class Menu extends JMenuBar implements ActionListener {
 		mIFOuvrir = new JMenuItem("Ouvrir");
 		mIFRecents = new JMenuItem("Fichiers récents");
 		mIFEnregistrer = new JMenuItem("Enregistrer dans la BDD");
-		
+		mIFExporter = new JMenuItem("Exporter");
+
 		mIFFermer = new JMenuItem("Fermer");
 		mIFImprimer = new JMenuItem("Imprimer");
 		mIFProprietes = new JMenuItem("Propriétés");
@@ -104,6 +110,8 @@ public class Menu extends JMenuBar implements ActionListener {
 				InputEvent.CTRL_MASK));
 		// mIFEnregistrerSous.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
 		// InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));
+		mIFExporter.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E,
+				InputEvent.CTRL_MASK));
 		mIFFermer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W,
 				InputEvent.CTRL_MASK));
 		mIFImprimer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P,
@@ -145,7 +153,7 @@ public class Menu extends JMenuBar implements ActionListener {
 		mFichier.add(mIFRecents);
 		mFichier.addSeparator();
 		mFichier.add(mIFEnregistrer);
-		// mFichier.add(mIFEnregistrerSous);
+		mFichier.add(mIFExporter);
 		mFichier.add(mIFFermer);
 		mFichier.addSeparator();
 		mFichier.add(mIFImprimer);
@@ -170,6 +178,7 @@ public class Menu extends JMenuBar implements ActionListener {
 		mIFQuitter.addActionListener(this);
 		mIFImporter.addActionListener(this);
 		mIFFermer.addActionListener(this);
+		mIFExporter.addActionListener(this);
 
 	}
 
@@ -227,10 +236,69 @@ public class Menu extends JMenuBar implements ActionListener {
 					}
 				}
 			}
+
+
+		}else if (e.getSource().equals(mIFExporter)){
+			JFileChooser filechoose = new JFileChooser();
+			filechoose.setCurrentDirectory(new File("."));
+			filechoose.setDialogTitle("Exporter la réalisation");
+
+			filechoose.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+			String approve = new String("Enregistrer");
+			int resultatEnregistrer = filechoose.showDialog(filechoose, approve);
+			if (resultatEnregistrer == JFileChooser.APPROVE_OPTION){
+				String chemin = filechoose.getSelectedFile().getAbsolutePath();
+				Component onglet = tabbedPane.getSelectedComponent();
+				String urlSource=((Onglet) onglet).getDp().getUrl();
+				System.out.println(urlSource);
+				System.out.println(chemin);
+				if(this.copieGTS(new File(urlSource), new File(chemin))){
+					JOptionPane.showMessageDialog(null,"L'exportation de "+urlSource+" a fonctionné !","Exportation réussie", JOptionPane.OK_OPTION);
+				}
+			}
 		} else if (e.getSource().equals(mIFFermer)) {
 			Component onglet = tabbedPane.getSelectedComponent();
 			tabbedPane.remove(onglet);
 			listeOnglets.remove(onglet);
 		}
+	}
+
+
+	public boolean copieGTS(File source, File destination){
+		boolean resultat = false;
+		Model mod = onglet.getDp().getPanel().getM();
+		// Declaration des flux
+		Scanner sourceFile= null;
+		PrintWriter destinationFile=null;
+		try {
+			// Création du fichier :
+			destination.createNewFile();
+			// Ouverture des flux
+			sourceFile = new Scanner(source);
+			destinationFile = new PrintWriter(destination);
+			// Lecture par segment de 0.5Mo
+			destinationFile.println(sourceFile.nextLine());
+			for(int i = 0;i<mod.getListPoint().size() + mod.getSegment().size();++i){
+				destinationFile.println(sourceFile.nextLine());
+			}
+			for(Face f : mod.getFace()){
+				destinationFile.println(f.getSegment1() + " " + f.getSegment2()+ " " + f.getSegment3() +" "+ f.getColor().getRed() + " "+f.getColor().getGreen()+" "+f.getColor().getBlue());
+			}
+
+			// Copie réussie
+			resultat = true;
+		} catch( java.io.FileNotFoundException f ) {
+		} catch( java.io.IOException e ) {
+		} finally {
+			// Quoi qu'il arrive, on ferme les flux
+			try {
+				sourceFile.close();
+			} catch(Exception e) { }
+			try {
+				destinationFile.close();
+			} catch(Exception e) { }
+		}
+		return( resultat );
 	}
 }
