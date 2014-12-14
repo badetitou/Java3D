@@ -1,5 +1,6 @@
 package fr.model;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -7,6 +8,7 @@ import java.sql.Statement;
 import java.util.Calendar;
 
 import javax.swing.JTable;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -101,13 +103,16 @@ public class OutilsBdd {
 			this.close();
 			return null;
 		}
-		Object[][] data = new Object[i][2];
+		Object[][] data = new Object[i][5];
 		try{
 			ResultSet rs2 = statement.executeQuery(query);
 			int g=0;
 			while(rs2.next()){
 				data[g][0] = rs2.getString("author");
 				data[g][1] = rs2.getString("name");
+				data[g][2] = rs2.getNString("lastModifDate");
+				data[g][3] = rs2.getString("nbrModif");
+				data[g][4] = rs2.getString("nbrImg");
 				++g;
 			}
 		} 
@@ -116,8 +121,8 @@ public class OutilsBdd {
 			this.close();
 			return null;
 		}
-		String title[] = { "author", "name"};
-		this.bdd = new JTable(new DefaultTableModel(data, title));
+		String title[] = { "Auteur", "Nom", "Dernière Modif", "Nb modifs", "Nb images"};
+		this.bdd = new JTable(new MyTableModel(data, title));
 		return bdd;
 		
 	}
@@ -495,6 +500,26 @@ public class OutilsBdd {
 			this.close();
 		}
 	}
-
 	
+	class MyTableModel extends DefaultTableModel {
+		 
+	    MyTableModel(Object[][] rows, String[] headers) {
+	        super(rows, headers);
+	    }
+	 
+	  /*  @Override
+	    public Class getColumnClass(int column) {
+	        Class returnValue;
+	        if ((column >= 0) && (column < getColumnCount())) {
+	            returnValue = getValueAt(0, column).getClass();
+	        } else {
+	            returnValue = Object.class;
+	        }
+	        return returnValue;
+	    }*/
+	    
+	    public boolean isCellEditable(int rowIndex, int columnIndex){
+	    	return false;
+	    }
+	}
 }
