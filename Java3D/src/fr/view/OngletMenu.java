@@ -8,8 +8,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.regex.PatternSyntaxException;
 
 import javax.swing.BorderFactory;
+import javax.swing.DefaultRowSorter;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -19,6 +21,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTree;
 import javax.swing.ListSelectionModel;
+import javax.swing.RowFilter;
 import javax.swing.RowSorter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -113,6 +116,14 @@ public class OngletMenu extends JPanel implements MouseListener{
 			this.bdd = new JTable(mtm);
 			RowSorter<MyTableModel> sorter = new TableRowSorter<>(mtm);
 			bdd.setRowSorter(sorter);
+			RowFilter<MyTableModel, Object> rf = null;
+		    try {
+		        rf = RowFilter.regexFilter("Lapin", 0);
+		    } catch (PatternSyntaxException pse) {
+		        return;
+		    }
+		    ((DefaultRowSorter<MyTableModel, Integer>) sorter).setRowFilter(rf);
+
 			add(new JScrollPane(bdd), BorderLayout.CENTER );
 			bdd.getTableHeader().setReorderingAllowed(false);
 			bdd.getTableHeader().setResizingAllowed(false);
