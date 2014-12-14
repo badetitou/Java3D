@@ -18,8 +18,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTree;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+
 import fr.model.OutilsBdd;
 
 public class OngletMenu extends JPanel implements MouseListener{
@@ -104,11 +106,12 @@ public class OngletMenu extends JPanel implements MouseListener{
 		public PanelListebdd(TableModel model){
 			obdd = new OutilsBdd("Database.db");
 			data = obdd.getAllData();
-			String title[] = { "Auteur", "Nom", "Dernière Modif", "Nb modifs", "Nb images"};
+			String title[] = { "Nom", "Auteur", "Dernière Modif", "Nb ouverture", "Nb images"};
 			this.bdd = new JTable(new MyTableModel(data, title));
 			add(new JScrollPane(bdd), BorderLayout.CENTER );
 			bdd.getTableHeader().setReorderingAllowed(false);
 			bdd.getTableHeader().setResizingAllowed(false);
+			bdd.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			this.setBorder(BorderFactory.createLoweredBevelBorder());
 
 		}

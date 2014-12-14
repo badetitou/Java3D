@@ -108,15 +108,115 @@ public class OutilsBdd {
 			ResultSet rs2 = statement.executeQuery(query);
 			int g=0;
 			while(rs2.next()){
-				data[g][0] = rs2.getString("author");
-				data[g][1] = rs2.getString("name");
-				data[g][2] = rs2.getNString("lastModifDate");
-				data[g][3] = rs2.getString("nbrModif");
+				data[g][0] = rs2.getString("name");
+				data[g][1] = rs2.getString("author");
+				data[g][2] = (String) rs2.getString("lastModifDate");
+				data[g][3] = rs2.getString("nbrOpen");
 				data[g][4] = rs2.getString("nbrImg");
 				++g;
 			}
 		} catch (Exception e) {
 			System.out.println("Erreur dans getAllData");
+			System.out.println(e.getMessage());
+			this.close();
+			return null;
+		}
+		this.close();
+		return data;
+	}
+	
+	public Object[][] getAuthorData() {
+		this.connect();
+		String query = "SELECT * from files";
+		int i = 0;
+		try {
+			ResultSet rs = statement.executeQuery(query);
+			while(rs.next())
+					++i;
+		}
+		catch(Exception e) {
+			System.out.println(e.toString());
+			this.close();
+			return null;
+		}
+		Object[][] data = new Object[i][2];
+		try{
+			ResultSet rs2 = statement.executeQuery(query);
+			int g=0;
+			while(rs2.next()){
+				data[g][0] = rs2.getString("name");
+				data[g][1] = rs2.getString("author");
+				++g;
+			}
+		} catch (Exception e) {
+			System.out.println("Erreur dans getAuthorData");
+			System.out.println(e.getMessage());
+			this.close();
+			return null;
+		}
+		this.close();
+		return data;
+	}
+	
+	public Object[][] getLMDData() {
+		this.connect();
+		String query = "SELECT * from files";
+		int i = 0;
+		try {
+			ResultSet rs = statement.executeQuery(query);
+			while(rs.next())
+					++i;
+		}
+		catch(Exception e) {
+			System.out.println(e.toString());
+			this.close();
+			return null;
+		}
+		Object[][] data = new Object[i][2];
+		try{
+			ResultSet rs2 = statement.executeQuery(query);
+			int g=0;
+			while(rs2.next()){
+				data[g][0] = rs2.getString("name");
+				data[g][1] = rs2.getNString("lastModifDate");
+
+				++g;
+			}
+		} catch (Exception e) {
+			System.out.println("Erreur dans getLMDData");
+			System.out.println(e.getMessage());
+			this.close();
+			return null;
+		}
+		this.close();
+		return data;
+	}
+	
+	public Object[][] getNOData() {
+		this.connect();
+		String query = "SELECT * from files";
+		int i = 0;
+		try {
+			ResultSet rs = statement.executeQuery(query);
+			while(rs.next())
+					++i;
+		}
+		catch(Exception e) {
+			System.out.println(e.toString());
+			this.close();
+			return null;
+		}
+		Object[][] data = new Object[i][2];
+		try{
+			ResultSet rs2 = statement.executeQuery(query);
+			int g=0;
+			while(rs2.next()){
+				data[g][0] = rs2.getString("name");	
+				data[g][1] = rs2.getString("nbrOpen");
+				++g;
+			}
+		} catch (Exception e) {
+			System.out.println("Erreur dans getNBMData");
 			System.out.println(e.getMessage());
 			this.close();
 			return null;
