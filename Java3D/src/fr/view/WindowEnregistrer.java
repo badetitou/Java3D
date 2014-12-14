@@ -10,12 +10,13 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
@@ -64,8 +65,9 @@ public class WindowEnregistrer extends JFrame {
 		private final ArrayList<String>listeImages;
 		private final int nbImages;
 		private final Component onglet;
-		private final JCheckBox nouvelleRea;
-		private final JCheckBox ancienneRea;
+		private final ButtonGroup group;
+		private final JRadioButton newRea;
+		private final JRadioButton oldRea;
 		public PanelEnregistrer(JFrame windowE, JTabbedPane tabbedPane, ArrayList<Object> listeOnglets, PanelInformations panelInfos,boolean nouveau) {
 			this.windowE = windowE;
 			this.nouveau=nouveau;
@@ -75,8 +77,15 @@ public class WindowEnregistrer extends JFrame {
 			listeImages=((Onglet) onglet).getListeImages();
 			description=((Onglet)onglet).getPbdd().getDescription().getDescription();
 			nbImages=((Onglet)onglet).getNbIm();
-			nouvelleRea= new JCheckBox(" Sauvegarder en tant que nouvelle realisation");
-			ancienneRea=new JCheckBox(" Ecraser la realisation courante");
+			group=new ButtonGroup();
+			newRea=new JRadioButton(" Sauvegarder en tant que nouvelle realisation");
+			oldRea=new JRadioButton(" Ecraser la realisation courante");
+			group.add(newRea);
+			group.add(oldRea);
+			newRea.setSelected(true);
+			oldRea.setSelected(false);
+			newRea.addMouseListener(this);
+			oldRea.addMouseListener(this);
 			if(this.nouveau){
 				JTextField j1 = new JTextField();
 				JTextField j2 = new JTextField();
@@ -139,8 +148,8 @@ public class WindowEnregistrer extends JFrame {
 			this.add(jlNbImages);
 			this.add(jlNbChargements);
 			this.add(jlNbRealisations);
-			this.add(nouvelleRea);
-			this.add(ancienneRea);
+			this.add(newRea);
+			this.add(oldRea);
 			this.add(jbOk);
 
 			jbOk.addMouseListener(this);

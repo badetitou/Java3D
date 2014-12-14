@@ -45,23 +45,24 @@ public class PanelEdit extends JPanel implements MouseListener, ChangeListener{
 		ButtonGroup bg = new ButtonGroup();
 		JRadioButton low = new JRadioButton("low");
 		JRadioButton medium = new JRadioButton("medium");
-		JRadioButton hight = new JRadioButton("hight");
+		JRadioButton high = new JRadioButton("high");
 		low.setOpaque(false);
 		medium.setOpaque(false);
-		hight.setOpaque(false);
+		high.setOpaque(false);
 		bg.add(low);
 		bg.add(medium);
-		bg.add(hight);
+		bg.add(high);
 		qualite.add(low);
 		qualite.add(medium);
-		qualite.add(hight);
+		qualite.add(high);
 		this.add(boutonCentre);
 		this.add(qualite);
 		low.setSelected(true);
 		medium.setSelected(false);
-		hight.setSelected(false);		low.addMouseListener(this);
+		high.setSelected(false);
+		low.addMouseListener(this);
 		medium.addMouseListener(this);
-		hight.addMouseListener(this);
+		high.addMouseListener(this);
 
 		/*
 		 * Couleur
