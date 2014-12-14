@@ -88,8 +88,8 @@ public class OutilsBdd {
 		}
 	}
 
-	
-	public JTable getDataAll() {
+	/* Méthode pour fabriquer le JTable à partir de la BDD complète */
+	public Object[][] getAllData() {
 		this.connect();
 		String query = "SELECT * from files";
 		int i = 0;
@@ -115,18 +115,15 @@ public class OutilsBdd {
 				data[g][4] = rs2.getString("nbrImg");
 				++g;
 			}
-		} 
-		catch (Exception e) {System.out.println(e.toString());
-			e.printStackTrace();
+		} catch (Exception e) {
+			System.out.println("Erreur dans getAllData");
+			System.out.println(e.getMessage());
 			this.close();
 			return null;
 		}
-		String title[] = { "Auteur", "Nom", "Dernière Modif", "Nb modifs", "Nb images"};
-		this.bdd = new JTable(new MyTableModel(data, title));
-		return bdd;
-		
+		this.close();
+		return data;
 	}
-	
 	
 	public void addFile(String name, String linkFile, String desc, String author, int nbrOpen, int nbrImg, int nbrModif, String linkImg, int size) {
 		this.connect();
@@ -499,27 +496,5 @@ public class OutilsBdd {
 			System.out.println(e.getMessage());
 			this.close();
 		}
-	}
-	
-	class MyTableModel extends DefaultTableModel {
-		 
-	    MyTableModel(Object[][] rows, String[] headers) {
-	        super(rows, headers);
-	    }
-	 
-	  /*  @Override
-	    public Class getColumnClass(int column) {
-	        Class returnValue;
-	        if ((column >= 0) && (column < getColumnCount())) {
-	            returnValue = getValueAt(0, column).getClass();
-	        } else {
-	            returnValue = Object.class;
-	        }
-	        return returnValue;
-	    }*/
-	    
-	    public boolean isCellEditable(int rowIndex, int columnIndex){
-	    	return false;
-	    }
 	}
 }

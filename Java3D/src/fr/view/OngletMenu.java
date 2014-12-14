@@ -18,8 +18,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTree;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
-
 import fr.model.OutilsBdd;
 
 public class OngletMenu extends JPanel implements MouseListener{
@@ -99,10 +99,13 @@ public class OngletMenu extends JPanel implements MouseListener{
 
 		private final JTable bdd;
 		private final OutilsBdd obdd;
+		private Object[][] data;
 
 		public PanelListebdd(TableModel model){
 			obdd = new OutilsBdd("Database.db");
-			bdd = obdd.getDataAll();
+			data = obdd.getAllData();
+			String title[] = { "Auteur", "Nom", "Dernière Modif", "Nb modifs", "Nb images"};
+			this.bdd = new JTable(new MyTableModel(data, title));
 			add(new JScrollPane(bdd), BorderLayout.CENTER );
 			bdd.getTableHeader().setReorderingAllowed(false);
 			bdd.getTableHeader().setResizingAllowed(false);
@@ -170,5 +173,17 @@ public class OngletMenu extends JPanel implements MouseListener{
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 
+	}
+	
+	public class MyTableModel extends DefaultTableModel {
+		 
+	    MyTableModel(Object[][] rows, String[] headers) {
+	        super(rows, headers);
+	    }
+
+	    
+	    public boolean isCellEditable(int rowIndex, int columnIndex){
+	    	return false;
+	    }
 	}
 }
