@@ -56,11 +56,11 @@ public class WindowEnregistrer extends JFrame {
 		private boolean nouveau;
 		private String nomAuteur;
 		private String nomFichier;
-		private String dateModiff;
-		private String dateAjoutt;
-		private int nImages;
-		private int nRealisations;
-		private int nChargements;
+		private final String dateModiff;
+		private final String dateAjoutt;
+		private final int nImages;
+		private final int nRealisations;
+		private final int nChargements;
 		private String description;
 		private final ArrayList<String>listeImages;
 		private final int nbImages;
@@ -105,40 +105,28 @@ public class WindowEnregistrer extends JFrame {
 				if(res!=-1 && res!=JOptionPane.CLOSED_OPTION){
 					this.nomFichier=j1.getText();
 					this.nomAuteur=j2.getText();
-					this.dateAjoutt=panelInfos.getDateAjoutt();
-					this.dateModiff=panelInfos.getDateModiff();
-					this.nChargements=panelInfos.getnChargements();
-					this.nRealisations=panelInfos.getnRealisations();
-					this.nImages=panelInfos.getnImages();
-					jbOk = new JButton("Valider la sauvegarde");
-					jlFen = new JLabel("Vous allez enregistré l'objet " +this.nomFichier+ " dans la BDD avec les informations suivantes:");
-					jlNomAuteur = new JLabel("Nom Auteur : " + this.nomAuteur);
-					jlNomObjet = new JLabel("Nom Objet : " + this.nomFichier);
-					jlDateAjout = new JLabel("Date d'ajout : " + this.dateAjoutt);
-					jlDerniereModif = new JLabel("Dernière modification : " + this.dateModiff);
-					jlNbChargements = new JLabel("Nombre de chargements : " + this.nChargements);
-					jlNbRealisations = new JLabel("Nombre de réalisations : " + this.nRealisations);
-					jlNbImages=new JLabel("Nombre d'images : "+listeImages.size());
 				}
 			}
 			else {
 				this.nomFichier=panelInfos.getNomFichier();
 				this.nomAuteur=panelInfos.getNomAuteur();
-				this.dateAjoutt=panelInfos.getDateAjoutt();
-				this.dateModiff=panelInfos.getDateModiff();
-				this.nChargements=panelInfos.getnChargements();
-				this.nRealisations=panelInfos.getnRealisations();
-				this.nImages=panelInfos.getnImages();
-				jbOk = new JButton("Valider la sauvegarde");
-				jlFen = new JLabel("Vous allez enregistré l'objet " +this.nomFichier+ " dans la BDD avec les informations suivantes:");
-				jlNomAuteur = new JLabel("Nom Auteur : " + this.nomAuteur);
-				jlNomObjet = new JLabel("Nom Objet : " + this.nomFichier);
-				jlDateAjout = new JLabel("Date d'ajout : " + this.dateAjoutt);
-				jlDerniereModif = new JLabel("Dernière modification : " + this.dateModiff);
-				jlNbChargements = new JLabel("Nombre de chargements : " + this.nChargements);
-				jlNbRealisations = new JLabel("Nombre de réalisations : " + this.nRealisations);
-				jlNbImages=new JLabel("Nombre d'images : "+listeImages.size());
 			}
+
+			this.dateAjoutt=panelInfos.getDateAjoutt();
+			this.dateModiff=panelInfos.getDateModiff();
+			this.nChargements=panelInfos.getnChargements();
+			this.nRealisations=panelInfos.getnRealisations();
+			this.nImages=panelInfos.getnImages();
+			jbOk = new JButton("Valider la sauvegarde");
+			jlFen = new JLabel("Vous allez enregistré l'objet " +this.nomFichier+ " dans la BDD avec les informations suivantes:");
+			jlNomAuteur = new JLabel("Nom Auteur : " + this.nomAuteur);
+			jlNomObjet = new JLabel("Nom Objet : " + this.nomFichier);
+			jlDateAjout = new JLabel("Date d'ajout : " + this.dateAjoutt);
+			jlDerniereModif = new JLabel("Dernière modification : " + this.dateModiff);
+			jlNbChargements = new JLabel("Nombre de chargements : " + this.nChargements);
+			jlNbRealisations = new JLabel("Nombre de réalisations : " + this.nRealisations);
+			jlNbImages=new JLabel("Nombre d'images : "+listeImages.size());
+
 			this.setLayout(new GridLayout(12, 1));
 			this.add(jlFen);
 			this.add(jlNomAuteur);
@@ -227,6 +215,7 @@ public class WindowEnregistrer extends JFrame {
 			return( resultat );
 		}
 
+		@Override
 		public void mouseClicked(MouseEvent e) {
 			if(e.getSource().equals(jbOk)){
 				if (this.nouveau){
@@ -292,25 +281,44 @@ public class WindowEnregistrer extends JFrame {
 				}
 				((Onglet)onglet).getPbdd().getInformations().actualiserInfos(this.nomFichier, this.nomAuteur, this.nbImages, 0,obdd.getDateLastModif(nomFichier));
 				((Onglet)onglet).getPbdd().getPanelDescription().actualiserDesc(this.description);
-				windowE.dispose();
+				if(newRea.isSelected()){
+					if(this.copieGTS(new File(lienGts), new File("fichiers"+File.separator+this.nomFichier+File.separator+"realisations"+File.separator+this.nomFichier+this.nRealisations+".gts"))){
+						windowE.dispose();
+					}
+					else {
+						JOptionPane.showMessageDialog(null,"La sauvegarde de : "+lienGts+" a échoué !","Sauvegarde échouée", JOptionPane.OK_OPTION);
+					}
+				}
+				else if (oldRea.isSelected()){
+					if(this.copieGTS(new File(lienGts), new File(lienGts))){
+						windowE.dispose();
+					}
+					else {
+						JOptionPane.showMessageDialog(null,"La sauvegarde de : "+lienGts+" a échoué !","Sauvegarde échouée", JOptionPane.OK_OPTION);
+					}
+				}
 			}
 		}
 
+		@Override
 		public void mouseEntered(MouseEvent arg0) {
 			// TODO Auto-generated method stub
 
 		}
 
+		@Override
 		public void mouseExited(MouseEvent arg0) {
 			// TODO Auto-generated method stub
 
 		}
 
+		@Override
 		public void mousePressed(MouseEvent arg0) {
 			// TODO Auto-generated method stub
 
 		}
 
+		@Override
 		public void mouseReleased(MouseEvent arg0) {
 			// TODO Auto-generated method stub
 
