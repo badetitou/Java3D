@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
@@ -19,12 +21,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTree;
 import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
 import javax.swing.RowSorter;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import fr.model.OutilsBdd;
@@ -37,13 +39,15 @@ public class OngletMenu extends JPanel implements MouseListener{
 	private final JPanel p1;
 	private final JTabbedPane tabbedPane;
 	private final ArrayList<Object>listeOnglets;
+	private final PanelListebdd plbdd;
 
 	public OngletMenu(JTabbedPane tabbedPane,ArrayList<Object>listeOnglets){
 		this.listeOnglets=listeOnglets;
 		this.tabbedPane=tabbedPane;
 		this.setLayout(new GridLayout(1,3));
 		this.add(new PanelCrit());
-		this.add(new PanelListebdd(null));
+		this.plbdd = new PanelListebdd();
+		this.add(plbdd);
 		this.add(new PanelArboPreview());
 		listeOnglets.add(this);
 		closeButon = new JLabel(new ImageIcon(new ImageIcon("ressources/icones/fermer.png").getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH)));
@@ -73,7 +77,7 @@ public class OngletMenu extends JPanel implements MouseListener{
 	}
 
 
-	public class PanelCrit extends JPanel{
+	public class PanelCrit extends JPanel implements ActionListener{
 
 		private final JButton valider;
 		private final JLabel sensASC;
@@ -81,44 +85,73 @@ public class OngletMenu extends JPanel implements MouseListener{
 		private final JLabel jt1;
 		private final JLabel jt2;
 		private final JLabel jt3;
+		private final JTextArea jta;
+
 
 		public PanelCrit(){
 			this.setLayout(new FlowLayout());
 			this.valider = new JButton("Valider");
-			this.jt1 = new JLabel("Recherche Avancée: ");
-			this.jt2 = new JLabel("Critère: ");
+			this.jt1 = new JLabel("Recherche Avancï¿½e: ");
+			this.jt2 = new JLabel("Critï¿½re: ");
 			this.jt3 = new JLabel("Sens: ");
 			this.sensASC = new JLabel(new ImageIcon(new ImageIcon("ressources/icones/flecheHaut.png").getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH)));
 			this.sensDESC = new JLabel(new ImageIcon(new ImageIcon("ressources/icones/flecheBas.png").getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH)));
-			this.add(jt1);
+			/*this.add(jt1);
 			this.add(jt2);
 			this.add(jt3);
 			this.add(sensASC);
 			this.add(sensDESC);
+			*/
+			this.jta = new JTextArea("Filtre");
+			this.add(jta);
 			this.add(valider);
 			this.setBorder(BorderFactory.createLoweredBevelBorder());
-
+			this.valider.addActionListener(this);
 		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if(e.getSource().equals(valider)){
+				plbdd.filtre = jta.getText();
+				plbdd.removeAll();
+				plbdd.initialise();
+				plbdd.revalidate();
+				plbdd.repaint();
+			}
+		}
+
 
 	}
 
 	public class PanelListebdd extends JPanel{
 
-		private final JTable bdd;
+		private JTable bdd;
 		private final OutilsBdd obdd;
 		private Object[][] data;
+		private String filtre;
+		private RowSorter<MyTableModel> sorter;
+		private RowFilter<MyTableModel, Object> rf;
+		private MyTableModel mtm;
 
-		public PanelListebdd(TableModel model){
+		public PanelListebdd(){
 			obdd = new OutilsBdd("Database.db");
 			data = obdd.getAllData();
-			String title[] = { "Nom", "Auteur", "Dernière Modif", "Nb ouverture", "Nb images"};
-			MyTableModel mtm = new MyTableModel(data, title);
+			String title[] = { "Nom", "Auteur", "Derniï¿½re Modif", "Nb ouverture", "Nb images"};
+			this.mtm = new MyTableModel(data, title);
+			this.sorter = new TableRowSorter<>(mtm);
+			this.rf = null;
+			this.filtre = "";
+			this.initialise();
+			this.setBorder(BorderFactory.createLoweredBevelBorder());
+
+		}
+		
+		public void initialise(){
+			
 			this.bdd = new JTable(mtm);
-			RowSorter<MyTableModel> sorter = new TableRowSorter<>(mtm);
 			bdd.setRowSorter(sorter);
-			RowFilter<MyTableModel, Object> rf = null;
-		    try {
-		        rf = RowFilter.regexFilter("Lapin", 0);
+			try {
+		        rf = RowFilter.regexFilter(filtre, 1);
 		    } catch (PatternSyntaxException pse) {
 		        return;
 		    }
@@ -130,9 +163,9 @@ public class OngletMenu extends JPanel implements MouseListener{
 			bdd.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	        bdd.addMouseListener(new java.awt.event.MouseAdapter() {
 	            public void mouseClicked(java.awt.event.MouseEvent evt) {
-	                //N° de la ligne séléctionnée
+	                //Nï¿½ de la ligne sï¿½lï¿½ctionnï¿½e
 	                int row = bdd.getSelectedRow();
-	                //N° de ligne du tableau trié
+	                //Nï¿½ de ligne du tableau triï¿½
 	                int sortedRow = bdd.convertRowIndexToModel(row);
 	                Object row1 = bdd.getModel().getValueAt(sortedRow, 0);
 	                Object row2 = bdd.getModel().getValueAt(sortedRow, 1);
@@ -141,11 +174,10 @@ public class OngletMenu extends JPanel implements MouseListener{
 	                Object row5 = bdd.getModel().getValueAt(sortedRow, 4);
 	            }
 	        });
-			this.setBorder(BorderFactory.createLoweredBevelBorder());
-
 		}
 	}
 
+	
 	public class PanelArboPreview extends JPanel{
 
 		private final JPanel panelTree;
