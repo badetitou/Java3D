@@ -1,6 +1,7 @@
 package fr.view;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -10,6 +11,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.PatternSyntaxException;
 
 import javax.swing.BorderFactory;
@@ -27,6 +29,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
 import javax.swing.RowSorter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import fr.model.OutilsBdd;
@@ -85,7 +88,8 @@ public class OngletMenu extends JPanel implements MouseListener{
 		private final JLabel jt1;
 		private final JLabel jt2;
 		private final JLabel jt3;
-		private final JTextArea jta;
+		private final JTextArea jta1;
+		private final JTextArea jta2;
 
 
 		public PanelCrit(){
@@ -102,8 +106,12 @@ public class OngletMenu extends JPanel implements MouseListener{
 			this.add(sensASC);
 			this.add(sensDESC);
 			*/
-			this.jta = new JTextArea("Filtre");
-			this.add(jta);
+			this.jta1 = new JTextArea("Filtre1");
+			this.jta1.setPreferredSize(new Dimension(40,20));
+			this.add(jta1);
+			this.jta2 = new JTextArea("Filtre2");
+			this.jta2.setPreferredSize(new Dimension(40,20));
+			this.add(jta2);
 			this.add(valider);
 			this.setBorder(BorderFactory.createLoweredBevelBorder());
 			this.valider.addActionListener(this);
@@ -112,7 +120,8 @@ public class OngletMenu extends JPanel implements MouseListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource().equals(valider)){
-				plbdd.filtre = jta.getText();
+				plbdd.filtre1 = jta1.getText();
+				plbdd.filtre2 = jta2.getText();
 				plbdd.removeAll();
 				plbdd.initialise();
 				plbdd.revalidate();
@@ -128,9 +137,13 @@ public class OngletMenu extends JPanel implements MouseListener{
 		private JTable bdd;
 		private final OutilsBdd obdd;
 		private Object[][] data;
-		private String filtre;
+		private String filtre1;
+		private String filtre2;
 		private RowSorter<MyTableModel> sorter;
-		private RowFilter<MyTableModel, Object> rf;
+		private RowFilter<MyTableModel, Object> rf1;
+		private RowFilter<MyTableModel, Object> rf2;
+		RowFilter<MyTableModel, Object> compoundRowFilter = null;
+		List<RowFilter<MyTableModel,Object>> filters;
 		private MyTableModel mtm;
 
 		public PanelListebdd(){
@@ -139,8 +152,10 @@ public class OngletMenu extends JPanel implements MouseListener{
 			String title[] = { "Nom", "Auteur", "Derni�re Modif", "Nb ouverture", "Nb images"};
 			this.mtm = new MyTableModel(data, title);
 			this.sorter = new TableRowSorter<>(mtm);
-			this.rf = null;
-			this.filtre = "";
+			this.rf1 = null;
+			this.rf2 = null;
+			this.filtre1 = "";
+			this.filtre2 = "";
 			this.initialise();
 			this.setBorder(BorderFactory.createLoweredBevelBorder());
 
@@ -149,13 +164,20 @@ public class OngletMenu extends JPanel implements MouseListener{
 		public void initialise(){
 			
 			this.bdd = new JTable(mtm);
+			this.filters = new ArrayList<RowFilter<MyTableModel,Object>>();
 			bdd.setRowSorter(sorter);
 			try {
-		        rf = RowFilter.regexFilter(filtre, 1);
+				if (filtre1 != "" || filtre1 != null){
+			    rf1 = RowFilter.regexFilter("(?i)" +filtre1, 0);}
+				if (filtre2 != "" || filtre2 != null){
+			    rf2 = RowFilter.regexFilter("(?i)" +filtre2, 1);}
+			    filters.add(rf1);
+			    filters.add(rf2);
+			    compoundRowFilter = RowFilter.andFilter(filters); // you may also choose the OR filter
 		    } catch (PatternSyntaxException pse) {
 		        return;
 		    }
-		    ((DefaultRowSorter<MyTableModel, Integer>) sorter).setRowFilter(rf);
+			((DefaultRowSorter<MyTableModel, Integer>) sorter).setRowFilter(compoundRowFilter);
 
 			add(new JScrollPane(bdd), BorderLayout.CENTER );
 			bdd.getTableHeader().setReorderingAllowed(false);
