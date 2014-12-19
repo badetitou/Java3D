@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import javax.swing.JTable;
@@ -160,7 +161,7 @@ public class OutilsBdd {
 		return data;
 	}
 	
-	public void addFile(String name, String linkFile, String desc, String author, int nbrOpen, int nbrImg, int nbrModif, String linkImg, int size) {
+	public void addFile(String name, String linkFile, String desc, String author, int nbrOpen, int nbrImg, int nbrModif, int nbrRea, String linkImg) {
 		this.connect();
 		Calendar rightNow = Calendar.getInstance();
 		String date = rightNow.get(Calendar.YEAR)+"-"+rightNow.get(Calendar.MONTH)+"-"+rightNow.get(Calendar.DAY_OF_MONTH);
@@ -174,8 +175,8 @@ public class OutilsBdd {
 				+ nbrOpen +"','"
 				+ nbrImg +"','"
 				+ nbrModif +"','"
-				+ linkImg +"','"
-				+ size +"')";
+				+ nbrRea +"','"
+				+ linkImg +"')";
 		try {
 			statement.executeUpdate(requet);
 		} catch (Exception e) {
@@ -504,14 +505,14 @@ public class OutilsBdd {
 		}
 	}
 
-	public int getSize (String name) {
+	public int getNbrRea (String name) {
 		this.connect();
-		String query = "SELECT size FROM files WHERE name='"+name+"'";
+		String query = "SELECT nbrRea FROM files WHERE name='"+name+"'";
 		try {
 			ResultSet rs = statement.executeQuery(query);
-			int size=rs.getInt(1);
+			int rea=rs.getInt(1);
 			this.close();
-			return size;
+			return rea;
 		} catch (Exception e) {
 			System.out.println("Erreur dans getSize");
 			System.out.println(e.getMessage());
@@ -520,9 +521,9 @@ public class OutilsBdd {
 		}
 	}
 
-	public void setSize (int i, String name) {
+	public void setNbrRea (int i, String name) {
 		this.connect();
-		String req = "UPDATE files SET size = "+i+" WHERE name='"+name+"'";
+		String req = "UPDATE nbrRea SET size = "+i+" WHERE name='"+name+"'";
 		try {
 			statement.executeUpdate(req);
 			this.close();
@@ -530,6 +531,24 @@ public class OutilsBdd {
 			System.out.println("Erreur dans setSize");
 			System.out.println(e.getMessage());
 			this.close();
+		}
+	}
+	
+	public ArrayList<String> getTags (String name) {
+		ArrayList<String> liste = new ArrayList<String>();
+		String query = "SELECT tag FROM tags WHERE file='"+name+"'";
+		try {
+			ResultSet rs = statement.executeQuery(query);
+			while (rs.next()) {
+				liste.add(rs.getString("tag"));
+			}
+			this.close();
+			return liste;
+		} catch (Exception e) {
+			System.out.println("Erreur dans getSize");
+			System.out.println(e.getMessage());
+			this.close();
+			return liste;
 		}
 	}
 }

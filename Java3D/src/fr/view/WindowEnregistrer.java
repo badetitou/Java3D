@@ -236,7 +236,7 @@ public class WindowEnregistrer extends JFrame {
 							//System.out.println("Sauvegarde réussie");
 						}
 					}
-					obdd.addFile(this.nomFichier, "fichiers"+File.separator+this.nomFichier+File.separator+this.nomFichier+".gts", this.description, this.nomAuteur, this.nChargements, listeImages.size(), this.nRealisations, "fichiers"+File.separator+this.nomFichier+File.separator+"images"+File.separator, 0);
+					obdd.addFile(this.nomFichier, "fichiers"+File.separator+this.nomFichier+File.separator+this.nomFichier+".gts", this.description, this.nomAuteur, this.nChargements, listeImages.size(), this.nRealisations, 0, "fichiers"+File.separator+this.nomFichier+File.separator+"images"+File.separator);
 					this.nouveau=false;
 					((Onglet)onglet).setNouveau(false);
 					((Onglet)onglet).actualiserOnglet(this.nomFichier);
