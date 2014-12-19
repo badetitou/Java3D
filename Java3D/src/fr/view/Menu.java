@@ -18,6 +18,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import javax.swing.KeyStroke;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import fr.model.Face;
@@ -67,7 +69,7 @@ public class Menu extends JMenuBar implements ActionListener {
 
 	private final ArrayList<Object> listeOnglets;
 
-	public Menu(JTabbedPane tabbedPane, ArrayList<Object> listeOnglets) {
+	public Menu(final JTabbedPane tabbedPane, ArrayList<Object> listeOnglets) {
 		this.tabbedPane = tabbedPane;
 		this.listeOnglets = listeOnglets;
 		this.panelInfos = panelInfos;
@@ -173,6 +175,33 @@ public class Menu extends JMenuBar implements ActionListener {
 		this.add(mOptions);
 		this.add(mInfos);
 
+		mFichier.addMenuListener(new MenuListener() {
+
+			@Override
+			public void menuSelected(MenuEvent e) {
+				if(e.getSource().equals(mFichier) && tabbedPane.getSelectedComponent() instanceof OngletMenu){
+					mIFEnregistrer.setEnabled(false);
+					mIFExporter.setEnabled(false);
+					mIFProprietes.setEnabled(false);
+				}
+
+				if(e.getSource().equals(mFichier) && tabbedPane.getSelectedComponent() instanceof Onglet){
+					mIFEnregistrer.setEnabled(true);
+					mIFExporter.setEnabled(true);
+					mIFProprietes.setEnabled(true);
+				}
+
+			}
+
+			@Override
+			public void menuDeselected(MenuEvent e) {
+
+			}
+
+			@Override
+			public void menuCanceled(MenuEvent e) {
+			}
+		});
 		mIFOuvrir.addActionListener(this);
 		mIFEnregistrer.addActionListener(this);
 		mIFQuitter.addActionListener(this);
@@ -253,7 +282,7 @@ public class Menu extends JMenuBar implements ActionListener {
 				String chemin = filechoose.getSelectedFile().getAbsolutePath()+File.separator+((Onglet) onglet).getNomFichier()+".gts";
 				String urlSource=((Onglet) onglet).getDp().getUrl();
 				if(this.copieGTS(new File(urlSource), new File(chemin))){
-					JOptionPane.showMessageDialog(null,"L'exportation de : "+urlSource+" a fonctionné !","Exportation réussie", JOptionPane.OK_OPTION);
+					JOptionPane.showMessageDialog(null,"L'exportation de : "+urlSource+" a fonctionné !","Exportation réussie", JOptionPane.INFORMATION_MESSAGE);
 				}
 				else {
 					JOptionPane.showMessageDialog(null,"L'exportation de : "+urlSource+" a échoué !","Exportation échouée", JOptionPane.OK_OPTION);

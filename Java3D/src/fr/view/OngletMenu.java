@@ -110,7 +110,7 @@ public class OngletMenu extends JPanel implements MouseListener{
 			this.add(jt3);
 			this.add(sensASC);
 			this.add(sensDESC);
-			*/
+			 */
 			this.jta1 = new JTextField("");
 			this.jta1.setPreferredSize(new Dimension(50,20));
 			this.add(jta1);
@@ -147,7 +147,8 @@ public class OngletMenu extends JPanel implements MouseListener{
 				}
 			}
 		}
-		
+
+		@Override
 		public void itemStateChanged(ItemEvent e) {
 			if(e.getStateChange() == ItemEvent.SELECTED){
 				authorCheck = "checked";
@@ -182,7 +183,7 @@ public class OngletMenu extends JPanel implements MouseListener{
 			this.setBorder(BorderFactory.createLoweredBevelBorder());
 
 		}
-		
+
 		public void initialise(){
 			obdd = new OutilsBdd("Database.db");
 			data = obdd.getAllData();
@@ -196,36 +197,37 @@ public class OngletMenu extends JPanel implements MouseListener{
 			bdd.setRowSorter(sorter);
 			try {
 				if (filtre1 != "" || filtre1 != null){
-			    rf1 = RowFilter.regexFilter("(?i)" +filtre1, 0);}
+					rf1 = RowFilter.regexFilter("(?i)" +filtre1, 0);}
 				if (filtre2 != "" || filtre2 != null){
-			    rf2 = RowFilter.regexFilter("(?i)" +filtre2, 1);}
-			    filters.add(rf1);
-			    filters.add(rf2);
-			    compoundRowFilter = RowFilter.andFilter(filters); // you may also choose the OR filter
-		    } catch (PatternSyntaxException pse) {
-		        return;
-		    }
+					rf2 = RowFilter.regexFilter("(?i)" +filtre2, 1);}
+				filters.add(rf1);
+				filters.add(rf2);
+				compoundRowFilter = RowFilter.andFilter(filters); // you may also choose the OR filter
+			} catch (PatternSyntaxException pse) {
+				return;
+			}
 			((DefaultRowSorter<MyTableModel, Integer>) sorter).setRowFilter(compoundRowFilter);
 
 			add(new JScrollPane(bdd), BorderLayout.CENTER );
 			bdd.getTableHeader().setReorderingAllowed(false);
 			bdd.getTableHeader().setResizingAllowed(false);
 			bdd.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-	        bdd.addMouseListener(new java.awt.event.MouseAdapter() {
-	            public void mouseClicked(java.awt.event.MouseEvent evt) {
-	                //N� de la ligne s�l�ctionn�e
-	                int row = bdd.getSelectedRow();
-	                //N� de ligne du tableau tri�
-	                int sortedRow = bdd.convertRowIndexToModel(row);
-	                Object row1 = bdd.getModel().getValueAt(sortedRow, 0);
-	                Object row2 = bdd.getModel().getValueAt(sortedRow, 1);
-	                Object row3 = bdd.getModel().getValueAt(sortedRow, 2);
-	                Object row4 = bdd.getModel().getValueAt(sortedRow, 3);
-	                Object row5 = bdd.getModel().getValueAt(sortedRow, 4);
-	            }
-	        });
+			bdd.addMouseListener(new java.awt.event.MouseAdapter() {
+				@Override
+				public void mouseClicked(java.awt.event.MouseEvent evt) {
+					//N� de la ligne s�l�ctionn�e
+					int row = bdd.getSelectedRow();
+					//N� de ligne du tableau tri�
+					int sortedRow = bdd.convertRowIndexToModel(row);
+					Object row1 = bdd.getModel().getValueAt(sortedRow, 0);
+					Object row2 = bdd.getModel().getValueAt(sortedRow, 1);
+					Object row3 = bdd.getModel().getValueAt(sortedRow, 2);
+					Object row4 = bdd.getModel().getValueAt(sortedRow, 3);
+					Object row5 = bdd.getModel().getValueAt(sortedRow, 4);
+				}
+			});
 		}
-		
+
 		public void initialiseNoAuthor(){
 			obdd = new OutilsBdd("Database.db");
 			data = obdd.getNoAuthorData();
@@ -241,38 +243,39 @@ public class OngletMenu extends JPanel implements MouseListener{
 			bdd.setRowSorter(sorter);
 			try {
 				if (filtre1 != "" || filtre1 != null){
-			    rf1 = RowFilter.regexFilter("(?i)" +filtre1, 0);}
+					rf1 = RowFilter.regexFilter("(?i)" +filtre1, 0);}
 				if (filtre2 != "" || filtre2 != null){
-			    rf2 = RowFilter.regexFilter("(?i)" +filtre2, 1);}
-			    filters.add(rf1);
-			    filters.add(rf2);
-			    compoundRowFilter = RowFilter.andFilter(filters); // you may also choose the OR filter
-		    } catch (PatternSyntaxException pse) {
-		        return;
-		    }
-			((DefaultRowSorter<MyTableModel, Integer>) sorter).setRowFilter(compoundRowFilter);
+					rf2 = RowFilter.regexFilter("(?i)" +filtre2, 1);}
+				filters.add(rf1);
+				filters.add(rf2);
+				compoundRowFilter = RowFilter.andFilter(filters); // you may also choose the OR filter
+			} catch (PatternSyntaxException pse) {
+				return;
+			}
+			//((DefaultRowSorter<MyTableModel, Integer>) sorter).setRowFilter(compoundRowFilter);
 
 			add(new JScrollPane(bdd), BorderLayout.CENTER );
 			bdd.getTableHeader().setReorderingAllowed(false);
 			bdd.getTableHeader().setResizingAllowed(false);
 			bdd.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-	        bdd.addMouseListener(new java.awt.event.MouseAdapter() {
-	            public void mouseClicked(java.awt.event.MouseEvent evt) {
-	                //N� de la ligne s�l�ctionn�e
-	                int row = bdd.getSelectedRow();
-	                //N� de ligne du tableau tri�
-	                int sortedRow = bdd.convertRowIndexToModel(row);
-	                Object row1 = bdd.getModel().getValueAt(sortedRow, 0);
-	                Object row2 = bdd.getModel().getValueAt(sortedRow, 1);
-	                Object row3 = bdd.getModel().getValueAt(sortedRow, 2);
-	                Object row4 = bdd.getModel().getValueAt(sortedRow, 3);
-	                Object row5 = bdd.getModel().getValueAt(sortedRow, 4);
-	            }
-	        });
+			bdd.addMouseListener(new java.awt.event.MouseAdapter() {
+				@Override
+				public void mouseClicked(java.awt.event.MouseEvent evt) {
+					//N� de la ligne s�l�ctionn�e
+					int row = bdd.getSelectedRow();
+					//N� de ligne du tableau tri�
+					int sortedRow = bdd.convertRowIndexToModel(row);
+					Object row1 = bdd.getModel().getValueAt(sortedRow, 0);
+					Object row2 = bdd.getModel().getValueAt(sortedRow, 1);
+					Object row3 = bdd.getModel().getValueAt(sortedRow, 2);
+					Object row4 = bdd.getModel().getValueAt(sortedRow, 3);
+					Object row5 = bdd.getModel().getValueAt(sortedRow, 4);
+				}
+			});
 		}
 	}
 
-	
+
 	public class PanelArboPreview extends JPanel{
 
 		private final JPanel panelTree;
@@ -306,6 +309,7 @@ public class OngletMenu extends JPanel implements MouseListener{
 		}
 	}
 
+	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(e.getSource().equals(closeButon)){
 			tabbedPane.remove(this);
@@ -314,45 +318,50 @@ public class OngletMenu extends JPanel implements MouseListener{
 
 	}
 
+	@Override
 	public void mouseEntered(MouseEvent arg0) {
 		closeButon.setIcon(new ImageIcon(new ImageIcon("ressources/icones/fermer2.png").getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH)));
 
 	}
 
+	@Override
 	public void mouseExited(MouseEvent arg0) {
 		closeButon.setIcon(new ImageIcon(new ImageIcon("ressources/icones/fermer.png").getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH)));
 
 	}
 
+	@Override
 	public void mousePressed(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 
 	}
 
+	@Override
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	public class MyTableModel extends DefaultTableModel {
-		 
-	    MyTableModel(Object[][] rows, String[] headers) {
-	        super(rows, headers);
-	    }
-	    
-	    @Override
-	    public Class getColumnClass(int column) {
-	        Class returnValue;
-	        if ((column >= 0) && (column < getColumnCount())) {
-	            returnValue = getValueAt(0, column).getClass();
-	        } else {
-	            returnValue = Object.class;
-	        }
-	        return returnValue;
-	    }
-	    
-	    public boolean isCellEditable(int rowIndex, int columnIndex){
-	    	return false;
-	    }
+
+		MyTableModel(Object[][] rows, String[] headers) {
+			super(rows, headers);
+		}
+
+		@Override
+		public Class getColumnClass(int column) {
+			Class returnValue;
+			if ((column >= 0) && (column < getColumnCount())) {
+				returnValue = getValueAt(0, column).getClass();
+			} else {
+				returnValue = Object.class;
+			}
+			return returnValue;
+		}
+
+		@Override
+		public boolean isCellEditable(int rowIndex, int columnIndex){
+			return false;
+		}
 	}
 }
