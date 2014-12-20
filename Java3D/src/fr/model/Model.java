@@ -71,10 +71,10 @@ public class Model {
 		double yMin = getMinY();
 		double zMax = getMaxZ();
 		double zMin = getMinY();
-		for(int i = 0;i < rt.getPointList().size();++i){
-			rt.getPointList().get(i).x = rt.getPointList().get(i).x - ((xMax + xMin)/2);
-			rt.getPointList().get(i).y = rt.getPointList().get(i).y - ((yMax + yMin)/2);
-			rt.getPointList().get(i).z = rt.getPointList().get(i).z - ((zMax + zMin)/2);
+		for (Point p : rt.getPointList()){
+			p.x = p.x - (xMax + xMin)/2;
+			p.y = p.y - (yMax + yMin)/2;
+			p.z = p.z - (zMax + zMin)/2;
 		}
 	}
 
@@ -173,11 +173,19 @@ public class Model {
 	public void zoomAuto() {
 		recentrer();
 		double maxX = getMaxX();
-		zoom((d.getWidth() / 2 - 20) / maxX);
-
+		zoom(d.width/(2*maxX + 250));
+		
+		double minX = Math.abs(getMinX());
+		if (minX > d.getHeight()/2)
+			zoom(d.height/(2*minX + 250));
+		
+		double minY = Math.abs(getMinY());
+		if (minY > d.getHeight()/2)
+			zoom(d.height/(2*minY + 250));
+		
 		double maxY = getMaxY();
-		if (maxY > d.getHeight() / 2 - 50)
-			zoom((d.getHeight() / 2 - 50) / maxY);
+		if (maxY > d.getHeight()/2)
+			zoom(d.height/(2*maxY + 250));
 	}
 
 	/**

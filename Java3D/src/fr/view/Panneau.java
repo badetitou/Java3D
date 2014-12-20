@@ -212,15 +212,15 @@ public class Panneau extends JPanel implements MouseListener, ChangeListener {
 	 * de visibilité
 	 */
 	private void initPopMenu() {
-		//parent menu
+		// parent menu
 		popMenu = new JPopupMenu("Menu");
 
-		//sub menu
+		// sub menu
 		JMenu sectionsMenu = new JMenu("Sections");
 		JMenuItem menuItem1 = new JMenuItem("Item1");
-		sectionsMenu .add(menuItem1 );
+		sectionsMenu.add(menuItem1);
 		JMenuItem menuItem2 = new JMenuItem("Item2");
-		sectionsMenu.add(menuItem2 );
+		sectionsMenu.add(menuItem2);
 
 		popMenu.add(sectionsMenu);
 		popMenu.add(menuItem1);
@@ -279,11 +279,12 @@ public class Panneau extends JPanel implements MouseListener, ChangeListener {
 				g.drawRect((int) (p.x + m.xTranslate),
 						(int) (p.y + m.yTranslate), 1, 1);
 		}
-		
-		g.setColor(Color.BLACK);
-		g.drawString("Hauteur : " + m.getHauteurModel() , 0, 15);
-		g.drawString("Largeur : " + m.getLargeurModel(), 0, 30);
-		g.drawString("Profondeur : " + m.getProfondeurModel(), 0, 45);
+		if (!getBarreVerticale().isBb2()) {
+			g.setColor(Color.BLACK);
+			g.drawString("Hauteur : " + m.getHauteurModel(), 0, 15);
+			g.drawString("Largeur : " + m.getLargeurModel(), 0, 30);
+			g.drawString("Profondeur : " + m.getProfondeurModel(), 0, 45);
+		}
 		g.dispose();
 	}
 
