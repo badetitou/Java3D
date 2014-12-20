@@ -24,6 +24,11 @@ public class PanelEdit extends JPanel implements MouseListener, ChangeListener{
 	private final MyDeskTopPane dp;
 	private final BarreVerticale bv;
 	private final JColorChooser jcc;
+	private final JRadioButton low;
+	private final JRadioButton medium;
+	private final JRadioButton high;
+
+	
 	public PanelEdit(MyDeskTopPane dp,BarreVerticale bv){
 		this.bv=bv;
 		this.dp=dp;
@@ -43,9 +48,9 @@ public class PanelEdit extends JPanel implements MouseListener, ChangeListener{
 		JPanel qualite = new JPanel();
 		qualite.setBackground(new Color(190,190,190));
 		ButtonGroup bg = new ButtonGroup();
-		JRadioButton low = new JRadioButton("low");
-		JRadioButton medium = new JRadioButton("medium");
-		JRadioButton high = new JRadioButton("high");
+		low = new JRadioButton("low");
+		medium = new JRadioButton("medium");
+		high = new JRadioButton("high");
 		low.setOpaque(false);
 		medium.setOpaque(false);
 		high.setOpaque(false);
@@ -87,11 +92,11 @@ public class PanelEdit extends JPanel implements MouseListener, ChangeListener{
 				this.dp.getModel().zoomAuto();
 			}
 			this.dp.repaint();
-		} else if(e.getSource().equals("low")){
+		} else if(e.getSource().equals(low)){
 			this.dp.getPanel().setQualite(0);
-		} else if (e.getSource().equals("medium")){
+		} else if (e.getSource().equals(medium)){
 			this.dp.getPanel().setQualite(1);
-		} else if (e.getSource().equals("hight")){
+		} else if (e.getSource().equals(high)){
 			this.dp.getPanel().setQualite(2);
 		}
 	}

@@ -14,8 +14,10 @@ import java.awt.event.MouseWheelListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.SwingUtilities;
 
 import fr.model.Face;
 import fr.model.Model;
@@ -89,21 +91,24 @@ public class Panneau extends JPanel {
 					control = true;
 				}
 			});
+
 			this.addMouseListener(new MouseListener() {
 				public void mouseClicked(MouseEvent arg0) {
-					if (getBarreVerticale().getModeEdit()) {
-						if (!control) {
-							m.reinitSelected();
+					if (MouseEvent.BUTTON1 == arg0.getButton()) {
+						if (getBarreVerticale().getModeEdit()) {
+							if (!control) {
+								m.reinitSelected();
+							}
+							Face selected = m.getParticularFace(coordMouseX,
+									coordMouseY);
+							if (selected != null) {
+								if (selected.isSelected())
+									selected.setSelected(false);
+								else
+									selected.setSelected(true);
+							}
+							repaint();
 						}
-						Face selected = m.getParticularFace(coordMouseX,
-								coordMouseY);
-						if (selected != null) {
-							if (selected.isSelected())
-								selected.setSelected(false);
-							else
-								selected.setSelected(true);
-						}
-						repaint();
 					}
 				}
 
@@ -117,7 +122,17 @@ public class Panneau extends JPanel {
 				public void mousePressed(MouseEvent arg0) {
 				}
 
+				/*
+				 * Clic Droit Pop-Up Menu
+				 */
 				public void mouseReleased(MouseEvent arg0) {
+					if (arg0.getButton() == MouseEvent.BUTTON3) {
+						popMenu.setLocation(arg0.getLocationOnScreen());
+						popMenu.setVisible(true);
+					}
+					else {
+						popMenu.setVisible(false);
+					}
 				}
 			});
 
@@ -134,7 +149,7 @@ public class Panneau extends JPanel {
 				}
 
 				public void mouseDragged(MouseEvent e) {
-					if (m.vue == 0) {
+					if (SwingUtilities.isLeftMouseButton(e) && m.vue == 0) {
 						if (Barre.boolButtonRotation) {
 							if (Barre.boolButtonX && Barre.boolButtonY) {
 								m.rotationX(e.getX() - coordMouseX);
@@ -159,15 +174,15 @@ public class Panneau extends JPanel {
 						coordMouseX = e.getX();
 						coordMouseY = e.getY();
 						m.trieFace();
+
 						repaint();
 					}
 				}
 			});
-			/*
-			 * Maintenant le menu / popup
-			 */
-			this.popMenu = new JPopupMenu();
-			popMenu.setVisible(true);
+			popMenu = new JPopupMenu("Option");
+			popMenu.add(new JMenuItem("text 1"));
+			popMenu.add(new JMenuItem("text 2"));
+			popMenu.pack();
 		}
 		m.trieFace();
 		repaint();
@@ -183,7 +198,7 @@ public class Panneau extends JPanel {
 					RenderingHints.VALUE_RENDER_QUALITY);
 			g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING,
 					RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-		} else if (qualite == 1){
+		} else if (qualite == 1) {
 			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 					RenderingHints.VALUE_ANTIALIAS_OFF);
 			g.setRenderingHint(RenderingHints.KEY_RENDERING,
@@ -222,7 +237,8 @@ public class Panneau extends JPanel {
 			}
 		} else if (getBarreVerticale().isDot()) {
 			for (fr.model.Point p : m.getListPoint())
-				g.drawRect((int) (p.x + m.xTranslate), (int) (p.y + m.yTranslate), 1, 1);
+				g.drawRect((int) (p.x + m.xTranslate),
+						(int) (p.y + m.yTranslate), 1, 1);
 		}
 		g.dispose();
 	}
