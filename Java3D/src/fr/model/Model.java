@@ -20,6 +20,19 @@ public class Model {
 	public double yTranslate = 0;
 	private Dimension d;
 
+	
+	public double getHauteurModel(){
+		return getMaxY() + Math.abs(getMinY());
+	}
+	
+	public double getLargeurModel(){
+		return getMaxX() + Math.abs(getMinX());
+	}
+	
+	public double getProfondeurModel(){
+		return getMaxZ() + Math.abs(getMinZ());
+	}
+	
 	/**
 	 * 
 	 * @param url
@@ -52,26 +65,12 @@ public class Model {
 	 * Permet de centrer l'image pour des rotations centrees
 	 */
 	private void centrage(){
-		double xMax = 0;
-		double xMin = 0;
-		double yMax = 0;
-		double yMin = 0;
-		double zMax = 0;
-		double zMin = 0;
-		for (int i = 0; i<rt.getPointList().size(); ++i){
-			if (rt.getPointList().get(i).x > xMax)
-				xMax = rt.getPointList().get(i).x;
-			else if (rt.getPointList().get(i).x < xMin)
-				xMin = rt.getPointList().get(i).x;
-			if (rt.getPointList().get(i).y > yMax)
-				yMax = rt.getPointList().get(i).y;
-			else if (rt.getPointList().get(i).y < yMin)
-				yMin = rt.getPointList().get(i).y;
-			if (rt.getPointList().get(i).z > zMax)
-				zMax = rt.getPointList().get(i).z;
-			else if (rt.getPointList().get(i).z < zMin)
-				zMin = rt.getPointList().get(i).z;
-		}
+		double xMax = getMaxX();
+		double xMin = getMinX();
+		double yMax = getMaxY();
+		double yMin = getMinY();
+		double zMax = getMaxZ();
+		double zMin = getMinY();
 		for(int i = 0;i < rt.getPointList().size();++i){
 			rt.getPointList().get(i).x = rt.getPointList().get(i).x - ((xMax + xMin)/2);
 			rt.getPointList().get(i).y = rt.getPointList().get(i).y - ((yMax + yMin)/2);
@@ -173,20 +172,10 @@ public class Model {
 	 */
 	public void zoomAuto() {
 		recentrer();
-		double maxX = 0.0;
-		for (int i = 0; i < rt.getPointList().size(); ++i) {
-			if (Math.abs(rt.getPointList().get(i).x) > maxX) {
-				maxX = Math.abs(rt.getPointList().get(i).x);
-			}
-		}
+		double maxX = getMaxX();
 		zoom((d.getWidth() / 2 - 20) / maxX);
 
-		double maxY = 0.0;
-		for (int i = 0; i < rt.getPointList().size(); ++i) {
-			if (Math.abs(rt.getPointList().get(i).y) > maxY) {
-				maxY = Math.abs(rt.getPointList().get(i).y);
-			}
-		}
+		double maxY = getMaxY();
 		if (maxY > d.getHeight() / 2 - 50)
 			zoom((d.getHeight() / 2 - 50) / maxY);
 	}
@@ -254,5 +243,54 @@ public class Model {
 		for (Face f : rt.getFaceList()){
 			f.setSelected(false);
 		}
+	}
+	
+	
+	private double getMaxX(){
+		double x = Integer.MIN_VALUE;
+		for(Point p : rt.getPointList())
+			if (p.x > x)
+				x = p.x;
+		return x;
+	}
+	
+	private double getMinX(){
+		double x = Integer.MAX_VALUE;
+		for(Point p : rt.getPointList())
+			if (p.x < x)
+				x = p.x;
+		return x;
+	}
+	
+	private double getMaxY(){
+		double y = Integer.MIN_VALUE;
+		for(Point p : rt.getPointList())
+			if (p.y > y)
+				y = p.y;
+		return y;
+	}
+	
+	private double getMinY(){
+		double y = Integer.MAX_VALUE;
+		for(Point p : rt.getPointList())
+			if (p.y < y)
+				y = p.y;
+		return y;
+	}
+	
+	private double getMaxZ(){
+		double z = Integer.MIN_VALUE;
+		for(Point p : rt.getPointList())
+			if (p.z > z)
+				z = p.z;
+		return z;
+	}
+	
+	private double getMinZ(){
+		double z = Integer.MAX_VALUE;
+		for(Point p : rt.getPointList())
+			if (p.z < z)
+				z = p.z;
+		return z;
 	}
 }

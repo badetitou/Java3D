@@ -91,13 +91,13 @@ public class Menu extends JMenuBar implements ActionListener {
 		// Sous menu Fichier
 		mIFImporter = new JMenuItem("Importer");
 		mIFOuvrir = new JMenuItem("Ouvrir");
-		mIFRecents = new JMenuItem("Fichiers récents");
+		mIFRecents = new JMenuItem("Fichiers rï¿½cents");
 		mIFEnregistrer = new JMenuItem("Enregistrer dans la BDD");
 		mIFExporter = new JMenuItem("Exporter");
 
 		mIFFermer = new JMenuItem("Fermer");
 		mIFImprimer = new JMenuItem("Imprimer");
-		mIFProprietes = new JMenuItem("Propriétés");
+		mIFProprietes = new JMenuItem("Propriï¿½tï¿½s");
 		mIFQuitter = new JMenuItem("Quitter");
 
 		// /Action des MenuItems Fichier
@@ -124,7 +124,7 @@ public class Menu extends JMenuBar implements ActionListener {
 				InputEvent.CTRL_MASK));
 
 		// Sous menu Edition
-		mIEDefaire = new JMenuItem("Défaire");
+		mIEDefaire = new JMenuItem("Dï¿½faire");
 		mIERefaire = new JMenuItem("Refaire");
 
 		// Action des MenuItems Edition
@@ -135,8 +135,8 @@ public class Menu extends JMenuBar implements ActionListener {
 				InputEvent.CTRL_MASK));
 
 		// Sous menu Options
-		mIOBoiteOutils = new JMenuItem("Boîte à Outils");
-		mIOPreferences = new JMenuItem("Préférences");
+		mIOBoiteOutils = new JMenuItem("Boï¿½te ï¿½ Outils");
+		mIOPreferences = new JMenuItem("Prï¿½fï¿½rences");
 
 		// Action des MenuItems Options
 
@@ -234,7 +234,7 @@ public class Menu extends JMenuBar implements ActionListener {
 
 		else if (e.getSource().equals(mIFImporter)) {
 			// blabla ouverture d'une fenetre pour chercher le .gts
-			JFileChooser dialogue = new JFileChooser(new File("ressources/image"));
+			JFileChooser dialogue = new JFileChooser(new File("ressources/GTS"));
 			FileNameExtensionFilter filter = new FileNameExtensionFilter("Fichier gts", "gts");
 			dialogue.setFileFilter(filter);
 			File fichier=null;
@@ -250,7 +250,7 @@ public class Menu extends JMenuBar implements ActionListener {
 				}
 				if (fichier != null && name.substring(name.length() - 4, name.length()).equals(".gts")) {
 					if (listeOnglets.size() + 1 <= 5) {
-						String nomAuteur = "Non renseigné";
+						String nomAuteur = "Non renseignï¿½";
 						if(nbOngletsImport==0)
 							nomFichier="New";
 						else
@@ -271,7 +271,7 @@ public class Menu extends JMenuBar implements ActionListener {
 		}else if (e.getSource().equals(mIFExporter)){
 			JFileChooser filechoose = new JFileChooser("");
 			//filechoose.setCurrentDirectory(new File(File.separator+"new"));
-			filechoose.setDialogTitle("Exporter la réalisation");
+			filechoose.setDialogTitle("Exporter la rï¿½alisation");
 
 			filechoose.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
@@ -282,10 +282,10 @@ public class Menu extends JMenuBar implements ActionListener {
 				String chemin = filechoose.getSelectedFile().getAbsolutePath()+File.separator+((Onglet) onglet).getNomFichier()+".gts";
 				String urlSource=((Onglet) onglet).getDp().getUrl();
 				if(this.copieGTS(new File(urlSource), new File(chemin))){
-					JOptionPane.showMessageDialog(null,"L'exportation de : "+urlSource+" a fonctionné !","Exportation réussie", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null,"L'exportation de : "+urlSource+" a fonctionnï¿½ !","Exportation rï¿½ussie", JOptionPane.INFORMATION_MESSAGE);
 				}
 				else {
-					JOptionPane.showMessageDialog(null,"L'exportation de : "+urlSource+" a échoué !","Exportation échouée", JOptionPane.OK_OPTION);
+					JOptionPane.showMessageDialog(null,"L'exportation de : "+urlSource+" a ï¿½chouï¿½ !","Exportation ï¿½chouï¿½e", JOptionPane.OK_OPTION);
 				}
 			}
 		} else if (e.getSource().equals(mIFFermer)) {
@@ -304,7 +304,7 @@ public class Menu extends JMenuBar implements ActionListener {
 		Scanner sourceFile= null;
 		PrintWriter destinationFile=null;
 		try {
-			// Création du fichier :
+			// Crï¿½ation du fichier :
 			destination.createNewFile();
 			// Ouverture des flux
 			sourceFile = new Scanner(source);
@@ -318,7 +318,7 @@ public class Menu extends JMenuBar implements ActionListener {
 				destinationFile.println(f.getSegment1() + " " + f.getSegment2()+ " " + f.getSegment3() +" "+ f.getColor().getRed() + " "+f.getColor().getGreen()+" "+f.getColor().getBlue());
 			}
 
-			// Copie réussie
+			// Copie rï¿½ussie
 			resultat = true;
 		} catch( java.io.FileNotFoundException f ) {
 		} catch( java.io.IOException e ) {
