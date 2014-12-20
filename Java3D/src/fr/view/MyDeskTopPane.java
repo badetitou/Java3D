@@ -14,7 +14,7 @@ import fr.model.Model;
 
 /**
  * 
- * @author Loïc Classe regroupant les 4 panels qui vont contenir les 4 vues
+ * @author Loï¿½c Classe regroupant les 4 panels qui vont contenir les 4 vues
  *         possible de l'objet!
  *
  */
@@ -82,12 +82,12 @@ public class MyDeskTopPane extends JDesktopPane {
 		panel = new Panneau(new Model(url, 0, dimension), this);
 
 		iFrameMain = new JInternalFrame("Vue principale", // le titre de la
-				// fenêtre
-				true, // true si la fenêtre est retaillable
-				false, // true si la fenêtre est fermable
-				true, // true si la fenêtre est maximisable
-				false); // true si la fenêtre est iconifiable
-		iFrameMain.setVisible(true); // pour rendre la fenêtre visible
+				// fenï¿½tre
+				true, // true si la fenï¿½tre est retaillable
+				false, // true si la fenï¿½tre est fermable
+				true, // true si la fenï¿½tre est maximisable
+				false); // true si la fenï¿½tre est iconifiable
+		iFrameMain.setVisible(true); // pour rendre la fenï¿½tre visible
 		iFrameMain.setPreferredSize(dimension);
 		// iFrameMain.setPreferredSize(new Dimension(hauteur,largeur));
 

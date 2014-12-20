@@ -14,15 +14,23 @@ import java.awt.event.MouseWheelListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JButton;
+import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.JRadioButton;
+import javax.swing.JRadioButtonMenuItem;
 import javax.swing.SwingUtilities;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
 
 import fr.model.Face;
 import fr.model.Model;
 
-public class Panneau extends JPanel {
+public class Panneau extends JPanel implements MouseListener, ChangeListener {
 	/*
 	 * Model necessaire info
 	 */
@@ -33,6 +41,18 @@ public class Panneau extends JPanel {
 	private MyDeskTopPane dp;
 	private boolean control = false;
 	private JPopupMenu popMenu;
+
+	/*
+	 * TEST
+	 */
+	public JRadioButton low;
+	public JRadioButton medium;
+	public JRadioButton high;
+	public JButton boutonCentre;
+	/*
+	 * END-TEST
+	 */
+
 	/*
 	 * Low: 0 Medium: 1 Hight: 2
 	 */
@@ -74,10 +94,12 @@ public class Panneau extends JPanel {
 			m.rotationX(515);
 			m.rotationY(0);
 		} else {
+
 			/*
-			 * Listener pour les rotations
+			 * Tout les listener du Paneau ^^
 			 */
 			this.setFocusable(true);
+
 			this.addKeyListener(new KeyListener() {
 
 				public void keyTyped(KeyEvent e) {
@@ -129,8 +151,7 @@ public class Panneau extends JPanel {
 					if (arg0.getButton() == MouseEvent.BUTTON3) {
 						popMenu.setLocation(arg0.getLocationOnScreen());
 						popMenu.setVisible(true);
-					}
-					else {
+					} else {
 						popMenu.setVisible(false);
 					}
 				}
@@ -142,6 +163,7 @@ public class Panneau extends JPanel {
 					repaint();
 				}
 			});
+
 			this.addMouseMotionListener(new MouseMotionListener() {
 				public void mouseMoved(MouseEvent e) {
 					coordMouseX = e.getX();
@@ -179,13 +201,31 @@ public class Panneau extends JPanel {
 					}
 				}
 			});
-			popMenu = new JPopupMenu("Option");
-			popMenu.add(new JMenuItem("text 1"));
-			popMenu.add(new JMenuItem("text 2"));
-			popMenu.pack();
+			initPopMenu();
 		}
 		m.trieFace();
 		repaint();
+	}
+
+	/*
+	 * permet de separer la création du popup du reste du constructeur pour plus
+	 * de visibilité
+	 */
+	private void initPopMenu() {
+		//parent menu
+		popMenu = new JPopupMenu("Menu");
+
+		//sub menu
+		JMenu sectionsMenu = new JMenu("Sections");
+		JMenuItem menuItem1 = new JMenuItem("Item1");
+		sectionsMenu .add(menuItem1 );
+		JMenuItem menuItem2 = new JMenuItem("Item2");
+		sectionsMenu.add(menuItem2 );
+
+		popMenu.add(sectionsMenu);
+		popMenu.add(menuItem1);
+		popMenu.add(menuItem2);
+
 	}
 
 	@Override
@@ -214,7 +254,6 @@ public class Panneau extends JPanel {
 					RenderingHints.VALUE_COLOR_RENDER_SPEED);
 		}
 		super.paintComponent(g);
-
 		if (getBarreVerticale().isSquelette()) {
 			for (Face f : m.getFace()) {
 				g.draw(f.getTriangle());
@@ -240,6 +279,48 @@ public class Panneau extends JPanel {
 				g.drawRect((int) (p.x + m.xTranslate),
 						(int) (p.y + m.yTranslate), 1, 1);
 		}
+		
+		g.setColor(Color.BLACK);
+		g.drawString("Hauteur : " + m.getHauteurModel() , 0, 15);
+		g.drawString("Largeur : " + m.getLargeurModel(), 0, 30);
+		g.drawString("Profondeur : " + m.getProfondeurModel(), 0, 45);
 		g.dispose();
+	}
+
+	public void mouseClicked(MouseEvent e) {
+		if (e.getSource().equals(boutonCentre)) {
+			if (dp.getBarreVerticale().isBb1()
+					|| dp.getBarreVerticale().isModeEdit()) {
+				this.dp.getModel().zoomAuto();
+			} else {
+				this.dp.getModel().zoomAuto();
+			}
+			this.dp.repaint();
+		} else if (e.getSource().equals(low)) {
+			this.dp.getPanel().setQualite(0);
+		} else if (e.getSource().equals(medium)) {
+			this.dp.getPanel().setQualite(1);
+		} else if (e.getSource().equals(high)) {
+			this.dp.getPanel().setQualite(2);
+		}
+	}
+
+	public void mouseEntered(MouseEvent arg0) {
+	}
+
+	public void mouseExited(MouseEvent arg0) {
+	}
+
+	public void mousePressed(MouseEvent arg0) {
+	}
+
+	public void mouseReleased(MouseEvent arg0) {
+	}
+
+	public void stateChanged(ChangeEvent arg0) {
+		/*
+		 * if(dp.getBarreVerticale().isModeEdit()){
+		 * dp.getModel().changeColor(jcc.getColor()); dp.getPanel().repaint(); }
+		 */
 	}
 }
