@@ -3,7 +3,6 @@ package fr.view;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -16,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 
 import fr.model.Face;
 import fr.model.Model;
@@ -28,8 +28,9 @@ public class Panneau extends JPanel {
 	private final Model m;
 	private int coordMouseX = 0;
 	private int coordMouseY = 0;
-	MyDeskTopPane dp;
+	private MyDeskTopPane dp;
 	private boolean control = false;
+	private JPopupMenu popMenu;
 	/*
 	 * Low: 0 Medium: 1 Hight: 2
 	 */
@@ -71,6 +72,9 @@ public class Panneau extends JPanel {
 			m.rotationX(515);
 			m.rotationY(0);
 		} else {
+			/*
+			 * Listener pour les rotations
+			 */
 			this.setFocusable(true);
 			this.addKeyListener(new KeyListener() {
 
@@ -159,6 +163,11 @@ public class Panneau extends JPanel {
 					}
 				}
 			});
+			/*
+			 * Maintenant le menu / popup
+			 */
+			this.popMenu = new JPopupMenu();
+			popMenu.setVisible(true);
 		}
 		m.trieFace();
 		repaint();
