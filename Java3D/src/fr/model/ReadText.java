@@ -51,22 +51,36 @@ public class ReadText {
 			int positionBoucle = 0;
 			while (scanner.hasNextLine()) {
 				line = scanner.nextLine();
-				tab=extractLine(line);
 				if (i==0){
-					nbPoints=(int)tab[0];
-					nbSegments=(int)tab[1];
-					nbFaces=(int)tab[2];
+					int z=0;
+					int g=0;
+					int tab0[] = new int [3];
+					for (int v=0;v<line.length();v++){
+						if(line.charAt(v)==' ' && g <= 2){
+							tab0[g]=Integer.parseInt(line.substring(z, v));
+							z=v+1;
+							g++;
+						}
+					}
+					if(g==2)
+						tab0[g]=Integer.parseInt(line.substring(z,line.length()));
+					nbPoints=tab0[0];
+					nbSegments=tab0[1];
+					nbFaces=tab0[2];
 				}
 				else if (i<=nbPoints){
+					tab=extractLine(line);
 					pointList.add(new Point(tab[0], tab[1], tab[2]));
 					pointList.get(positionBoucle).setPosition(positionBoucle);
 					++positionBoucle;
 				}
 				else if (i> nbPoints && i<= nbPoints+nbSegments){
+					tab=extractLine(line);
 					segment.put(j, new CouplePoint(pointList.get((int) (tab[0]-1)),pointList.get((int) (tab[1]-1)), tab[0], tab[1]));
 					j++;
 				}
 				else {
+					tab=extractLine(line);
 					Point p3=null;
 					if (!((segment.get((int)tab[0]-1).getP1().equals(segment.get((int)tab[2]-1).getP1())))&& !(segment.get((int)tab[0]-1).getP2().equals((segment.get((int)tab[2]-1).getP1())))){
 						p3=segment.get((int)tab[2]-1).getP1();
