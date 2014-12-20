@@ -46,7 +46,7 @@ public class PanelBdd extends JPanel{
 		description=new PanelDescription(nomFichier,nouveau);
 		informations = new PanelInformations(nomFichier,nomAuteur,nouveau);
 		images=new PanelImages(nomFichier,nouveau);
-		pt=new PanelTag();
+		pt=new PanelTag(nomFichier);
 		listeImages=images.getListeImages();
 		nbImages=images.getNbImages();
 		tabbedPane = new JTabbedPane();
