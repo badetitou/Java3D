@@ -30,6 +30,8 @@ public class ProgressBar extends JPanel{
 	private Thread t ;
 	private Thread t2;
 	private final ArrayList<MyDeskTopPane> listeFichiersRecents;
+	private final String[] listeLastFiles;
+	OutilsBdd obdd;
 	//public static String url="ressources/image/icosa.gts";
 	public ProgressBar(SplashScreen ss){
 		progressBar.setMaximum(PROGBAR_MAX);
@@ -37,7 +39,10 @@ public class ProgressBar extends JPanel{
 		progressBar.setBackground(Color.lightGray);
 		progressBar.setPreferredSize(new Dimension(180,18));
 		progressBar.setIndeterminate(true);
+		obdd= new OutilsBdd("Database.db");
 		ProgressBar.ss=ss;
+		listeLastFiles=obdd.getLastFiles();
+		//System.out.println(listeLastFiles[4]);
 		listeFichiersRecents=new ArrayList<MyDeskTopPane>();
 		this.setLayout(new GridLayout(2,1,0,4));
 		this.setOpaque(false);
@@ -65,9 +70,10 @@ public class ProgressBar extends JPanel{
 			@Override
 			public void run() {
 				while(t.isAlive()){
-					OutilsBdd obdd= new OutilsBdd("Database.db");
 					for(int i=0;i<5;i++){
-						listeFichiersRecents.add(new MyDeskTopPane(obdd.getLinkFile("android")));
+						if(listeLastFiles[i]==null)
+							listeFichiersRecents.add(new MyDeskTopPane("null"));
+						listeFichiersRecents.add(new MyDeskTopPane(listeLastFiles[i]));
 					}
 				}
 				ss.dispose();

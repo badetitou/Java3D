@@ -18,7 +18,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTabbedPane;
-import javax.swing.JTextField;
 
 import fr.model.Face;
 import fr.model.Model;
@@ -27,9 +26,9 @@ import fr.model.OutilsBdd;
 public class WindowEnregistrer extends JFrame {
 
 	private final String lienGts;
-	public WindowEnregistrer(JTabbedPane tabbedPane, ArrayList<Object> listeOnglets, PanelInformations panelInfos,boolean nouveau,String lienGts) {
+	public WindowEnregistrer(JTabbedPane tabbedPane, ArrayList<Object> listeOnglets, PanelInformations panelInfos,boolean nouveau,String nomFichier,String nomAuteur,String lienGts) {
 		this.lienGts=lienGts;
-		PanelEnregistrer pE = new PanelEnregistrer(this, tabbedPane, listeOnglets, panelInfos,nouveau);
+		PanelEnregistrer pE = new PanelEnregistrer(this, tabbedPane, listeOnglets, panelInfos,nouveau,nomFichier,nomAuteur);
 		this.setTitle("Enregistrer dans la BDD");
 		this.setSize(500, 300);
 		this.setResizable(false);
@@ -54,8 +53,8 @@ public class WindowEnregistrer extends JFrame {
 		private final JFrame windowE;
 		private final OutilsBdd obdd;
 		private boolean nouveau;
-		private String nomAuteur;
-		private String nomFichier;
+		private final String nomAuteur;
+		private final String nomFichier;
 		private final String dateModiff;
 		private final String dateAjoutt;
 		private final int nImages;
@@ -68,9 +67,12 @@ public class WindowEnregistrer extends JFrame {
 		private final ButtonGroup group;
 		private final JRadioButton newRea;
 		private final JRadioButton oldRea;
-		public PanelEnregistrer(JFrame windowE, JTabbedPane tabbedPane, ArrayList<Object> listeOnglets, PanelInformations panelInfos,boolean nouveau) {
+		int res;
+		public PanelEnregistrer(JFrame windowE, JTabbedPane tabbedPane, ArrayList<Object> listeOnglets, PanelInformations panelInfos,boolean nouveau,String nomFichier,String nomAuteur) {
 			this.windowE = windowE;
 			this.nouveau=nouveau;
+			this.nomFichier=nomFichier;
+			this.nomAuteur=nomAuteur;
 			this.setPreferredSize(new Dimension(500, 300));
 			obdd = new OutilsBdd("Database.db");
 			onglet = tabbedPane.getSelectedComponent();
@@ -86,31 +88,6 @@ public class WindowEnregistrer extends JFrame {
 			oldRea.setSelected(false);
 			newRea.addMouseListener(this);
 			oldRea.addMouseListener(this);
-			if(this.nouveau){
-				JTextField j1 = new JTextField();
-				JTextField j2 = new JTextField();
-				//JButton bAnnul=new JButton("Annuler");
-				ArrayList list = new ArrayList();
-				list.add("Nom objet : \n");
-				list.add(j1);
-				list.add("Nom auteur : \n");
-				list.add(j2);
-				//list.add(bAnnul);
-				int res = JOptionPane.showOptionDialog(null, list.toArray(), "Saisissez les champs", JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE, null, null, null);
-				if (j2.getText().isEmpty() || j1.getText().isEmpty())
-					list.add("les champs sont obligatoires");
-				while ((j2.getText().isEmpty() || j1.getText().isEmpty()) && res!=-1) {
-					res=JOptionPane.showOptionDialog(null, list.toArray(), "Saisissez les champs", JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE, null, null, null);
-				}
-				if(res!=-1 && res!=JOptionPane.CLOSED_OPTION){
-					this.nomFichier=j1.getText();
-					this.nomAuteur=j2.getText();
-				}
-			}
-			else {
-				this.nomFichier=panelInfos.getNomFichier();
-				this.nomAuteur=panelInfos.getNomAuteur();
-			}
 
 			this.dateAjoutt=panelInfos.getDateAjoutt();
 			this.dateModiff=panelInfos.getDateModiff();
@@ -126,7 +103,6 @@ public class WindowEnregistrer extends JFrame {
 			jlNbChargements = new JLabel("Nombre de chargements : " + this.nChargements);
 			jlNbRealisations = new JLabel("Nombre de réalisations : " + this.nRealisations);
 			jlNbImages=new JLabel("Nombre d'images : "+listeImages.size());
-
 			this.setLayout(new GridLayout(12, 1));
 			this.add(jlFen);
 			this.add(jlNomAuteur);
@@ -139,7 +115,6 @@ public class WindowEnregistrer extends JFrame {
 			this.add(newRea);
 			this.add(oldRea);
 			this.add(jbOk);
-
 			jbOk.addMouseListener(this);
 		}
 
@@ -278,8 +253,6 @@ public class WindowEnregistrer extends JFrame {
 					this.description=((Onglet)onglet).getPbdd().getDescription().getDescription();
 					obdd.updateFile(this.nomFichier,this.description, this.nChargements, listeImages.size(), this.nRealisations, "fichiers"+File.separator+this.nomFichier+File.separator+"images"+File.separator,0);
 				}
-				((Onglet)onglet).getPbdd().getInformations().actualiserInfos(this.nomFichier, this.nomAuteur, this.nbImages, this.nRealisations,obdd.getDateLastModif(nomFichier));
-				((Onglet)onglet).getPbdd().getPanelDescription().actualiserDesc(this.description);
 				if(newRea.isSelected()){
 					this.nRealisations++;
 					if(this.copieGTS(new File(lienGts), new File("fichiers"+File.separator+this.nomFichier+File.separator+"realisations"+File.separator+this.nomFichier+this.nRealisations+".gts"))){
@@ -297,6 +270,8 @@ public class WindowEnregistrer extends JFrame {
 						JOptionPane.showMessageDialog(null,"La sauvegarde de : "+lienGts+" a échoué !","Sauvegarde échouée", JOptionPane.OK_OPTION);
 					}
 				}
+				((Onglet)onglet).getPbdd().getInformations().actualiserInfos(this.nomFichier, this.nomAuteur, this.nbImages, this.nRealisations,obdd.getDateLastModif(nomFichier));
+				((Onglet)onglet).getPbdd().getPanelDescription().actualiserDesc(this.description);
 			}
 		}
 

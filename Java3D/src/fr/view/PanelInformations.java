@@ -138,7 +138,6 @@ public class PanelInformations extends JPanel {
 		nbImages.setFont(new Font(font.getFontName(), Font.BOLD, font.getSize()));
 		nbImages.setIcon(new ImageIcon(new ImageIcon("ressources/icones/iconesInformations/nbImages.png").getImage().getScaledInstance(size, size, Image.SCALE_SMOOTH)));
 
-		nRealisations=0;
 		nbRealisations=new JLabel("Nombre de réalisations : "+nRealisations);
 		font = nbRealisations.getFont();
 		nbRealisations.setFont(new Font(font.getFontName(), Font.BOLD, font.getSize()));

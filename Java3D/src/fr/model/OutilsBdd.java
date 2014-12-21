@@ -1,16 +1,11 @@
 package fr.model;
 
-import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
-
-import javax.swing.JTable;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableModel;
 
 
 
@@ -21,8 +16,6 @@ public class OutilsBdd {
 	private String DBPath = "Chemin aux base de donnée SQLite";
 	private Connection connection = null;
 	private Statement statement = null;
-	private JTable bdd;
-
 	public OutilsBdd(String dBPath) {
 		DBPath = dBPath;
 	}
@@ -37,7 +30,7 @@ public class OutilsBdd {
 			System.out.println(e.getMessage());
 		}
 	}
-	
+
 
 
 	private void close() {
@@ -98,7 +91,7 @@ public class OutilsBdd {
 		try {
 			ResultSet rs = statement.executeQuery(query);
 			while(rs.next())
-					++i;
+				++i;
 		}
 		catch(Exception e) {
 			System.out.println(e.toString());
@@ -112,7 +105,7 @@ public class OutilsBdd {
 			while(rs2.next()){
 				data[g][0] = rs2.getString("name");
 				data[g][1] = rs2.getString("author");
-				data[g][2] = (String) rs2.getString("lastModifDate");
+				data[g][2] = rs2.getString("lastModifDate");
 				data[g][3] = rs2.getString("nbrOpen");
 				data[g][4] = rs2.getString("nbrImg");
 				++g;
@@ -134,7 +127,7 @@ public class OutilsBdd {
 		try {
 			ResultSet rs = statement.executeQuery(query);
 			while(rs.next())
-					++i;
+				++i;
 		}
 		catch(Exception e) {
 			System.out.println(e.toString());
@@ -147,7 +140,7 @@ public class OutilsBdd {
 			int g=0;
 			while(rs2.next()){
 				data[g][0] = rs2.getString("name");
-				data[g][1] = (String) rs2.getString("lastModifDate");
+				data[g][1] = rs2.getString("lastModifDate");
 				data[g][2] = rs2.getString("nbrOpen");
 				data[g][3] = rs2.getString("nbrImg");
 				++g;
@@ -161,7 +154,7 @@ public class OutilsBdd {
 		this.close();
 		return data;
 	}
-	
+
 	public void addFile(String name, String linkFile, String desc, String author, int nbrOpen, int nbrImg, int nbrModif, int nbrRea, String linkImg) {
 		this.connect();
 		Calendar rightNow = Calendar.getInstance();
@@ -195,8 +188,10 @@ public class OutilsBdd {
 		try {
 			ResultSet rs = statement.executeQuery(query);
 			int i=0;
-			while (rs.next())
+			while (rs.next() && i<5){
 				lastFiles[i] = rs.getString(1);
+				i++;
+			}
 			this.close();
 			return lastFiles;
 		} catch (Exception e) {
@@ -537,7 +532,7 @@ public class OutilsBdd {
 			this.close();
 		}
 	}
-	
+
 	public ArrayList<String> getTags (String name) {
 		ArrayList<String> liste = new ArrayList<String>();
 		String query = "SELECT tag FROM tags WHERE file='"+name+"'";

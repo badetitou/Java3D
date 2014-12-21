@@ -17,6 +17,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
@@ -24,6 +25,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import fr.model.Face;
 import fr.model.Model;
+import fr.model.OutilsBdd;
 
 public class Menu extends JMenuBar implements ActionListener {
 
@@ -62,7 +64,11 @@ public class Menu extends JMenuBar implements ActionListener {
 	private final JMenuItem recent3;
 	private final JMenuItem recent4;
 	private final JMenuItem recent5;
-
+	private String nameRecent1;
+	private String nameRecent2;
+	private String nameRecent3;
+	private String nameRecent4;
+	private String nameRecent5;
 	private final JTabbedPane tabbedPane;
 
 	private static int nbOngletsImport=0;
@@ -71,6 +77,7 @@ public class Menu extends JMenuBar implements ActionListener {
 	private Onglet onglet;
 
 	private String lienGts;
+	private final OutilsBdd obdd;
 
 	private final ArrayList<Object> listeOnglets;
 	ArrayList<MyDeskTopPane> listeFichiersRecents;
@@ -81,6 +88,7 @@ public class Menu extends JMenuBar implements ActionListener {
 		this.panelInfos = panelInfos;
 		this.listeFichiersRecents=listeFichiersRecents;
 		this.setPreferredSize(new Dimension((int) Window.outil.getScreenSize().getWidth(), 30));
+		obdd=new OutilsBdd("Database.db");
 
 		// Cr�ation du Menu
 		mFichier = new JMenu("Fichier");
@@ -158,11 +166,18 @@ public class Menu extends JMenuBar implements ActionListener {
 
 
 		//recents
-		recent1=new JMenuItem("prout");
-		recent2=new JMenuItem("prout");
-		recent3=new JMenuItem("prout");
-		recent4=new JMenuItem("prout");
-		recent5=new JMenuItem("prout");
+		/*
+		nameRecent1=obdd.getFile(listeFichiersRecents.get(0).getUrl());
+		nameRecent2=obdd.getFile(listeFichiersRecents.get(1).getUrl());
+		nameRecent3=obdd.getFile(listeFichiersRecents.get(2).getUrl());
+		nameRecent4=obdd.getFile(listeFichiersRecents.get(3).getUrl());
+		nameRecent5=obdd.getFile(listeFichiersRecents.get(4).getUrl());
+		 */
+		recent1=new JMenuItem(listeFichiersRecents.get(0).getUrl());
+		recent2=new JMenuItem(listeFichiersRecents.get(1).getUrl());
+		recent3=new JMenuItem(listeFichiersRecents.get(2).getUrl());
+		recent4=new JMenuItem(listeFichiersRecents.get(3).getUrl());
+		recent5=new JMenuItem(listeFichiersRecents.get(4).getUrl());
 
 		mIFRecents.add(recent1);
 		mIFRecents.add(recent2);
@@ -216,13 +231,27 @@ public class Menu extends JMenuBar implements ActionListener {
 
 			@Override
 			public void menuDeselected(MenuEvent e) {
-
+				if(e.getSource().equals(mFichier) && tabbedPane.getSelectedComponent() instanceof Onglet){
+					mIFEnregistrer.setEnabled(true);
+					mIFExporter.setEnabled(true);
+					mIFProprietes.setEnabled(true);
+				}
 			}
 
 			@Override
 			public void menuCanceled(MenuEvent e) {
+				if(e.getSource().equals(mFichier) && tabbedPane.getSelectedComponent() instanceof Onglet){
+					mIFEnregistrer.setEnabled(true);
+					mIFExporter.setEnabled(true);
+					mIFProprietes.setEnabled(true);
+				}
 			}
 		});
+		recent1.addActionListener(this);
+		recent2.addActionListener(this);
+		recent3.addActionListener(this);
+		recent4.addActionListener(this);
+		recent5.addActionListener(this);
 		mIFOuvrir.addActionListener(this);
 		mIFEnregistrer.addActionListener(this);
 		mIFQuitter.addActionListener(this);
@@ -234,13 +263,104 @@ public class Menu extends JMenuBar implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource().equals(mIFOuvrir)) {
+		if(e.getSource().equals(recent1)){
+			onglet = new Onglet(listeFichiersRecents.get(0), tabbedPane, nameRecent1,obdd.getAuthor(nameRecent1), false, listeOnglets);
+			panelInfos = onglet.getPinfos();
+			tabbedPane.addTab(nameRecent1, onglet);
+			onglet.dessineOnglet();
+			tabbedPane.setSelectedComponent(onglet);
+			mIFEnregistrer.setEnabled(true);
+			mIFExporter.setEnabled(true);
+			mIFProprietes.setEnabled(true);
+		}
+
+		else if(e.getSource().equals(recent2)){
+			onglet = new Onglet(listeFichiersRecents.get(1), tabbedPane, nameRecent2,obdd.getAuthor(nameRecent2), false, listeOnglets);
+			panelInfos = onglet.getPinfos();
+			tabbedPane.addTab(nameRecent2, onglet);
+			onglet.dessineOnglet();
+			tabbedPane.setSelectedComponent(onglet);
+			mIFEnregistrer.setEnabled(true);
+			mIFExporter.setEnabled(true);
+			mIFProprietes.setEnabled(true);
+		}
+
+		if(e.getSource().equals(recent3)){
+			onglet = new Onglet(listeFichiersRecents.get(2), tabbedPane, nameRecent3,obdd.getAuthor(nameRecent3), false, listeOnglets);
+			panelInfos = onglet.getPinfos();
+			tabbedPane.addTab(nameRecent3, onglet);
+			onglet.dessineOnglet();
+			tabbedPane.setSelectedComponent(onglet);
+			mIFEnregistrer.setEnabled(true);
+			mIFExporter.setEnabled(true);
+			mIFProprietes.setEnabled(true);
+		}
+
+
+		if(e.getSource().equals(recent4)){
+			onglet = new Onglet(listeFichiersRecents.get(3), tabbedPane, nameRecent4,obdd.getAuthor(nameRecent4), false, listeOnglets);
+			panelInfos = onglet.getPinfos();
+			tabbedPane.addTab(nameRecent4, onglet);
+			onglet.dessineOnglet();
+			tabbedPane.setSelectedComponent(onglet);
+			mIFEnregistrer.setEnabled(true);
+			mIFExporter.setEnabled(true);
+			mIFProprietes.setEnabled(true);
+		}
+
+
+		if(e.getSource().equals(recent5)){
+			onglet = new Onglet(listeFichiersRecents.get(4), tabbedPane, nameRecent5,obdd.getAuthor(nameRecent5), false, listeOnglets);
+			panelInfos = onglet.getPinfos();
+			tabbedPane.addTab(nameRecent5, onglet);
+			onglet.dessineOnglet();
+			tabbedPane.setSelectedComponent(onglet);
+			mIFEnregistrer.setEnabled(true);
+			mIFExporter.setEnabled(true);
+			mIFProprietes.setEnabled(true);
+		}
+
+		else if (e.getSource().equals(mIFOuvrir)) {
 			WindowOuvrir windowO = new WindowOuvrir(tabbedPane, listeOnglets);
 			panelInfos = windowO.getPanelInfos();
+			mIFEnregistrer.setEnabled(true);
+			mIFExporter.setEnabled(true);
+			mIFProprietes.setEnabled(true);
 		}
 		else if (e.getSource().equals(mIFEnregistrer)) {
 			Component onglet = tabbedPane.getSelectedComponent();
-			WindowEnregistrer windowE = new WindowEnregistrer(tabbedPane,listeOnglets, ((Onglet) onglet).getPinfos(),((Onglet) onglet).isNouveau(),((Onglet) onglet).getDp().getUrl());
+			int res = 0;
+			String nFile="";
+			String nAutor="";
+
+			if(((Onglet) onglet).isNouveau()){
+				JTextField j1 = new JTextField();
+				JTextField j2 = new JTextField();
+				//JButton bAnnul=new JButton("Annuler");
+				ArrayList list = new ArrayList();
+				list.add("Nom objet : \n");
+				list.add(j1);
+				list.add("Nom auteur : \n");
+				list.add(j2);
+				//list.add(bAnnul);
+				res = JOptionPane.showOptionDialog(null, list.toArray(), "Saisissez les champs", JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE, null, null, null);
+				if (j2.getText().isEmpty() || j1.getText().isEmpty())
+					list.add("les champs sont obligatoires");
+				while ((j2.getText().isEmpty() || j1.getText().isEmpty()) && res!=-1) {
+					res=JOptionPane.showOptionDialog(null, list.toArray(), "Saisissez les champs", JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE, null, null, null);
+				}
+				if(res!=-1 && res!=JOptionPane.CLOSED_OPTION){
+					nFile=j1.getText();
+					nAutor=j2.getText();
+				}
+			}
+			else {
+				nFile=((Onglet) onglet).getPinfos().getNomFichier();
+				nAutor=((Onglet) onglet).getPinfos().getNomAuteur();
+			}
+			WindowEnregistrer windowE;
+			if(res!=-1)
+				windowE = new WindowEnregistrer(tabbedPane,listeOnglets, ((Onglet) onglet).getPinfos(),((Onglet) onglet).isNouveau(),nFile,nAutor,((Onglet) onglet).getDp().getUrl());
 		}
 
 		else if (e.getSource().equals(mIFQuitter)) {
@@ -286,6 +406,9 @@ public class Menu extends JMenuBar implements ActionListener {
 						JOptionPane.showMessageDialog(null,"Trop d'onglets sont ouverts, fermez des onglets puis reessayer !","Attention", JOptionPane.ERROR_MESSAGE);
 					}
 				}
+				mIFEnregistrer.setEnabled(true);
+				mIFExporter.setEnabled(true);
+				mIFProprietes.setEnabled(true);
 			}
 
 
