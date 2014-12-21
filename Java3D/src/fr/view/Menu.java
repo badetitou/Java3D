@@ -64,11 +64,11 @@ public class Menu extends JMenuBar implements ActionListener {
 	private final JMenuItem recent3;
 	private final JMenuItem recent4;
 	private final JMenuItem recent5;
-	private String nameRecent1;
-	private String nameRecent2;
-	private String nameRecent3;
-	private String nameRecent4;
-	private String nameRecent5;
+	private final String nameRecent1;
+	private final String nameRecent2;
+	private final String nameRecent3;
+	private final String nameRecent4;
+	private final String nameRecent5;
 	private final JTabbedPane tabbedPane;
 
 	private static int nbOngletsImport=0;
@@ -166,18 +166,18 @@ public class Menu extends JMenuBar implements ActionListener {
 
 
 		//recents
-		/*
-		nameRecent1=obdd.getFile(listeFichiersRecents.get(0).getUrl());
-		nameRecent2=obdd.getFile(listeFichiersRecents.get(1).getUrl());
-		nameRecent3=obdd.getFile(listeFichiersRecents.get(2).getUrl());
-		nameRecent4=obdd.getFile(listeFichiersRecents.get(3).getUrl());
-		nameRecent5=obdd.getFile(listeFichiersRecents.get(4).getUrl());
-		 */
-		recent1=new JMenuItem(listeFichiersRecents.get(0).getUrl());
-		recent2=new JMenuItem(listeFichiersRecents.get(1).getUrl());
-		recent3=new JMenuItem(listeFichiersRecents.get(2).getUrl());
-		recent4=new JMenuItem(listeFichiersRecents.get(3).getUrl());
-		recent5=new JMenuItem(listeFichiersRecents.get(4).getUrl());
+
+		nameRecent1=obdd.getName(listeFichiersRecents.get(0).getUrl());
+		nameRecent2=obdd.getName(listeFichiersRecents.get(1).getUrl());
+		nameRecent3=obdd.getName(listeFichiersRecents.get(2).getUrl());
+		nameRecent4=obdd.getName(listeFichiersRecents.get(3).getUrl());
+		nameRecent5=obdd.getName(listeFichiersRecents.get(4).getUrl());
+
+		recent1=new JMenuItem(nameRecent1);
+		recent2=new JMenuItem(nameRecent2);
+		recent3=new JMenuItem(nameRecent3);
+		recent4=new JMenuItem(nameRecent4);
+		recent5=new JMenuItem(nameRecent5);
 
 		mIFRecents.add(recent1);
 		mIFRecents.add(recent2);
@@ -265,7 +265,6 @@ public class Menu extends JMenuBar implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(recent1)){
 			onglet = new Onglet(listeFichiersRecents.get(0), tabbedPane, nameRecent1,obdd.getAuthor(nameRecent1), false, listeOnglets);
-			panelInfos = onglet.getPinfos();
 			tabbedPane.addTab(nameRecent1, onglet);
 			onglet.dessineOnglet();
 			tabbedPane.setSelectedComponent(onglet);
@@ -276,7 +275,6 @@ public class Menu extends JMenuBar implements ActionListener {
 
 		else if(e.getSource().equals(recent2)){
 			onglet = new Onglet(listeFichiersRecents.get(1), tabbedPane, nameRecent2,obdd.getAuthor(nameRecent2), false, listeOnglets);
-			panelInfos = onglet.getPinfos();
 			tabbedPane.addTab(nameRecent2, onglet);
 			onglet.dessineOnglet();
 			tabbedPane.setSelectedComponent(onglet);
@@ -287,7 +285,6 @@ public class Menu extends JMenuBar implements ActionListener {
 
 		if(e.getSource().equals(recent3)){
 			onglet = new Onglet(listeFichiersRecents.get(2), tabbedPane, nameRecent3,obdd.getAuthor(nameRecent3), false, listeOnglets);
-			panelInfos = onglet.getPinfos();
 			tabbedPane.addTab(nameRecent3, onglet);
 			onglet.dessineOnglet();
 			tabbedPane.setSelectedComponent(onglet);
@@ -299,7 +296,6 @@ public class Menu extends JMenuBar implements ActionListener {
 
 		if(e.getSource().equals(recent4)){
 			onglet = new Onglet(listeFichiersRecents.get(3), tabbedPane, nameRecent4,obdd.getAuthor(nameRecent4), false, listeOnglets);
-			panelInfos = onglet.getPinfos();
 			tabbedPane.addTab(nameRecent4, onglet);
 			onglet.dessineOnglet();
 			tabbedPane.setSelectedComponent(onglet);
@@ -311,7 +307,6 @@ public class Menu extends JMenuBar implements ActionListener {
 
 		if(e.getSource().equals(recent5)){
 			onglet = new Onglet(listeFichiersRecents.get(4), tabbedPane, nameRecent5,obdd.getAuthor(nameRecent5), false, listeOnglets);
-			panelInfos = onglet.getPinfos();
 			tabbedPane.addTab(nameRecent5, onglet);
 			onglet.dessineOnglet();
 			tabbedPane.setSelectedComponent(onglet);
@@ -397,7 +392,7 @@ public class Menu extends JMenuBar implements ActionListener {
 						else
 							nomFichier="New("+nbOngletsImport+")";
 						onglet = new Onglet(new MyDeskTopPane(fichier.getAbsolutePath()), tabbedPane, nomFichier,nomAuteur, true, listeOnglets);
-						panelInfos = onglet.getPinfos();
+						//panelInfos = onglet.getPinfos();
 						nbOngletsImport++;
 						tabbedPane.addTab(nomFichier, onglet);
 						onglet.dessineOnglet();

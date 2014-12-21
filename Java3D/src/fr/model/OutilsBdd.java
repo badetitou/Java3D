@@ -201,7 +201,7 @@ public class OutilsBdd {
 			return lastFiles;
 		}
 	}
-	
+
 	public String getName (String url) {
 		this.connect();
 		String name="";
