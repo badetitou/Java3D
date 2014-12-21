@@ -95,7 +95,14 @@ public class Onglet extends JPanel implements MouseListener{
 
 	public void dessineOnglet(){
 		p1.setOpaque(false);
-		JLabel lbTitle=new JLabel(nomFichier);
+		JLabel lbTitle;
+		if(nomFichier.length()>8){
+			String fichierRaccourci=nomFichier.substring(0, 6);
+			fichierRaccourci+="...";
+			lbTitle=new JLabel(fichierRaccourci);
+		}
+		else
+			lbTitle=new JLabel(nomFichier);
 		p1.add(ic);
 		p1.add(lbTitle);
 		p1.add(closeButon);
@@ -116,6 +123,7 @@ public class Onglet extends JPanel implements MouseListener{
 		return -1;
 	}
 
+	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(e.getSource().equals(closeButon)){
 			tabbedPane.remove(this);
@@ -123,16 +131,20 @@ public class Onglet extends JPanel implements MouseListener{
 		}
 
 	}
+	@Override
 	public void mouseEntered(MouseEvent arg0) {
 		closeButon.setIcon(new ImageIcon(new ImageIcon("ressources/icones/fermer2.png").getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH)));
 	}
+	@Override
 	public void mouseExited(MouseEvent arg0) {
 		closeButon.setIcon(new ImageIcon(new ImageIcon("ressources/icones/fermer.png").getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH)));
 	}
+	@Override
 	public void mousePressed(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 
 	}
+	@Override
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 

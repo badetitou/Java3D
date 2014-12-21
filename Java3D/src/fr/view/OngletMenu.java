@@ -9,8 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,10 +34,10 @@ import javax.swing.table.TableRowSorter;
 
 import fr.model.OutilsBdd;
 
-public class OngletMenu extends JPanel implements MouseListener{
+public class OngletMenu extends JPanel{
 
 
-	private final JLabel closeButon;
+	//private final JLabel closeButon;
 	private final JLabel ic;
 	private final JPanel p1;
 	private final JTabbedPane tabbedPane;
@@ -55,8 +53,8 @@ public class OngletMenu extends JPanel implements MouseListener{
 		this.add(plbdd);
 		this.add(new PanelArboPreview());
 		listeOnglets.add(this);
-		closeButon = new JLabel(new ImageIcon(new ImageIcon("ressources/icones/fermer.png").getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH)));
-		closeButon.addMouseListener(this);
+		//closeButon = new JLabel(new ImageIcon(new ImageIcon("ressources/icones/fermer.png").getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH)));
+		//closeButon.addMouseListener(this);
 		ic = new JLabel(new ImageIcon(new ImageIcon("ressources/icones/iconeMenu.png").getImage().getScaledInstance(26, 26, Image.SCALE_SMOOTH)));
 		p1=new JPanel();
 	}
@@ -66,7 +64,7 @@ public class OngletMenu extends JPanel implements MouseListener{
 		JLabel lbTitle=new JLabel("Menu");
 		p1.add(ic);
 		p1.add(lbTitle);
-		p1.add(closeButon);
+		//p1.add(closeButon);
 		this.tabbedPane.setTabComponentAt(rechercheOnglet(),p1);
 		this.repaint();
 		this.revalidate();
@@ -309,38 +307,7 @@ public class OngletMenu extends JPanel implements MouseListener{
 		}
 	}
 
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		if(e.getSource().equals(closeButon)){
-			tabbedPane.remove(this);
-			listeOnglets.remove(this);
-		}
 
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		closeButon.setIcon(new ImageIcon(new ImageIcon("ressources/icones/fermer2.png").getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH)));
-
-	}
-
-	@Override
-	public void mouseExited(MouseEvent arg0) {
-		closeButon.setIcon(new ImageIcon(new ImageIcon("ressources/icones/fermer.png").getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH)));
-
-	}
-
-	@Override
-	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
 
 	public class MyTableModel extends DefaultTableModel {
 

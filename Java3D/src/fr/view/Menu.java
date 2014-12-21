@@ -41,7 +41,7 @@ public class Menu extends JMenuBar implements ActionListener {
 	// Items Menu Fichier
 	private final JMenuItem mIFImporter;
 	private final JMenuItem mIFOuvrir;
-	private final JMenuItem mIFRecents;
+	private final JMenu mIFRecents;
 	private final JMenuItem mIFEnregistrer;
 	private final JMenuItem mIFExporter;
 	private final JMenuItem mIFFermer;
@@ -57,6 +57,11 @@ public class Menu extends JMenuBar implements ActionListener {
 	// Items Menu Infos
 	private final JMenuItem mIIaPropos;
 	private final JMenuItem mIIContacts;
+	private final JMenuItem recent1;
+	private final JMenuItem recent2;
+	private final JMenuItem recent3;
+	private final JMenuItem recent4;
+	private final JMenuItem recent5;
 
 	private final JTabbedPane tabbedPane;
 
@@ -91,7 +96,7 @@ public class Menu extends JMenuBar implements ActionListener {
 		// Sous menu Fichier
 		mIFImporter = new JMenuItem("Importer");
 		mIFOuvrir = new JMenuItem("Ouvrir");
-		mIFRecents = new JMenuItem("Fichiers r�cents");
+		mIFRecents = new JMenu("Fichiers recents");
 		mIFEnregistrer = new JMenuItem("Enregistrer dans la BDD");
 		mIFExporter = new JMenuItem("Exporter");
 
@@ -148,6 +153,20 @@ public class Menu extends JMenuBar implements ActionListener {
 
 		mIIaPropos.setAccelerator(KeyStroke.getKeyStroke("F1"));
 		mIIContacts.setAccelerator(KeyStroke.getKeyStroke("F2"));
+
+
+		//recents
+		recent1=new JMenuItem("prout");
+		recent2=new JMenuItem("prout");
+		recent3=new JMenuItem("prout");
+		recent4=new JMenuItem("prout");
+		recent5=new JMenuItem("prout");
+
+		mIFRecents.add(recent1);
+		mIFRecents.add(recent2);
+		mIFRecents.add(recent3);
+		mIFRecents.add(recent4);
+		mIFRecents.add(recent5);
 
 		// Ajout de chaque sous menu � son menu
 		mFichier.add(mIFImporter);
@@ -290,8 +309,10 @@ public class Menu extends JMenuBar implements ActionListener {
 			}
 		} else if (e.getSource().equals(mIFFermer)) {
 			Component onglet = tabbedPane.getSelectedComponent();
-			tabbedPane.remove(onglet);
-			listeOnglets.remove(onglet);
+			if(onglet instanceof Onglet){
+				tabbedPane.remove(onglet);
+				listeOnglets.remove(onglet);
+			}
 		}
 	}
 
