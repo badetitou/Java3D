@@ -3,10 +3,13 @@ package fr.view;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
+
+import fr.model.OutilsBdd;
 
 
 /**
@@ -26,6 +29,7 @@ public class ProgressBar extends JPanel{
 	private static SplashScreen ss;
 	private Thread t ;
 	private Thread t2;
+	private final ArrayList<MyDeskTopPane> listeFichiersRecents;
 	//public static String url="ressources/image/icosa.gts";
 	public ProgressBar(SplashScreen ss){
 		progressBar.setMaximum(PROGBAR_MAX);
@@ -34,6 +38,7 @@ public class ProgressBar extends JPanel{
 		progressBar.setPreferredSize(new Dimension(180,18));
 		progressBar.setIndeterminate(true);
 		ProgressBar.ss=ss;
+		listeFichiersRecents=new ArrayList<MyDeskTopPane>();
 		this.setLayout(new GridLayout(2,1,0,4));
 		this.setOpaque(false);
 		JLabel jl = new JLabel(" Chargement des fichiers ...");
@@ -60,12 +65,13 @@ public class ProgressBar extends JPanel{
 			@Override
 			public void run() {
 				while(t.isAlive()){
-					try {
-						this.sleep(2000);
-					} catch (InterruptedException e) {}
+					OutilsBdd obdd= new OutilsBdd("Database.db");
+					for(int i=0;i<5;i++){
+						listeFichiersRecents.add(new MyDeskTopPane(obdd.getLinkFile("android")));
+					}
 				}
 				ss.dispose();
-				new Window();
+				new Window(listeFichiersRecents);
 			}
 		};
 		t2.start();

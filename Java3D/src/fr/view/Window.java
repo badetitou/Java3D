@@ -30,15 +30,14 @@ public class Window extends JFrame implements ComponentListener{
 	public static JFrame frame;
 	private final JTabbedPane tabbedPane;
 	private final ArrayList<Object> listeOnglets;
-
-
-	public Window() {
+	public Window(ArrayList<MyDeskTopPane> listeFichiersRecents) {
 		super("3D Lib");
-		Window.frame=this;
 		outil = getToolkit();
 		this.setIconImage(new ImageIcon("ressources/image/logoforreal2.png").getImage());
 
 		OutilsBdd obdd=new OutilsBdd("Database.db");
+
+		//precharger fichier recent
 
 		//onglets
 		listeOnglets=new ArrayList<Object>();
@@ -58,7 +57,7 @@ public class Window extends JFrame implements ComponentListener{
 		container.add(tabbedPane,BorderLayout.CENTER);
 		addComponentListener(this);
 
-		this.setJMenuBar(new Menu(tabbedPane,listeOnglets));
+		this.setJMenuBar(new Menu(tabbedPane,listeOnglets,listeFichiersRecents));
 		this.getContentPane().add(container);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//this.pack();
@@ -67,20 +66,24 @@ public class Window extends JFrame implements ComponentListener{
 		this.setMinimumSize(new Dimension(this.getSize().width,this.getSize().height));
 	}
 
+	@Override
 	public void componentHidden(ComponentEvent arg0) {
 		// TODO Auto-generated method stub
 
 	}
 
+	@Override
 	public void componentMoved(ComponentEvent arg0) {
 		// TODO Auto-generated method stub
 
 	}
 
+	@Override
 	public void componentResized(ComponentEvent e) {
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 	}
 
+	@Override
 	public void componentShown(ComponentEvent arg0) {
 		// TODO Auto-generated method stub
 

@@ -73,11 +73,13 @@ public class Menu extends JMenuBar implements ActionListener {
 	private String lienGts;
 
 	private final ArrayList<Object> listeOnglets;
+	ArrayList<MyDeskTopPane> listeFichiersRecents;
 
-	public Menu(final JTabbedPane tabbedPane, ArrayList<Object> listeOnglets) {
+	public Menu(final JTabbedPane tabbedPane, ArrayList<Object> listeOnglets,ArrayList<MyDeskTopPane> listeFichiersRecents) {
 		this.tabbedPane = tabbedPane;
 		this.listeOnglets = listeOnglets;
 		this.panelInfos = panelInfos;
+		this.listeFichiersRecents=listeFichiersRecents;
 		this.setPreferredSize(new Dimension((int) Window.outil.getScreenSize().getWidth(), 30));
 
 		// Cr�ation du Menu

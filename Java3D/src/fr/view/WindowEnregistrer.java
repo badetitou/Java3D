@@ -59,7 +59,7 @@ public class WindowEnregistrer extends JFrame {
 		private final String dateModiff;
 		private final String dateAjoutt;
 		private final int nImages;
-		private final int nRealisations;
+		private int nRealisations=1;
 		private final int nChargements;
 		private String description;
 		private final ArrayList<String>listeImages;
@@ -236,7 +236,7 @@ public class WindowEnregistrer extends JFrame {
 							//System.out.println("Sauvegarde réussie");
 						}
 					}
-					obdd.addFile(this.nomFichier, "fichiers"+File.separator+this.nomFichier+File.separator+this.nomFichier+".gts", this.description, this.nomAuteur, this.nChargements, listeImages.size(), this.nRealisations, 0, "fichiers"+File.separator+this.nomFichier+File.separator+"images"+File.separator);
+					obdd.addFile(this.nomFichier, "fichiers"+File.separator+this.nomFichier+File.separator+this.nomFichier+".gts", this.description, this.nomAuteur, this.nChargements, listeImages.size(), this.nRealisations, this.nRealisations, "fichiers"+File.separator+this.nomFichier+File.separator+"images"+File.separator);
 					this.nouveau=false;
 					((Onglet)onglet).setNouveau(false);
 					((Onglet)onglet).actualiserOnglet(this.nomFichier);
@@ -245,7 +245,6 @@ public class WindowEnregistrer extends JFrame {
 					((Onglet)onglet).getPbdd().getImages().setNouveau(false);
 				}
 				else {
-
 					String lien=obdd.getLinkImg(nomFichier);
 					File repertoire = new File(lien);
 					File[] listefichiers;
@@ -279,9 +278,10 @@ public class WindowEnregistrer extends JFrame {
 					this.description=((Onglet)onglet).getPbdd().getDescription().getDescription();
 					obdd.updateFile(this.nomFichier,this.description, this.nChargements, listeImages.size(), this.nRealisations, "fichiers"+File.separator+this.nomFichier+File.separator+"images"+File.separator,0);
 				}
-				((Onglet)onglet).getPbdd().getInformations().actualiserInfos(this.nomFichier, this.nomAuteur, this.nbImages, 0,obdd.getDateLastModif(nomFichier));
+				((Onglet)onglet).getPbdd().getInformations().actualiserInfos(this.nomFichier, this.nomAuteur, this.nbImages, this.nRealisations,obdd.getDateLastModif(nomFichier));
 				((Onglet)onglet).getPbdd().getPanelDescription().actualiserDesc(this.description);
 				if(newRea.isSelected()){
+					this.nRealisations++;
 					if(this.copieGTS(new File(lienGts), new File("fichiers"+File.separator+this.nomFichier+File.separator+"realisations"+File.separator+this.nomFichier+this.nRealisations+".gts"))){
 						windowE.dispose();
 					}
