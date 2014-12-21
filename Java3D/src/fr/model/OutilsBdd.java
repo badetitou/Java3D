@@ -201,6 +201,23 @@ public class OutilsBdd {
 			return lastFiles;
 		}
 	}
+	
+	public String getName (String url) {
+		this.connect();
+		String name="";
+		String query = "SELECT name FROM files WHERE linkFile = '"+url+"'";
+		try {
+			ResultSet rs = statement.executeQuery(query);
+			name = rs.getString(1);
+			this.close();
+			return name;
+		} catch (Exception e) {
+			System.out.println("Erreur dans getLinkFile");
+			System.out.println(e.getMessage());
+			this.close();
+			return name;
+		}
+	}
 
 	public void updateFile(String name, String desc,int nbrOpen, int nbrImg, int nbrModif, String linkImg, int size) {
 		this.connect();
