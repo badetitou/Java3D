@@ -37,6 +37,7 @@ public class OutilsBdd {
 			System.out.println(e.getMessage());
 		}
 	}
+	
 
 
 	private void close() {
@@ -187,19 +188,22 @@ public class OutilsBdd {
 		this.close();
 	}
 
-	public String getLastFiles () {
+	public String[] getLastFiles () {
 		this.connect();
-		String query = "SELECT name FROM files ORDER BY lastModifDate DESC";
+		String[] lastFiles = new String[5];
+		String query = "SELECT linkFile FROM files ORDER BY lastModifDate DESC";
 		try {
 			ResultSet rs = statement.executeQuery(query);
-			String name = rs.getString(1);
+			int i=0;
+			while (rs.next())
+				lastFiles[i] = rs.getString(1);
 			this.close();
-			return name;
+			return lastFiles;
 		} catch (Exception e) {
 			System.out.println("Erreur dans getLinkFile");
 			System.out.println(e.getMessage());
 			this.close();
-			return "";
+			return lastFiles;
 		}
 	}
 
