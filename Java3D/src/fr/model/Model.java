@@ -173,19 +173,11 @@ public class Model {
 	public void zoomAuto() {
 		recentrer();
 		double maxX = getMaxX();
-		zoom(d.width/(2*maxX + 250));
-		
-		double minX = Math.abs(getMinX());
-		if (minX > d.getHeight()/2)
-			zoom(d.height/(2*minX + 250));
-		
-		double minY = Math.abs(getMinY());
-		if (minY > d.getHeight()/2)
-			zoom(d.height/(2*minY + 250));
+		zoom(d.width/2*(maxX + 250));
 		
 		double maxY = getMaxY();
-		if (maxY > d.getHeight()/2)
-			zoom(d.height/(2*maxY + 250));
+		if (maxY > d.getHeight() / 2 - 50)
+			zoom((d.getHeight() / 2 - 50) / maxY);
 	}
 
 	/**
