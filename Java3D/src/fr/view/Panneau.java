@@ -16,6 +16,8 @@ import java.util.List;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
+import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
@@ -46,10 +48,13 @@ public class Panneau extends JPanel implements MouseListener {
 	/*
 	 * TEST
 	 */
-	public JRadioButtonMenuItem low;
-	public JRadioButtonMenuItem medium;
-	public JRadioButtonMenuItem high;
-	public JMenuItem boutonCentre;
+	private JRadioButtonMenuItem low;
+	private JRadioButtonMenuItem medium;
+	private JRadioButtonMenuItem high;
+	private JMenuItem boutonCentre;
+	private JMenuItem color;
+	private JFrame colorFrame = new JFrame();
+	private JColorChooser jcc;
 	/*
 	 * END-TEST
 	 */
@@ -219,6 +224,11 @@ public class Panneau extends JPanel implements MouseListener {
 		medium = new JRadioButtonMenuItem("medium");
 		high = new JRadioButtonMenuItem("high");
 		boutonCentre = new JMenuItem("Recentre");
+		color = new JMenuItem("Color chooser");
+		jcc = new JColorChooser();
+		
+		colorFrame.add(jcc);
+		color.addMouseListener(this);
 		boutonCentre.addMouseListener(this);
 		popMenu.add(boutonCentre);
 		boutonCentre.addMouseListener(this);
@@ -233,7 +243,17 @@ public class Panneau extends JPanel implements MouseListener {
 		low.addMouseListener(this);
 		medium.addMouseListener(this);
 		high.addMouseListener(this);
-
+	}
+	
+	public void setColorChosser(boolean b){
+		if (b){
+			popMenu.addSeparator();
+			popMenu.add(color);
+		} else {
+			popMenu.remove(6);
+			popMenu.remove(5);
+			colorFrame.setVisible(false);
+		}
 	}
 
 	@Override
@@ -311,6 +331,8 @@ public class Panneau extends JPanel implements MouseListener {
 			this.dp.getPanel().setQualite(1);
 		} else if (e.getSource().equals(high)) {
 			this.dp.getPanel().setQualite(2);
+		} else if (e.getSource().equals(color)){
+			colorFrame.setVisible(true);
 		}
 		
 		popMenu.setVisible(false);
@@ -325,6 +347,8 @@ public class Panneau extends JPanel implements MouseListener {
 			medium.setArmed(true);
 		} else if (e.getSource().equals(high)) {
 			high.setArmed(true);
+		} else if (e.getSource().equals(color)){
+			color.setArmed(true);
 		}
 	}
 
@@ -337,6 +361,8 @@ public class Panneau extends JPanel implements MouseListener {
 			medium.setArmed(false);
 		} else if (e.getSource().equals(high)) {
 			high.setArmed(false);
+		} else if (e.getSource().equals(color)){
+			color.setArmed(false);
 		}
 	}
 
@@ -344,5 +370,12 @@ public class Panneau extends JPanel implements MouseListener {
 	}
 
 	public void mouseReleased(MouseEvent arg0) {
+	}
+	
+	public void stateChanged(ChangeEvent arg0) {
+		if(getBarreVerticale().isModeEdit()){
+			dp.getModel().changeColor(jcc.getColor());
+			dp.getPanel().repaint();
+		}
 	}
 }
