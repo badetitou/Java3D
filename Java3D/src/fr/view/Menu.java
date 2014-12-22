@@ -329,30 +329,31 @@ public class Menu extends JMenuBar implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(recent1)){
-			onglet = new Onglet(listeFichiersRecents.get(0), tabbedPane, nameRecent1,obdd.getAuthor(nameRecent1), false, listeOnglets);
-			tabbedPane.addTab(nameRecent1, onglet);
-			onglet.dessineOnglet();
-			tabbedPane.setSelectedComponent(onglet);
+			System.out.println("cc");
+			Onglet ong = new Onglet(listeFichiersRecents.get(0), tabbedPane, nameRecent1,obdd.getAuthor(nameRecent1), false, listeOnglets);
+			tabbedPane.addTab(nameRecent1, ong);
+			ong.dessineOnglet();
+			tabbedPane.setSelectedComponent(ong);
 			mIFEnregistrer.setEnabled(true);
 			mIFExporter.setEnabled(true);
 			mIFProprietes.setEnabled(true);
 		}
 
 		else if(e.getSource().equals(recent2)){
-			onglet = new Onglet(listeFichiersRecents.get(1), tabbedPane, nameRecent2,obdd.getAuthor(nameRecent2), false, listeOnglets);
-			tabbedPane.addTab(nameRecent2, onglet);
-			onglet.dessineOnglet();
-			tabbedPane.setSelectedComponent(onglet);
+			Onglet ong = new Onglet(listeFichiersRecents.get(1), tabbedPane, nameRecent2,obdd.getAuthor(nameRecent2), false, listeOnglets);
+			tabbedPane.addTab(nameRecent2, ong);
+			ong.dessineOnglet();
+			tabbedPane.setSelectedComponent(ong);
 			mIFEnregistrer.setEnabled(true);
 			mIFExporter.setEnabled(true);
 			mIFProprietes.setEnabled(true);
 		}
 
 		if(e.getSource().equals(recent3)){
-			onglet = new Onglet(listeFichiersRecents.get(2), tabbedPane, nameRecent3,obdd.getAuthor(nameRecent3), false, listeOnglets);
-			tabbedPane.addTab(nameRecent3, onglet);
-			onglet.dessineOnglet();
-			tabbedPane.setSelectedComponent(onglet);
+			Onglet ong = new Onglet(listeFichiersRecents.get(2), tabbedPane, nameRecent3,obdd.getAuthor(nameRecent3), false, listeOnglets);
+			tabbedPane.addTab(nameRecent3, ong);
+			ong.dessineOnglet();
+			tabbedPane.setSelectedComponent(ong);
 			mIFEnregistrer.setEnabled(true);
 			mIFExporter.setEnabled(true);
 			mIFProprietes.setEnabled(true);
@@ -360,10 +361,10 @@ public class Menu extends JMenuBar implements ActionListener {
 
 
 		if(e.getSource().equals(recent4)){
-			onglet = new Onglet(listeFichiersRecents.get(3), tabbedPane, nameRecent4,obdd.getAuthor(nameRecent4), false, listeOnglets);
-			tabbedPane.addTab(nameRecent4, onglet);
-			onglet.dessineOnglet();
-			tabbedPane.setSelectedComponent(onglet);
+			Onglet ong = new Onglet(listeFichiersRecents.get(3), tabbedPane, nameRecent4,obdd.getAuthor(nameRecent4), false, listeOnglets);
+			tabbedPane.addTab(nameRecent4, ong);
+			ong.dessineOnglet();
+			tabbedPane.setSelectedComponent(ong);
 			mIFEnregistrer.setEnabled(true);
 			mIFExporter.setEnabled(true);
 			mIFProprietes.setEnabled(true);
@@ -371,10 +372,10 @@ public class Menu extends JMenuBar implements ActionListener {
 
 
 		if(e.getSource().equals(recent5)){
-			onglet = new Onglet(listeFichiersRecents.get(4), tabbedPane, nameRecent5,obdd.getAuthor(nameRecent5), false, listeOnglets);
-			tabbedPane.addTab(nameRecent5, onglet);
-			onglet.dessineOnglet();
-			tabbedPane.setSelectedComponent(onglet);
+			Onglet ong = new Onglet(listeFichiersRecents.get(4), tabbedPane, nameRecent5,obdd.getAuthor(nameRecent5), false, listeOnglets);
+			tabbedPane.addTab(nameRecent5, ong);
+			ong.dessineOnglet();
+			tabbedPane.setSelectedComponent(ong);
 			mIFEnregistrer.setEnabled(true);
 			mIFExporter.setEnabled(true);
 			mIFProprietes.setEnabled(true);

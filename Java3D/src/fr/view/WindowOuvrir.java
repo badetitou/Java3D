@@ -149,6 +149,7 @@ public class WindowOuvrir extends JFrame {
 			ouvrir.addMouseListener(this);
 		}
 
+		@Override
 		public void mouseClicked(MouseEvent e) {
 			if (e.getClickCount() == 2) {
 				int index = bdd.locationToIndex(e.getPoint());
@@ -161,6 +162,7 @@ public class WindowOuvrir extends JFrame {
 			else if(e.getSource().equals(ouvrir)){
 				String ouvrir = nFichier.getText();
 				if(obdd.estPresent(ouvrir)){
+					//if(true){
 					Onglet onglet = new Onglet(new MyDeskTopPane(obdd.getLinkFile(ouvrir)),tabbedPane,ouvrir,obdd.getAuthor(ouvrir),false,listeOnglets);
 					//System.out.println(obdd.getLinkFile(ouvrir));
 					tabbedPane.addTab(ouvrir, onglet);
@@ -168,6 +170,10 @@ public class WindowOuvrir extends JFrame {
 					tabbedPane.setSelectedComponent(onglet);
 					panelInfos = onglet.getPinfos();
 					windowO.dispose();
+					//}
+					//else{
+					//JOptionPane.showMessageDialog(null,"L'objet est déjà ouvert !","Attention", JOptionPane.ERROR_MESSAGE);
+					//}
 				}
 				else{
 					nFichier.setText(null);
@@ -179,21 +185,25 @@ public class WindowOuvrir extends JFrame {
 			//windowO.dispose();
 		}
 
+		@Override
 		public void mouseEntered(MouseEvent arg0) {
 			// TODO Auto-generated method stub
 
 		}
 
+		@Override
 		public void mouseExited(MouseEvent arg0) {
 			// TODO Auto-generated method stub
 
 		}
 
+		@Override
 		public void mousePressed(MouseEvent arg0) {
 			// TODO Auto-generated method stub
 
 		}
 
+		@Override
 		public void mouseReleased(MouseEvent arg0) {
 			// TODO Auto-generated method stub
 
