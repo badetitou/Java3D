@@ -245,7 +245,7 @@ public class Panneau extends JPanel implements MouseListener {
 		high.addMouseListener(this);
 	}
 	
-	public void setColorChosser(boolean b){
+	public void setColorChooser(boolean b){
 		if (b){
 			popMenu.addSeparator();
 			popMenu.add(color);
