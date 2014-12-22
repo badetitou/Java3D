@@ -319,6 +319,11 @@ public class Menu extends JMenuBar implements ActionListener {
 			recent5=new JMenuItem(nameRecent5);
 			recent5.setEnabled(true);
 		}
+		recent1.addActionListener(this);
+		recent2.addActionListener(this);
+		recent3.addActionListener(this);
+		recent4.addActionListener(this);
+		recent5.addActionListener(this);
 		mIFRecents.add(recent1);
 		mIFRecents.add(recent2);
 		mIFRecents.add(recent3);
