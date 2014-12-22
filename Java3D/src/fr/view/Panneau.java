@@ -14,6 +14,7 @@ import java.awt.event.MouseWheelListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -30,7 +31,7 @@ import javax.swing.event.MenuListener;
 import fr.model.Face;
 import fr.model.Model;
 
-public class Panneau extends JPanel implements MouseListener, ChangeListener {
+public class Panneau extends JPanel implements MouseListener {
 	/*
 	 * Model necessaire info
 	 */
@@ -45,10 +46,10 @@ public class Panneau extends JPanel implements MouseListener, ChangeListener {
 	/*
 	 * TEST
 	 */
-	public JRadioButton low;
-	public JRadioButton medium;
-	public JRadioButton high;
-	public JButton boutonCentre;
+	public JRadioButtonMenuItem low;
+	public JRadioButtonMenuItem medium;
+	public JRadioButtonMenuItem high;
+	public JMenuItem boutonCentre;
 	/*
 	 * END-TEST
 	 */
@@ -214,17 +215,24 @@ public class Panneau extends JPanel implements MouseListener, ChangeListener {
 	private void initPopMenu() {
 		// parent menu
 		popMenu = new JPopupMenu("Menu");
-
-		// sub menu
-		JMenu sectionsMenu = new JMenu("Sections");
-		JMenuItem menuItem1 = new JMenuItem("Item1");
-		sectionsMenu.add(menuItem1);
-		JMenuItem menuItem2 = new JMenuItem("Item2");
-		sectionsMenu.add(menuItem2);
-
-		popMenu.add(sectionsMenu);
-		popMenu.add(menuItem1);
-		popMenu.add(menuItem2);
+		low = new JRadioButtonMenuItem("low");
+		medium = new JRadioButtonMenuItem("medium");
+		high = new JRadioButtonMenuItem("high");
+		boutonCentre = new JMenuItem("Recentre");
+		boutonCentre.addMouseListener(this);
+		popMenu.add(boutonCentre);
+		boutonCentre.addMouseListener(this);
+		popMenu.addSeparator();
+		ButtonGroup bg = new ButtonGroup();
+		bg.add(low);
+		bg.add(medium);
+		bg.add(high);
+		popMenu.add(low);
+		popMenu.add(medium);
+		popMenu.add(high);
+		low.addMouseListener(this);
+		medium.addMouseListener(this);
+		high.addMouseListener(this);
 
 	}
 
@@ -304,24 +312,37 @@ public class Panneau extends JPanel implements MouseListener, ChangeListener {
 		} else if (e.getSource().equals(high)) {
 			this.dp.getPanel().setQualite(2);
 		}
+		
+		popMenu.setVisible(false);
 	}
 
-	public void mouseEntered(MouseEvent arg0) {
+	public void mouseEntered(MouseEvent e) {
+		if (e.getSource().equals(boutonCentre)){
+			boutonCentre.setArmed(true);
+		} else if (e.getSource().equals(low)) {
+			low.setArmed(true);
+		} else if (e.getSource().equals(medium)) {
+			medium.setArmed(true);
+		} else if (e.getSource().equals(high)) {
+			high.setArmed(true);
+		}
 	}
 
-	public void mouseExited(MouseEvent arg0) {
+	public void mouseExited(MouseEvent e) {
+		if (e.getSource().equals(boutonCentre)){
+			boutonCentre.setArmed(false);
+		} else if (e.getSource().equals(low)) {
+			low.setArmed(false);
+		} else if (e.getSource().equals(medium)) {
+			medium.setArmed(false);
+		} else if (e.getSource().equals(high)) {
+			high.setArmed(false);
+		}
 	}
 
 	public void mousePressed(MouseEvent arg0) {
 	}
 
 	public void mouseReleased(MouseEvent arg0) {
-	}
-
-	public void stateChanged(ChangeEvent arg0) {
-		/*
-		 * if(dp.getBarreVerticale().isModeEdit()){
-		 * dp.getModel().changeColor(jcc.getColor()); dp.getPanel().repaint(); }
-		 */
 	}
 }
