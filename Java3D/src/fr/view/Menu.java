@@ -64,11 +64,11 @@ public class Menu extends JMenuBar implements ActionListener {
 	private final JMenuItem recent3;
 	private final JMenuItem recent4;
 	private final JMenuItem recent5;
-	private final String nameRecent1;
-	private final String nameRecent2;
-	private final String nameRecent3;
-	private final String nameRecent4;
-	private final String nameRecent5;
+	private String nameRecent1;
+	private String nameRecent2;
+	private String nameRecent3;
+	private String nameRecent4;
+	private String nameRecent5;
 	private final JTabbedPane tabbedPane;
 
 	private static int nbOngletsImport=0;
@@ -165,13 +165,22 @@ public class Menu extends JMenuBar implements ActionListener {
 		mIIContacts.setAccelerator(KeyStroke.getKeyStroke("F2"));
 
 
+		nameRecent1="";
+		nameRecent2="";
+		nameRecent3="";
+		nameRecent4="";
+		nameRecent5="";
 		//recents
-
-		nameRecent1=obdd.getName(listeFichiersRecents.get(0).getUrl());
-		nameRecent2=obdd.getName(listeFichiersRecents.get(1).getUrl());
-		nameRecent3=obdd.getName(listeFichiersRecents.get(2).getUrl());
-		nameRecent4=obdd.getName(listeFichiersRecents.get(3).getUrl());
-		nameRecent5=obdd.getName(listeFichiersRecents.get(4).getUrl());
+		if(listeFichiersRecents.get(0)!=null)
+			nameRecent1=obdd.getName(listeFichiersRecents.get(0).getUrl());
+		if(listeFichiersRecents.get(1)!=null)
+			nameRecent2=obdd.getName(listeFichiersRecents.get(1).getUrl());
+		if(listeFichiersRecents.get(2)!=null)
+			nameRecent3=obdd.getName(listeFichiersRecents.get(2).getUrl());
+		if(listeFichiersRecents.get(3)!=null)
+			nameRecent4=obdd.getName(listeFichiersRecents.get(3).getUrl());
+		if(listeFichiersRecents.get(4)!=null)
+			nameRecent5=obdd.getName(listeFichiersRecents.get(4).getUrl());
 
 		recent1=new JMenuItem(nameRecent1);
 		recent2=new JMenuItem(nameRecent2);
