@@ -26,9 +26,9 @@ import fr.model.OutilsBdd;
 public class WindowEnregistrer extends JFrame {
 
 	private final String lienGts;
-	public WindowEnregistrer(JTabbedPane tabbedPane, ArrayList<Object> listeOnglets, PanelInformations panelInfos,boolean nouveau,String nomFichier,String nomAuteur,String lienGts) {
+	public WindowEnregistrer(JTabbedPane tabbedPane, ArrayList<Object> listeOnglets, PanelInformations panelInfos,boolean nouveau,String nomFichier,String nomAuteur,String lienGts,Menu menu) {
 		this.lienGts=lienGts;
-		PanelEnregistrer pE = new PanelEnregistrer(this, tabbedPane, listeOnglets, panelInfos,nouveau,nomFichier,nomAuteur);
+		PanelEnregistrer pE = new PanelEnregistrer(this, tabbedPane, listeOnglets, panelInfos,nouveau,nomFichier,nomAuteur,menu);
 		this.setTitle("Enregistrer dans la BDD");
 		this.setSize(500, 300);
 		this.setResizable(false);
@@ -67,10 +67,12 @@ public class WindowEnregistrer extends JFrame {
 		private final ButtonGroup group;
 		private final JRadioButton newRea;
 		private final JRadioButton oldRea;
+		private final Menu menu;
 		int res;
-		public PanelEnregistrer(JFrame windowE, JTabbedPane tabbedPane, ArrayList<Object> listeOnglets, PanelInformations panelInfos,boolean nouveau,String nomFichier,String nomAuteur) {
+		public PanelEnregistrer(JFrame windowE, JTabbedPane tabbedPane, ArrayList<Object> listeOnglets, PanelInformations panelInfos,boolean nouveau,String nomFichier,String nomAuteur,Menu menu) {
 			this.windowE = windowE;
 			this.nouveau=nouveau;
+			this.menu=menu;
 			this.nomFichier=nomFichier;
 			this.nomAuteur=nomAuteur;
 			this.setPreferredSize(new Dimension(500, 300));
@@ -270,6 +272,7 @@ public class WindowEnregistrer extends JFrame {
 						JOptionPane.showMessageDialog(null,"La sauvegarde de : "+lienGts+" a échoué !","Sauvegarde échouée", JOptionPane.OK_OPTION);
 					}
 				}
+				menu.actualiserFichiersRecents(obdd.getLinkFile(this.nomFichier));
 				((Onglet)onglet).getPbdd().getInformations().actualiserInfos(this.nomFichier, this.nomAuteur, this.nbImages, this.nRealisations,obdd.getDateLastModif(nomFichier));
 				((Onglet)onglet).getPbdd().getPanelDescription().actualiserDesc(this.description);
 			}

@@ -47,7 +47,6 @@ public class Menu extends JMenuBar implements ActionListener {
 	private final JMenuItem mIFEnregistrer;
 	private final JMenuItem mIFExporter;
 	private final JMenuItem mIFFermer;
-	private final JMenuItem mIFImprimer;
 	private final JMenuItem mIFProprietes;
 	private final JMenuItem mIFQuitter;
 	// Items Menu Edition
@@ -59,11 +58,11 @@ public class Menu extends JMenuBar implements ActionListener {
 	// Items Menu Infos
 	private final JMenuItem mIIaPropos;
 	private final JMenuItem mIIContacts;
-	private final JMenuItem recent1;
-	private final JMenuItem recent2;
-	private final JMenuItem recent3;
-	private final JMenuItem recent4;
-	private final JMenuItem recent5;
+	private JMenuItem recent1;
+	private JMenuItem recent2;
+	private JMenuItem recent3;
+	private JMenuItem recent4;
+	private JMenuItem recent5;
 	private String nameRecent1;
 	private String nameRecent2;
 	private String nameRecent3;
@@ -80,7 +79,7 @@ public class Menu extends JMenuBar implements ActionListener {
 	private final OutilsBdd obdd;
 
 	private final ArrayList<Object> listeOnglets;
-	ArrayList<MyDeskTopPane> listeFichiersRecents;
+	private final ArrayList<MyDeskTopPane> listeFichiersRecents;
 
 	public Menu(final JTabbedPane tabbedPane, ArrayList<Object> listeOnglets,ArrayList<MyDeskTopPane> listeFichiersRecents) {
 		this.tabbedPane = tabbedPane;
@@ -111,7 +110,6 @@ public class Menu extends JMenuBar implements ActionListener {
 		mIFExporter = new JMenuItem("Exporter");
 
 		mIFFermer = new JMenuItem("Fermer");
-		mIFImprimer = new JMenuItem("Imprimer");
 		mIFProprietes = new JMenuItem("Propri�t�s");
 		mIFQuitter = new JMenuItem("Quitter");
 
@@ -130,8 +128,6 @@ public class Menu extends JMenuBar implements ActionListener {
 		mIFExporter.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E,
 				InputEvent.CTRL_MASK));
 		mIFFermer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W,
-				InputEvent.CTRL_MASK));
-		mIFImprimer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P,
 				InputEvent.CTRL_MASK));
 		mIFProprietes.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_J,
 				InputEvent.CTRL_MASK));
@@ -165,28 +161,47 @@ public class Menu extends JMenuBar implements ActionListener {
 		mIIContacts.setAccelerator(KeyStroke.getKeyStroke("F2"));
 
 
-		nameRecent1="";
-		nameRecent2="";
-		nameRecent3="";
-		nameRecent4="";
-		nameRecent5="";
+		nameRecent1="            ";
+		nameRecent2="            ";
+		nameRecent3="            ";
+		nameRecent4="            ";
+		nameRecent5="            ";
+		recent1=new JMenuItem();
+		recent2=new JMenuItem();
+		recent3=new JMenuItem();
+		recent4=new JMenuItem();
+		recent5=new JMenuItem();
+		recent1.setEnabled(false);
+		recent2.setEnabled(false);
+		recent3.setEnabled(false);
+		recent4.setEnabled(false);
+		recent5.setEnabled(false);
 		//recents
-		if(listeFichiersRecents.get(0)!=null)
+		if(listeFichiersRecents.get(0)!=null){
 			nameRecent1=obdd.getName(listeFichiersRecents.get(0).getUrl());
-		if(listeFichiersRecents.get(1)!=null)
+			recent1=new JMenuItem(nameRecent1);
+			recent1.setEnabled(true);
+		}
+		if(listeFichiersRecents.get(1)!=null){
 			nameRecent2=obdd.getName(listeFichiersRecents.get(1).getUrl());
-		if(listeFichiersRecents.get(2)!=null)
+			recent2=new JMenuItem(nameRecent2);
+			recent2.setEnabled(true);
+		}
+		if(listeFichiersRecents.get(2)!=null){
 			nameRecent3=obdd.getName(listeFichiersRecents.get(2).getUrl());
-		if(listeFichiersRecents.get(3)!=null)
+			recent3=new JMenuItem(nameRecent3);
+			recent3.setEnabled(true);
+		}
+		if(listeFichiersRecents.get(3)!=null){
 			nameRecent4=obdd.getName(listeFichiersRecents.get(3).getUrl());
-		if(listeFichiersRecents.get(4)!=null)
+			recent4=new JMenuItem(nameRecent4);
+			recent4.setEnabled(true);
+		}
+		if(listeFichiersRecents.get(4)!=null){
 			nameRecent5=obdd.getName(listeFichiersRecents.get(4).getUrl());
-
-		recent1=new JMenuItem(nameRecent1);
-		recent2=new JMenuItem(nameRecent2);
-		recent3=new JMenuItem(nameRecent3);
-		recent4=new JMenuItem(nameRecent4);
-		recent5=new JMenuItem(nameRecent5);
+			recent5=new JMenuItem(nameRecent5);
+			recent5.setEnabled(true);
+		}
 
 		mIFRecents.add(recent1);
 		mIFRecents.add(recent2);
@@ -202,8 +217,6 @@ public class Menu extends JMenuBar implements ActionListener {
 		mFichier.add(mIFEnregistrer);
 		mFichier.add(mIFExporter);
 		mFichier.add(mIFFermer);
-		mFichier.addSeparator();
-		mFichier.add(mIFImprimer);
 		mFichier.addSeparator();
 		mFichier.add(mIFProprietes);
 		mFichier.addSeparator();
@@ -268,6 +281,49 @@ public class Menu extends JMenuBar implements ActionListener {
 		mIFFermer.addActionListener(this);
 		mIFExporter.addActionListener(this);
 
+	}
+
+	public void actualiserFichiersRecents(String fichier){
+		ArrayList<MyDeskTopPane> listeFichiers=new ArrayList<MyDeskTopPane>();
+		listeFichiers.add(new MyDeskTopPane(fichier));
+		for (int i=0;i<5;i++){
+			listeFichiers.add(listeFichiersRecents.get(i));
+		}
+		listeFichiersRecents.clear();
+		for (int i=0;i<5;i++){
+			listeFichiersRecents.add(listeFichiers.get(i));
+		}
+		this.mIFRecents.removeAll();
+		if(listeFichiersRecents.get(0)!=null){
+			nameRecent1=obdd.getName(listeFichiersRecents.get(0).getUrl());
+			recent1=new JMenuItem(nameRecent1);
+			recent1.setEnabled(true);
+		}
+		if(listeFichiersRecents.get(1)!=null){
+			nameRecent2=obdd.getName(listeFichiersRecents.get(1).getUrl());
+			recent2=new JMenuItem(nameRecent2);
+			recent2.setEnabled(true);
+		}
+		if(listeFichiersRecents.get(2)!=null){
+			nameRecent3=obdd.getName(listeFichiersRecents.get(2).getUrl());
+			recent3=new JMenuItem(nameRecent3);
+			recent3.setEnabled(true);
+		}
+		if(listeFichiersRecents.get(3)!=null){
+			nameRecent4=obdd.getName(listeFichiersRecents.get(3).getUrl());
+			recent4=new JMenuItem(nameRecent4);
+			recent4.setEnabled(true);
+		}
+		if(listeFichiersRecents.get(4)!=null){
+			nameRecent5=obdd.getName(listeFichiersRecents.get(4).getUrl());
+			recent5=new JMenuItem(nameRecent5);
+			recent5.setEnabled(true);
+		}
+		mIFRecents.add(recent1);
+		mIFRecents.add(recent2);
+		mIFRecents.add(recent3);
+		mIFRecents.add(recent4);
+		mIFRecents.add(recent5);
 	}
 
 	@Override
@@ -364,7 +420,7 @@ public class Menu extends JMenuBar implements ActionListener {
 			}
 			WindowEnregistrer windowE;
 			if(res!=-1)
-				windowE = new WindowEnregistrer(tabbedPane,listeOnglets, ((Onglet) onglet).getPinfos(),((Onglet) onglet).isNouveau(),nFile,nAutor,((Onglet) onglet).getDp().getUrl());
+				windowE = new WindowEnregistrer(tabbedPane,listeOnglets, ((Onglet) onglet).getPinfos(),((Onglet) onglet).isNouveau(),nFile,nAutor,((Onglet) onglet).getDp().getUrl(),this);
 		}
 
 		else if (e.getSource().equals(mIFQuitter)) {
