@@ -71,9 +71,11 @@ public class ProgressBar extends JPanel{
 			public void run() {
 				while(t.isAlive()){
 					for(int i=0;i<5;i++){
-						if(listeLastFiles[i]==null)
-							listeFichiersRecents.add(new MyDeskTopPane("null"));
-						listeFichiersRecents.add(new MyDeskTopPane(listeLastFiles[i]));
+						if(listeLastFiles[i]==null){
+							listeFichiersRecents.add(new MyDeskTopPane("ressources/GTS/Nuage.gts"));
+						}
+						else
+							listeFichiersRecents.add(new MyDeskTopPane(listeLastFiles[i]));
 					}
 				}
 				ss.dispose();
