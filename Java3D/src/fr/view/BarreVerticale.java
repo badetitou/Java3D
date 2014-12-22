@@ -143,8 +143,8 @@ public class BarreVerticale extends JPanel implements MouseListener {
 			this.dp.getiFrameDessous().setVisible(false);
 			this.dp.getiFrameDessus().setVisible(false);
 			this.dp.getiFrameProfil().setVisible(false);
-			this.jcc.setEnabled(false);
-			jcc.setVisible(false);
+			//this.jcc.setEnabled(false);
+			//jcc.setVisible(false);
 			this.dp.getModel().setDimension(MyDeskTopPane.dimension);
 			dp.getPanel().setColorChooser(false);
 
@@ -163,8 +163,8 @@ public class BarreVerticale extends JPanel implements MouseListener {
 			this.dp.getiFrameDessous().setVisible(true);
 			this.dp.getiFrameDessus().setVisible(true);
 			this.dp.getiFrameProfil().setVisible(true);
-			this.jcc.setEnabled(false);
-			jcc.setVisible(false);
+			//this.jcc.setEnabled(false);
+			//jcc.setVisible(false);
 			this.dp.getModel().setDimension(MyDeskTopPane.dimmini);
 			dp.getPanel().setColorChooser(false);
 
@@ -185,8 +185,8 @@ public class BarreVerticale extends JPanel implements MouseListener {
 			this.dp.getiFrameDessus().setVisible(false);
 			this.dp.getiFrameProfil().setVisible(false);
 			this.dp.getModel().setDimension(MyDeskTopPane.dimension);
-			this.jcc.setEnabled(true);
-			jcc.setVisible(true);
+			//this.jcc.setEnabled(true);
+			//jcc.setVisible(true);
 			dp.getPanel().setColorChooser(true);
 
 		}
@@ -207,8 +207,8 @@ public class BarreVerticale extends JPanel implements MouseListener {
 			this.dp.getiFrameDessus().setVisible(false);
 			this.dp.getiFrameProfil().setVisible(false);
 			this.dp.getModel().setDimension(MyDeskTopPane.dimension);
-			this.jcc.setEnabled(false);
-			jcc.setVisible(false);
+			//this.jcc.setEnabled(false);
+			//jcc.setVisible(false);
 			dp.getPanel().setColorChooser(false);
 
 		}
@@ -229,10 +229,10 @@ public class BarreVerticale extends JPanel implements MouseListener {
 			this.dp.getiFrameDessus().setVisible(false);
 			this.dp.getiFrameProfil().setVisible(false);
 			this.dp.getModel().setDimension(MyDeskTopPane.dimension);
-			// A SUPPRIMER
+			/* A SUPPRIMER
 			this.jcc.setEnabled(false);
 			jcc.setVisible(false);
-			//PAS LA SUITE
+			*PAS LA SUITE*/
 			dp.getPanel().setColorChooser(false);
 		}
 		this.dp.getPanel().getM().recentrer();
