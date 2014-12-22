@@ -231,6 +231,7 @@ public class Panneau extends JPanel implements MouseListener, ChangeListener {
 		colorFrame.add(jcc);
 		colorFrame.pack();
 		colorFrame.setAlwaysOnTop(true);
+		colorFrame.setTitle("Color Chooser");
 		color.addMouseListener(this);
 		boutonCentre.addMouseListener(this);
 		popMenu.add(boutonCentre);
