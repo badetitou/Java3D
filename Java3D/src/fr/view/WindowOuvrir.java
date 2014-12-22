@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -162,18 +163,26 @@ public class WindowOuvrir extends JFrame {
 			else if(e.getSource().equals(ouvrir)){
 				String ouvrir = nFichier.getText();
 				if(obdd.estPresent(ouvrir)){
-					//if(true){
-					Onglet onglet = new Onglet(new MyDeskTopPane(obdd.getLinkFile(ouvrir)),tabbedPane,ouvrir,obdd.getAuthor(ouvrir),false,listeOnglets);
-					//System.out.println(obdd.getLinkFile(ouvrir));
-					tabbedPane.addTab(ouvrir, onglet);
-					onglet.dessineOnglet();
-					tabbedPane.setSelectedComponent(onglet);
-					panelInfos = onglet.getPinfos();
-					windowO.dispose();
-					//}
-					//else{
-					//JOptionPane.showMessageDialog(null,"L'objet est déjà ouvert !","Attention", JOptionPane.ERROR_MESSAGE);
-					//}
+					boolean bool=false;
+					for(int i=0;i<listeOnglets.size();i++){
+						if(listeOnglets.get(i) instanceof Onglet){
+							if(((Onglet)listeOnglets.get(i)).getNomFichier().equals(ouvrir))
+								bool=true;
+						}
+					}
+					if(!bool){
+						Onglet onglet = new Onglet(new MyDeskTopPane(obdd.getLinkFile(ouvrir)),tabbedPane,ouvrir,obdd.getAuthor(ouvrir),false,listeOnglets);
+						//System.out.println(obdd.getLinkFile(ouvrir));
+						tabbedPane.addTab(ouvrir, onglet);
+						onglet.dessineOnglet();
+						tabbedPane.setSelectedComponent(onglet);
+						panelInfos = onglet.getPinfos();
+						windowO.dispose();
+					}
+					else{
+						windowO.dispose();
+						JOptionPane.showMessageDialog(null,"L'objet est déjà ouvert !","Attention", JOptionPane.ERROR_MESSAGE);
+					}
 				}
 				else{
 					nFichier.setText(null);
