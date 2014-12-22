@@ -158,7 +158,7 @@ public class OutilsBdd {
 	public void addFile(String name, String linkFile, String desc, String author, int nbrOpen, int nbrImg, int nbrModif, int nbrRea, String linkImg) {
 		this.connect();
 		Calendar rightNow = Calendar.getInstance();
-		String date = rightNow.get(Calendar.YEAR)+"-"+rightNow.get(Calendar.MONTH)+"-"+rightNow.get(Calendar.DAY_OF_MONTH);
+		String date = rightNow.get(Calendar.YEAR)+"-"+rightNow.get(Calendar.MONTH)+"-"+rightNow.get(Calendar.DAY_OF_MONTH)+" "+rightNow.get(Calendar.HOUR_OF_DAY)+":"+rightNow.get(Calendar.MINUTE)+":"+rightNow.get(Calendar.SECOND);
 		String requet = "INSERT INTO files VALUES('"
 				+ name +"','"
 				+ linkFile +"','"
@@ -222,7 +222,7 @@ public class OutilsBdd {
 	public void updateFile(String name, String desc,int nbrOpen, int nbrImg, int nbrModif, String linkImg, int size) {
 		this.connect();
 		Calendar rightNow = Calendar.getInstance();
-		String date = rightNow.get(Calendar.YEAR)+"-"+rightNow.get(Calendar.MONTH)+"-"+rightNow.get(Calendar.DAY_OF_MONTH);
+		String date = rightNow.get(Calendar.YEAR)+"-"+rightNow.get(Calendar.MONTH)+"-"+rightNow.get(Calendar.DAY_OF_MONTH)+" "+rightNow.get(Calendar.HOUR_OF_DAY)+":"+rightNow.get(Calendar.MINUTE)+":"+rightNow.get(Calendar.SECOND);
 		String req = "UPDATE files SET desc='"
 				+ desc +"',lastModifDate='"
 				+ date +"',nbrOpen='"
