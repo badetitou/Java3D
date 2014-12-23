@@ -53,6 +53,8 @@ public class Panneau extends JPanel implements MouseListener, ChangeListener {
 	private JRadioButtonMenuItem high;
 	private JMenuItem boutonCentre;
 	private JMenuItem color;
+	private JMenuItem zoomPlus;
+	private JMenuItem zoomMoins;
 	private JFrame colorFrame = new JFrame();
 	private JColorChooser jcc;
 	/*
@@ -224,6 +226,8 @@ public class Panneau extends JPanel implements MouseListener, ChangeListener {
 		medium = new JRadioButtonMenuItem("medium");
 		high = new JRadioButtonMenuItem("high");
 		boutonCentre = new JMenuItem("Recentre");
+		zoomPlus = new JMenuItem("Zoom +");
+		zoomMoins = new JMenuItem("Zoom -");
 		color = new JMenuItem("Color chooser");
 		jcc = new JColorChooser();
 		jcc.getSelectionModel().addChangeListener(this);
@@ -250,7 +254,15 @@ public class Panneau extends JPanel implements MouseListener, ChangeListener {
 		low.addMouseListener(this);
 		medium.addMouseListener(this);
 		high.addMouseListener(this);
-
+		
+		//Zoom + | Zoom -
+		popMenu.addSeparator();
+		popMenu.add(zoomPlus);
+		popMenu.add(zoomMoins);
+		zoomPlus.addMouseListener(this);
+		zoomMoins.addMouseListener(this);
+		
+		
 		// Ajoute le color chooser
 		popMenu.addSeparator();
 		color.setEnabled(false);
@@ -343,6 +355,12 @@ public class Panneau extends JPanel implements MouseListener, ChangeListener {
 			this.dp.getPanel().setQualite(2);
 		} else if (e.getSource().equals(color) && color.isEnabled()) {
 			colorFrame.setVisible(true);
+		} else if (e.getSource().equals(zoomPlus)){
+			m.zoom(1.2);
+			repaint();
+		} else if (e.getSource().equals(zoomMoins)){
+			m.zoom(0.8);
+			repaint();
 		}
 
 		popMenu.setVisible(false);
@@ -359,6 +377,10 @@ public class Panneau extends JPanel implements MouseListener, ChangeListener {
 			high.setArmed(true);
 		} else if (e.getSource().equals(color)) {
 			color.setArmed(true);
+		} else if (e.getSource().equals(zoomPlus)){
+			zoomPlus.setArmed(true);
+		} else if (e.getSource().equals(zoomMoins)){
+			zoomMoins.setArmed(true);
 		}
 	}
 
@@ -373,6 +395,10 @@ public class Panneau extends JPanel implements MouseListener, ChangeListener {
 			high.setArmed(false);
 		} else if (e.getSource().equals(color)) {
 			color.setArmed(false);
+		} else if (e.getSource().equals(zoomPlus)){
+			zoomPlus.setArmed(false);
+		} else if (e.getSource().equals(zoomMoins)){
+			zoomMoins.setArmed(false);
 		}
 	}
 
