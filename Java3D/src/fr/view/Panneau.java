@@ -334,6 +334,8 @@ public class Panneau extends JPanel implements MouseListener, ChangeListener {
 			g.drawString("Hauteur : " + m.getHauteurModel(), 0, 15);
 			g.drawString("Largeur : " + m.getLargeurModel(), 0, 30);
 			g.drawString("Profondeur : " + m.getProfondeurModel(), 0, 45);
+			g.setColor(Color.RED);
+			g.drawString("Clic droit pour plus d'options", 0, 60);
 		}
 		g.dispose();
 	}
