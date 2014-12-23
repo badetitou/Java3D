@@ -58,7 +58,7 @@ public class WindowEnregistrer extends JFrame {
 		private final String dateModiff;
 		private final String dateAjoutt;
 		private final int nImages;
-		private int nRealisations=1;
+		private int nRealisations=0;
 		private final int nChargements;
 		private String description;
 		private final ArrayList<String>listeImages;
@@ -213,7 +213,10 @@ public class WindowEnregistrer extends JFrame {
 							//System.out.println("Sauvegarde réussie");
 						}
 					}
+					this.nRealisations++;
 					obdd.addFile(this.nomFichier, "fichiers"+File.separator+this.nomFichier+File.separator+this.nomFichier+".gts", this.description, this.nomAuteur, this.nChargements, listeImages.size(), this.nRealisations, this.nRealisations, "fichiers"+File.separator+this.nomFichier+File.separator+"images"+File.separator);
+					System.out.println(obdd.getnbrModif(this.nomFichier) +" nbmod");
+					System.out.println(obdd.getNbrRea(nomFichier)+ " nbrea");
 					this.nouveau=false;
 					((Onglet)onglet).setNouveau(false);
 					((Onglet)onglet).actualiserOnglet(this.nomFichier);
