@@ -9,8 +9,7 @@ import java.util.Map;
 
 /**
  * 
- * @author Benoit
- * et oui
+ * @author Benoit et oui
  * 
  */
 public class Model {
@@ -19,20 +18,55 @@ public class Model {
 	public double xTranslate = 0;
 	public double yTranslate = 0;
 	private Dimension d;
+	private double hauteurFixed = 0.0;
+	private double largeurFixed = 0.0;
+	private double profondeurFixed = 0.0;
 
-	
-	public double getHauteurModel(){
+	public double getHauteurModel() {
+		if (hauteurFixed != 0.0) {
+			return hauteurFixed;
+		} else if (largeurFixed != 0.0) {
+			return (getMaxY() + Math.abs(getMinY())) * rapportLargeurModel();
+		} else if (profondeurFixed != 0.0) {
+			return (getMaxY() + Math.abs(getMinY())) * rapportProfondeurModel();
+		}
 		return getMaxY() + Math.abs(getMinY());
 	}
-	
-	public double getLargeurModel(){
+
+	public double getLargeurModel() {
+		if (largeurFixed != 0.0) {
+			return largeurFixed;
+		} else if (hauteurFixed != 0.0) {
+			return (getMaxX() + Math.abs(getMinX())) * rapportHauteurModel();
+		} else if (profondeurFixed != 0.0) {
+			return (getMaxX() + Math.abs(getMinX())) * rapportProfondeurModel();
+		}
 		return getMaxX() + Math.abs(getMinX());
 	}
-	
-	public double getProfondeurModel(){
+
+	public double getProfondeurModel() {
+		if (profondeurFixed != 0.0) {
+			return profondeurFixed;
+		} else if (hauteurFixed != 0.0) {
+			return (getMaxZ() + Math.abs(getMinZ())) * rapportHauteurModel();
+		} else if (largeurFixed != 0.0) {
+			return (getMaxZ() + Math.abs(getMinZ())) * rapportLargeurModel();
+		}
 		return getMaxZ() + Math.abs(getMinZ());
 	}
-	
+
+	private double rapportHauteurModel() {
+		return hauteurFixed / (getMaxY() + Math.abs(getMinY()));
+	}
+
+	private double rapportLargeurModel() {
+		return largeurFixed / (getMaxX() + Math.abs(getMinX()));
+	}
+
+	private double rapportProfondeurModel() {
+		return profondeurFixed / (getMaxZ() + Math.abs(getMinZ()));
+	}
+
 	/**
 	 * 
 	 * @param url
@@ -49,14 +83,15 @@ public class Model {
 			rt.getFaceList().get(i).setModel(this);
 		}
 	}
-	
+
 	/**
 	 * Methode qui de donner une couleur a toute les faces seledtionne
 	 * 
-	 * @param c La nouvelle color
+	 * @param c
+	 *            La nouvelle color
 	 */
-	public void changeColor(Color c){
-		for(Face f : getFace())
+	public void changeColor(Color c) {
+		for (Face f : getFace())
 			if (f.isSelected())
 				f.setColor(c);
 	}
@@ -64,17 +99,17 @@ public class Model {
 	/**
 	 * Permet de centrer l'image pour des rotations centrees
 	 */
-	private void centrage(){
+	private void centrage() {
 		double xMax = getMaxX();
 		double xMin = getMinX();
 		double yMax = getMaxY();
 		double yMin = getMinY();
 		double zMax = getMaxZ();
 		double zMin = getMinY();
-		for (Point p : rt.getPointList()){
-			p.x = p.x - (xMax + xMin)/2;
-			p.y = p.y - (yMax + yMin)/2;
-			p.z = p.z - (zMax + zMin)/2;
+		for (Point p : rt.getPointList()) {
+			p.x = p.x - (xMax + xMin) / 2;
+			p.y = p.y - (yMax + yMin) / 2;
+			p.z = p.z - (zMax + zMin) / 2;
 		}
 	}
 
@@ -85,21 +120,58 @@ public class Model {
 	public Dimension getD() {
 		return d;
 	}
-	
+
 	/**
 	 * 
-	 * @param d nouvelle dimension dans laquel le model ce situe
+	 * @param d
+	 *            nouvelle dimension dans laquel le model ce situe
 	 */
-	public void setDimension(Dimension d){
+	public void setDimension(Dimension d) {
 		this.d = d;
+	}
+
+	public double getHauteurFixed() {
+		return hauteurFixed;
+	}
+
+	public void setHauteurFixed(double hauteurFixed) {
+		if (hauteurFixed >= 0.0) {
+			this.hauteurFixed = hauteurFixed;
+			this.largeurFixed = 0.0;
+			this.profondeurFixed = 0.0;
+		}
+	}
+
+	public double getLargeurFixed() {
+		return largeurFixed;
+	}
+
+	public void setLargeurFixed(double largeurFixed) {
+		if (largeurFixed >= 0.0) {
+			this.largeurFixed = largeurFixed;
+			this.hauteurFixed = 0.0;
+			this.profondeurFixed = 0.0;
+		}
+	}
+
+	public double getProfondeurFixed() {
+		return profondeurFixed;
+	}
+
+	public void setProfondeurFixed(double profondeurFixed) {
+		if (profondeurFixed >= 0.0) {
+			this.profondeurFixed = profondeurFixed;
+			this.hauteurFixed = 0.0;
+			this.largeurFixed = 0.0;
+		}
 	}
 
 	/**
 	 * centre l'image dans son panel
 	 */
 	public void recentrer() {
-		xTranslate =  getD().getWidth() / 2;
-		yTranslate =  getD().getHeight() / 2;
+		xTranslate = getD().getWidth() / 2;
+		yTranslate = getD().getHeight() / 2;
 	}
 
 	/**
@@ -123,10 +195,10 @@ public class Model {
 	 *            est la valeur de la rotation � faire en X
 	 */
 	public void rotationX(double r) {
-		r = r/360.0;
+		r = r / 360.0;
 		double tmpX;
 		double tmpZ;
-		for (Point p : rt.getPointList()){
+		for (Point p : rt.getPointList()) {
 			tmpX = p.x;
 			tmpZ = p.z;
 			p.x = tmpX * Math.cos(r) + tmpZ * Math.sin(r);
@@ -140,11 +212,11 @@ public class Model {
 	 *            est la valeur en radiant de la rotation � faire en Y
 	 */
 	public void rotationY(double r) {
-		
-		r = r/360.0;
+
+		r = r / 360.0;
 		double tmpY;
 		double tmpZ;
-		for (Point p : rt.getPointList()){
+		for (Point p : rt.getPointList()) {
 			tmpY = p.y;
 			tmpZ = p.z;
 			p.y = tmpY * Math.cos(r) - tmpZ * Math.sin(r);
@@ -173,8 +245,8 @@ public class Model {
 	public void zoomAuto() {
 		recentrer();
 		double maxX = getMaxX();
-		zoom(d.width/2*(maxX + 250));
-		
+		zoom(d.width / 2 * (maxX + 250));
+
 		double maxY = getMaxY();
 		if (maxY > d.getHeight() / 2 - 50)
 			zoom((d.getHeight() / 2 - 50) / maxY);
@@ -193,33 +265,36 @@ public class Model {
 			rt.getPointList().get(i).z *= k;
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @return la liste des points du model
 	 */
-	public List<Point> getListPoint(){
+	public List<Point> getListPoint() {
 		return rt.getPointList();
 	}
-	
+
 	/**
 	 * 
 	 * @return la Map des segement
 	 */
-	public  Map<Integer, CouplePoint> getSegment(){
+	public Map<Integer, CouplePoint> getSegment() {
 		return rt.getSegment();
 	}
 
 	/**
 	 * 
-	 * @param coordMouseX position x clique
-	 * @param coordMouseY position y clique
-	 * @return la face clique sur l'ecran 
+	 * @param coordMouseX
+	 *            position x clique
+	 * @param coordMouseY
+	 *            position y clique
+	 * @return la face clique sur l'ecran
 	 */
 	public Face getParticularFace(double coordMouseX, double coordMouseY) {
 		Face f = null;
 		for (int i = 0; i < rt.getFaceList().size(); ++i) {
-			if (rt.getFaceList().get(i).getTriangle().contains(coordMouseX, coordMouseY)) {
+			if (rt.getFaceList().get(i).getTriangle()
+					.contains(coordMouseX, coordMouseY)) {
 				if (f != null) {
 					if (rt.getFaceList().get(i).getP1().z
 							+ rt.getFaceList().get(i).getP2().z
@@ -235,62 +310,67 @@ public class Model {
 		}
 		return f;
 	}
-	
+
 	/**
 	 * Enleve tout les faces selectionnés.
 	 */
-	public void reinitSelected(){
-		for (Face f : rt.getFaceList()){
+	public void reinitSelected() {
+		for (Face f : rt.getFaceList()) {
 			f.setSelected(false);
 		}
 	}
-	
-	
-	private double getMaxX(){
+
+	private double getMaxX() {
 		double x = Integer.MIN_VALUE;
-		for(Point p : rt.getPointList())
+		for (Point p : rt.getPointList())
 			if (p.x > x)
 				x = p.x;
 		return x;
 	}
-	
-	private double getMinX(){
+
+	private double getMinX() {
 		double x = Integer.MAX_VALUE;
-		for(Point p : rt.getPointList())
+		for (Point p : rt.getPointList())
 			if (p.x < x)
 				x = p.x;
 		return x;
 	}
-	
-	private double getMaxY(){
+
+	private double getMaxY() {
 		double y = Integer.MIN_VALUE;
-		for(Point p : rt.getPointList())
+		for (Point p : rt.getPointList())
 			if (p.y > y)
 				y = p.y;
 		return y;
 	}
-	
-	private double getMinY(){
+
+	private double getMinY() {
 		double y = Integer.MAX_VALUE;
-		for(Point p : rt.getPointList())
+		for (Point p : rt.getPointList())
 			if (p.y < y)
 				y = p.y;
 		return y;
 	}
-	
-	private double getMaxZ(){
+
+	private double getMaxZ() {
 		double z = Integer.MIN_VALUE;
-		for(Point p : rt.getPointList())
+		for (Point p : rt.getPointList())
 			if (p.z > z)
 				z = p.z;
 		return z;
 	}
-	
-	private double getMinZ(){
+
+	private double getMinZ() {
 		double z = Integer.MAX_VALUE;
-		for(Point p : rt.getPointList())
+		for (Point p : rt.getPointList())
 			if (p.z < z)
 				z = p.z;
 		return z;
+	}
+
+	public void resetFixedValue() {
+		this.hauteurFixed = 0.0;
+		this.largeurFixed = 0.0;
+		this.profondeurFixed = 0.0;
 	}
 }

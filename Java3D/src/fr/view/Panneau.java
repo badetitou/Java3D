@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -14,21 +16,20 @@ import java.awt.event.MouseWheelListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JFrame;
-import javax.swing.JMenu;
+import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
-import javax.swing.JRadioButton;
 import javax.swing.JRadioButtonMenuItem;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.event.MenuEvent;
-import javax.swing.event.MenuListener;
 
 import fr.model.Face;
 import fr.model.Model;
@@ -55,8 +56,13 @@ public class Panneau extends JPanel implements MouseListener, ChangeListener {
 	private JMenuItem color;
 	private JMenuItem zoomPlus;
 	private JMenuItem zoomMoins;
+	private JMenuItem fixerDimmension;
 	private JFrame colorFrame = new JFrame();
 	private JColorChooser jcc;
+	private JFrame  dimensionFrame = new JFrame();
+	private JTextField fixHauteur;
+	private JTextField fixLargeur;
+	private JTextField fixProfondeur;
 	/*
 	 * END-TEST
 	 */
@@ -230,8 +236,10 @@ public class Panneau extends JPanel implements MouseListener, ChangeListener {
 		zoomMoins = new JMenuItem("Zoom -");
 		color = new JMenuItem("Color chooser");
 		jcc = new JColorChooser();
-		jcc.getSelectionModel().addChangeListener(this);
+		this.fixerDimmension = new JMenuItem("fixer une dimension");
 		
+		//Init color et Buton centre
+		jcc.getSelectionModel().addChangeListener(this);
 		colorFrame.add(jcc);
 		colorFrame.pack();
 		colorFrame.setAlwaysOnTop(true);
@@ -262,6 +270,82 @@ public class Panneau extends JPanel implements MouseListener, ChangeListener {
 		zoomPlus.addMouseListener(this);
 		zoomMoins.addMouseListener(this);
 		
+		//Fixer Dimension
+		popMenu.addSeparator();
+		popMenu.add(fixerDimmension);
+		fixerDimmension.addMouseListener(this);
+		dimensionFrame.setTitle("Fixer Dimmension");
+		dimensionFrame.getContentPane().setLayout(new BoxLayout(dimensionFrame.getContentPane(), BoxLayout.PAGE_AXIS));
+		fixHauteur = new JTextField("0.0");
+		fixLargeur = new JTextField("0.0");
+		fixProfondeur = new JTextField("0.0");
+		JButton reset = new JButton("reset");
+		dimensionFrame.getContentPane().add(new JLabel("Hauteur"));
+		dimensionFrame.getContentPane().add(fixHauteur);
+		dimensionFrame.getContentPane().add(new JLabel("Largeur"));
+		dimensionFrame.getContentPane().add(fixLargeur);
+		dimensionFrame.getContentPane().add(new JLabel("Profondeur"));
+		dimensionFrame.getContentPane().add(fixProfondeur);
+		dimensionFrame.getContentPane().add(reset);
+		fixHauteur.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				try{
+					double i = Double.parseDouble(fixHauteur.getText());
+					m.setHauteurFixed(i);
+				} catch (Exception e){
+					fixHauteur.setText(fixHauteur.getText().substring(0, fixHauteur.getText().length()-1));
+				}finally{
+					fixLargeur.setText("0.0");
+					fixProfondeur.setText("0.0");
+					repaint();
+				}
+			}
+		});
+		fixLargeur.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				try{
+					double i = Double.parseDouble(fixLargeur.getText());
+					m.setLargeurFixed(i);
+				} catch (Exception e){
+					fixLargeur.setText(fixLargeur.getText().substring(0, fixLargeur.getText().length()-1));
+				}finally{
+					fixHauteur.setText("0.0");
+					fixProfondeur.setText("0.0");
+					repaint();
+				}
+				
+			}
+		});
+		fixProfondeur.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				try{
+					double i = Double.parseDouble(fixProfondeur.getText());
+					m.setProfondeurFixed(i);
+				} catch (Exception e){
+					fixProfondeur.setText(fixProfondeur.getText().substring(0, fixProfondeur.getText().length()-1));
+				}finally{
+					fixHauteur.setText("0.0");
+					fixLargeur.setText("0.0");
+					repaint();
+				}	
+			}
+		});
+		reset.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				fixHauteur.setText("0.0");
+				fixLargeur.setText("0.0");
+				fixProfondeur.setText("0.0");
+				m.resetFixedValue();
+				repaint();
+			}
+		});
+		dimensionFrame.setAlwaysOnTop(true);
+		dimensionFrame.pack();
 		
 		// Ajoute le color chooser
 		popMenu.addSeparator();
@@ -276,6 +360,10 @@ public class Panneau extends JPanel implements MouseListener, ChangeListener {
 			color.setEnabled(false);
 			colorFrame.setVisible(false);
 		}
+	}
+	
+	public void disableVisibilityDimensionfix(){
+		this.dimensionFrame.setVisible(false);
 	}
 
 	@Override
@@ -363,6 +451,8 @@ public class Panneau extends JPanel implements MouseListener, ChangeListener {
 		} else if (e.getSource().equals(zoomMoins)){
 			m.zoom(0.8);
 			repaint();
+		} else if (e.getSource().equals(fixerDimmension)){
+			dimensionFrame.setVisible(true);
 		}
 
 		popMenu.setVisible(false);
@@ -383,6 +473,8 @@ public class Panneau extends JPanel implements MouseListener, ChangeListener {
 			zoomPlus.setArmed(true);
 		} else if (e.getSource().equals(zoomMoins)){
 			zoomMoins.setArmed(true);
+		} else if (e.getSource().equals(fixerDimmension)){
+			fixerDimmension.setArmed(true);
 		}
 	}
 
@@ -401,6 +493,8 @@ public class Panneau extends JPanel implements MouseListener, ChangeListener {
 			zoomPlus.setArmed(false);
 		} else if (e.getSource().equals(zoomMoins)){
 			zoomMoins.setArmed(false);
+		} else if (e.getSource().equals(fixerDimmension)){
+			fixerDimmension.setArmed(false);
 		}
 	}
 

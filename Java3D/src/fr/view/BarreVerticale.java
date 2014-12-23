@@ -167,8 +167,6 @@ public class BarreVerticale extends JPanel implements MouseListener {
 			//jcc.setVisible(false);
 			this.dp.getModel().setDimension(MyDeskTopPane.dimmini);
 			dp.getPanel().setColorChooser(false);
-
-
 		} else if (e.getSource().equals(b3) && !modeEdit) {
 			b3.setIcon(ic8);
 			b2.setIcon(ic2);
