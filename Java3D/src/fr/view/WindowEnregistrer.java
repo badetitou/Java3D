@@ -213,10 +213,24 @@ public class WindowEnregistrer extends JFrame {
 							//System.out.println("Sauvegarde réussie");
 						}
 					}
-					this.nRealisations++;
+					if(newRea.isSelected()){
+						this.nRealisations++;
+						if(this.copieGTS(new File(lienGts), new File("fichiers"+File.separator+this.nomFichier+File.separator+"realisations"+File.separator+this.nomFichier+this.nRealisations+".gts"))){
+							windowE.dispose();
+						}
+						else {
+							JOptionPane.showMessageDialog(null,"La sauvegarde de : "+lienGts+" a échoué !","Sauvegarde échouée", JOptionPane.OK_OPTION);
+						}
+					}
+					else if (oldRea.isSelected()){
+						if(this.copieGTS(new File(lienGts), new File(lienGts))){
+							windowE.dispose();
+						}
+						else {
+							JOptionPane.showMessageDialog(null,"La sauvegarde de : "+lienGts+" a échoué !","Sauvegarde échouée", JOptionPane.OK_OPTION);
+						}
+					}
 					obdd.addFile(this.nomFichier, "fichiers"+File.separator+this.nomFichier+File.separator+this.nomFichier+".gts", this.description, this.nomAuteur, this.nChargements, listeImages.size(), this.nRealisations, this.nRealisations, "fichiers"+File.separator+this.nomFichier+File.separator+"images"+File.separator);
-					System.out.println(obdd.getnbrModif(this.nomFichier) +" nbmod");
-					System.out.println(obdd.getNbrRea(nomFichier)+ " nbrea");
 					this.nouveau=false;
 					((Onglet)onglet).setNouveau(false);
 					((Onglet)onglet).actualiserOnglet(this.nomFichier);
@@ -256,24 +270,24 @@ public class WindowEnregistrer extends JFrame {
 						}
 					}
 					this.description=((Onglet)onglet).getPbdd().getDescription().getDescription();
+					if(newRea.isSelected()){
+						this.nRealisations++;
+						if(this.copieGTS(new File(lienGts), new File("fichiers"+File.separator+this.nomFichier+File.separator+"realisations"+File.separator+this.nomFichier+this.nRealisations+".gts"))){
+							windowE.dispose();
+						}
+						else {
+							JOptionPane.showMessageDialog(null,"La sauvegarde de : "+lienGts+" a échoué !","Sauvegarde échouée", JOptionPane.OK_OPTION);
+						}
+					}
+					else if (oldRea.isSelected()){
+						if(this.copieGTS(new File(lienGts), new File(lienGts))){
+							windowE.dispose();
+						}
+						else {
+							JOptionPane.showMessageDialog(null,"La sauvegarde de : "+lienGts+" a échoué !","Sauvegarde échouée", JOptionPane.OK_OPTION);
+						}
+					}
 					obdd.updateFile(this.nomFichier,this.description, this.nChargements, listeImages.size(), this.nRealisations, "fichiers"+File.separator+this.nomFichier+File.separator+"images"+File.separator,0);
-				}
-				if(newRea.isSelected()){
-					this.nRealisations++;
-					if(this.copieGTS(new File(lienGts), new File("fichiers"+File.separator+this.nomFichier+File.separator+"realisations"+File.separator+this.nomFichier+this.nRealisations+".gts"))){
-						windowE.dispose();
-					}
-					else {
-						JOptionPane.showMessageDialog(null,"La sauvegarde de : "+lienGts+" a échoué !","Sauvegarde échouée", JOptionPane.OK_OPTION);
-					}
-				}
-				else if (oldRea.isSelected()){
-					if(this.copieGTS(new File(lienGts), new File(lienGts))){
-						windowE.dispose();
-					}
-					else {
-						JOptionPane.showMessageDialog(null,"La sauvegarde de : "+lienGts+" a échoué !","Sauvegarde échouée", JOptionPane.OK_OPTION);
-					}
 				}
 				menu.actualiserFichiersRecents(obdd.getLinkFile(this.nomFichier));
 				((Onglet)onglet).getPbdd().getInformations().actualiserInfos(this.nomFichier, this.nomAuteur, this.nbImages, this.nRealisations,obdd.getDateLastModif(nomFichier));
