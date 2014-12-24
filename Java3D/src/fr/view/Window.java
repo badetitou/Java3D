@@ -23,7 +23,7 @@ import fr.model.OutilsBdd;
  */
 @SuppressWarnings("serial")
 public class Window extends JFrame implements ComponentListener{
-
+	// JOYEUX NOEL :D
 	Panneau panel;
 	public static Toolkit outil;
 	private final JPanel container;
