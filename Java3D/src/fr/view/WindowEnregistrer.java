@@ -223,8 +223,10 @@ public class WindowEnregistrer extends JFrame {
 						}
 					}
 					else if (oldRea.isSelected()){
-						if(this.copieGTS(new File(lienGts), new File(lienGts))){
-							windowE.dispose();
+						if(this.copieGTS(new File(lienGts), new File("tmp"))){
+							if(this.copieGTS(new File("tmp"), new File(lienGts))){
+								windowE.dispose();
+							}
 						}
 						else {
 							JOptionPane.showMessageDialog(null,"La sauvegarde de : "+lienGts+" a échoué !","Sauvegarde échouée", JOptionPane.OK_OPTION);
@@ -280,8 +282,10 @@ public class WindowEnregistrer extends JFrame {
 						}
 					}
 					else if (oldRea.isSelected()){
-						if(this.copieGTS(new File(lienGts), new File(lienGts))){
-							windowE.dispose();
+						if(this.copieGTS(new File(lienGts), new File("tmp"))){
+							if(this.copieGTS(new File("tmp"), new File(lienGts))){
+								windowE.dispose();
+							}
 						}
 						else {
 							JOptionPane.showMessageDialog(null,"La sauvegarde de : "+lienGts+" a échoué !","Sauvegarde échouée", JOptionPane.OK_OPTION);
