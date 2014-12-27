@@ -1,5 +1,6 @@
 package fr.view;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -9,6 +10,7 @@ import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.Border;
@@ -47,10 +49,17 @@ public class PanelDescription extends JPanel implements MouseListener{
 			description="";
 		else
 			description=obdd.getDesc(nomFichier);
+
+		JPanel pDesc=new JPanel();
+		pDesc.setLayout(new BorderLayout());
+		pDesc.setBackground(new Color(215,215,215));
+		JLabel label = new JLabel("Ajouter une description");
+		pDesc.add(label,BorderLayout.NORTH);
 		textArea=new JTextArea();
+		pDesc.add(textArea,BorderLayout.CENTER);
 		this.dessinerDesc();
 		panelBouton=new JPanel();
-		panelBouton.setLayout(new GridLayout(3,1,0,20));
+		panelBouton.setLayout(new GridLayout(2,1,0,20));
 
 		valider=new JButton("Valider");
 		valider.setEnabled(false);
@@ -64,7 +73,7 @@ public class PanelDescription extends JPanel implements MouseListener{
 		panelBouton.add(valider);
 		panelBouton.setBackground(new Color(215,215,215));
 		description=textArea.getText();
-		this.add(textArea);
+		this.add(pDesc);
 		this.add(panelBouton);
 	}
 
@@ -78,6 +87,7 @@ public class PanelDescription extends JPanel implements MouseListener{
 		textArea.setForeground(new Color(130,130,130));
 	}
 
+	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(e.getSource().equals(modifier)){
 			textArea.setEditable(true);
@@ -103,21 +113,25 @@ public class PanelDescription extends JPanel implements MouseListener{
 		return description;
 	}
 
+	@Override
 	public void mouseEntered(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 
 	}
 
+	@Override
 	public void mouseExited(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 
 	}
 
+	@Override
 	public void mousePressed(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 
 	}
 
+	@Override
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 
