@@ -61,7 +61,6 @@ public class PanelInformations extends JPanel {
 		this.nImages=nbImages;
 		this.dateModiff=dateMod;
 		this.nRealisations=nbRealisations;
-		System.out.println(nbRealisations);
 		panelInfo.removeAll();
 		this.dessinerPanel();
 		this.revalidate();
@@ -139,7 +138,10 @@ public class PanelInformations extends JPanel {
 		nbImages.setFont(new Font(font.getFontName(), Font.BOLD, font.getSize()));
 		nbImages.setIcon(new ImageIcon(new ImageIcon("ressources/icones/iconesInformations/nbImages.png").getImage().getScaledInstance(size, size, Image.SCALE_SMOOTH)));
 
-		nRealisations=obdd.getnbrModif(nomFichier);
+		if(nouveau)
+			nRealisations=0;
+		else
+			nRealisations=obdd.getnbrModif(nomFichier);
 		nbRealisations=new JLabel("Nombre de réalisations : "+nRealisations);
 		font = nbRealisations.getFont();
 		nbRealisations.setFont(new Font(font.getFontName(), Font.BOLD, font.getSize()));
