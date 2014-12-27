@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.swing.ButtonGroup;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -232,8 +233,13 @@ public class WindowEnregistrer extends JFrame {
 							JOptionPane.showMessageDialog(null,"La sauvegarde de : "+lienGts+" a échoué !","Sauvegarde échouée", JOptionPane.OK_OPTION);
 						}
 					}
+					DefaultListModel mod=((Onglet)onglet).getPbdd().getPt().getListModel();
+					for (int i=0;i<mod.size();i++){
+						obdd.addTag(mod.getElementAt(i).toString(),this.nomFichier);
+					}
 					obdd.addFile(this.nomFichier, "fichiers"+File.separator+this.nomFichier+File.separator+this.nomFichier+".gts", this.description, this.nomAuteur, this.nChargements, listeImages.size(), this.nRealisations, this.nRealisations, "fichiers"+File.separator+this.nomFichier+File.separator+"images"+File.separator);
 					this.nouveau=false;
+					((Onglet)onglet).getPbdd().getPt().setNouveau(false);
 					((Onglet)onglet).setNouveau(false);
 					((Onglet)onglet).actualiserOnglet(this.nomFichier);
 					((Onglet)onglet).getPbdd().getInformations().setNouveau(false);
@@ -290,6 +296,10 @@ public class WindowEnregistrer extends JFrame {
 						else {
 							JOptionPane.showMessageDialog(null,"La sauvegarde de : "+lienGts+" a échoué !","Sauvegarde échouée", JOptionPane.OK_OPTION);
 						}
+					}
+					DefaultListModel mod=((Onglet)onglet).getPbdd().getPt().getListModel();
+					for (int g=0;g<mod.size();g++){
+						obdd.addTag(mod.getElementAt(g).toString(),this.nomFichier);
 					}
 					obdd.updateFile(this.nomFichier,this.description, this.nChargements, listeImages.size(), this.nRealisations, "fichiers"+File.separator+this.nomFichier+File.separator+"images"+File.separator,0);
 				}

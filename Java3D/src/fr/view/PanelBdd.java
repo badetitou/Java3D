@@ -46,7 +46,7 @@ public class PanelBdd extends JPanel{
 		description=new PanelDescription(nomFichier,nouveau);
 		informations = new PanelInformations(nomFichier,nomAuteur,nouveau);
 		images=new PanelImages(nomFichier,nouveau);
-		pt=new PanelTag(nomFichier);
+		pt=new PanelTag(nomFichier,nouveau);
 		listeImages=images.getListeImages();
 		nbImages=images.getNbImages();
 		tabbedPane = new JTabbedPane();
@@ -55,6 +55,9 @@ public class PanelBdd extends JPanel{
 		tabbedPane.addTab("Mots-clés",new ImageIcon(new ImageIcon("ressources/icones/tag.png").getImage().getScaledInstance(26, 26, Image.SCALE_DEFAULT)), pt);
 		tabbedPane.addTab("Images/photos",new ImageIcon(new ImageIcon("ressources/icones/galerie.png").getImage().getScaledInstance(26, 26, Image.SCALE_DEFAULT)), images);
 		this.add(tabbedPane);
+	}
+	public PanelTag getPt() {
+		return pt;
 	}
 	public ArrayList<String> getListeImages() {
 		return listeImages;

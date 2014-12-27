@@ -244,7 +244,7 @@ public class OutilsBdd {
 		this.connect();
 		String requet = "INSERT INTO tags VALUES('"
 				+ tag +"','"
-				+ file +")";
+				+ file +"')";
 		try {
 			statement.executeUpdate(requet);
 		} catch (Exception e) {
@@ -465,7 +465,7 @@ public class OutilsBdd {
 
 	public int getnbrModif (String name) {
 		this.connect();
-		String query = "SELECT nbrModif FROM files WHERE name='"+name+"'";
+		String query = "SELECT nbrModif FROM files WHERE name='"+name+"';";
 		try {
 			ResultSet rs = statement.executeQuery(query);
 			int nbModif=rs.getInt(1);
@@ -552,16 +552,17 @@ public class OutilsBdd {
 
 	public ArrayList<String> getTags (String name) {
 		ArrayList<String> liste = new ArrayList<String>();
-		String query = "SELECT tag FROM tags WHERE file='"+name+"'";
+		String query = "SELECT tag FROM tags WHERE file='"+name+"';";
 		try {
 			ResultSet rs = statement.executeQuery(query);
 			while (rs.next()) {
+				System.out.println(rs.getString("tag"));
 				liste.add(rs.getString("tag"));
 			}
 			this.close();
 			return liste;
 		} catch (Exception e) {
-			System.out.println("Erreur dans getSize");
+			System.out.println("Erreur dans getTag");
 			System.out.println(e.getMessage());
 			this.close();
 			return liste;

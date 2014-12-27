@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -30,7 +31,9 @@ public class PanelTag extends JPanel implements KeyListener, ActionListener{
 	private final JLabel jl;
 	private final JPanel panel;
 	private final JButton valider;
-	public PanelTag(String nomFichier){
+	public void setNouveau(boolean nouveau) {
+	}
+	public PanelTag(String nomFichier, boolean nouveau){
 		this.setLayout(new FlowLayout(0,30,20));
 		panel=new JPanel();
 		panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
@@ -53,19 +56,31 @@ public class PanelTag extends JPanel implements KeyListener, ActionListener{
 		panel.add(jl);
 		panel.add(jt);
 		panel.add(valider);
+
+		if(!nouveau){
+			ArrayList<String> liste = obdd.getTags(nomFichier);
+			for(int i=0;i<liste.size();i++){
+				ajoutElementTop(liste.get(i));
+			}
+		}
+
 		this.add(panel);
 		this.add(scroll);
 
 	}
 
-	public void ajoutElementTop(){
+	public DefaultListModel getListModel() {
+		return listModel;
+	}
+
+	public void ajoutElementTop(String tag){
 		DefaultListModel mod=new DefaultListModel();
 		int k=listModel.size();
 		for (int i=0;i<k;i++){
 			mod.addElement(listModel.getElementAt(i));
 		}
 		listModel.removeAllElements();
-		listModel.addElement(jt.getText());
+		listModel.addElement(tag);
 		int j=mod.size();
 		for (int i=0;i<j;i++){
 			listModel.addElement(mod.getElementAt(i));
@@ -76,7 +91,7 @@ public class PanelTag extends JPanel implements KeyListener, ActionListener{
 	public void keyPressed(KeyEvent e) {
 		valider.setEnabled(true);
 		if(e.getKeyChar()==Event.ENTER){
-			ajoutElementTop();
+			ajoutElementTop(jt.getText());
 			jt.setText("");
 			valider.setEnabled(false);
 		}
@@ -95,7 +110,7 @@ public class PanelTag extends JPanel implements KeyListener, ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(valider)){
-			ajoutElementTop();
+			ajoutElementTop(jt.getText());
 			jt.setText("");
 			valider.setEnabled(false);
 		}
