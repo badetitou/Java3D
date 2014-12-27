@@ -551,6 +551,7 @@ public class OutilsBdd {
 	}
 
 	public ArrayList<String> getTags (String name) {
+		this.connect();
 		ArrayList<String> liste = new ArrayList<String>();
 		String query = "SELECT tag FROM tags WHERE file='"+name+"';";
 		try {
