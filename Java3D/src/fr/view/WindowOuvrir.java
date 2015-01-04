@@ -2,22 +2,29 @@ package fr.view;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.PatternSyntaxException;
 
+import javax.swing.DefaultRowSorter;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
-import javax.swing.ListModel;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.RowFilter;
+import javax.swing.RowSorter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 import fr.model.OutilsBdd;
 
@@ -42,125 +49,113 @@ public class WindowOuvrir extends JFrame {
 	}
 
 	public class PanelOuvrir extends JPanel implements MouseListener{
-		private final JTextArea rName;
-		private final JTextArea nFichier;
+		private final JTextField rName;
+		private final JTextField nFichier;
 		private final JButton ouvrir;
 		private final JButton annuler;
-		private final JList bdd;
+		private final JButton ok;
+		private String filtre;
+		private JTable bdd;
 		private final JLabel jlb1;
 		private final JLabel jlb2;
 		private final JFrame windowO;
-		private final OutilsBdd obdd;
+		private OutilsBdd obdd;
+		private Object[][] data;
+		private RowSorter<MyTableModel> sorter;
+		private RowFilter<MyTableModel, Object> rf1;
+		private RowFilter<MyTableModel, Object> rf2;
+		RowFilter<MyTableModel, Object> compoundRowFilter = null;
+		List<RowFilter<MyTableModel,Object>> filters;
+		private MyTableModel mtm;
 		private final JTabbedPane tabbedPane;
 		private final ArrayList<Object> listeOnglets;
+		private JScrollPane scroll;
 
 		public PanelOuvrir(JFrame windowO, JTabbedPane tabbedPane, ArrayList<Object> listeOnglets) {
 			this.windowO = windowO;
 			this.tabbedPane = tabbedPane;
 			this.listeOnglets = listeOnglets;
-			this.setLayout(new GridBagLayout());
-			GridBagConstraints gbc = new GridBagConstraints();
-			//this.setLayout(new GridLayout(5,1));
 			this.setPreferredSize(new Dimension(500, 300));
-			rName = new JTextArea();
+			rName = new JTextField();
 			rName.setPreferredSize(new Dimension(100, 20));
 			rName.setEditable(true);
-			nFichier = new JTextArea();
+			nFichier = new JTextField();
 			nFichier.setPreferredSize(new Dimension(100, 20));
 			nFichier.setEditable(true);
-
-
 			ouvrir = new JButton("Ouvrir");
 			annuler = new JButton("Annuler");
-
-			JPanel p = new JPanel();
-			p.setLayout(new FlowLayout(0,70,0));
-			p.add(ouvrir);
-			p.add(annuler);
-
-			obdd = new OutilsBdd("Database.db");
-			String[] data = obdd.getData();
-			bdd = new JList(data);
-			bdd.setPreferredSize(new Dimension(300,120));
+			ok = new JButton("Ok");
+			filtre = new String("");
 			jlb1 = new JLabel("Recherche par nom : ");
 			jlb2 = new JLabel("Nom du fichier: ");
+			this.setLayout(new FlowLayout());
+			this.add(jlb1);
+			this.add(rName);
+			this.add(ok);
+			this.initialise();
+			this.add(jlb2);
+			this.add(nFichier);
+			this.add(ouvrir);
+			this.add(annuler);
 
-			JPanel p1=new JPanel();
-			p1.setLayout(new FlowLayout(0,30,10));
-			p1.add(jlb1);
-			p1.add(rName);
-
-			JPanel p2=new JPanel();
-			p2.setLayout(new FlowLayout(0,50,0));
-			p2.add(jlb2);
-			p2.add(nFichier);
-
-			JScrollPane scroll = new JScrollPane(bdd);
-			scroll.setPreferredSize(new Dimension(200,150));
-
-
-			gbc.gridx = 0;
-			gbc.gridy = 0;
-			gbc.gridheight = 1;
-			gbc.gridwidth = 1;
-			this.add(jlb1, gbc);
-
-			gbc.gridx = 1;
-			gbc.gridheight = 1;
-			gbc.gridwidth = 1;
-			this.add(rName, gbc);
-
-			gbc.gridx = 0;
-			gbc.gridy = 1;
-			gbc.gridheight = 4;
-			gbc.gridwidth = 4;
-			this.add(scroll, gbc);
-
-			gbc.gridx = 1;
-			gbc.gridy = 6;
-			gbc.gridheight = 1;
-			gbc.gridwidth = 1;
-			this.add(jlb2, gbc);
-
-			gbc.gridx = 2;
-			gbc.gridy = 6;
-			gbc.gridheight = 1;
-			gbc.gridwidth = 1;
-			gbc.ipadx=0;
-			this.add(nFichier, gbc);
-
-			gbc.gridx = 2;
-			gbc.gridy = 8;
-			this.add(ouvrir, gbc);
-
-			gbc.gridx = 3;
-			gbc.gridy = 8;
-			this.add(annuler, gbc);
-
-
-			/*
-			this.add(p1);
-			this.add(p2);
-			this.add(scroll);
-			this.add(rAvancee);
-			this.add(p);
-			 */
 			bdd.addMouseListener(this);
+			ok.addMouseListener(this);
 			annuler.addMouseListener(this);
 			ouvrir.addMouseListener(this);
+		}
+		public void initialise(){
+			obdd = new OutilsBdd("Database.db");
+			data = obdd.getAllData();
+			String title[] = { "Nom", "Auteur"};
+			this.mtm = new MyTableModel(data, title);
+			this.sorter = new TableRowSorter<>(mtm);
+			this.rf1 = null;
+			this.bdd = new JTable(mtm);
+			this.filters = new ArrayList<RowFilter<MyTableModel,Object>>();
+			bdd.setRowSorter(sorter);
+			try {
+				if (filtre != "" || filtre != null){
+					rf1 = RowFilter.regexFilter("(?i)" +filtre, 0);}
+				filters.add(rf1);
+				compoundRowFilter = RowFilter.andFilter(filters); // you may also choose the OR filter
+			} catch (PatternSyntaxException pse) {
+				return;
+			}
+			((DefaultRowSorter<MyTableModel, Integer>) sorter).setRowFilter(compoundRowFilter);
+			this.scroll = new JScrollPane(bdd);
+			this.scroll.setPreferredSize(new Dimension(400,200));
+			this.add(scroll);
+			bdd.getTableHeader().setReorderingAllowed(false);
+			bdd.getTableHeader().setResizingAllowed(false);
+			bdd.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+			bdd.addMouseListener(new java.awt.event.MouseAdapter() {
+				@Override
+				public void mouseClicked(java.awt.event.MouseEvent evt) {
+					//Nï¿½ de la ligne sï¿½lï¿½ctionnï¿½e
+					int row = bdd.getSelectedRow();
+					//Nï¿½ de ligne du tableau triï¿½
+					int sortedRow = bdd.convertRowIndexToModel(row);
+					Object row1 = bdd.getModel().getValueAt(sortedRow, 0);
+					Object row2 = bdd.getModel().getValueAt(sortedRow, 1);
+				}
+			});
+			bdd.addMouseListener(new MouseAdapter() {
+				  public void mouseClicked(MouseEvent e) {
+				    if (e.getClickCount() == 2) {
+				      JTable target = (JTable)e.getSource();
+				      int row = target.getSelectedRow();
+				      int column = target.getSelectedColumn();
+				      if(column == 0){
+				    	  nFichier.setText((String) bdd.getValueAt(row, column));
+				      }
+				    }
+				  }
+				});
 		}
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			if (e.getClickCount() == 2) {
-				int index = bdd.locationToIndex(e.getPoint());
-				ListModel dlm = bdd.getModel();
-				Object item = dlm.getElementAt(index);;
-				bdd.ensureIndexIsVisible(index);
-				nFichier.setText(null);
-				nFichier.setText((String) item);
-			}
-			else if(e.getSource().equals(ouvrir)){
+				if(e.getSource().equals(ouvrir)){
 				String ouvrir = nFichier.getText();
 				if(obdd.estPresent(ouvrir)){
 					boolean bool=false;
@@ -181,7 +176,7 @@ public class WindowOuvrir extends JFrame {
 					}
 					else{
 						windowO.dispose();
-						JOptionPane.showMessageDialog(null,"L'objet est déjà ouvert !","Attention", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null,"L'objet est dÃ©jÃ  ouvert !","Attention", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 				else{
@@ -190,6 +185,13 @@ public class WindowOuvrir extends JFrame {
 			}
 			else if(e.getSource().equals(annuler)){
 				windowO.dispose();
+			}
+			else if(e.getSource().equals(ok)){
+				filtre = rName.getText();
+				this.remove(scroll);
+				this.initialise();
+				this.revalidate();
+				this.repaint();
 			}
 			//windowO.dispose();
 		}
@@ -216,6 +218,28 @@ public class WindowOuvrir extends JFrame {
 		public void mouseReleased(MouseEvent arg0) {
 			// TODO Auto-generated method stub
 
+		}
+	}
+	public class MyTableModel extends DefaultTableModel {
+
+		MyTableModel(Object[][] rows, String[] headers) {
+			super(rows, headers);
+		}
+
+		@Override
+		public Class getColumnClass(int column) {
+			Class returnValue;
+			if ((column >= 0) && (column < getColumnCount())) {
+				returnValue = getValueAt(0, column).getClass();
+			} else {
+				returnValue = Object.class;
+			}
+			return returnValue;
+		}
+
+		@Override
+		public boolean isCellEditable(int rowIndex, int columnIndex){
+			return false;
 		}
 	}
 }
