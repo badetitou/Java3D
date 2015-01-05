@@ -189,7 +189,15 @@ public class WindowOuvrir extends JFrame {
 			else if(e.getSource().equals(ok)){
 				filtre = rName.getText();
 				this.remove(scroll);
+				this.remove(nFichier);
+				this.remove(annuler);
+				this.remove(ouvrir);
+				this.remove(jlb2);
 				this.initialise();
+				this.add(jlb2);
+				this.add(nFichier);
+				this.add(ouvrir);
+				this.add(annuler);
 				this.revalidate();
 				this.repaint();
 			}
