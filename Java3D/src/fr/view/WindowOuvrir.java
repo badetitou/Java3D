@@ -139,9 +139,9 @@ public class WindowOuvrir extends JFrame {
 			bdd.addMouseListener(new java.awt.event.MouseAdapter() {
 				@Override
 				public void mouseClicked(java.awt.event.MouseEvent evt) {
-					//Nï¿½ de la ligne sï¿½lï¿½ctionnï¿½e
+					//N? de la ligne s?l?ctionn?e
 					int row = bdd.getSelectedRow();
-					//Nï¿½ de ligne du tableau triï¿½
+					//N? de ligne du tableau tri?
 					int sortedRow = bdd.convertRowIndexToModel(row);
 					Object row1 = bdd.getModel().getValueAt(sortedRow, 0);
 					Object row2 = bdd.getModel().getValueAt(sortedRow, 1);
@@ -184,7 +184,7 @@ public class WindowOuvrir extends JFrame {
 					}
 					else{
 						windowO.dispose();
-						JOptionPane.showMessageDialog(null,"L'objet est dÃ©jÃ  ouvert !","Attention", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null,"L'objet est déjà ouvert !","Attention", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 				else{
