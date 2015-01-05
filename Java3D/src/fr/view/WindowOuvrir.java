@@ -1,7 +1,10 @@
 package fr.view;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -18,7 +21,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
@@ -48,7 +50,7 @@ public class WindowOuvrir extends JFrame {
 		this.setVisible(true);
 	}
 
-	public class PanelOuvrir extends JPanel implements MouseListener{
+	public class PanelOuvrir extends JPanel implements MouseListener, KeyListener{
 		private final JTextField rName;
 		private final JTextField nFichier;
 		private final JButton ouvrir;
@@ -58,6 +60,7 @@ public class WindowOuvrir extends JFrame {
 		private JTable bdd;
 		private final JLabel jlb1;
 		private final JLabel jlb2;
+		private final JLabel error;
 		private final JFrame windowO;
 		private OutilsBdd obdd;
 		private Object[][] data;
@@ -88,16 +91,21 @@ public class WindowOuvrir extends JFrame {
 			filtre = new String("");
 			jlb1 = new JLabel("Recherche par nom : ");
 			jlb2 = new JLabel("Nom du fichier: ");
+			error = new JLabel ("Erreur : l'objet n'existe pas");
+			error.setForeground(new Color(255, 0, 0));
+			error.setVisible(false);
 			this.setLayout(new FlowLayout());
 			this.add(jlb1);
 			this.add(rName);
 			this.add(ok);
 			this.initialise();
+			this.add(error);
 			this.add(jlb2);
 			this.add(nFichier);
 			this.add(ouvrir);
 			this.add(annuler);
 
+			nFichier.addKeyListener(this);
 			bdd.addMouseListener(this);
 			ok.addMouseListener(this);
 			annuler.addMouseListener(this);
@@ -181,6 +189,7 @@ public class WindowOuvrir extends JFrame {
 				}
 				else{
 					nFichier.setText(null);
+					error.setVisible(true);
 				}
 			}
 			else if(e.getSource().equals(annuler)){
@@ -226,6 +235,21 @@ public class WindowOuvrir extends JFrame {
 		public void mouseReleased(MouseEvent arg0) {
 			// TODO Auto-generated method stub
 
+		}
+		@Override
+		public void keyPressed(KeyEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+		@Override
+		public void keyReleased(KeyEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+		@Override
+		public void keyTyped(KeyEvent e) {
+			error.setVisible(false);
+			
 		}
 	}
 	public class MyTableModel extends DefaultTableModel {
