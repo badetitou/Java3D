@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.File;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.PatternSyntaxException;
@@ -83,63 +84,123 @@ public class OngletMenu extends JPanel{
 	public class PanelCrit extends JPanel implements ActionListener, ItemListener{
 
 		private final JButton valider;
-		private final JLabel sensASC;
-		private final JLabel sensDESC;
-		private final JLabel jt1;
-		private final JLabel jt2;
-		private final JLabel jt3;
-		private final JTextField jta1;
-		private final JTextField jta2;
-		private final JCheckBox jcb1;
-		private String authorCheck;
-
-
+		private final JTextField jtfNom;
+		private final JTextField jtfAuteur;
+		private final JTextField jtfModif;
+		private final JTextField jtfOuverture;
+		private final JTextField jtfImages;
+		private JCheckBox jcbModif;
+		private JCheckBox jcbOuverture;
+		private JCheckBox jcbImages;
+		private final JLabel jlbNom;
+		private final JLabel jlbAuteur;
+		private String modifCheck;
+		private String ouvertureCheck;
+		private String imagesCheck;
 
 		public PanelCrit(){
 			this.setLayout(new FlowLayout());
 			this.valider = new JButton("Valider");
-			this.jt1 = new JLabel("Recherche Avanc�e: ");
-			this.jt2 = new JLabel("Crit�re: ");
-			this.jt3 = new JLabel("Sens: ");
-			this.sensASC = new JLabel(new ImageIcon(new ImageIcon("ressources/icones/flecheHaut.png").getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH)));
-			this.sensDESC = new JLabel(new ImageIcon(new ImageIcon("ressources/icones/flecheBas.png").getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH)));
-			/*this.add(jt1);
-			this.add(jt2);
-			this.add(jt3);
-			this.add(sensASC);
-			this.add(sensDESC);
-			 */
-			this.jta1 = new JTextField("");
-			this.jta1.setPreferredSize(new Dimension(50,20));
-			this.add(jta1);
-			this.jta2 = new JTextField("");
-			this.jta2.setPreferredSize(new Dimension(50,20));
-			this.add(jta2);
-			this.authorCheck = "unchecked";
-			this.jcb1 = new JCheckBox("Auteur");
-			this.add(jcb1);
+			this.jcbModif = new JCheckBox("Date dernière modif");
+			this.jcbOuverture = new JCheckBox("Nb ouverture");
+			this.jcbImages = new JCheckBox("Nb images");
+			this.jlbNom = new JLabel("Nom");
+			this.add(jlbNom);
+			this.jtfNom = new JTextField("");
+			this.jtfNom.setPreferredSize(new Dimension(50,20));
+			this.add(jtfNom);
+			this.jlbAuteur = new JLabel("Auteur");
+			this.add(jlbAuteur);
+			this.jtfAuteur = new JTextField("");
+			this.jtfAuteur.setPreferredSize(new Dimension(50,20));
+			this.add(jtfAuteur);
+			this.add(jcbModif);
+			this.jtfModif = new JTextField("");
+			this.jtfModif.setPreferredSize(new Dimension(50,20));
+			this.add(jtfModif);
+			this.add(jcbOuverture);
+			this.jtfOuverture = new JTextField("");
+			this.jtfOuverture.setPreferredSize(new Dimension(50,20));
+			this.add(jtfOuverture);
+			this.add(jcbImages);
+			this.jtfImages = new JTextField("");
+			this.jtfImages.setPreferredSize(new Dimension(50,20));
+			this.add(jtfImages);
+			this.modifCheck = "unchecked";
+			this.ouvertureCheck = "unchecked";
+			this.imagesCheck = "unchecked";
 			this.add(valider);
 			this.setBorder(BorderFactory.createLoweredBevelBorder());
-			this.jcb1.addItemListener(this);
+			this.jcbModif.addItemListener(this);
+			this.jcbOuverture.addItemListener(this);
+			this.jcbImages.addItemListener(this);
 			this.valider.addActionListener(this);
 		}
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource().equals(valider)){
-				if(authorCheck == "checked"){
-					plbdd.filtre1 = jta1.getText();
-					plbdd.filtre2 = jta2.getText();
+				if(modifCheck == "checked" && ouvertureCheck == "checked" && imagesCheck == "checked"){
+					plbdd.filtreNom = jtfNom.getText();
+					plbdd.filtreAuteur = jtfAuteur.getText();
 					plbdd.removeAll();
 					plbdd.initialise();
 					plbdd.revalidate();
 					plbdd.repaint();
 				}
-				else if(authorCheck == "unchecked"){
-					plbdd.filtre1 = jta1.getText();
-					plbdd.filtre2 = jta2.getText();
+				else if(modifCheck == "unchecked" && ouvertureCheck == "unchecked" && imagesCheck == "unchecked"){
+					plbdd.filtreNom = jtfNom.getText();
+					plbdd.filtreAuteur = jtfAuteur.getText();
 					plbdd.removeAll();
-					plbdd.initialiseNoAuthor();
+					plbdd.initialiseCombo(false, false, false);
+					plbdd.revalidate();
+					plbdd.repaint();
+				}
+				else if(modifCheck == "checked" && ouvertureCheck == "unchecked" && imagesCheck == "unchecked"){
+					plbdd.filtreNom = jtfNom.getText();
+					plbdd.filtreAuteur = jtfAuteur.getText();
+					plbdd.removeAll();
+					plbdd.initialiseCombo(true, false, false);
+					plbdd.revalidate();
+					plbdd.repaint();
+				}
+				else if(modifCheck == "checked" && ouvertureCheck == "checked" && imagesCheck == "unchecked"){
+					plbdd.filtreNom = jtfNom.getText();
+					plbdd.filtreAuteur = jtfAuteur.getText();
+					plbdd.removeAll();
+					plbdd.initialiseCombo(true, true, false);
+					plbdd.revalidate();
+					plbdd.repaint();
+				}
+				else if(modifCheck == "checked" && ouvertureCheck == "unchecked" && imagesCheck == "checked"){
+					plbdd.filtreNom = jtfNom.getText();
+					plbdd.filtreAuteur = jtfAuteur.getText();
+					plbdd.removeAll();
+					plbdd.initialiseCombo(true, false, true);
+					plbdd.revalidate();
+					plbdd.repaint();
+				}
+				else if(modifCheck == "unchecked" && ouvertureCheck == "checked" && imagesCheck == "unchecked"){
+					plbdd.filtreNom = jtfNom.getText();
+					plbdd.filtreAuteur = jtfAuteur.getText();
+					plbdd.removeAll();
+					plbdd.initialiseCombo(false, true, false);
+					plbdd.revalidate();
+					plbdd.repaint();
+				}
+				else if(modifCheck == "unchecked" && ouvertureCheck == "checked" && imagesCheck == "checked"){
+					plbdd.filtreNom = jtfNom.getText();
+					plbdd.filtreAuteur = jtfAuteur.getText();
+					plbdd.removeAll();
+					plbdd.initialiseCombo(false, true, true);
+					plbdd.revalidate();
+					plbdd.repaint();
+				}
+				else if(modifCheck == "unchecked" && ouvertureCheck == "unchecked" && imagesCheck == "checked"){
+					plbdd.filtreNom = jtfNom.getText();
+					plbdd.filtreAuteur = jtfAuteur.getText();
+					plbdd.removeAll();
+					plbdd.initialiseCombo(false, false, true);
 					plbdd.revalidate();
 					plbdd.repaint();
 				}
@@ -148,13 +209,64 @@ public class OngletMenu extends JPanel{
 
 		@Override
 		public void itemStateChanged(ItemEvent e) {
+			JCheckBox cb = (JCheckBox)e.getItem();
 			if(e.getStateChange() == ItemEvent.SELECTED){
-				authorCheck = "checked";
-				System.out.println("checked");
+			//	System.out.println("Item: " + cb.getText());
+				if(jcbModif.isSelected() && jcbOuverture.isSelected() && jcbImages.isSelected()){
+					modifCheck = "checked";
+					ouvertureCheck = "checked";
+					imagesCheck = "checked";
+				}
+				else if(jcbModif.isSelected() && jcbOuverture.isSelected()){
+					modifCheck = "checked";
+					ouvertureCheck = "checked";
+				}
+				else if(jcbModif.isSelected() && jcbImages.isSelected()){
+					modifCheck = "checked";
+					imagesCheck = "checked";
+				}
+				else if(jcbOuverture.isSelected() && jcbImages.isSelected()){
+					ouvertureCheck = "checked";
+					imagesCheck = "checked";
+				}
+				else if(jcbModif.isSelected()){
+					modifCheck = "checked";
+				}
+				else if(jcbOuverture.isSelected()){
+					ouvertureCheck = "checked";
+				}
+				else if(jcbImages.isSelected()){
+					imagesCheck = "checked";
+				}
 			}
-			else if(e.getStateChange() == ItemEvent.DESELECTED){
-				authorCheck = "unchecked";
-				System.out.println("unchecked");
+			else{
+			//	System.out.println("Item deselect: " + cb.getText());
+				if(!jcbModif.isSelected() && !jcbOuverture.isSelected() && !jcbImages.isSelected()){
+					modifCheck = "unchecked";
+					ouvertureCheck = "unchecked";
+					imagesCheck = "unchecked";
+				}
+				else if(!jcbModif.isSelected() && !jcbOuverture.isSelected()){
+					modifCheck = "unchecked";
+					ouvertureCheck = "unchecked";
+				}
+				else if(!jcbModif.isSelected() && !jcbImages.isSelected()){
+					modifCheck = "unchecked";
+					imagesCheck = "unchecked";
+				}
+				else if(!jcbOuverture.isSelected() && !jcbImages.isSelected()){
+					ouvertureCheck = "unchecked";
+					imagesCheck = "unchecked";
+				}
+				else if(!jcbModif.isSelected()){
+					modifCheck = "unchecked";
+				}
+				else if(!jcbOuverture.isSelected()){
+					ouvertureCheck = "unchecked";
+				}
+				else if(!jcbImages.isSelected()){
+					imagesCheck = "unchecked";
+				}
 			}
 		}
 
@@ -165,19 +277,31 @@ public class OngletMenu extends JPanel{
 		private JTable bdd;
 		private OutilsBdd obdd;
 		private Object[][] data;
-		private String filtre1;
-		private String filtre2;
+		private String filtreNom;
+		private String filtreAuteur;
+		private String filtreModif;
+		private String filtreOuverture;
+		private String filtreImages;
 		private RowSorter<MyTableModel> sorter;
 		private RowFilter<MyTableModel, Object> rf1;
 		private RowFilter<MyTableModel, Object> rf2;
 		RowFilter<MyTableModel, Object> compoundRowFilter = null;
 		List<RowFilter<MyTableModel,Object>> filters;
 		private MyTableModel mtm;
+		private boolean b1;
+		private boolean b2;
+		private boolean b3;
 
 		public PanelListebdd(){
-			this.filtre1 = "";
-			this.filtre2 = "";
-			this.initialiseNoAuthor();
+			this.filtreNom = "";
+			this.filtreAuteur = "";
+			this.filtreModif = "";
+			this.filtreOuverture = "";
+			this.filtreImages = "";
+			this.b1 = false;
+			this.b2 = false;
+			this.b3 = false;
+			this.initialiseCombo(b1, b2, b3);
 			this.setBorder(BorderFactory.createLoweredBevelBorder());
 
 		}
@@ -185,7 +309,7 @@ public class OngletMenu extends JPanel{
 		public void initialise(){
 			obdd = new OutilsBdd("Database.db");
 			data = obdd.getAllData();
-			String title[] = { "Nom", "Auteur", "Derni�re Modif", "Nb ouverture", "Nb images"};
+			String title[] = { "Nom", "Auteur", "Derniere Modif", "Nb ouverture", "Nb images"};
 			this.mtm = new MyTableModel(data, title);
 			this.sorter = new TableRowSorter<>(mtm);
 			this.rf1 = null;
@@ -194,10 +318,10 @@ public class OngletMenu extends JPanel{
 			this.filters = new ArrayList<RowFilter<MyTableModel,Object>>();
 			bdd.setRowSorter(sorter);
 			try {
-				if (filtre1 != "" || filtre1 != null){
-					rf1 = RowFilter.regexFilter("(?i)" +filtre1, 0);}
-				if (filtre2 != "" || filtre2 != null){
-					rf2 = RowFilter.regexFilter("(?i)" +filtre2, 1);}
+				if (filtreNom != "" || filtreNom != null){
+					rf1 = RowFilter.regexFilter("(?i)" +filtreNom, 0);}
+				if (filtreAuteur != "" || filtreAuteur != null){
+					rf2 = RowFilter.regexFilter("(?i)" +filtreAuteur, 1);}
 				filters.add(rf1);
 				filters.add(rf2);
 				compoundRowFilter = RowFilter.andFilter(filters); // you may also choose the OR filter
@@ -226,24 +350,55 @@ public class OngletMenu extends JPanel{
 			});
 		}
 
-		public void initialiseNoAuthor(){
+		public void initialiseCombo(boolean b1, boolean b2, boolean b3){
 			obdd = new OutilsBdd("Database.db");
-			data = obdd.getNoAuthorData();
-			String title[] = { "Nom", "Derni�re Modif", "Nb ouverture", "Nb images"};
-			this.mtm = new MyTableModel(data, title);
+			data = obdd.getComboData(b1, b2, b3);
+			if(b1 == true && b2 == true && b3 == true){
+				String title[] = { "Nom", "Auteur", "Derniere Modif", "Nb ouverture", "Nb images"};
+				this.mtm = new MyTableModel(data, title);
+			}
+			else if(b1 == false && b2 == false && b3 == false){
+				String title[] = { "Nom", "Auteur"};
+				this.mtm = new MyTableModel(data, title);
+			}
+			else if(b1 == true && b2 == false && b3 == false){
+				String title[] = { "Nom", "Auteur", "Derniere Modif"};
+				this.mtm = new MyTableModel(data, title);
+			}
+			else if(b1 == true && b2 == true && b3 == false){
+				String title[] = { "Nom", "Auteur", "Derniere Modif", "Nb ouverture"};
+				this.mtm = new MyTableModel(data, title);
+			}
+			else if(b1 == true && b2 == false && b3 == true){
+				String title[] = { "Nom", "Auteur", "Derniere Modif", "Nb images"};
+				this.mtm = new MyTableModel(data, title);
+			}
+			else if(b1 == false && b2 == true && b3 == false){
+				String title[] = { "Nom", "Auteur", "Nb ouverture"};
+				this.mtm = new MyTableModel(data, title);
+			}
+			else if(b1 == false && b2 == true && b3 == true){
+				String title[] = { "Nom", "Auteur",  "Nb ouverture", "Nb images"};
+				this.mtm = new MyTableModel(data, title);
+			}
+			else if(b1 == false && b2 == false && b3 == true){
+				String title[] = { "Nom", "Auteur", "Nb images"};
+				this.mtm = new MyTableModel(data, title);
+			}
+		//	this.mtm = new MyTableModel(data, title);
 			this.sorter = new TableRowSorter<>(mtm);
 			this.rf1 = null;
 			this.rf2 = null;
-			this.filtre1 = "";
-			this.filtre2 = "";
+			this.filtreNom = "";
+			this.filtreAuteur = "";
 			this.bdd = new JTable(mtm);
 			this.filters = new ArrayList<RowFilter<MyTableModel,Object>>();
 			bdd.setRowSorter(sorter);
 			try {
-				if (filtre1 != "" || filtre1 != null){
-					rf1 = RowFilter.regexFilter("(?i)" +filtre1, 0);}
-				if (filtre2 != "" || filtre2 != null){
-					rf2 = RowFilter.regexFilter("(?i)" +filtre2, 1);}
+				if (filtreNom != "" || filtreNom != null){
+					rf1 = RowFilter.regexFilter("(?i)" +filtreNom, 0);}
+				if (filtreAuteur != "" || filtreAuteur != null){
+					rf2 = RowFilter.regexFilter("(?i)" +filtreAuteur, 1);}
 				filters.add(rf1);
 				filters.add(rf2);
 				compoundRowFilter = RowFilter.andFilter(filters); // you may also choose the OR filter

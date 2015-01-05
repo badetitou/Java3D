@@ -120,7 +120,7 @@ public class OutilsBdd {
 		return data;
 	}
 	/* TEMPORAIRE */
-	public Object[][] getNoAuthorData() {
+	public Object[][] getComboData(boolean b1, boolean b2, boolean b3) {
 		this.connect();
 		String query = "SELECT * from files";
 		int i = 0;
@@ -134,25 +134,171 @@ public class OutilsBdd {
 			this.close();
 			return null;
 		}
-		Object[][] data = new Object[i][4];
-		try{
-			ResultSet rs2 = statement.executeQuery(query);
-			int g=0;
-			while(rs2.next()){
-				data[g][0] = rs2.getString("name");
-				data[g][1] = rs2.getString("lastModifDate");
-				data[g][2] = rs2.getString("nbrOpen");
-				data[g][3] = rs2.getString("nbrImg");
-				++g;
+		if(b1 == true && b2 == true && b3 == true){
+			Object[][] data = new Object[i][5];
+			try{
+				ResultSet rs2 = statement.executeQuery(query);
+				int g=0;
+				while(rs2.next()){
+					data[g][0] = rs2.getString("name");
+					data[g][1] = rs2.getString("author");
+					data[g][2] = rs2.getString("lastModifDate");
+					data[g][3] = rs2.getString("nbrOpen");
+					data[g][4] = rs2.getString("nbrImg");
+					++g;
+				}
+			} catch (Exception e) {
+				System.out.println("Erreur dans getComboData");
+				System.out.println(e.getMessage());
+				this.close();
+				return null;
 			}
-		} catch (Exception e) {
-			System.out.println("Erreur dans getAllData");
-			System.out.println(e.getMessage());
-			this.close();
-			return null;
-		}
 		this.close();
 		return data;
+		}
+		else if(b1 == false && b2 == false && b3 == false){
+			Object[][] data = new Object[i][2];
+			try{
+				ResultSet rs2 = statement.executeQuery(query);
+				int g=0;
+				while(rs2.next()){
+					data[g][0] = rs2.getString("name");
+					data[g][1] = rs2.getString("author");
+					++g;
+				}
+			} catch (Exception e) {
+				System.out.println("Erreur dans getComboData");
+				System.out.println(e.getMessage());
+				this.close();
+				return null;
+			}
+		this.close();
+		return data;
+		}
+		else if(b1 == true && b2 == false && b3 == false){
+			Object[][] data = new Object[i][3];
+			try{
+				ResultSet rs2 = statement.executeQuery(query);
+				int g=0;
+				while(rs2.next()){
+					data[g][0] = rs2.getString("name");
+					data[g][1] = rs2.getString("author");
+					data[g][2] = rs2.getString("lastModifDate");
+					++g;
+				}
+			} catch (Exception e) {
+				System.out.println("Erreur dans getComboData");
+				System.out.println(e.getMessage());
+				this.close();
+				return null;
+			}
+		this.close();
+		return data;
+		}
+		else if(b1 == true && b2 == true && b3 == false){
+			Object[][] data = new Object[i][4];
+			try{
+				ResultSet rs2 = statement.executeQuery(query);
+				int g=0;
+				while(rs2.next()){
+					data[g][0] = rs2.getString("name");
+					data[g][1] = rs2.getString("author");
+					data[g][2] = rs2.getString("lastModifDate");
+					data[g][3] = rs2.getString("nbrOpen");
+					++g;
+				}
+			} catch (Exception e) {
+				System.out.println("Erreur dans getComboData");
+				System.out.println(e.getMessage());
+				this.close();
+				return null;
+			}
+		this.close();
+		return data;
+		}
+		else if(b1 == true && b2 == false && b3 == true){
+			Object[][] data = new Object[i][4];
+			try{
+				ResultSet rs2 = statement.executeQuery(query);
+				int g=0;
+				while(rs2.next()){
+					data[g][0] = rs2.getString("name");
+					data[g][1] = rs2.getString("author");
+					data[g][2] = rs2.getString("lastModifDate");
+					data[g][3] = rs2.getString("nbrImg");
+					++g;
+				}
+			} catch (Exception e) {
+				System.out.println("Erreur dans getComboData");
+				System.out.println(e.getMessage());
+				this.close();
+				return null;
+			}
+		this.close();
+		return data;
+		}
+		else if(b1 == false && b2 == true && b3 == false){
+			Object[][] data = new Object[i][3];
+			try{
+				ResultSet rs2 = statement.executeQuery(query);
+				int g=0;
+				while(rs2.next()){
+					data[g][0] = rs2.getString("name");
+					data[g][1] = rs2.getString("author");
+					data[g][2] = rs2.getString("nbrOpen");
+					++g;
+				}
+			} catch (Exception e) {
+				System.out.println("Erreur dans getComboData");
+				System.out.println(e.getMessage());
+				this.close();
+				return null;
+			}
+		this.close();
+		return data;
+		}
+		else if(b1 == false && b2 == true && b3 == true){
+			Object[][] data = new Object[i][4];
+			try{
+				ResultSet rs2 = statement.executeQuery(query);
+				int g=0;
+				while(rs2.next()){
+					data[g][0] = rs2.getString("name");
+					data[g][1] = rs2.getString("author");
+					data[g][2] = rs2.getString("nbrOpen");
+					data[g][3] = rs2.getString("nbrImg");
+					++g;
+				}
+			} catch (Exception e) {
+				System.out.println("Erreur dans getComboData");
+				System.out.println(e.getMessage());
+				this.close();
+				return null;
+			}
+		this.close();
+		return data;
+		}
+		else if(b1 == false && b2 == false && b3 == true){
+			Object[][] data = new Object[i][3];
+			try{
+				ResultSet rs2 = statement.executeQuery(query);
+				int g=0;
+				while(rs2.next()){
+					data[g][0] = rs2.getString("name");
+					data[g][1] = rs2.getString("author");
+					data[g][2] = rs2.getString("nbrImg");
+					++g;
+				}
+			} catch (Exception e) {
+				System.out.println("Erreur dans getComboData");
+				System.out.println(e.getMessage());
+				this.close();
+				return null;
+			}
+		this.close();
+		return data;
+		}
+		return null;
 	}
 
 	public void addFile(String name, String linkFile, String desc, String author, int nbrOpen, int nbrImg, int nbrModif, int nbrRea, String linkImg) {
