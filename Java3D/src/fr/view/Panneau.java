@@ -51,7 +51,6 @@ public class Panneau extends JPanel implements MouseListener {
 	private JRadioButtonMenuItem medium;
 	private JRadioButtonMenuItem high;
 	private JMenuItem boutonCentre;
-	private JMenuItem color;
 	private JMenuItem zoomPlus;
 	private JMenuItem zoomMoins;
 	private JMenuItem fixerDimmension;
@@ -230,7 +229,6 @@ public class Panneau extends JPanel implements MouseListener {
 		boutonCentre = new JMenuItem("Recentre");
 		zoomPlus = new JMenuItem("Zoom +");
 		zoomMoins = new JMenuItem("Zoom -");
-		color = new JMenuItem("Color chooser");
 		this.fixerDimmension = new JMenuItem("fixer une dimension");
 		
 		boutonCentre.addMouseListener(this);
@@ -275,6 +273,7 @@ public class Panneau extends JPanel implements MouseListener {
 		dimensionFrame.getContentPane().add(new JLabel("Profondeur"));
 		dimensionFrame.getContentPane().add(fixProfondeur);
 		dimensionFrame.getContentPane().add(reset);
+		
 		fixHauteur.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -334,11 +333,6 @@ public class Panneau extends JPanel implements MouseListener {
 		});
 		dimensionFrame.setAlwaysOnTop(true);
 		dimensionFrame.pack();
-		
-		// Ajoute le color chooser
-		popMenu.addSeparator();
-		color.setEnabled(false);
-		popMenu.add(color);
 	}
 
 	public void disableVisibilityDimensionfix(){
