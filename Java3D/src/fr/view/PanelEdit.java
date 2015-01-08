@@ -1,15 +1,12 @@
 package fr.view;
 
 import java.awt.Color;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
 import javax.swing.JColorChooser;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 import javax.swing.colorchooser.AbstractColorChooserPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -23,6 +20,12 @@ public class PanelEdit extends JPanel implements ChangeListener {
 	private final MyDeskTopPane dp;
 	private final BarreVerticale bv;
 	private final JColorChooser jcc;
+	private final JLabel hauteurLabel;
+	private final JLabel largeurLabel;
+	private final JLabel profondeurLabel;
+	private final JTextField hauteurField;
+	private final JTextField profondeurField;
+	private final JTextField largeurField;
 
 	public PanelEdit(MyDeskTopPane dp, BarreVerticale bv) {
 		this.bv = bv;
