@@ -143,8 +143,11 @@ public class OngletMenu extends JPanel{
 				if(modifCheck == "checked" && ouvertureCheck == "checked" && imagesCheck == "checked"){
 					plbdd.filtreNom = jtfNom.getText();
 					plbdd.filtreAuteur = jtfAuteur.getText();
+					plbdd.filtreModif = jtfModif.getText();
+					plbdd.filtreOuverture = jtfOuverture.getText();
+					plbdd.filtreImages = jtfImages.getText();
 					plbdd.removeAll();
-					plbdd.initialise();
+					plbdd.initialiseCombo(true, true, true);
 					plbdd.revalidate();
 					plbdd.repaint();
 				}
@@ -159,6 +162,7 @@ public class OngletMenu extends JPanel{
 				else if(modifCheck == "checked" && ouvertureCheck == "unchecked" && imagesCheck == "unchecked"){
 					plbdd.filtreNom = jtfNom.getText();
 					plbdd.filtreAuteur = jtfAuteur.getText();
+					plbdd.filtreModif = jtfModif.getText();
 					plbdd.removeAll();
 					plbdd.initialiseCombo(true, false, false);
 					plbdd.revalidate();
@@ -167,6 +171,8 @@ public class OngletMenu extends JPanel{
 				else if(modifCheck == "checked" && ouvertureCheck == "checked" && imagesCheck == "unchecked"){
 					plbdd.filtreNom = jtfNom.getText();
 					plbdd.filtreAuteur = jtfAuteur.getText();
+					plbdd.filtreModif = jtfModif.getText();
+					plbdd.filtreOuverture = jtfOuverture.getText();
 					plbdd.removeAll();
 					plbdd.initialiseCombo(true, true, false);
 					plbdd.revalidate();
@@ -175,6 +181,8 @@ public class OngletMenu extends JPanel{
 				else if(modifCheck == "checked" && ouvertureCheck == "unchecked" && imagesCheck == "checked"){
 					plbdd.filtreNom = jtfNom.getText();
 					plbdd.filtreAuteur = jtfAuteur.getText();
+					plbdd.filtreModif = jtfModif.getText();
+					plbdd.filtreImages = jtfImages.getText();
 					plbdd.removeAll();
 					plbdd.initialiseCombo(true, false, true);
 					plbdd.revalidate();
@@ -183,6 +191,7 @@ public class OngletMenu extends JPanel{
 				else if(modifCheck == "unchecked" && ouvertureCheck == "checked" && imagesCheck == "unchecked"){
 					plbdd.filtreNom = jtfNom.getText();
 					plbdd.filtreAuteur = jtfAuteur.getText();
+					plbdd.filtreOuverture = jtfOuverture.getText();
 					plbdd.removeAll();
 					plbdd.initialiseCombo(false, true, false);
 					plbdd.revalidate();
@@ -191,6 +200,8 @@ public class OngletMenu extends JPanel{
 				else if(modifCheck == "unchecked" && ouvertureCheck == "checked" && imagesCheck == "checked"){
 					plbdd.filtreNom = jtfNom.getText();
 					plbdd.filtreAuteur = jtfAuteur.getText();
+					plbdd.filtreOuverture = jtfOuverture.getText();
+					plbdd.filtreImages = jtfImages.getText();
 					plbdd.removeAll();
 					plbdd.initialiseCombo(false, true, true);
 					plbdd.revalidate();
@@ -199,6 +210,7 @@ public class OngletMenu extends JPanel{
 				else if(modifCheck == "unchecked" && ouvertureCheck == "unchecked" && imagesCheck == "checked"){
 					plbdd.filtreNom = jtfNom.getText();
 					plbdd.filtreAuteur = jtfAuteur.getText();
+					plbdd.filtreImages = jtfImages.getText();
 					plbdd.removeAll();
 					plbdd.initialiseCombo(false, false, true);
 					plbdd.revalidate();
@@ -283,8 +295,11 @@ public class OngletMenu extends JPanel{
 		private String filtreOuverture;
 		private String filtreImages;
 		private RowSorter<MyTableModel> sorter;
+		private RowFilter<MyTableModel, Object> rf0;
 		private RowFilter<MyTableModel, Object> rf1;
 		private RowFilter<MyTableModel, Object> rf2;
+		private RowFilter<MyTableModel, Object> rf3;
+		private RowFilter<MyTableModel, Object> rf4;
 		RowFilter<MyTableModel, Object> compoundRowFilter = null;
 		List<RowFilter<MyTableModel,Object>> filters;
 		private MyTableModel mtm;
@@ -305,108 +320,238 @@ public class OngletMenu extends JPanel{
 			this.setBorder(BorderFactory.createLoweredBevelBorder());
 
 		}
-
-		public void initialise(){
-			obdd = new OutilsBdd("Database.db");
-			data = obdd.getAllData();
-			String title[] = { "Nom", "Auteur", "Derniere Modif", "Nb ouverture", "Nb images"};
-			this.mtm = new MyTableModel(data, title);
-			this.sorter = new TableRowSorter<>(mtm);
-			this.rf1 = null;
-			this.rf2 = null;
-			this.bdd = new JTable(mtm);
-			this.filters = new ArrayList<RowFilter<MyTableModel,Object>>();
-			bdd.setRowSorter(sorter);
-			try {
-				if (filtreNom != "" || filtreNom != null){
-					rf1 = RowFilter.regexFilter("(?i)" +filtreNom, 0);}
-				if (filtreAuteur != "" || filtreAuteur != null){
-					rf2 = RowFilter.regexFilter("(?i)" +filtreAuteur, 1);}
-				filters.add(rf1);
-				filters.add(rf2);
-				compoundRowFilter = RowFilter.andFilter(filters); // you may also choose the OR filter
-			} catch (PatternSyntaxException pse) {
-				return;
-			}
-			((DefaultRowSorter<MyTableModel, Integer>) sorter).setRowFilter(compoundRowFilter);
-
-			add(new JScrollPane(bdd), BorderLayout.CENTER );
-			bdd.getTableHeader().setReorderingAllowed(false);
-			bdd.getTableHeader().setResizingAllowed(false);
-			bdd.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-			bdd.addMouseListener(new java.awt.event.MouseAdapter() {
-				@Override
-				public void mouseClicked(java.awt.event.MouseEvent evt) {
-					//N� de la ligne s�l�ctionn�e
-					int row = bdd.getSelectedRow();
-					//N� de ligne du tableau tri�
-					int sortedRow = bdd.convertRowIndexToModel(row);
-					Object row1 = bdd.getModel().getValueAt(sortedRow, 0);
-					Object row2 = bdd.getModel().getValueAt(sortedRow, 1);
-					Object row3 = bdd.getModel().getValueAt(sortedRow, 2);
-					Object row4 = bdd.getModel().getValueAt(sortedRow, 3);
-					Object row5 = bdd.getModel().getValueAt(sortedRow, 4);
-				}
-			});
-		}
-
 		public void initialiseCombo(boolean b1, boolean b2, boolean b3){
 			obdd = new OutilsBdd("Database.db");
 			data = obdd.getComboData(b1, b2, b3);
 			if(b1 == true && b2 == true && b3 == true){
 				String title[] = { "Nom", "Auteur", "Derniere Modif", "Nb ouverture", "Nb images"};
 				this.mtm = new MyTableModel(data, title);
+				this.sorter = new TableRowSorter<>(mtm);
+				this.rf0 = null;
+				this.rf1 = null;
+				this.rf2 = null;
+				this.rf3 = null;
+				this.rf4 = null;
+				this.bdd = new JTable(mtm);
+				this.filters = new ArrayList<RowFilter<MyTableModel,Object>>();
+				bdd.setRowSorter(sorter);
+				try {
+					if (filtreNom != "" || filtreNom != null){
+						rf0 = RowFilter.regexFilter("(?i)" +filtreNom, 0);}
+					if (filtreAuteur != "" || filtreAuteur != null){
+						rf1 = RowFilter.regexFilter("(?i)" +filtreAuteur, 1);}
+					if (filtreModif != "" || filtreModif != null){
+						rf2 = RowFilter.regexFilter("(?i)" +filtreModif, 2);}
+					if (filtreOuverture != "" || filtreOuverture != null){
+						rf3 = RowFilter.regexFilter("(?i)" +filtreOuverture, 3);}
+					if (filtreImages != "" || filtreImages != null){
+						rf4 = RowFilter.regexFilter("(?i)" +filtreImages, 4);}
+					filters.add(rf0);
+					filters.add(rf1);
+					filters.add(rf2);
+					filters.add(rf3);
+					filters.add(rf4);
+					compoundRowFilter = RowFilter.andFilter(filters); // you may also choose the OR filter
+				} catch (PatternSyntaxException pse) {
+					return;
+				}
 			}
 			else if(b1 == false && b2 == false && b3 == false){
 				String title[] = { "Nom", "Auteur"};
 				this.mtm = new MyTableModel(data, title);
+				this.sorter = new TableRowSorter<>(mtm);
+				this.rf0 = null;
+				this.rf1 = null;
+				this.rf2 = null;
+				this.rf3 = null;
+				this.rf4 = null;
+				this.bdd = new JTable(mtm);
+				this.filters = new ArrayList<RowFilter<MyTableModel,Object>>();
+				bdd.setRowSorter(sorter);
+				try {
+					if (filtreNom != "" || filtreNom != null){
+						rf0 = RowFilter.regexFilter("(?i)" +filtreNom, 0);}
+					if (filtreAuteur != "" || filtreAuteur != null){
+						rf1 = RowFilter.regexFilter("(?i)" +filtreAuteur, 1);}
+					filters.add(rf0);
+					filters.add(rf1);
+					compoundRowFilter = RowFilter.andFilter(filters); // you may also choose the OR filter
+				} catch (PatternSyntaxException pse) {
+					return;
+				}
 			}
 			else if(b1 == true && b2 == false && b3 == false){
 				String title[] = { "Nom", "Auteur", "Derniere Modif"};
 				this.mtm = new MyTableModel(data, title);
+				this.sorter = new TableRowSorter<>(mtm);
+				this.rf0 = null;
+				this.rf1 = null;
+				this.rf2 = null;
+				this.rf3 = null;
+				this.rf4 = null;
+				this.bdd = new JTable(mtm);
+				this.filters = new ArrayList<RowFilter<MyTableModel,Object>>();
+				bdd.setRowSorter(sorter);
+				try {
+					if (filtreNom != "" || filtreNom != null){
+						rf0 = RowFilter.regexFilter("(?i)" +filtreNom, 0);}
+					if (filtreAuteur != "" || filtreAuteur != null){
+						rf1 = RowFilter.regexFilter("(?i)" +filtreAuteur, 1);}
+					if (filtreModif != "" || filtreModif != null){
+						rf2 = RowFilter.regexFilter("(?i)" +filtreModif, 2);}
+					filters.add(rf0);
+					filters.add(rf1);
+					filters.add(rf2);
+					compoundRowFilter = RowFilter.andFilter(filters); // you may also choose the OR filter
+				} catch (PatternSyntaxException pse) {
+					return;
+				}
 			}
 			else if(b1 == true && b2 == true && b3 == false){
 				String title[] = { "Nom", "Auteur", "Derniere Modif", "Nb ouverture"};
 				this.mtm = new MyTableModel(data, title);
+				this.sorter = new TableRowSorter<>(mtm);
+				this.rf0 = null;
+				this.rf1 = null;
+				this.rf2 = null;
+				this.rf3 = null;
+				this.rf4 = null;
+				this.bdd = new JTable(mtm);
+				this.filters = new ArrayList<RowFilter<MyTableModel,Object>>();
+				bdd.setRowSorter(sorter);
+				try {
+					if (filtreNom != "" || filtreNom != null){
+						rf0 = RowFilter.regexFilter("(?i)" +filtreNom, 0);}
+					if (filtreAuteur != "" || filtreAuteur != null){
+						rf1 = RowFilter.regexFilter("(?i)" +filtreAuteur, 1);}
+					if (filtreModif != "" || filtreModif != null){
+						rf2 = RowFilter.regexFilter("(?i)" +filtreModif, 2);}
+					if (filtreOuverture != "" || filtreOuverture != null){
+						rf3 = RowFilter.regexFilter("(?i)" +filtreOuverture, 3);}
+					filters.add(rf0);
+					filters.add(rf1);
+					filters.add(rf2);
+					filters.add(rf3);
+					compoundRowFilter = RowFilter.andFilter(filters); // you may also choose the OR filter
+				} catch (PatternSyntaxException pse) {
+					return;
+				}
 			}
 			else if(b1 == true && b2 == false && b3 == true){
 				String title[] = { "Nom", "Auteur", "Derniere Modif", "Nb images"};
 				this.mtm = new MyTableModel(data, title);
+				this.sorter = new TableRowSorter<>(mtm);
+				this.rf0 = null;
+				this.rf1 = null;
+				this.rf2 = null;
+				this.rf3 = null;
+				this.rf4 = null;
+				this.bdd = new JTable(mtm);
+				this.filters = new ArrayList<RowFilter<MyTableModel,Object>>();
+				bdd.setRowSorter(sorter);
+				try {
+					if (filtreNom != "" || filtreNom != null){
+						rf0 = RowFilter.regexFilter("(?i)" +filtreNom, 0);}
+					if (filtreAuteur != "" || filtreAuteur != null){
+						rf1 = RowFilter.regexFilter("(?i)" +filtreAuteur, 1);}
+					if (filtreModif != "" || filtreModif != null){
+						rf2 = RowFilter.regexFilter("(?i)" +filtreModif, 2);}
+					if (filtreImages != "" || filtreImages != null){
+						rf3 = RowFilter.regexFilter("(?i)" +filtreImages, 3);}
+					filters.add(rf0);
+					filters.add(rf1);
+					filters.add(rf2);
+					filters.add(rf3);
+					compoundRowFilter = RowFilter.andFilter(filters); // you may also choose the OR filter
+				} catch (PatternSyntaxException pse) {
+					return;
+				}
 			}
 			else if(b1 == false && b2 == true && b3 == false){
 				String title[] = { "Nom", "Auteur", "Nb ouverture"};
 				this.mtm = new MyTableModel(data, title);
+				this.sorter = new TableRowSorter<>(mtm);
+				this.rf0 = null;
+				this.rf1 = null;
+				this.rf2 = null;
+				this.rf3 = null;
+				this.rf4 = null;
+				this.bdd = new JTable(mtm);
+				this.filters = new ArrayList<RowFilter<MyTableModel,Object>>();
+				bdd.setRowSorter(sorter);
+				try {
+					if (filtreNom != "" || filtreNom != null){
+						rf0 = RowFilter.regexFilter("(?i)" +filtreNom, 0);}
+					if (filtreAuteur != "" || filtreAuteur != null){
+						rf1 = RowFilter.regexFilter("(?i)" +filtreAuteur, 1);}
+					if (filtreOuverture != "" || filtreOuverture != null){
+						rf2 = RowFilter.regexFilter("(?i)" +filtreOuverture, 2);}
+					filters.add(rf0);
+					filters.add(rf1);
+					filters.add(rf2);
+					compoundRowFilter = RowFilter.andFilter(filters); // you may also choose the OR filter
+				} catch (PatternSyntaxException pse) {
+					return;
+				}
 			}
 			else if(b1 == false && b2 == true && b3 == true){
 				String title[] = { "Nom", "Auteur",  "Nb ouverture", "Nb images"};
 				this.mtm = new MyTableModel(data, title);
+				this.sorter = new TableRowSorter<>(mtm);
+				this.rf0 = null;
+				this.rf1 = null;
+				this.rf2 = null;
+				this.rf3 = null;
+				this.rf4 = null;
+				this.bdd = new JTable(mtm);
+				this.filters = new ArrayList<RowFilter<MyTableModel,Object>>();
+				bdd.setRowSorter(sorter);
+				try {
+					if (filtreNom != "" || filtreNom != null){
+						rf0 = RowFilter.regexFilter("(?i)" +filtreNom, 0);}
+					if (filtreAuteur != "" || filtreAuteur != null){
+						rf1 = RowFilter.regexFilter("(?i)" +filtreAuteur, 1);}
+					if (filtreOuverture != "" || filtreOuverture != null){
+						rf2 = RowFilter.regexFilter("(?i)" +filtreOuverture, 2);}
+					if (filtreImages != "" || filtreImages != null){
+						rf3 = RowFilter.regexFilter("(?i)" +filtreImages, 3);}
+					filters.add(rf0);
+					filters.add(rf1);
+					filters.add(rf2);
+					filters.add(rf3);
+					compoundRowFilter = RowFilter.andFilter(filters); // you may also choose the OR filter
+				} catch (PatternSyntaxException pse) {
+					return;
+				}
 			}
 			else if(b1 == false && b2 == false && b3 == true){
 				String title[] = { "Nom", "Auteur", "Nb images"};
 				this.mtm = new MyTableModel(data, title);
+				this.sorter = new TableRowSorter<>(mtm);
+				this.rf0 = null;
+				this.rf1 = null;
+				this.rf2 = null;
+				this.rf3 = null;
+				this.rf4 = null;
+				this.bdd = new JTable(mtm);
+				this.filters = new ArrayList<RowFilter<MyTableModel,Object>>();
+				bdd.setRowSorter(sorter);
+				try {
+					if (filtreNom != "" || filtreNom != null){
+						rf0 = RowFilter.regexFilter("(?i)" +filtreNom, 0);}
+					if (filtreAuteur != "" || filtreAuteur != null){
+						rf1 = RowFilter.regexFilter("(?i)" +filtreAuteur, 1);}
+					if (filtreImages != "" || filtreImages != null){
+						rf2 = RowFilter.regexFilter("(?i)" +filtreImages, 2);}
+					filters.add(rf0);
+					filters.add(rf1);
+					filters.add(rf2);
+					compoundRowFilter = RowFilter.andFilter(filters); // you may also choose the OR filter
+				} catch (PatternSyntaxException pse) {
+					return;
+				}
 			}
-		//	this.mtm = new MyTableModel(data, title);
-			this.sorter = new TableRowSorter<>(mtm);
-			this.rf1 = null;
-			this.rf2 = null;
-			this.filtreNom = "";
-			this.filtreAuteur = "";
-			this.bdd = new JTable(mtm);
-			this.filters = new ArrayList<RowFilter<MyTableModel,Object>>();
-			bdd.setRowSorter(sorter);
-			try {
-				if (filtreNom != "" || filtreNom != null){
-					rf1 = RowFilter.regexFilter("(?i)" +filtreNom, 0);}
-				if (filtreAuteur != "" || filtreAuteur != null){
-					rf2 = RowFilter.regexFilter("(?i)" +filtreAuteur, 1);}
-				filters.add(rf1);
-				filters.add(rf2);
-				compoundRowFilter = RowFilter.andFilter(filters); // you may also choose the OR filter
-			} catch (PatternSyntaxException pse) {
-				return;
-			}
-			//((DefaultRowSorter<MyTableModel, Integer>) sorter).setRowFilter(compoundRowFilter);
-
+			((DefaultRowSorter<MyTableModel, Integer>) sorter).setRowFilter(compoundRowFilter);
 			add(new JScrollPane(bdd), BorderLayout.CENTER );
 			bdd.getTableHeader().setReorderingAllowed(false);
 			bdd.getTableHeader().setResizingAllowed(false);
@@ -414,9 +559,9 @@ public class OngletMenu extends JPanel{
 			bdd.addMouseListener(new java.awt.event.MouseAdapter() {
 				@Override
 				public void mouseClicked(java.awt.event.MouseEvent evt) {
-					//N� de la ligne s�l�ctionn�e
+					//N? de la ligne s?l?ctionn?e
 					int row = bdd.getSelectedRow();
-					//N� de ligne du tableau tri�
+					//N? de ligne du tableau tri?
 					int sortedRow = bdd.convertRowIndexToModel(row);
 					Object row1 = bdd.getModel().getValueAt(sortedRow, 0);
 					Object row2 = bdd.getModel().getValueAt(sortedRow, 1);
