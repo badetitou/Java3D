@@ -112,6 +112,7 @@ public class Panneau extends JPanel implements MouseListener {
 			this.addKeyListener(new KeyListener() {
 
 				public void keyTyped(KeyEvent e) {
+					
 				}
 
 				public void keyReleased(KeyEvent e) {
@@ -119,7 +120,13 @@ public class Panneau extends JPanel implements MouseListener {
 				}
 
 				public void keyPressed(KeyEvent e) {
-					control = true;
+					if (e.getKeyCode() == KeyEvent.VK_CONTROL)
+						control = true;
+					if (e.getKeyCode() == KeyEvent.VK_A && control){
+						for(Face f : m.getFace())
+							f.setSelected(true);
+						repaint();
+					}
 				}
 			});
 
