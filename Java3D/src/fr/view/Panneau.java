@@ -19,7 +19,6 @@ import java.util.List;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JColorChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
@@ -28,13 +27,12 @@ import javax.swing.JPopupMenu;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
-import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import fr.model.Face;
 import fr.model.Model;
 
-public class Panneau extends JPanel implements MouseListener, ChangeListener {
+public class Panneau extends JPanel implements MouseListener {
 	/*
 	 * Model necessaire info
 	 */
@@ -57,8 +55,6 @@ public class Panneau extends JPanel implements MouseListener, ChangeListener {
 	private JMenuItem zoomPlus;
 	private JMenuItem zoomMoins;
 	private JMenuItem fixerDimmension;
-	private JFrame colorFrame = new JFrame();
-	private JColorChooser jcc;
 	private JFrame  dimensionFrame = new JFrame();
 	private JTextField fixHauteur;
 	private JTextField fixLargeur;
@@ -235,16 +231,8 @@ public class Panneau extends JPanel implements MouseListener, ChangeListener {
 		zoomPlus = new JMenuItem("Zoom +");
 		zoomMoins = new JMenuItem("Zoom -");
 		color = new JMenuItem("Color chooser");
-		jcc = new JColorChooser();
 		this.fixerDimmension = new JMenuItem("fixer une dimension");
 		
-		//Init color et Buton centre
-		jcc.getSelectionModel().addChangeListener(this);
-		colorFrame.add(jcc);
-		colorFrame.pack();
-		colorFrame.setAlwaysOnTop(true);
-		colorFrame.setTitle("Color Chooser");
-		color.addMouseListener(this);
 		boutonCentre.addMouseListener(this);
 		popMenu.add(boutonCentre);
 		boutonCentre.addMouseListener(this);
@@ -353,15 +341,6 @@ public class Panneau extends JPanel implements MouseListener, ChangeListener {
 		popMenu.add(color);
 	}
 
-	public void setColorChooser(boolean b) {
-		if (b) {
-			color.setEnabled(true);
-		} else {
-			color.setEnabled(false);
-			colorFrame.setVisible(false);
-		}
-	}
-	
 	public void disableVisibilityDimensionfix(){
 		this.dimensionFrame.setVisible(false);
 	}
@@ -443,8 +422,6 @@ public class Panneau extends JPanel implements MouseListener, ChangeListener {
 			this.dp.getPanel().setQualite(1);
 		} else if (e.getSource().equals(high)) {
 			this.dp.getPanel().setQualite(2);
-		} else if (e.getSource().equals(color) && color.isEnabled()) {
-			colorFrame.setVisible(true);
 		} else if (e.getSource().equals(zoomPlus)){
 			m.zoom(1.2);
 			repaint();
@@ -467,8 +444,6 @@ public class Panneau extends JPanel implements MouseListener, ChangeListener {
 			medium.setArmed(true);
 		} else if (e.getSource().equals(high)) {
 			high.setArmed(true);
-		} else if (e.getSource().equals(color)) {
-			color.setArmed(true);
 		} else if (e.getSource().equals(zoomPlus)){
 			zoomPlus.setArmed(true);
 		} else if (e.getSource().equals(zoomMoins)){
@@ -487,8 +462,6 @@ public class Panneau extends JPanel implements MouseListener, ChangeListener {
 			medium.setArmed(false);
 		} else if (e.getSource().equals(high)) {
 			high.setArmed(false);
-		} else if (e.getSource().equals(color)) {
-			color.setArmed(false);
 		} else if (e.getSource().equals(zoomPlus)){
 			zoomPlus.setArmed(false);
 		} else if (e.getSource().equals(zoomMoins)){
@@ -504,8 +477,4 @@ public class Panneau extends JPanel implements MouseListener, ChangeListener {
 	public void mouseReleased(MouseEvent arg0) {
 	}
 
-	public void stateChanged(ChangeEvent arg0) {
-		m.changeColor(jcc.getColor());
-		repaint();
-	}
 }

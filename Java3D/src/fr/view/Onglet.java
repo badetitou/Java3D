@@ -74,7 +74,7 @@ public class Onglet extends JPanel implements MouseListener{
 		jp2.setBackground(new Color(190,190,190));
 		this.add(dp,BorderLayout.CENTER);
 		this.add(jp2,BorderLayout.WEST);
-		//this.add(new PanelEdit(this.dp,bv),BorderLayout.EAST);
+		this.add(new PanelEdit(this.dp,bv),BorderLayout.EAST);
 		this.add(pbdd, BorderLayout.SOUTH);
 		dp.setBV(bv);
 

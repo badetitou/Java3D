@@ -143,11 +143,9 @@ public class BarreVerticale extends JPanel implements MouseListener {
 			this.dp.getiFrameDessous().setVisible(false);
 			this.dp.getiFrameDessus().setVisible(false);
 			this.dp.getiFrameProfil().setVisible(false);
-			//this.jcc.setEnabled(false);
-			//jcc.setVisible(false);
+			this.jcc.setEnabled(false);
+			jcc.setVisible(false);
 			this.dp.getModel().setDimension(MyDeskTopPane.dimension);
-			dp.getPanel().setColorChooser(false);
-
 		} else if (e.getSource().equals(b2) && !bb2) {
 			b2.setIcon(ic7);
 			b1.setIcon(ic1);
@@ -163,10 +161,9 @@ public class BarreVerticale extends JPanel implements MouseListener {
 			this.dp.getiFrameDessous().setVisible(true);
 			this.dp.getiFrameDessus().setVisible(true);
 			this.dp.getiFrameProfil().setVisible(true);
-			//this.jcc.setEnabled(false);
-			//jcc.setVisible(false);
+			this.jcc.setEnabled(false);
+			jcc.setVisible(false);
 			this.dp.getModel().setDimension(MyDeskTopPane.dimmini);
-			dp.getPanel().setColorChooser(false);
 		} else if (e.getSource().equals(b3) && !modeEdit) {
 			b3.setIcon(ic8);
 			b2.setIcon(ic2);
@@ -183,10 +180,8 @@ public class BarreVerticale extends JPanel implements MouseListener {
 			this.dp.getiFrameDessus().setVisible(false);
 			this.dp.getiFrameProfil().setVisible(false);
 			this.dp.getModel().setDimension(MyDeskTopPane.dimension);
-			//this.jcc.setEnabled(true);
-			//jcc.setVisible(true);
-			dp.getPanel().setColorChooser(true);
-
+			this.jcc.setEnabled(true);
+			jcc.setVisible(true);
 		}
 
 		else if (e.getSource().equals(b4) && !modeSquelette){
@@ -205,10 +200,8 @@ public class BarreVerticale extends JPanel implements MouseListener {
 			this.dp.getiFrameDessus().setVisible(false);
 			this.dp.getiFrameProfil().setVisible(false);
 			this.dp.getModel().setDimension(MyDeskTopPane.dimension);
-			//this.jcc.setEnabled(false);
-			//jcc.setVisible(false);
-			dp.getPanel().setColorChooser(false);
-
+			this.jcc.setEnabled(false);
+			jcc.setVisible(false);
 		}
 
 		else if (e.getSource().equals(b5) && !dot){
@@ -227,11 +220,8 @@ public class BarreVerticale extends JPanel implements MouseListener {
 			this.dp.getiFrameDessus().setVisible(false);
 			this.dp.getiFrameProfil().setVisible(false);
 			this.dp.getModel().setDimension(MyDeskTopPane.dimension);
-			/* A SUPPRIMER
 			this.jcc.setEnabled(false);
 			jcc.setVisible(false);
-			*PAS LA SUITE*/
-			dp.getPanel().setColorChooser(false);
 		}
 		this.dp.getPanel().getM().recentrer();
 		this.dp.getPanel().getM().zoomAuto();
