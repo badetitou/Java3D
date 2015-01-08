@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -13,21 +11,16 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JRadioButtonMenuItem;
-import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
-import javax.swing.event.ChangeListener;
 
 import fr.model.Face;
 import fr.model.Model;
@@ -53,11 +46,6 @@ public class Panneau extends JPanel implements MouseListener {
 	private JMenuItem boutonCentre;
 	private JMenuItem zoomPlus;
 	private JMenuItem zoomMoins;
-	private JMenuItem fixerDimmension;
-	private JFrame  dimensionFrame = new JFrame();
-	private JTextField fixHauteur;
-	private JTextField fixLargeur;
-	private JTextField fixProfondeur;
 	/*
 	 * END-TEST
 	 */
@@ -236,7 +224,6 @@ public class Panneau extends JPanel implements MouseListener {
 		boutonCentre = new JMenuItem("Recentre");
 		zoomPlus = new JMenuItem("Zoom +");
 		zoomMoins = new JMenuItem("Zoom -");
-		this.fixerDimmension = new JMenuItem("fixer une dimension");
 		
 		boutonCentre.addMouseListener(this);
 		popMenu.add(boutonCentre);
@@ -263,87 +250,6 @@ public class Panneau extends JPanel implements MouseListener {
 		zoomPlus.addMouseListener(this);
 		zoomMoins.addMouseListener(this);
 		
-		//Fixer Dimension
-		popMenu.addSeparator();
-		popMenu.add(fixerDimmension);
-		fixerDimmension.addMouseListener(this);
-		dimensionFrame.setTitle("Fixer Dimmension");
-		dimensionFrame.getContentPane().setLayout(new BoxLayout(dimensionFrame.getContentPane(), BoxLayout.PAGE_AXIS));
-		fixHauteur = new JTextField("0.0");
-		fixLargeur = new JTextField("0.0");
-		fixProfondeur = new JTextField("0.0");
-		JButton reset = new JButton("reset");
-		dimensionFrame.getContentPane().add(new JLabel("Hauteur"));
-		dimensionFrame.getContentPane().add(fixHauteur);
-		dimensionFrame.getContentPane().add(new JLabel("Largeur"));
-		dimensionFrame.getContentPane().add(fixLargeur);
-		dimensionFrame.getContentPane().add(new JLabel("Profondeur"));
-		dimensionFrame.getContentPane().add(fixProfondeur);
-		dimensionFrame.getContentPane().add(reset);
-		
-		fixHauteur.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				try{
-					double i = Double.parseDouble(fixHauteur.getText());
-					m.setHauteurFixed(i);
-				} catch (Exception e){
-					fixHauteur.setText(fixHauteur.getText().substring(0, fixHauteur.getText().length()-1));
-				}finally{
-					fixLargeur.setText("0.0");
-					fixProfondeur.setText("0.0");
-					repaint();
-				}
-			}
-		});
-		fixLargeur.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				try{
-					double i = Double.parseDouble(fixLargeur.getText());
-					m.setLargeurFixed(i);
-				} catch (Exception e){
-					fixLargeur.setText(fixLargeur.getText().substring(0, fixLargeur.getText().length()-1));
-				}finally{
-					fixHauteur.setText("0.0");
-					fixProfondeur.setText("0.0");
-					repaint();
-				}
-				
-			}
-		});
-		fixProfondeur.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				try{
-					double i = Double.parseDouble(fixProfondeur.getText());
-					m.setProfondeurFixed(i);
-				} catch (Exception e){
-					fixProfondeur.setText(fixProfondeur.getText().substring(0, fixProfondeur.getText().length()-1));
-				}finally{
-					fixHauteur.setText("0.0");
-					fixLargeur.setText("0.0");
-					repaint();
-				}	
-			}
-		});
-		reset.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				fixHauteur.setText("0.0");
-				fixLargeur.setText("0.0");
-				fixProfondeur.setText("0.0");
-				m.resetFixedValue();
-				repaint();
-			}
-		});
-		dimensionFrame.setAlwaysOnTop(true);
-		dimensionFrame.pack();
-	}
-
-	public void disableVisibilityDimensionfix(){
-		this.dimensionFrame.setVisible(false);
 	}
 
 	@Override
@@ -398,12 +304,15 @@ public class Panneau extends JPanel implements MouseListener {
 						(int) (p.y + m.yTranslate), 1, 1);
 		}
 		if (!getBarreVerticale().isBb2()) {
+			DecimalFormat f = new DecimalFormat();
+			f.setMaximumFractionDigits(2);
 			g.setColor(Color.BLACK);
-			g.drawString("Hauteur : " + m.getHauteurModel(), 0, 15);
-			g.drawString("Largeur : " + m.getLargeurModel(), 0, 30);
-			g.drawString("Profondeur : " + m.getProfondeurModel(), 0, 45);
+			g.drawString("Hauteur : " + f.format(m.getHauteurModel()), 0, 15);
+			g.drawString("Largeur : " + f.format(m.getLargeurModel()), 0, 30);
+			g.drawString("Profondeur : " + f.format(m.getProfondeurModel()), 0, 45);
+			g.drawString("Volume : "  + f.format(m.getLargeurModel() * m.getProfondeurModel() * m.getHauteurModel()), 0, 60);
 			g.setColor(Color.RED);
-			g.drawString("Clic droit pour plus d'options", 0, 60);
+			g.drawString("Clic droit pour plus d'options", 0, 75);
 		}
 		g.dispose();
 	}
@@ -429,8 +338,6 @@ public class Panneau extends JPanel implements MouseListener {
 		} else if (e.getSource().equals(zoomMoins)){
 			m.zoom(0.8);
 			repaint();
-		} else if (e.getSource().equals(fixerDimmension)){
-			dimensionFrame.setVisible(true);
 		}
 
 		popMenu.setVisible(false);
@@ -449,8 +356,6 @@ public class Panneau extends JPanel implements MouseListener {
 			zoomPlus.setArmed(true);
 		} else if (e.getSource().equals(zoomMoins)){
 			zoomMoins.setArmed(true);
-		} else if (e.getSource().equals(fixerDimmension)){
-			fixerDimmension.setArmed(true);
 		}
 	}
 
@@ -467,8 +372,6 @@ public class Panneau extends JPanel implements MouseListener {
 			zoomPlus.setArmed(false);
 		} else if (e.getSource().equals(zoomMoins)){
 			zoomMoins.setArmed(false);
-		} else if (e.getSource().equals(fixerDimmension)){
-			fixerDimmension.setArmed(false);
 		}
 	}
 
