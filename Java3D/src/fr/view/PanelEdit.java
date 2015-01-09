@@ -3,15 +3,18 @@ package fr.view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.text.NumberFormat;
 
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.colorchooser.AbstractColorChooserPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -78,7 +81,19 @@ public class PanelEdit extends JPanel implements ChangeListener, PropertyChangeL
 		hauteurField.addPropertyChangeListener(this);
 		largeurField.addPropertyChangeListener(this);
 		profondeurField.addPropertyChangeListener(this);
-
+		JButton reset = new JButton("Reset");
+		reset.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				hauteurField.setValue(0);
+				largeurField.setValue(0);
+				profondeurField.setValue(0);
+			}
+		});
+		
+		JPanel contentDimension = new JPanel();
+		contentDimension.setLayout(new BoxLayout(contentDimension, BoxLayout.Y_AXIS));
 		JPanel dimension = new JPanel();
 		dimension.setLayout(new GridLayout(3,2));
 		dimension.add(hauteurLabel);
@@ -87,8 +102,9 @@ public class PanelEdit extends JPanel implements ChangeListener, PropertyChangeL
 		dimension.add(largeurField);
 		dimension.add(profondeurLabel);
 		dimension.add(profondeurField);
-		dimension.setSize(100, 100);
-		this.add(dimension, BorderLayout.NORTH);
+		contentDimension.add(dimension);
+		contentDimension.add(reset);
+		this.add(contentDimension, BorderLayout.NORTH);
 	}
 
 	public void stateChanged(ChangeEvent arg0) {
