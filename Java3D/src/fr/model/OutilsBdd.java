@@ -139,7 +139,13 @@ public class OutilsBdd {
 
 	public Object[][] getComboData(boolean b1, boolean b2, boolean b3, String tag) {
 		this.connect();
-		String query = "SELECT * from files, tags WHERE files.name=tags.name AND ";
+		String query = "";
+		if (tag.equals("")){
+			query = "SELECT * from files;";
+		}
+		else{
+			query = "SELECT files.name AS name, author, lastModifDate, nbrOpen, nbrImg from files, tags WHERE files.name=tags.name AND tags.tag LIKE \"%"+ tag + "%\"";
+		}
 		int i = 0;
 		try {
 			ResultSet rs = statement.executeQuery(query);

@@ -482,7 +482,7 @@ public class OngletMenu extends JPanel{
 		
 		public void initialiseCombo(boolean b1, boolean b2, boolean b3){
 			obdd = new OutilsBdd("Database.db");
-			data = obdd.getComboData(b1, b2, b3);
+			data = obdd.getComboData(b1, b2, b3, "");
 			if(b1 == true && b2 == true && b3 == true){
 				String title[] = { "Nom", "Auteur", "Derniere Modif", "Nb ouverture", "Nb images"};
 				this.mtm = new MyTableModel(data, title);
