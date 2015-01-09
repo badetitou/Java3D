@@ -1,9 +1,9 @@
 package fr.view;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
 
-import javax.swing.BoxLayout;
 import javax.swing.JColorChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -32,7 +32,7 @@ public class PanelEdit extends JPanel implements ChangeListener {
 		this.bv = bv;
 		this.dp = dp;
 		this.setBackground(new Color(190, 190, 190));
-		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+		this.setLayout(new BorderLayout());
 		jcc = new JColorChooser();
 
 		/*
@@ -48,7 +48,7 @@ public class PanelEdit extends JPanel implements ChangeListener {
 		bv.setJcc(jcc);
 		jcc.setEnabled(false);
 		jcc.setVisible(false);
-		this.add(jcc);
+		this.add(jcc, BorderLayout.CENTER);
 		
 		/*
 		 * Dimension
@@ -68,7 +68,7 @@ public class PanelEdit extends JPanel implements ChangeListener {
 		dimension.add(profondeurLabel);
 		dimension.add(profondeurField);
 		dimension.setSize(100, 100);
-		this.add(dimension);
+		this.add(dimension, BorderLayout.NORTH);
 	}
 
 	public void stateChanged(ChangeEvent arg0) {
