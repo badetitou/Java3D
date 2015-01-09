@@ -496,6 +496,8 @@ public class Menu extends JMenuBar implements ActionListener {
 				System.exit(0);
 			}
 
+			((OngletMenu)listeOnglets.get(0)).getPlbdd().actualiser();
+
 		}
 
 		else if (e.getSource().equals(mIFImporter)) {

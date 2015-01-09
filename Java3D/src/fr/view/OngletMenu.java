@@ -12,15 +12,12 @@ import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.PatternSyntaxException;
 
 import javax.swing.BorderFactory;
-import javax.swing.DefaultRowSorter;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -102,9 +99,9 @@ public class OngletMenu extends JPanel{
 		private final JTextField jtfModif;
 		private final JTextField jtfOuverture;
 		private final JTextField jtfImages;
-		private JCheckBox jcbModif;
-		private JCheckBox jcbOuverture;
-		private JCheckBox jcbImages;
+		private final JCheckBox jcbModif;
+		private final JCheckBox jcbOuverture;
+		private final JCheckBox jcbImages;
 		private final JLabel jlbNom;
 		private final JLabel jlbAuteur;
 		private String modifCheck;
@@ -155,8 +152,9 @@ public class OngletMenu extends JPanel{
 			this.jtfImages.addKeyListener(this);
 		}
 
-			public void keyReleased(KeyEvent e) {
-				if(e.getSource() instanceof JTextField){
+		@Override
+		public void keyReleased(KeyEvent e) {
+			if(e.getSource() instanceof JTextField){
 				if(modifCheck == "checked" && ouvertureCheck == "checked" && imagesCheck == "checked"){
 					plbdd.filtreNom = jtfNom.getText();
 					plbdd.filtreAuteur = jtfAuteur.getText();
@@ -315,7 +313,7 @@ public class OngletMenu extends JPanel{
 					plbdd.revalidate();
 					plbdd.repaint();
 				}
-				
+
 			}
 			else{
 				if(!jcbModif.isSelected() && !jcbOuverture.isSelected() && !jcbImages.isSelected()){
@@ -399,19 +397,19 @@ public class OngletMenu extends JPanel{
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void keyPressed(KeyEvent arg0) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void keyTyped(KeyEvent arg0) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 	}
@@ -479,7 +477,7 @@ public class OngletMenu extends JPanel{
 			bdd.repaint();
 			bdd.revalidate();
 		}
-		
+
 		public void initialiseCombo(boolean b1, boolean b2, boolean b3){
 			obdd = new OutilsBdd("Database.db");
 			data = obdd.getComboData(b1, b2, b3, "");
@@ -711,7 +709,7 @@ public class OngletMenu extends JPanel{
 					return;
 				}
 			}
-			((DefaultRowSorter<MyTableModel, Integer>) sorter).setRowFilter(compoundRowFilter);
+			//((DefaultRowSorter<MyTableModel, Integer>) sorter).setRowFilter(compoundRowFilter);
 			add(new JScrollPane(bdd), BorderLayout.CENTER );
 			bdd.getTableHeader().setReorderingAllowed(false);
 			bdd.getTableHeader().setResizingAllowed(false);
