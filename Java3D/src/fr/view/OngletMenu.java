@@ -11,7 +11,6 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.PatternSyntaxException;
@@ -30,6 +29,7 @@ import javax.swing.JTree;
 import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
 import javax.swing.RowSorter;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -739,16 +739,19 @@ public class OngletMenu extends JPanel{
 		private final JPanel panelImage;
 		private final JTree tree;
 		public PanelArboPreview(){
-			File repertoire = new File("fichiers"+File.separator);
+			/*File repertoire = new File("fichiers"+File.separator);
 			File[] listefichiers;
 			listefichiers=repertoire.listFiles();
-
-			tree=new JTree(listefichiers);
-
+			 */
+			UIManager.put("Tree.rendererFillBackground", false);
+			tree=new JTree(new MyTreeModel("cara"));
+			tree.setRowHeight(25);
+			tree.setPreferredSize(new Dimension(200,900));
+			tree.setOpaque(false);
+			tree.addTreeExpansionListener(new myExpensionListener());
 			this.setLayout(new BorderLayout());
 			this.setBorder(BorderFactory.createLoweredBevelBorder());
 			panelTree=new JPanel();
-
 			panelTree.add(tree);
 			panelImage=new JPanel();
 			JPanel panelPreview=new JPanel();
