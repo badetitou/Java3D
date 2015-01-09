@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.regex.PatternSyntaxException;
 
 import javax.swing.BorderFactory;
+import javax.swing.DefaultRowSorter;
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -709,7 +710,7 @@ public class OngletMenu extends JPanel{
 					return;
 				}
 			}
-			//((DefaultRowSorter<MyTableModel, Integer>) sorter).setRowFilter(compoundRowFilter);
+			((DefaultRowSorter<MyTableModel, Integer>) sorter).setRowFilter(compoundRowFilter);
 			add(new JScrollPane(bdd), BorderLayout.CENTER );
 			bdd.getTableHeader().setReorderingAllowed(false);
 			bdd.getTableHeader().setResizingAllowed(false);

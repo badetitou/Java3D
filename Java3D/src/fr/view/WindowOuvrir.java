@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.PatternSyntaxException;
 
+import javax.swing.BoxLayout;
 import javax.swing.DefaultRowSorter;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -41,7 +42,7 @@ public class WindowOuvrir extends JFrame {
 	public WindowOuvrir(JTabbedPane tabbedPane, ArrayList<Object> listeOnglets) {
 		PanelOuvrir pO = new PanelOuvrir(this, tabbedPane, listeOnglets);
 		this.setTitle("Ouvrir");
-		this.setSize(500, 300);
+		this.setSize(500, 330);
 		this.setResizable(false);
 		this.setAlwaysOnTop(true);
 
@@ -65,19 +66,22 @@ public class WindowOuvrir extends JFrame {
 		private Object[][] data;
 		private RowSorter<MyTableModel> sorter;
 		private RowFilter<MyTableModel, Object> rf1;
-		private RowFilter<MyTableModel, Object> rf2;
 		RowFilter<MyTableModel, Object> compoundRowFilter = null;
 		List<RowFilter<MyTableModel,Object>> filters;
 		private MyTableModel mtm;
 		private final JTabbedPane tabbedPane;
 		private final ArrayList<Object> listeOnglets;
 		private JScrollPane scroll;
+		private JPanel p;
+		private final JPanel pan;
+		private final JPanel pan2;
+		private final JPanel perror;
 
 		public PanelOuvrir(JFrame windowO, JTabbedPane tabbedPane, ArrayList<Object> listeOnglets) {
 			this.windowO = windowO;
 			this.tabbedPane = tabbedPane;
 			this.listeOnglets = listeOnglets;
-			this.setPreferredSize(new Dimension(500, 300));
+			//this.setPreferredSize(new Dimension(500, 300));
 			rName = new JTextField();
 			rName.setPreferredSize(new Dimension(100, 20));
 			rName.setEditable(true);
@@ -92,15 +96,22 @@ public class WindowOuvrir extends JFrame {
 			error = new JLabel ("Erreur : l'objet n'existe pas");
 			error.setForeground(new Color(255, 0, 0));
 			error.setVisible(false);
-			this.setLayout(new FlowLayout());
-			this.add(jlb1);
-			this.add(rName);
+			this.setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
+			pan=new JPanel(new FlowLayout());
+			pan.add(jlb1);
+			pan.add(rName);
+			this.add(pan);
 			this.initialise();
-			this.add(error);
-			this.add(jlb2);
-			this.add(nFichier);
-			this.add(ouvrir);
-			this.add(annuler);
+			perror=new JPanel();
+			perror.setPreferredSize(new Dimension(100, 20));
+			perror.add(error);
+			this.add(perror);
+			pan2=new JPanel(new FlowLayout());
+			pan2.add(jlb2);
+			pan2.add(nFichier);
+			pan2.add(ouvrir);
+			pan2.add(annuler);
+			this.add(pan2);
 
 			nFichier.addKeyListener(this);
 			rName.addKeyListener(this);
@@ -128,8 +139,10 @@ public class WindowOuvrir extends JFrame {
 			}
 			((DefaultRowSorter<MyTableModel, Integer>) sorter).setRowFilter(compoundRowFilter);
 			this.scroll = new JScrollPane(bdd);
-			this.scroll.setPreferredSize(new Dimension(400,200));
-			this.add(scroll);
+			this.scroll.setPreferredSize(new Dimension(400,180));
+			p=new JPanel();
+			p.add(scroll);
+			this.add(p);
 			bdd.getTableHeader().setReorderingAllowed(false);
 			bdd.getTableHeader().setResizingAllowed(false);
 			bdd.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -145,22 +158,23 @@ public class WindowOuvrir extends JFrame {
 				}
 			});
 			bdd.addMouseListener(new MouseAdapter() {
-				  public void mouseClicked(MouseEvent e) {
-				    if (e.getClickCount() == 2) {
-				      JTable target = (JTable)e.getSource();
-				      int row = target.getSelectedRow();
-				      int column = target.getSelectedColumn();
-				      if(column == 0){
-				    	  nFichier.setText((String) bdd.getValueAt(row, column));
-				      }
-				    }
-				  }
-				});
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					if (e.getClickCount() == 2) {
+						JTable target = (JTable)e.getSource();
+						int row = target.getSelectedRow();
+						int column = target.getSelectedColumn();
+						if(column == 0){
+							nFichier.setText((String) bdd.getValueAt(row, column));
+						}
+					}
+				}
+			});
 		}
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-				if(e.getSource().equals(ouvrir)){
+			if(e.getSource().equals(ouvrir)){
 				String ouvrir = nFichier.getText();
 				if(obdd.estPresent(ouvrir)){
 					boolean bool=false;
@@ -187,12 +201,14 @@ public class WindowOuvrir extends JFrame {
 				else{
 					nFichier.setText(null);
 					error.setVisible(true);
+					this.revalidate();
+					this.repaint();
 				}
 			}
 			else if(e.getSource().equals(annuler)){
 				windowO.dispose();
 			}
-			
+
 		}
 
 		@Override
@@ -220,7 +236,7 @@ public class WindowOuvrir extends JFrame {
 		}
 		@Override
 		public void keyPressed(KeyEvent e) {
-		
+
 		}
 		@Override
 		public void keyReleased(KeyEvent e) {
@@ -229,19 +245,15 @@ public class WindowOuvrir extends JFrame {
 			}
 			else if(e.getSource().equals(rName)){
 				filtre = rName.getText();
-				this.remove(scroll);
-				this.remove(nFichier);
-				this.remove(annuler);
-				this.remove(ouvrir);
-				this.remove(jlb2);
+				this.remove(p);
+				this.remove(perror);
+				this.remove(pan2);
 				this.initialise();
-				this.add(jlb2);
-				this.add(nFichier);
-				this.add(ouvrir);
-				this.add(annuler);
+				this.add(perror);
+				this.add(pan2);
 				this.revalidate();
 				this.repaint();
-			}				
+			}
 		}
 		@Override
 		public void keyTyped(KeyEvent e) {
