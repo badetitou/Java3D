@@ -284,7 +284,7 @@ public class Panneau extends JPanel implements MouseListener {
 			}
 		} else if (getBarreVerticale().isModeEdit()) {
 			for (Face f : m.getFace()) {
-				g.setColor(f.calculLumiere());
+				g.setPaint(f.calculLumiere());
 				g.fill(f.getTriangle());
 				if (f.isSelected()) {
 					g.setColor(new Color(255 - g.getColor().getRed(), 255 - g
@@ -295,7 +295,7 @@ public class Panneau extends JPanel implements MouseListener {
 			}
 		} else if (getBarreVerticale().isBb1() || getBarreVerticale().isBb2()) {
 			for (Face f : m.getFace()) {
-				g.setColor(f.calculLumiere());
+				g.setPaint(f.calculLumiere());
 				g.fillPolygon(f.getTriangle());
 			}
 		} else if (getBarreVerticale().isDot()) {
@@ -307,10 +307,10 @@ public class Panneau extends JPanel implements MouseListener {
 			DecimalFormat f = new DecimalFormat();
 			f.setMaximumFractionDigits(2);
 			g.setColor(Color.BLACK);
-			g.drawString("Hauteur : " + f.format(m.getHauteurModel()), 0, 15);
-			g.drawString("Largeur : " + f.format(m.getLargeurModel()), 0, 30);
-			g.drawString("Profondeur : " + f.format(m.getProfondeurModel()), 0, 45);
-			g.drawString("Volume : "  + f.format(m.getLargeurModel() * m.getProfondeurModel() * m.getHauteurModel()), 0, 60);
+			g.drawString("Hauteur : " + f.format(m.getHauteurModel()) + " cm", 0, 15);
+			g.drawString("Largeur : " + f.format(m.getLargeurModel()) + " cm", 0, 30);
+			g.drawString("Profondeur : " + f.format(m.getProfondeurModel()) + " cm", 0, 45);
+			g.drawString("Volume : "  + f.format(m.getLargeurModel() * m.getProfondeurModel() * m.getHauteurModel()) + " cm^3", 0, 60);
 			g.setColor(Color.RED);
 			g.drawString("Clic droit pour plus d'options", 0, 75);
 		}

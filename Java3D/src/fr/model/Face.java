@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Polygon;
 
 /**
- * @author Loïc
+ * @author Loï¿½c
  */
 public class Face implements Comparable<Face> {
 
@@ -109,7 +109,7 @@ public class Face implements Comparable<Face> {
 		if (cosPositifB < 0)
 			cosPositifB = -cosPositifB;
 		return (new Color((cosPositifR), (cosPositifV),
-				(cosPositifB)));
+				(cosPositifB), this.color.getAlpha()));
 	}
 
 	public void setColor(Color c) {

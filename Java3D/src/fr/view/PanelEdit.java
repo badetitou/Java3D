@@ -1,6 +1,7 @@
 package fr.view;
 
 import java.awt.Color;
+import java.awt.GridLayout;
 
 import javax.swing.BoxLayout;
 import javax.swing.JColorChooser;
@@ -39,11 +40,35 @@ public class PanelEdit extends JPanel implements ChangeListener {
 		 */
 		AbstractColorChooserPanel[] oldPanels = jcc.getChooserPanels();
 		jcc.removeChooserPanel(oldPanels[0]);
+		jcc.removeChooserPanel(oldPanels[1]);
+		jcc.removeChooserPanel(oldPanels[2]);
+		jcc.removeChooserPanel(oldPanels[4]);
+		jcc.setPreviewPanel(new JPanel());
 		jcc.getSelectionModel().addChangeListener(this);
 		bv.setJcc(jcc);
 		jcc.setEnabled(false);
 		jcc.setVisible(false);
 		this.add(jcc);
+		
+		/*
+		 * Dimension
+		 */
+		hauteurLabel = new JLabel("Hauteur : ");
+		largeurLabel = new JLabel("Largeur : ");
+		profondeurLabel = new JLabel("Profondeur : ");
+		hauteurField = new JTextField();
+		largeurField = new JTextField();
+		profondeurField = new JTextField();
+		JPanel dimension = new JPanel();
+		dimension.setLayout(new GridLayout(3,2));
+		dimension.add(hauteurLabel);
+		dimension.add(hauteurField);
+		dimension.add(largeurLabel);
+		dimension.add(largeurField);
+		dimension.add(profondeurLabel);
+		dimension.add(profondeurField);
+		dimension.setSize(100, 100);
+		this.add(dimension);
 	}
 
 	public void stateChanged(ChangeEvent arg0) {
