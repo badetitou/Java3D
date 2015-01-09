@@ -13,7 +13,7 @@ import java.util.Calendar;
 
 public class OutilsBdd {
 
-	private String DBPath = "Chemin aux base de donnée SQLite";
+	private String DBPath = "Chemin aux base de donnï¿½e SQLite";
 	private Connection connection = null;
 	private Statement statement = null;
 	public OutilsBdd(String dBPath) {
@@ -59,6 +59,23 @@ public class OutilsBdd {
 		}
 	}
 
+	public boolean estVide() {
+		this.connect();
+		String query = "SELECT COUNT(*) FROM files";
+		try {
+			ResultSet rs = statement.executeQuery(query);
+			int i=1;
+			rs.next();
+			this.close();
+			return (i==0)?true:false;
+		} catch (Exception e) {
+			System.out.println("Erreur dans estPresent");
+			System.out.println(e.getMessage());
+			this.close();
+			return false;
+		}
+	}
+	
 	public String[] getData() {
 		this.connect();
 		String query = "SELECT COUNT(name) AS i from files";
@@ -83,7 +100,7 @@ public class OutilsBdd {
 		}
 	}
 
-	/* Méthode pour fabriquer le JTable à partir de la BDD complète */
+	/* Mï¿½thode pour fabriquer le JTable ï¿½ partir de la BDD complï¿½te */
 	public Object[][] getAllData() {
 		this.connect();
 		String query = "SELECT * from files";
@@ -119,10 +136,10 @@ public class OutilsBdd {
 		this.close();
 		return data;
 	}
-	/* TEMPORAIRE */
-	public Object[][] getComboData(boolean b1, boolean b2, boolean b3) {
+
+	public Object[][] getComboData(boolean b1, boolean b2, boolean b3, String tag) {
 		this.connect();
-		String query = "SELECT * from files";
+		String query = "SELECT * from files, tags WHERE files.name=tags.name AND ";
 		int i = 0;
 		try {
 			ResultSet rs = statement.executeQuery(query);
