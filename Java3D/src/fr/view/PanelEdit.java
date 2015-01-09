@@ -3,16 +3,21 @@ package fr.view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.text.NumberFormat;
 
 import javax.swing.JColorChooser;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.colorchooser.AbstractColorChooserPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.text.NumberFormatter;
 
-public class PanelEdit extends JPanel implements ChangeListener {
+public class PanelEdit extends JPanel implements ChangeListener, PropertyChangeListener {
 
 	/**
 	 * 
@@ -24,9 +29,9 @@ public class PanelEdit extends JPanel implements ChangeListener {
 	private final JLabel hauteurLabel;
 	private final JLabel largeurLabel;
 	private final JLabel profondeurLabel;
-	private final JTextField hauteurField;
-	private final JTextField profondeurField;
-	private final JTextField largeurField;
+	private final JFormattedTextField hauteurField;
+	private final JFormattedTextField profondeurField;
+	private final JFormattedTextField largeurField;
 
 	public PanelEdit(MyDeskTopPane dp, BarreVerticale bv) {
 		this.bv = bv;
@@ -53,12 +58,27 @@ public class PanelEdit extends JPanel implements ChangeListener {
 		/*
 		 * Dimension
 		 */
+		NumberFormat format = NumberFormat.getInstance();
+	    NumberFormatter formatter = new NumberFormatter(format);
+	    formatter.setValueClass(Integer.class);
+	    formatter.setMinimum(0);
+	    formatter.setMaximum(Integer.MAX_VALUE);
+	    // If you want the value to be committed on each keystroke instead of focus lost
+	    formatter.setCommitsOnValidEdit(true);
+		
 		hauteurLabel = new JLabel("Hauteur : ");
 		largeurLabel = new JLabel("Largeur : ");
 		profondeurLabel = new JLabel("Profondeur : ");
-		hauteurField = new JTextField();
-		largeurField = new JTextField();
-		profondeurField = new JTextField();
+		hauteurField = new JFormattedTextField(formatter);
+		largeurField = new JFormattedTextField(formatter);
+		profondeurField = new JFormattedTextField(formatter);
+		hauteurField.setValue(0);
+		profondeurField.setValue(0);
+		largeurField.setValue(0);
+		hauteurField.addPropertyChangeListener(this);
+		largeurField.addPropertyChangeListener(this);
+		profondeurField.addPropertyChangeListener(this);
+
 		JPanel dimension = new JPanel();
 		dimension.setLayout(new GridLayout(3,2));
 		dimension.add(hauteurLabel);
@@ -74,5 +94,23 @@ public class PanelEdit extends JPanel implements ChangeListener {
 	public void stateChanged(ChangeEvent arg0) {
 		dp.getModel().changeColor(jcc.getColor());
 		dp.getPanel().repaint();
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		if (evt.getSource() == largeurField){
+			profondeurField.setValue(0);
+			hauteurField.setValue(0);
+			dp.getModel().setLargeurFixed((Integer)largeurField.getValue());
+		}else if (evt.getSource() == hauteurField){
+			largeurField.setValue(0);
+			profondeurField.setValue(0);
+			dp.getModel().setHauteurFixed((Integer)hauteurField.getValue());
+		}else{
+			largeurField.setValue(0);
+			hauteurField.setValue(0);
+			dp.getModel().setProfondeurFixed((Integer)profondeurField.getValue());
+		}
+		dp.repaint();
 	}
 }
