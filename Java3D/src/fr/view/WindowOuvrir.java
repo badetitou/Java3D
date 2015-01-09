@@ -55,7 +55,6 @@ public class WindowOuvrir extends JFrame {
 		private final JTextField nFichier;
 		private final JButton ouvrir;
 		private final JButton annuler;
-		private final JButton ok;
 		private String filtre;
 		private JTable bdd;
 		private final JLabel jlb1;
@@ -87,7 +86,6 @@ public class WindowOuvrir extends JFrame {
 			nFichier.setEditable(true);
 			ouvrir = new JButton("Ouvrir");
 			annuler = new JButton("Annuler");
-			ok = new JButton("Ok");
 			filtre = new String("");
 			jlb1 = new JLabel("Recherche par nom : ");
 			jlb2 = new JLabel("Nom du fichier: ");
@@ -97,7 +95,6 @@ public class WindowOuvrir extends JFrame {
 			this.setLayout(new FlowLayout());
 			this.add(jlb1);
 			this.add(rName);
-			this.add(ok);
 			this.initialise();
 			this.add(error);
 			this.add(jlb2);
@@ -106,8 +103,8 @@ public class WindowOuvrir extends JFrame {
 			this.add(annuler);
 
 			nFichier.addKeyListener(this);
+			rName.addKeyListener(this);
 			bdd.addMouseListener(this);
-			ok.addMouseListener(this);
 			annuler.addMouseListener(this);
 			ouvrir.addMouseListener(this);
 		}
@@ -184,7 +181,7 @@ public class WindowOuvrir extends JFrame {
 					}
 					else{
 						windowO.dispose();
-						JOptionPane.showMessageDialog(null,"L'objet est déjà ouvert !","Attention", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null,"L'objet est dï¿½jï¿½ ouvert !","Attention", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 				else{
@@ -195,22 +192,7 @@ public class WindowOuvrir extends JFrame {
 			else if(e.getSource().equals(annuler)){
 				windowO.dispose();
 			}
-			else if(e.getSource().equals(ok)){
-				filtre = rName.getText();
-				this.remove(scroll);
-				this.remove(nFichier);
-				this.remove(annuler);
-				this.remove(ouvrir);
-				this.remove(jlb2);
-				this.initialise();
-				this.add(jlb2);
-				this.add(nFichier);
-				this.add(ouvrir);
-				this.add(annuler);
-				this.revalidate();
-				this.repaint();
-			}
-			//windowO.dispose();
+			
 		}
 
 		@Override
@@ -237,19 +219,32 @@ public class WindowOuvrir extends JFrame {
 
 		}
 		@Override
-		public void keyPressed(KeyEvent arg0) {
-			// TODO Auto-generated method stub
-			
+		public void keyPressed(KeyEvent e) {
+		
 		}
 		@Override
-		public void keyReleased(KeyEvent arg0) {
-			// TODO Auto-generated method stub
-			
+		public void keyReleased(KeyEvent e) {
+			if(e.getSource().equals(nFichier)){
+				error.setVisible(false);
+			}
+			else if(e.getSource().equals(rName)){
+				filtre = rName.getText();
+				this.remove(scroll);
+				this.remove(nFichier);
+				this.remove(annuler);
+				this.remove(ouvrir);
+				this.remove(jlb2);
+				this.initialise();
+				this.add(jlb2);
+				this.add(nFichier);
+				this.add(ouvrir);
+				this.add(annuler);
+				this.revalidate();
+				this.repaint();
+			}				
 		}
 		@Override
 		public void keyTyped(KeyEvent e) {
-			error.setVisible(false);
-			
 		}
 	}
 	public class MyTableModel extends DefaultTableModel {

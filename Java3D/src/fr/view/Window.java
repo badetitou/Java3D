@@ -3,8 +3,12 @@ package fr.view;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -18,11 +22,11 @@ import fr.model.OutilsBdd;
 /**
  * 
  * @author Loic
- * Fenêtre du logiciel après l'écran du chargement. Elle contient tous les JPanel.
+ * Fenï¿½tre du logiciel aprï¿½s l'ï¿½cran du chargement. Elle contient tous les JPanel.
  *
  */
 @SuppressWarnings("serial")
-public class Window extends JFrame implements ComponentListener{
+public class Window extends JFrame implements ComponentListener,MouseListener{
 	// JOYEUX NOEL :D
 	Panneau panel;
 	public static Toolkit outil;
@@ -30,6 +34,7 @@ public class Window extends JFrame implements ComponentListener{
 	public static JFrame frame;
 	private final JTabbedPane tabbedPane;
 	private final ArrayList<Object> listeOnglets;
+	private OngletMenu menu;
 	public Window(ArrayList<MyDeskTopPane> listeFichiersRecents) {
 		super("3D Lib");
 		outil = getToolkit();
@@ -45,8 +50,9 @@ public class Window extends JFrame implements ComponentListener{
 		//String objet=obdd.getLastFiles();
 		//Onglet onglet=new Onglet(dp,tabbedPane,objet,obdd.getAuthor(objet),false,listeOnglets);
 		//PanelInformations panelInfos = onglet.getPinfos();
-		OngletMenu menu=new OngletMenu(tabbedPane,listeOnglets);
+		menu=new OngletMenu(tabbedPane,listeOnglets);
 		tabbedPane.addTab("Menu", menu);
+		tabbedPane.addMouseListener(this);
 		menu.dessineOnglet();
 		//tabbedPane.addTab("Onglet",onglet);
 		//onglet.dessineOnglet();
@@ -87,5 +93,37 @@ public class Window extends JFrame implements ComponentListener{
 	public void componentShown(ComponentEvent arg0) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		if(e.getSource().equals(tabbedPane)){
+			menu.getPlbdd().actualiser();
+		}
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 }

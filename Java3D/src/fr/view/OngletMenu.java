@@ -9,6 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -44,12 +46,24 @@ public class OngletMenu extends JPanel{
 	private final JTabbedPane tabbedPane;
 	private final ArrayList<Object>listeOnglets;
 	private final PanelListebdd plbdd;
+	public PanelListebdd getPlbdd() {
+		return plbdd;
+	}
+
+
+
+	private final PanelCrit panelCrit;
+
+	public PanelCrit getPanelCrit() {
+		return panelCrit;
+	}
 
 	public OngletMenu(JTabbedPane tabbedPane,ArrayList<Object>listeOnglets){
 		this.listeOnglets=listeOnglets;
 		this.tabbedPane=tabbedPane;
 		this.setLayout(new GridLayout(1,3));
-		this.add(new PanelCrit());
+		panelCrit=new PanelCrit();
+		this.add(panelCrit);
 		this.plbdd = new PanelListebdd();
 		this.add(plbdd);
 		this.add(new PanelArboPreview());
@@ -81,9 +95,8 @@ public class OngletMenu extends JPanel{
 	}
 
 
-	public class PanelCrit extends JPanel implements ActionListener, ItemListener{
+	public class PanelCrit extends JPanel implements ActionListener, ItemListener, KeyListener{
 
-		private final JButton valider;
 		private final JTextField jtfNom;
 		private final JTextField jtfAuteur;
 		private final JTextField jtfModif;
@@ -100,7 +113,6 @@ public class OngletMenu extends JPanel{
 
 		public PanelCrit(){
 			this.setLayout(new FlowLayout());
-			this.valider = new JButton("Valider");
 			this.jcbModif = new JCheckBox("Date dernière modif");
 			this.jcbOuverture = new JCheckBox("Nb ouverture");
 			this.jcbImages = new JCheckBox("Nb images");
@@ -117,29 +129,34 @@ public class OngletMenu extends JPanel{
 			this.add(jcbModif);
 			this.jtfModif = new JTextField("");
 			this.jtfModif.setPreferredSize(new Dimension(50,20));
+			this.jtfModif.setEnabled(false);
 			this.add(jtfModif);
 			this.add(jcbOuverture);
 			this.jtfOuverture = new JTextField("");
 			this.jtfOuverture.setPreferredSize(new Dimension(50,20));
+			this.jtfOuverture.setEnabled(false);
 			this.add(jtfOuverture);
 			this.add(jcbImages);
 			this.jtfImages = new JTextField("");
 			this.jtfImages.setPreferredSize(new Dimension(50,20));
+			this.jtfImages.setEnabled(false);
 			this.add(jtfImages);
 			this.modifCheck = "unchecked";
 			this.ouvertureCheck = "unchecked";
 			this.imagesCheck = "unchecked";
-			this.add(valider);
 			this.setBorder(BorderFactory.createLoweredBevelBorder());
 			this.jcbModif.addItemListener(this);
 			this.jcbOuverture.addItemListener(this);
 			this.jcbImages.addItemListener(this);
-			this.valider.addActionListener(this);
+			this.jtfNom.addKeyListener(this);
+			this.jtfAuteur.addKeyListener(this);
+			this.jtfModif.addKeyListener(this);
+			this.jtfOuverture.addKeyListener(this);
+			this.jtfImages.addKeyListener(this);
 		}
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			if(e.getSource().equals(valider)){
+			public void keyReleased(KeyEvent e) {
+				if(e.getSource() instanceof JTextField){
 				if(modifCheck == "checked" && ouvertureCheck == "checked" && imagesCheck == "checked"){
 					plbdd.filtreNom = jtfNom.getText();
 					plbdd.filtreAuteur = jtfAuteur.getText();
@@ -223,63 +240,178 @@ public class OngletMenu extends JPanel{
 		public void itemStateChanged(ItemEvent e) {
 			JCheckBox cb = (JCheckBox)e.getItem();
 			if(e.getStateChange() == ItemEvent.SELECTED){
-			//	System.out.println("Item: " + cb.getText());
 				if(jcbModif.isSelected() && jcbOuverture.isSelected() && jcbImages.isSelected()){
 					modifCheck = "checked";
 					ouvertureCheck = "checked";
 					imagesCheck = "checked";
+					plbdd.removeAll();
+					plbdd.initialiseCombo(true, true, true);
+					jtfModif.setEnabled(true);
+					jtfOuverture.setEnabled(true);
+					jtfImages.setEnabled(true);
+					plbdd.revalidate();
+					plbdd.repaint();
 				}
 				else if(jcbModif.isSelected() && jcbOuverture.isSelected()){
 					modifCheck = "checked";
 					ouvertureCheck = "checked";
+					plbdd.removeAll();
+					plbdd.initialiseCombo(true, true, false);
+					jtfModif.setEnabled(true);
+					jtfOuverture.setEnabled(true);
+					jtfImages.setEnabled(false);
+					plbdd.revalidate();
+					plbdd.repaint();
 				}
 				else if(jcbModif.isSelected() && jcbImages.isSelected()){
 					modifCheck = "checked";
 					imagesCheck = "checked";
+					plbdd.removeAll();
+					plbdd.initialiseCombo(true, false, true);
+					jtfModif.setEnabled(true);
+					jtfOuverture.setEnabled(false);
+					jtfImages.setEnabled(true);
+					plbdd.revalidate();
+					plbdd.repaint();
 				}
 				else if(jcbOuverture.isSelected() && jcbImages.isSelected()){
 					ouvertureCheck = "checked";
 					imagesCheck = "checked";
+					plbdd.removeAll();
+					plbdd.initialiseCombo(false, true, true);
+					jtfModif.setEnabled(false);
+					jtfOuverture.setEnabled(true);
+					jtfImages.setEnabled(true);
+					plbdd.revalidate();
+					plbdd.repaint();
 				}
 				else if(jcbModif.isSelected()){
 					modifCheck = "checked";
+					plbdd.removeAll();
+					plbdd.initialiseCombo(true, false, false);
+					jtfModif.setEnabled(true);
+					jtfOuverture.setEnabled(false);
+					jtfImages.setEnabled(false);
+					plbdd.revalidate();
+					plbdd.repaint();
 				}
 				else if(jcbOuverture.isSelected()){
 					ouvertureCheck = "checked";
+					plbdd.removeAll();
+					plbdd.initialiseCombo(false, true, false);
+					jtfModif.setEnabled(false);
+					jtfOuverture.setEnabled(true);
+					jtfImages.setEnabled(false);
+					plbdd.revalidate();
+					plbdd.repaint();
 				}
 				else if(jcbImages.isSelected()){
 					imagesCheck = "checked";
+					plbdd.removeAll();
+					plbdd.initialiseCombo(false, false, true);
+					jtfModif.setEnabled(false);
+					jtfOuverture.setEnabled(false);
+					jtfImages.setEnabled(true);
+					plbdd.revalidate();
+					plbdd.repaint();
 				}
+				
 			}
 			else{
-			//	System.out.println("Item deselect: " + cb.getText());
 				if(!jcbModif.isSelected() && !jcbOuverture.isSelected() && !jcbImages.isSelected()){
 					modifCheck = "unchecked";
 					ouvertureCheck = "unchecked";
 					imagesCheck = "unchecked";
+					plbdd.removeAll();
+					plbdd.initialiseCombo(false, false, false);
+					jtfModif.setEnabled(false);
+					jtfOuverture.setEnabled(false);
+					jtfImages.setEnabled(false);
+					plbdd.revalidate();
+					plbdd.repaint();
 				}
 				else if(!jcbModif.isSelected() && !jcbOuverture.isSelected()){
 					modifCheck = "unchecked";
 					ouvertureCheck = "unchecked";
+					plbdd.removeAll();
+					plbdd.initialiseCombo(false, false, true);
+					jtfModif.setEnabled(false);
+					jtfOuverture.setEnabled(false);
+					jtfImages.setEnabled(true);
+					plbdd.revalidate();
+					plbdd.repaint();
 				}
 				else if(!jcbModif.isSelected() && !jcbImages.isSelected()){
 					modifCheck = "unchecked";
 					imagesCheck = "unchecked";
+					plbdd.removeAll();
+					plbdd.initialiseCombo(false, true, false);
+					jtfModif.setEnabled(false);
+					jtfOuverture.setEnabled(true);
+					jtfImages.setEnabled(false);
+					plbdd.revalidate();
+					plbdd.repaint();
 				}
 				else if(!jcbOuverture.isSelected() && !jcbImages.isSelected()){
 					ouvertureCheck = "unchecked";
 					imagesCheck = "unchecked";
+					plbdd.removeAll();
+					plbdd.initialiseCombo(true, false, false);
+					jtfModif.setEnabled(true);
+					jtfOuverture.setEnabled(false);
+					jtfImages.setEnabled(false);
+					plbdd.revalidate();
+					plbdd.repaint();
 				}
 				else if(!jcbModif.isSelected()){
 					modifCheck = "unchecked";
+					plbdd.removeAll();
+					plbdd.initialiseCombo(false, true, true);
+					jtfModif.setEnabled(false);
+					jtfOuverture.setEnabled(true);
+					jtfImages.setEnabled(true);
+					plbdd.revalidate();
+					plbdd.repaint();
 				}
 				else if(!jcbOuverture.isSelected()){
 					ouvertureCheck = "unchecked";
+					plbdd.removeAll();
+					plbdd.initialiseCombo(true, false, true);
+					jtfModif.setEnabled(true);
+					jtfOuverture.setEnabled(false);
+					jtfImages.setEnabled(true);
+					plbdd.revalidate();
+					plbdd.repaint();
 				}
 				else if(!jcbImages.isSelected()){
 					imagesCheck = "unchecked";
+					plbdd.removeAll();
+					plbdd.initialiseCombo(true, true, false);
+					jtfModif.setEnabled(true);
+					jtfOuverture.setEnabled(true);
+					jtfImages.setEnabled(false);
+					plbdd.revalidate();
+					plbdd.repaint();
 				}
 			}
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void keyPressed(KeyEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void keyTyped(KeyEvent arg0) {
+			// TODO Auto-generated method stub
+			
 		}
 
 	}
@@ -320,6 +452,34 @@ public class OngletMenu extends JPanel{
 			this.setBorder(BorderFactory.createLoweredBevelBorder());
 
 		}
+		public void actualiser(){
+			this.removeAll();
+			bdd.removeAll();
+			this.filtreNom = "";
+			this.filtreAuteur = "";
+			this.filtreModif = "";
+			this.filtreOuverture = "";
+			this.filtreImages = "";
+			this.b1 = false;
+			this.b2 = false;
+			this.b3 = false;
+			panelCrit.jtfAuteur.setText("");
+			panelCrit.jtfNom.setText("");
+			panelCrit.jtfModif.setText("");
+			panelCrit.jtfModif.setEnabled(false);
+			panelCrit.jtfOuverture.setText("");
+			panelCrit.jtfOuverture.setEnabled(false);
+			panelCrit.jtfImages.setText("");
+			panelCrit.jtfImages.setEnabled(false);
+			panelCrit.jcbModif.setSelected(false);
+			panelCrit.jcbOuverture.setSelected(false);
+			panelCrit.jcbImages.setSelected(false);
+			this.initialiseCombo(false, false, false);
+			this.setBorder(BorderFactory.createLoweredBevelBorder());
+			bdd.repaint();
+			bdd.revalidate();
+		}
+		
 		public void initialiseCombo(boolean b1, boolean b2, boolean b3){
 			obdd = new OutilsBdd("Database.db");
 			data = obdd.getComboData(b1, b2, b3);
