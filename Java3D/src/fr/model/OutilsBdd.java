@@ -142,7 +142,7 @@ public class OutilsBdd {
 			query = "SELECT * from files;";
 		}
 		else{
-			query = "SELECT files.name AS name, author, lastModifDate, nbrOpen, nbrImg from files, tags WHERE files.name=tags.file AND tags.tag=\""+ tag + "\"";
+			query = "SELECT files.name AS name, author, lastModifDate, nbrOpen, nbrImg from files, tags WHERE files.name=tags.file AND tags.tag=\""+ tag + "\" COLLATE NOCASE";
 		}
 		int i = 0;
 		try {
