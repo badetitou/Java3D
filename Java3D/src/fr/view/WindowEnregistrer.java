@@ -27,8 +27,10 @@ import fr.model.OutilsBdd;
 public class WindowEnregistrer extends JFrame {
 
 	private final String lienGts;
+	private final ArrayList<Object> listeOnglets;
 	public WindowEnregistrer(JTabbedPane tabbedPane, ArrayList<Object> listeOnglets, PanelInformations panelInfos,boolean nouveau,String nomFichier,String nomAuteur,String lienGts,Menu menu) {
 		this.lienGts=lienGts;
+		this.listeOnglets=listeOnglets;
 		PanelEnregistrer pE = new PanelEnregistrer(this, tabbedPane, listeOnglets, panelInfos,nouveau,nomFichier,nomAuteur,menu);
 		this.setTitle("Enregistrer dans la BDD");
 		this.setSize(500, 300);
@@ -307,6 +309,7 @@ public class WindowEnregistrer extends JFrame {
 				((Onglet)onglet).getPbdd().getInformations().actualiserInfos(this.nomFichier, this.nomAuteur, this.nbImages, this.nRealisations,obdd.getDateLastModif(nomFichier));
 				((Onglet)onglet).getPbdd().getPanelDescription().actualiserDesc(this.description);
 			}
+			((OngletMenu)listeOnglets.get(0)).getPlbdd().actualiser();
 		}
 
 		@Override
