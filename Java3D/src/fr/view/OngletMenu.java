@@ -127,7 +127,7 @@ public class OngletMenu extends JPanel{
 		private final JPanel panFlowTag;
 
 		public PanelCrit(){
-			this.setLayout(new GridLayout(6,1));
+			this.setLayout(new GridLayout(15,1));
 			panNom = new JPanel(new BorderLayout());
 			panAuteur = new JPanel(new BorderLayout());
 			panModif = new JPanel(new BorderLayout());
@@ -186,7 +186,7 @@ public class OngletMenu extends JPanel{
 			this.okTag.setEnabled(false);
 			panFlowTag.add(okTag);
 			panTag.add(panFlowTag, BorderLayout.WEST);
-			this.setBorder(BorderFactory.createLoweredBevelBorder());
+			panTag.setBorder(BorderFactory.createLoweredBevelBorder());
 			this.jcbModif.addItemListener(this);
 			this.jcbOuverture.addItemListener(this);
 			this.jcbImages.addItemListener(this);
