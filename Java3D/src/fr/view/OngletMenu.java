@@ -38,7 +38,6 @@ import fr.model.OutilsBdd;
 
 public class OngletMenu extends JPanel{
 
-
 	//private final JLabel closeButon;
 	private final JLabel ic;
 	private final JPanel p1;

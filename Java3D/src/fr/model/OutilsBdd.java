@@ -9,8 +9,6 @@ import java.util.Calendar;
 
 
 
-
-
 public class OutilsBdd {
 
 	private String DBPath = "Chemin aux base de donn�e SQLite";
