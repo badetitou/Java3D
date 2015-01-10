@@ -744,7 +744,7 @@ public class OngletMenu extends JPanel{
 			listefichiers=repertoire.listFiles();
 			 */
 			UIManager.put("Tree.rendererFillBackground", false);
-			tree=new JTree(new MyTreeModel("cara"));
+			tree=new JTree(new MyTreeModel("Bulbizarre"));
 			tree.setRowHeight(25);
 			tree.setPreferredSize(new Dimension(200,900));
 			tree.setOpaque(false);
