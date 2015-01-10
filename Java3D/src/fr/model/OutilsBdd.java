@@ -144,7 +144,7 @@ public class OutilsBdd {
 			query = "SELECT * from files;";
 		}
 		else{
-			query = "SELECT files.name AS name, author, lastModifDate, nbrOpen, nbrImg from files, tags WHERE files.name=tags.name AND tags.tag LIKE \"%"+ tag + "%\"";
+			query = "SELECT files.name AS name, author, lastModifDate, nbrOpen, nbrImg from files, tags WHERE files.name=tags.file AND tags.tag LIKE \"%"+ tag + "%\"";
 		}
 		int i = 0;
 		try {

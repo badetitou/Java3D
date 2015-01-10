@@ -18,6 +18,7 @@ import java.util.regex.PatternSyntaxException;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultRowSorter;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -108,6 +109,9 @@ public class OngletMenu extends JPanel{
 		private String modifCheck;
 		private String ouvertureCheck;
 		private String imagesCheck;
+		private final JCheckBox jcbTag;
+		private final JTextField jtfTag;
+		private final JButton okTag;
 
 		public PanelCrit(){
 			this.setLayout(new FlowLayout());
@@ -139,9 +143,18 @@ public class OngletMenu extends JPanel{
 			this.jtfImages.setPreferredSize(new Dimension(50,20));
 			this.jtfImages.setEnabled(false);
 			this.add(jtfImages);
+			this.jcbTag = new JCheckBox("Effectuer une recherche par mots-clés");
+			this.jtfTag = new JTextField("");
+			this.jtfTag.setPreferredSize(new Dimension(50,20));
+			this.jtfTag.setEnabled(false);
+			this.add(jcbTag);
+			this.add(jtfTag);
 			this.modifCheck = "unchecked";
 			this.ouvertureCheck = "unchecked";
 			this.imagesCheck = "unchecked";
+			this.okTag = new JButton("Valider");
+			this.okTag.setEnabled(false);
+			this.add(okTag);
 			this.setBorder(BorderFactory.createLoweredBevelBorder());
 			this.jcbModif.addItemListener(this);
 			this.jcbOuverture.addItemListener(this);
@@ -151,6 +164,9 @@ public class OngletMenu extends JPanel{
 			this.jtfModif.addKeyListener(this);
 			this.jtfOuverture.addKeyListener(this);
 			this.jtfImages.addKeyListener(this);
+			this.jcbTag.addItemListener(this);
+			this.jtfTag.addKeyListener(this);
+			this.okTag.addActionListener(this);
 		}
 
 		@Override
@@ -163,7 +179,7 @@ public class OngletMenu extends JPanel{
 					plbdd.filtreOuverture = jtfOuverture.getText();
 					plbdd.filtreImages = jtfImages.getText();
 					plbdd.removeAll();
-					plbdd.initialiseCombo(true, true, true);
+					plbdd.initialiseCombo(true, true, true, "");
 					plbdd.revalidate();
 					plbdd.repaint();
 				}
@@ -171,7 +187,7 @@ public class OngletMenu extends JPanel{
 					plbdd.filtreNom = jtfNom.getText();
 					plbdd.filtreAuteur = jtfAuteur.getText();
 					plbdd.removeAll();
-					plbdd.initialiseCombo(false, false, false);
+					plbdd.initialiseCombo(false, false, false, "");
 					plbdd.revalidate();
 					plbdd.repaint();
 				}
@@ -180,7 +196,7 @@ public class OngletMenu extends JPanel{
 					plbdd.filtreAuteur = jtfAuteur.getText();
 					plbdd.filtreModif = jtfModif.getText();
 					plbdd.removeAll();
-					plbdd.initialiseCombo(true, false, false);
+					plbdd.initialiseCombo(true, false, false, "");
 					plbdd.revalidate();
 					plbdd.repaint();
 				}
@@ -190,7 +206,7 @@ public class OngletMenu extends JPanel{
 					plbdd.filtreModif = jtfModif.getText();
 					plbdd.filtreOuverture = jtfOuverture.getText();
 					plbdd.removeAll();
-					plbdd.initialiseCombo(true, true, false);
+					plbdd.initialiseCombo(true, true, false, "");
 					plbdd.revalidate();
 					plbdd.repaint();
 				}
@@ -200,7 +216,7 @@ public class OngletMenu extends JPanel{
 					plbdd.filtreModif = jtfModif.getText();
 					plbdd.filtreImages = jtfImages.getText();
 					plbdd.removeAll();
-					plbdd.initialiseCombo(true, false, true);
+					plbdd.initialiseCombo(true, false, true, "");
 					plbdd.revalidate();
 					plbdd.repaint();
 				}
@@ -209,7 +225,7 @@ public class OngletMenu extends JPanel{
 					plbdd.filtreAuteur = jtfAuteur.getText();
 					plbdd.filtreOuverture = jtfOuverture.getText();
 					plbdd.removeAll();
-					plbdd.initialiseCombo(false, true, false);
+					plbdd.initialiseCombo(false, true, false, "");
 					plbdd.revalidate();
 					plbdd.repaint();
 				}
@@ -219,7 +235,7 @@ public class OngletMenu extends JPanel{
 					plbdd.filtreOuverture = jtfOuverture.getText();
 					plbdd.filtreImages = jtfImages.getText();
 					plbdd.removeAll();
-					plbdd.initialiseCombo(false, true, true);
+					plbdd.initialiseCombo(false, true, true, "");
 					plbdd.revalidate();
 					plbdd.repaint();
 				}
@@ -228,7 +244,7 @@ public class OngletMenu extends JPanel{
 					plbdd.filtreAuteur = jtfAuteur.getText();
 					plbdd.filtreImages = jtfImages.getText();
 					plbdd.removeAll();
-					plbdd.initialiseCombo(false, false, true);
+					plbdd.initialiseCombo(false, false, true, "");
 					plbdd.revalidate();
 					plbdd.repaint();
 				}
@@ -239,12 +255,34 @@ public class OngletMenu extends JPanel{
 		public void itemStateChanged(ItemEvent e) {
 			JCheckBox cb = (JCheckBox)e.getItem();
 			if(e.getStateChange() == ItemEvent.SELECTED){
-				if(jcbModif.isSelected() && jcbOuverture.isSelected() && jcbImages.isSelected()){
+				if(jcbTag.isSelected()){
+					modifCheck = "unchecked";
+					ouvertureCheck = "unchecked";
+					imagesCheck = "unchecked";
+					jcbModif.setEnabled(false);
+					jcbOuverture.setEnabled(false);
+					jcbImages.setEnabled(false);
+					jtfNom.setText("");
+					jtfNom.setEnabled(false);
+					jtfAuteur.setText("");
+					jtfAuteur.setEnabled(false);
+					jtfModif.setText("");
+					jtfModif.setEnabled(false);
+					jtfOuverture.setText("");
+					jtfOuverture.setEnabled(false);
+					jtfImages.setText("");
+					jtfImages.setEnabled(false);
+					plbdd.actualiser();
+					jtfTag.setEnabled(true);
+					jtfTag.setText("");
+					okTag.setEnabled(true);
+				}
+				else if(jcbModif.isSelected() && jcbOuverture.isSelected() && jcbImages.isSelected()){
 					modifCheck = "checked";
 					ouvertureCheck = "checked";
 					imagesCheck = "checked";
 					plbdd.removeAll();
-					plbdd.initialiseCombo(true, true, true);
+					plbdd.initialiseCombo(true, true, true, "");
 					jtfModif.setEnabled(true);
 					jtfOuverture.setEnabled(true);
 					jtfImages.setEnabled(true);
@@ -255,7 +293,7 @@ public class OngletMenu extends JPanel{
 					modifCheck = "checked";
 					ouvertureCheck = "checked";
 					plbdd.removeAll();
-					plbdd.initialiseCombo(true, true, false);
+					plbdd.initialiseCombo(true, true, false, "");
 					jtfModif.setEnabled(true);
 					jtfOuverture.setEnabled(true);
 					jtfImages.setEnabled(false);
@@ -266,7 +304,7 @@ public class OngletMenu extends JPanel{
 					modifCheck = "checked";
 					imagesCheck = "checked";
 					plbdd.removeAll();
-					plbdd.initialiseCombo(true, false, true);
+					plbdd.initialiseCombo(true, false, true, "");
 					jtfModif.setEnabled(true);
 					jtfOuverture.setEnabled(false);
 					jtfImages.setEnabled(true);
@@ -277,7 +315,7 @@ public class OngletMenu extends JPanel{
 					ouvertureCheck = "checked";
 					imagesCheck = "checked";
 					plbdd.removeAll();
-					plbdd.initialiseCombo(false, true, true);
+					plbdd.initialiseCombo(false, true, true, "");
 					jtfModif.setEnabled(false);
 					jtfOuverture.setEnabled(true);
 					jtfImages.setEnabled(true);
@@ -287,7 +325,7 @@ public class OngletMenu extends JPanel{
 				else if(jcbModif.isSelected()){
 					modifCheck = "checked";
 					plbdd.removeAll();
-					plbdd.initialiseCombo(true, false, false);
+					plbdd.initialiseCombo(true, false, false, "");
 					jtfModif.setEnabled(true);
 					jtfOuverture.setEnabled(false);
 					jtfImages.setEnabled(false);
@@ -297,7 +335,7 @@ public class OngletMenu extends JPanel{
 				else if(jcbOuverture.isSelected()){
 					ouvertureCheck = "checked";
 					plbdd.removeAll();
-					plbdd.initialiseCombo(false, true, false);
+					plbdd.initialiseCombo(false, true, false, "");
 					jtfModif.setEnabled(false);
 					jtfOuverture.setEnabled(true);
 					jtfImages.setEnabled(false);
@@ -307,7 +345,7 @@ public class OngletMenu extends JPanel{
 				else if(jcbImages.isSelected()){
 					imagesCheck = "checked";
 					plbdd.removeAll();
-					plbdd.initialiseCombo(false, false, true);
+					plbdd.initialiseCombo(false, false, true, "");
 					jtfModif.setEnabled(false);
 					jtfOuverture.setEnabled(false);
 					jtfImages.setEnabled(true);
@@ -317,12 +355,34 @@ public class OngletMenu extends JPanel{
 
 			}
 			else{
-				if(!jcbModif.isSelected() && !jcbOuverture.isSelected() && !jcbImages.isSelected()){
+				if(!jcbTag.isSelected()){
+					modifCheck = "unchecked";
+					ouvertureCheck = "unchecked";
+					imagesCheck = "unchecked";
+					jcbModif.setEnabled(true);
+					jcbOuverture.setEnabled(true);
+					jcbImages.setEnabled(true);
+					jtfNom.setText("");
+					jtfNom.setEnabled(true);
+					jtfAuteur.setText("");
+					jtfAuteur.setEnabled(true);
+					jtfModif.setText("");
+					jtfModif.setEnabled(false);
+					jtfOuverture.setText("");
+					jtfOuverture.setEnabled(false);
+					jtfImages.setText("");
+					jtfImages.setEnabled(false);
+					plbdd.actualiser();
+					jtfTag.setEnabled(false);
+					jtfTag.setText("");
+					okTag.setEnabled(false);
+				}
+				else if(!jcbModif.isSelected() && !jcbOuverture.isSelected() && !jcbImages.isSelected()){
 					modifCheck = "unchecked";
 					ouvertureCheck = "unchecked";
 					imagesCheck = "unchecked";
 					plbdd.removeAll();
-					plbdd.initialiseCombo(false, false, false);
+					plbdd.initialiseCombo(false, false, false, "");
 					jtfModif.setEnabled(false);
 					jtfOuverture.setEnabled(false);
 					jtfImages.setEnabled(false);
@@ -333,7 +393,7 @@ public class OngletMenu extends JPanel{
 					modifCheck = "unchecked";
 					ouvertureCheck = "unchecked";
 					plbdd.removeAll();
-					plbdd.initialiseCombo(false, false, true);
+					plbdd.initialiseCombo(false, false, true, "");
 					jtfModif.setEnabled(false);
 					jtfOuverture.setEnabled(false);
 					jtfImages.setEnabled(true);
@@ -344,7 +404,7 @@ public class OngletMenu extends JPanel{
 					modifCheck = "unchecked";
 					imagesCheck = "unchecked";
 					plbdd.removeAll();
-					plbdd.initialiseCombo(false, true, false);
+					plbdd.initialiseCombo(false, true, false, "");
 					jtfModif.setEnabled(false);
 					jtfOuverture.setEnabled(true);
 					jtfImages.setEnabled(false);
@@ -355,7 +415,7 @@ public class OngletMenu extends JPanel{
 					ouvertureCheck = "unchecked";
 					imagesCheck = "unchecked";
 					plbdd.removeAll();
-					plbdd.initialiseCombo(true, false, false);
+					plbdd.initialiseCombo(true, false, false, "");
 					jtfModif.setEnabled(true);
 					jtfOuverture.setEnabled(false);
 					jtfImages.setEnabled(false);
@@ -365,7 +425,7 @@ public class OngletMenu extends JPanel{
 				else if(!jcbModif.isSelected()){
 					modifCheck = "unchecked";
 					plbdd.removeAll();
-					plbdd.initialiseCombo(false, true, true);
+					plbdd.initialiseCombo(false, true, true, "");
 					jtfModif.setEnabled(false);
 					jtfOuverture.setEnabled(true);
 					jtfImages.setEnabled(true);
@@ -375,7 +435,7 @@ public class OngletMenu extends JPanel{
 				else if(!jcbOuverture.isSelected()){
 					ouvertureCheck = "unchecked";
 					plbdd.removeAll();
-					plbdd.initialiseCombo(true, false, true);
+					plbdd.initialiseCombo(true, false, true, "");
 					jtfModif.setEnabled(true);
 					jtfOuverture.setEnabled(false);
 					jtfImages.setEnabled(true);
@@ -385,7 +445,7 @@ public class OngletMenu extends JPanel{
 				else if(!jcbImages.isSelected()){
 					imagesCheck = "unchecked";
 					plbdd.removeAll();
-					plbdd.initialiseCombo(true, true, false);
+					plbdd.initialiseCombo(true, true, false, "");
 					jtfModif.setEnabled(true);
 					jtfOuverture.setEnabled(true);
 					jtfImages.setEnabled(false);
@@ -396,8 +456,14 @@ public class OngletMenu extends JPanel{
 		}
 
 		@Override
-		public void actionPerformed(ActionEvent arg0) {
-			// TODO Auto-generated method stub
+		public void actionPerformed(ActionEvent e) {
+			if(e.getSource().equals(okTag)){
+					String tag = jtfTag.getText();
+					plbdd.removeAll();
+					plbdd.initialiseCombo(false, false, false, tag);
+					plbdd.revalidate();
+					plbdd.repaint();
+			}
 
 		}
 
@@ -447,21 +513,21 @@ public class OngletMenu extends JPanel{
 			this.b1 = false;
 			this.b2 = false;
 			this.b3 = false;
-			this.initialiseCombo(b1, b2, b3);
+			this.initialiseCombo(b1, b2, b3, "");
 			this.setBorder(BorderFactory.createLoweredBevelBorder());
 
 		}
 		public void actualiser(){
 			this.removeAll();
-			bdd.removeAll();
+			plbdd.removeAll();
 			this.filtreNom = "";
 			this.filtreAuteur = "";
 			this.filtreModif = "";
 			this.filtreOuverture = "";
 			this.filtreImages = "";
-			this.b1 = false;
+			/*this.b1 = false;
 			this.b2 = false;
-			this.b3 = false;
+			this.b3 = false;*/
 			panelCrit.jtfAuteur.setText("");
 			panelCrit.jtfNom.setText("");
 			panelCrit.jtfModif.setText("");
@@ -473,15 +539,15 @@ public class OngletMenu extends JPanel{
 			panelCrit.jcbModif.setSelected(false);
 			panelCrit.jcbOuverture.setSelected(false);
 			panelCrit.jcbImages.setSelected(false);
-			this.initialiseCombo(false, false, false);
+			this.initialiseCombo(false, false, false, "");
 			this.setBorder(BorderFactory.createLoweredBevelBorder());
-			bdd.repaint();
-			bdd.revalidate();
+			plbdd.repaint();
+			plbdd.revalidate();
 		}
 
-		public void initialiseCombo(boolean b1, boolean b2, boolean b3){
+		public void initialiseCombo(boolean b1, boolean b2, boolean b3, String tag){
 			obdd = new OutilsBdd("Database.db");
-			data = obdd.getComboData(b1, b2, b3, "");
+			data = obdd.getComboData(b1, b2, b3, tag);
 			if(b1 == true && b2 == true && b3 == true){
 				String title[] = { "Nom", "Auteur", "Derniere Modif", "Nb ouverture", "Nb images"};
 				this.mtm = new MyTableModel(data, title);
