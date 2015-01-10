@@ -3,6 +3,7 @@ package fr.view;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.JLabel;
@@ -13,9 +14,9 @@ import fr.model.OutilsBdd;
 
 
 /**
- * @author Loïc
- * Traitement de la barre de progression de l'écran de chargement.
- * TIMER_PAUSE = temps pour arriver jusqu'à 100%
+ * @author Loï¿½c
+ * Traitement de la barre de progression de l'ï¿½cran de chargement.
+ * TIMER_PAUSE = temps pour arriver jusqu'ï¿½ 100%
  * 
  */
 
@@ -69,13 +70,23 @@ public class ProgressBar extends JPanel{
 		t2=new Thread(){
 			@Override
 			public void run() {
+				String lastFileGoodString;
 				while(t.isAlive()){
 					for(int i=0;i<5;i++){
 						if(listeLastFiles[i]==null){
 							listeFichiersRecents.add(null);
 						}
-						else
-							listeFichiersRecents.add(new MyDeskTopPane(listeLastFiles[i]));
+						else{
+							lastFileGoodString = listeLastFiles[i];
+							System.out.println(listeLastFiles[i]);
+							lastFileGoodString.replaceAll("/", File.separator);
+							for(int j = 0;j<lastFileGoodString.length();++j){
+								if (lastFileGoodString.charAt(j) == '\\')
+									lastFileGoodString = lastFileGoodString.substring(0, j) + File.separator + lastFileGoodString.substring(j+1, lastFileGoodString.length());
+							}
+							System.out.println(lastFileGoodString);
+							listeFichiersRecents.add(new MyDeskTopPane(lastFileGoodString));
+						}
 					}
 				}
 				ss.dispose();
