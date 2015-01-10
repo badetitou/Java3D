@@ -765,6 +765,7 @@ public class OngletMenu extends JPanel{
 
 			this.add(panelTree,BorderLayout.CENTER);
 			this.add(panelImage,BorderLayout.SOUTH);
+			
 			/* POUR LOIC GGWP */
 		}
 	}
