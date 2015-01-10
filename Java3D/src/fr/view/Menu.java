@@ -351,7 +351,7 @@ public class Menu extends JMenuBar implements ActionListener {
 				mIFProprietes.setEnabled(true);
 			}
 			else{
-				JOptionPane.showMessageDialog(null,"L'objet est déjà ouvert !","Attention", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null,"L'objet est dï¿½jï¿½ ouvert !","Attention", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 
@@ -373,7 +373,7 @@ public class Menu extends JMenuBar implements ActionListener {
 				mIFProprietes.setEnabled(true);
 			}
 			else{
-				JOptionPane.showMessageDialog(null,"L'objet est déjà ouvert !","Attention", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null,"L'objet est dï¿½jï¿½ ouvert !","Attention", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 
@@ -395,7 +395,7 @@ public class Menu extends JMenuBar implements ActionListener {
 				mIFProprietes.setEnabled(true);
 			}
 			else{
-				JOptionPane.showMessageDialog(null,"L'objet est déjà ouvert !","Attention", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null,"L'objet est dï¿½jï¿½ ouvert !","Attention", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 
@@ -418,7 +418,7 @@ public class Menu extends JMenuBar implements ActionListener {
 				mIFProprietes.setEnabled(true);
 			}
 			else{
-				JOptionPane.showMessageDialog(null,"L'objet est déjà ouvert !","Attention", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null,"L'objet est dï¿½jï¿½ ouvert !","Attention", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 
@@ -441,7 +441,7 @@ public class Menu extends JMenuBar implements ActionListener {
 				mIFProprietes.setEnabled(true);
 			}
 			else{
-				JOptionPane.showMessageDialog(null,"L'objet est déjà ouvert !","Attention", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null,"L'objet est dï¿½jï¿½ ouvert !","Attention", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 

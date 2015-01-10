@@ -70,20 +70,13 @@ public class ProgressBar extends JPanel{
 		t2=new Thread(){
 			@Override
 			public void run() {
-				String lastFileGoodString;
 				while(t.isAlive()){
 					for(int i=0;i<5;i++){
 						if(listeLastFiles[i]==null){
 							listeFichiersRecents.add(null);
 						}
 						else{
-							lastFileGoodString = listeLastFiles[i];
-							lastFileGoodString.replaceAll("/", File.separator);
-							for(int j = 0;j<lastFileGoodString.length();++j){
-								if (lastFileGoodString.charAt(j) == '\\')
-									lastFileGoodString = lastFileGoodString.substring(0, j) + File.separator + lastFileGoodString.substring(j+1, lastFileGoodString.length());
-							}
-							listeFichiersRecents.add(new MyDeskTopPane(lastFileGoodString));
+							listeFichiersRecents.add(new MyDeskTopPane(listeLastFiles[i]));
 						}
 					}
 				}

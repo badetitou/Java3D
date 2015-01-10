@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Toolkit;
+import java.io.File;
 import java.util.List;
 
 import javax.swing.JDesktopPane;
@@ -74,6 +75,15 @@ public class MyDeskTopPane extends JDesktopPane {
 
 	public MyDeskTopPane(String url) {
 		this.url=url;
+		
+		// PERMET LA GESTION DES FICHIER RECENT QUELQUE SOIT L'ORDINATEUR
+		url.replaceAll("/", File.separator);
+		for(int j = 0;j<url.length();++j){
+			if (url.charAt(j) == '\\')
+				url = url.substring(0, j) + File.separator + url.substring(j+1, url.length());
+		}
+		//SURTOUT NE PAS SUPPRIMER
+		
 		Toolkit tk = getToolkit();
 		dimension = new Dimension(tk.getScreenSize().width / 2-50,tk.getScreenSize().height / 2-50);
 		dimmini = new Dimension(dimension.height / 2, dimension.height / 2);
