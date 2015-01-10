@@ -12,6 +12,8 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.PatternSyntaxException;
@@ -832,6 +834,19 @@ public class OngletMenu extends JPanel{
 					Object row5 = bdd.getModel().getValueAt(sortedRow, 4);
 				}
 			});
+			bdd.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					if (e.getClickCount() == 1) {
+						JTable target = (JTable)e.getSource();
+						int row = target.getSelectedRow();
+						int column = target.getSelectedColumn();
+						if(column == 0){
+						//	treeString =((String) bdd.getValueAt(row, column));
+						}
+					}
+				}
+			});
 		}
 	}
 
@@ -841,13 +856,15 @@ public class OngletMenu extends JPanel{
 		private final JPanel panelTree;
 		private final JPanel panelImage;
 		private final JTree tree;
+		private String treeString;
 		public PanelArboPreview(){
 			/*File repertoire = new File("fichiers"+File.separator);
 			File[] listefichiers;
 			listefichiers=repertoire.listFiles();
 			 */
 			UIManager.put("Tree.rendererFillBackground", false);
-			tree=new JTree(new MyTreeModel("Bulbizarre"));
+			this.treeString = "Bulbizarre";
+			tree=new JTree(new MyTreeModel(treeString));
 			tree.setRowHeight(25);
 			tree.setPreferredSize(new Dimension(200,900));
 			tree.setOpaque(false);
