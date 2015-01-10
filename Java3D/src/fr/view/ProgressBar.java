@@ -78,13 +78,11 @@ public class ProgressBar extends JPanel{
 						}
 						else{
 							lastFileGoodString = listeLastFiles[i];
-							System.out.println(listeLastFiles[i]);
 							lastFileGoodString.replaceAll("/", File.separator);
 							for(int j = 0;j<lastFileGoodString.length();++j){
 								if (lastFileGoodString.charAt(j) == '\\')
 									lastFileGoodString = lastFileGoodString.substring(0, j) + File.separator + lastFileGoodString.substring(j+1, lastFileGoodString.length());
 							}
-							System.out.println(lastFileGoodString);
 							listeFichiersRecents.add(new MyDeskTopPane(lastFileGoodString));
 						}
 					}
