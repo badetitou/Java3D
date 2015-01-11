@@ -933,12 +933,22 @@ public class OngletMenu extends JPanel{
 					lien="fichiers"+File.separator+selectedNode.getParent().toString()+File.separator+node;
 				}
 				treeString=node.substring(0, node.length() - 4);
+
+
+				// POUR BADETITOU
+				// Je dois dessiner dans panelPreview qui est dans panelImage (normalement osef t'as pas à toucher à panelImage)
+
 				panelPreview.removeAll();
-				panelPreview.add(new Panneau(new Model(lien, 1, new Dimension(Window.outil.getScreenSize().width/9, Window.outil.getScreenSize().width/9)), null));
-				panelPreview.setPreferredSize(new Dimension(Window.outil.getScreenSize().width/8, Window.outil.getScreenSize().width/8));
+				Panneau panneau=new Panneau(new Model(lien, 1, new Dimension(Window.outil.getScreenSize().width/9, Window.outil.getScreenSize().width/9)), null);
+				panelPreview.add(panneau);
+				panneau.setQualite(1);
+				//panelPreview.setPreferredSize(new Dimension(Window.outil.getScreenSize().width/8, Window.outil.getScreenSize().width/8));
 				panelImage.add(panelPreview);
 				panelImage.repaint();
 				panelImage.revalidate();
+
+				//Fin badetitou
+
 				ouvrir.setEnabled(true);
 			}
 			else if(node.endsWith(".png") || node.endsWith(".jpg") || node.endsWith(".jpeg")){
