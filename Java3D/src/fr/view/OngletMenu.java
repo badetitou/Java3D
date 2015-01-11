@@ -24,6 +24,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -867,12 +868,15 @@ public class OngletMenu extends JPanel{
 	}
 
 
-	public class PanelArboPreview extends JPanel implements TreeSelectionListener{
+	public class PanelArboPreview extends JPanel implements TreeSelectionListener, ActionListener{
 
 		private final JPanel panelTree;
 		private final JPanel panelImage;
 		private JTree tree;
+		private final JButton ouvrir;
+		private String treeString;
 		private final JLabel l;
+		private final OutilsBdd obdd;
 		public PanelArboPreview(){
 			/*File repertoire = new File("fichiers"+File.separator);
 			File[] listefichiers;
@@ -883,6 +887,10 @@ public class OngletMenu extends JPanel{
 			tree.setPreferredSize(new Dimension(200,900));
 			tree.setOpaque(false);
 			tree.addTreeExpansionListener(new myExpensionListener());*/
+			ouvrir=new JButton("Ouvrir");
+			obdd= new OutilsBdd("Database.db");
+			ouvrir.setEnabled(false);
+			ouvrir.addActionListener(this);
 			this.setLayout(new BorderLayout());
 			this.setBorder(BorderFactory.createLoweredBevelBorder());
 			panelTree=new JPanel();
@@ -902,13 +910,16 @@ public class OngletMenu extends JPanel{
 
 		}
 		public JTree setTree(String treeString){
+			this.treeString=treeString;
 			UIManager.put("Tree.rendererFillBackground", false);
 			tree=new JTree(new MyTreeModel(treeString));
 			tree.setRowHeight(25);
-			//tree.setPreferredSize(new Dimension(200,900));
 			tree.setOpaque(false);
 			tree.addTreeExpansionListener(new myExpensionListener());
 			tree.addTreeSelectionListener(this);
+			panelTree.removeAll();
+			panelTree.add(tree);
+			panelTree.add(ouvrir);
 			return tree;
 		}
 
@@ -919,8 +930,10 @@ public class OngletMenu extends JPanel{
 			if(node.contains(".gts")){
 				System.out.println(node);
 				System.out.println("faire ouverture!");
+				ouvrir.setEnabled(true);
 			}
 			else if(node.contains(".png") || node.contains(".jpg") || node.contains(".bmp")){
+				ouvrir.setEnabled(false);
 				String path = "fichiers" +File.separator;
 				path += selectedNode.getParent().getParent().toString();
 				path += File.separator;
@@ -932,6 +945,31 @@ public class OngletMenu extends JPanel{
 				l.setIcon(new ImageIcon(new ImageIcon(path).getImage().getScaledInstance(Window.outil.getScreenSize().width/9, Window.outil.getScreenSize().width/9, Image.SCALE_SMOOTH)));
 
 			}
+			else {
+				ouvrir.setEnabled(false);
+			}
+		}
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			boolean bool=false;
+			for(int i=0;i<listeOnglets.size();i++){
+				if(listeOnglets.get(i) instanceof Onglet){
+					if(((Onglet)listeOnglets.get(i)).getNomFichier().equals(treeString))
+						bool=true;
+				}
+			}
+			if(!bool){
+				Onglet onglet = new Onglet(new MyDeskTopPane(obdd.getLinkFile(treeString)),tabbedPane,treeString,obdd.getAuthor(treeString),false,listeOnglets);
+				//System.out.println(obdd.getLinkFile(ouvrir));
+				tabbedPane.addTab(treeString, onglet);
+				onglet.dessineOnglet();
+				tabbedPane.setSelectedComponent(onglet);
+				//panelInfos = onglet.getPinfos();
+			}
+			else{
+				JOptionPane.showMessageDialog(null,"L'objet est deja ouvert !","Attention", JOptionPane.ERROR_MESSAGE);
+			}
+
 		}
 
 	}

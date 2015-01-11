@@ -3,8 +3,6 @@ package fr.view;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.MouseEvent;
@@ -34,7 +32,7 @@ public class Window extends JFrame implements ComponentListener,MouseListener{
 	public static JFrame frame;
 	private final JTabbedPane tabbedPane;
 	private final ArrayList<Object> listeOnglets;
-	private OngletMenu menu;
+	private final OngletMenu menu;
 	public Window(ArrayList<MyDeskTopPane> listeFichiersRecents) {
 		super("3D Lib");
 		outil = getToolkit();
@@ -97,33 +95,33 @@ public class Window extends JFrame implements ComponentListener,MouseListener{
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if(e.getSource().equals(tabbedPane)){
+		/*if(e.getSource().equals(tabbedPane)){
 			menu.getPlbdd().actualiser();
 		}
-		
+		 */
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }
