@@ -1,7 +1,6 @@
 package fr.view;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -14,14 +13,12 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.PatternSyntaxException;
 
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.DefaultRowSorter;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -504,11 +501,11 @@ public class OngletMenu extends JPanel{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource().equals(okTag)){
-					String tag = jtfTag.getText();
-					plbdd.removeAll();
-					plbdd.initialiseCombo(false, false, false, tag);
-					plbdd.revalidate();
-					plbdd.repaint();
+				String tag = jtfTag.getText();
+				plbdd.removeAll();
+				plbdd.initialiseCombo(false, false, false, tag);
+				plbdd.revalidate();
+				plbdd.repaint();
 			}
 
 		}
@@ -546,18 +543,15 @@ public class OngletMenu extends JPanel{
 		RowFilter<MyTableModel, Object> compoundRowFilter = null;
 		List<RowFilter<MyTableModel,Object>> filters;
 		private MyTableModel mtm;
-		private boolean b1;
-		private boolean b2;
-		private boolean b3;
-		private String fSelect;
-
+		private final boolean b1;
+		private final boolean b2;
+		private final boolean b3;
 		public PanelListebdd(){
 			this.filtreNom = "";
 			this.filtreAuteur = "";
 			this.filtreModif = "";
 			this.filtreOuverture = "";
 			this.filtreImages = "";
-			this.fSelect = "";
 			this.b1 = false;
 			this.b2 = false;
 			this.b3 = false;
@@ -839,9 +833,9 @@ public class OngletMenu extends JPanel{
 					Object row1 = bdd.getModel().getValueAt(sortedRow, 0);
 					Object row2 = bdd.getModel().getValueAt(sortedRow, 1);
 					if(bdd.getColumnCount()>2){
-					Object row3 = bdd.getModel().getValueAt(sortedRow, 2);
-					Object row4 = bdd.getModel().getValueAt(sortedRow, 3);
-					Object row5 = bdd.getModel().getValueAt(sortedRow, 4);
+						Object row3 = bdd.getModel().getValueAt(sortedRow, 2);
+						Object row4 = bdd.getModel().getValueAt(sortedRow, 3);
+						Object row5 = bdd.getModel().getValueAt(sortedRow, 4);
 					}
 				}
 			});
@@ -878,12 +872,13 @@ public class OngletMenu extends JPanel{
 		private final JPanel panelTree;
 		private final JPanel panelImage;
 		private JTree tree;
+		private final JLabel l;
 		public PanelArboPreview(){
 			/*File repertoire = new File("fichiers"+File.separator);
 			File[] listefichiers;
 			listefichiers=repertoire.listFiles();
 			 */
-		/*	UIManager.put("Tree.rendererFillBackground", false);
+			/*	UIManager.put("Tree.rendererFillBackground", false);
 			tree.setRowHeight(25);
 			tree.setPreferredSize(new Dimension(200,900));
 			tree.setOpaque(false);
@@ -894,56 +889,51 @@ public class OngletMenu extends JPanel{
 			panelTree.add(this.setTree(""));
 			panelImage=new JPanel();
 			JPanel panelPreview=new JPanel();
-			JLabel l=new JLabel();
+			l=new JLabel();
 			String path="ressources/image/800x400.png";
 			l.setIcon(new ImageIcon(new ImageIcon(path).getImage().getScaledInstance(Window.outil.getScreenSize().width/9, Window.outil.getScreenSize().width/9, Image.SCALE_SMOOTH)));
 			panelPreview.add(l);
 			panelPreview.setBorder(BorderFactory.createLoweredBevelBorder());
 			panelImage.add(panelPreview);
 			panelTree.setBorder(BorderFactory.createLoweredBevelBorder());
-
-			this.add(panelTree,BorderLayout.CENTER);
+			JScrollPane scroll=new JScrollPane(panelTree);
+			this.add(scroll,BorderLayout.CENTER);
 			this.add(panelImage,BorderLayout.SOUTH);
-			
+
 		}
 		public JTree setTree(String treeString){
 			UIManager.put("Tree.rendererFillBackground", false);
 			tree=new JTree(new MyTreeModel(treeString));
 			tree.setRowHeight(25);
-			tree.setPreferredSize(new Dimension(200,900));
+			//tree.setPreferredSize(new Dimension(200,900));
 			tree.setOpaque(false);
 			tree.addTreeExpansionListener(new myExpensionListener());
 			tree.addTreeSelectionListener(this);
 			return tree;
 		}
-		
+
+		@Override
 		public void valueChanged(TreeSelectionEvent e) {
-			   DefaultMutableTreeNode selectedNode =(DefaultMutableTreeNode)tree.getLastSelectedPathComponent();
-			   String node = selectedNode.getUserObject().toString();
-			   if(node.contains(".gts")){
-				   System.out.println(node);
-				   System.out.println("faire ouverture!");
-			   }
-			   else if(node.contains(".png") || node.contains(".jpg") || node.contains(".bmp")){
-				   String path = "fichiers" +File.separator;
-				   path += selectedNode.getParent().getParent().toString();
-				   path += File.separator;
-				   path += selectedNode.getParent().toString();
-				   path += node;
-				 //  System.out.println(path);
-				   panelImage.removeAll();
-				   JPanel panelPreview=new JPanel();
-				   JLabel l=new JLabel();
-				   l.setIcon(new ImageIcon(path));
-				   panelPreview.add(l);
-				   panelPreview.setBorder(BorderFactory.createLoweredBevelBorder());
-				   panelImage.add(panelPreview);
-				   panelImage.revalidate();
-				   panelImage.repaint();
-				   
-			   }
+			DefaultMutableTreeNode selectedNode =(DefaultMutableTreeNode)tree.getLastSelectedPathComponent();
+			String node = selectedNode.getUserObject().toString();
+			if(node.contains(".gts")){
+				System.out.println(node);
+				System.out.println("faire ouverture!");
+			}
+			else if(node.contains(".png") || node.contains(".jpg") || node.contains(".bmp")){
+				String path = "fichiers" +File.separator;
+				path += selectedNode.getParent().getParent().toString();
+				path += File.separator;
+				path += selectedNode.getParent().toString();
+				path += File.separator;
+				path += node;
+				System.out.println(path);
+
+				l.setIcon(new ImageIcon(new ImageIcon(path).getImage().getScaledInstance(Window.outil.getScreenSize().width/9, Window.outil.getScreenSize().width/9, Image.SCALE_SMOOTH)));
+
+			}
 		}
-		
+
 	}
 
 
@@ -957,7 +947,7 @@ public class OngletMenu extends JPanel{
 		@Override
 		public Class getColumnClass(int column) {
 			Class returnValue;
-			try { 
+			try {
 				returnValue = getValueAt(0, column).getClass();
 			} catch (Exception e) {
 				returnValue = Object.class;
