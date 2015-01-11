@@ -549,6 +549,7 @@ public class OngletMenu extends JPanel{
 		private final boolean b2;
 		private final boolean b3;
 		public PanelListebdd(){
+			
 			this.filtreNom = "";
 			this.filtreAuteur = "";
 			this.filtreModif = "";
@@ -845,11 +846,10 @@ public class OngletMenu extends JPanel{
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					if (e.getClickCount() == 1) {
-						JTable target = (JTable)e.getSource();
-						int row = target.getSelectedRow();
-						int column = target.getSelectedColumn();
+						int row = bdd.getSelectedRow();
+						int column = bdd.getSelectedColumn();
 						plArbo.panelTree.removeAll();
-						plArbo.panelTree.add(plArbo.setTree((String) bdd.getModel().getValueAt(row, 0)));
+						plArbo.panelTree.add(plArbo.setTree((String) bdd.getModel().getValueAt(bdd.convertRowIndexToModel(row),0)));
 						plArbo.revalidate();
 						plArbo.repaint();
 						String path="ressources/image/800x400.png";
