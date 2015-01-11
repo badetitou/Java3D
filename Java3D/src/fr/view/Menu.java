@@ -238,6 +238,8 @@ public class Menu extends JMenuBar implements ActionListener {
 		mIFImporter.addActionListener(this);
 		mIFFermer.addActionListener(this);
 		mIFExporter.addActionListener(this);
+		mIIContacts.addActionListener(this);
+		mIIaPropos.addActionListener(this);
 
 	}
 
@@ -516,6 +518,8 @@ public class Menu extends JMenuBar implements ActionListener {
 				tabbedPane.remove(onglet);
 				listeOnglets.remove(onglet);
 			}
+		} else if (e.getSource().equals(mIIContacts)){
+			WindowContacts windowC = new WindowContacts();
 		}
 	}
 

@@ -14,6 +14,7 @@ import java.util.regex.PatternSyntaxException;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultRowSorter;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -45,10 +46,10 @@ public class WindowOuvrir extends JFrame {
 		this.setSize(500, 330);
 		this.setResizable(false);
 		this.setAlwaysOnTop(true);
-
 		this.setLocationRelativeTo(null);
 		this.setContentPane(pO);
 		this.setVisible(true);
+		this.setIconImage(new ImageIcon("ressources/image/logoforreal2.png").getImage());
 	}
 
 	public class PanelOuvrir extends JPanel implements MouseListener, KeyListener{
