@@ -92,7 +92,7 @@ public class Menu extends JMenuBar implements ActionListener {
 		// Sous menu Fichier
 		mIFImporter = new JMenuItem("Importer");
 		mIFOuvrir = new JMenuItem("Ouvrir");
-		mIFRecents = new JMenu("Fichiers recents");
+		mIFRecents = new JMenu("Fichiers récents");
 		mIFEnregistrer = new JMenuItem("Enregistrer dans la BDD");
 		mIFExporter = new JMenuItem("Exporter");
 
@@ -179,7 +179,7 @@ public class Menu extends JMenuBar implements ActionListener {
 		mIFRecents.add(recent4);
 		mIFRecents.add(recent5);
 
-		// Ajout de chaque sous menu ï¿½ son menu
+		// Ajout de chaque sous menu à son menu
 		mFichier.add(mIFImporter);
 		mFichier.add(mIFOuvrir);
 		mFichier.add(mIFRecents);
@@ -310,7 +310,7 @@ public class Menu extends JMenuBar implements ActionListener {
 				mIFExporter.setEnabled(true);
 			}
 			else{
-				JOptionPane.showMessageDialog(null,"L'objet est dï¿½jï¿½ ouvert !","Attention", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null,"L'objet est déjà ouvert !","Attention", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 
@@ -331,7 +331,7 @@ public class Menu extends JMenuBar implements ActionListener {
 				mIFExporter.setEnabled(true);
 			}
 			else{
-				JOptionPane.showMessageDialog(null,"L'objet est dï¿½jï¿½ ouvert !","Attention", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null,"L'objet est déjà ouvert !","Attention", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 
@@ -352,7 +352,7 @@ public class Menu extends JMenuBar implements ActionListener {
 				mIFExporter.setEnabled(true);
 			}
 			else{
-				JOptionPane.showMessageDialog(null,"L'objet est dï¿½jï¿½ ouvert !","Attention", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null,"L'objet est déjà ouvert !","Attention", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 
@@ -374,7 +374,7 @@ public class Menu extends JMenuBar implements ActionListener {
 				mIFExporter.setEnabled(true);
 			}
 			else{
-				JOptionPane.showMessageDialog(null,"L'objet est dï¿½jï¿½ ouvert !","Attention", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null,"L'objet est déjà ouvert !","Attention", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 
@@ -396,7 +396,7 @@ public class Menu extends JMenuBar implements ActionListener {
 				mIFExporter.setEnabled(true);
 			}
 			else{
-				JOptionPane.showMessageDialog(null,"L'objet est dï¿½jï¿½ ouvert !","Attention", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null,"L'objet est déjà ouvert !","Attention", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 
@@ -472,7 +472,7 @@ public class Menu extends JMenuBar implements ActionListener {
 				}
 				if (fichier != null && name.substring(name.length() - 4, name.length()).equals(".gts")) {
 					if (listeOnglets.size() + 1 <= 5) {
-						String nomAuteur = "Non renseignï¿½";
+						String nomAuteur = "Non renseigné";
 						if(nbOngletsImport==0)
 							nomFichier="New";
 						else
@@ -484,7 +484,7 @@ public class Menu extends JMenuBar implements ActionListener {
 						onglet.dessineOnglet();
 						tabbedPane.setSelectedComponent(onglet);
 					} else {
-						JOptionPane.showMessageDialog(null,"Trop d'onglets sont ouverts, fermez des onglets puis reessayer !","Attention", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null,"Trop d'onglets sont ouverts, fermez des onglets puis réessayer !","Attention", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 				mIFEnregistrer.setEnabled(true);
@@ -506,10 +506,10 @@ public class Menu extends JMenuBar implements ActionListener {
 				String chemin = filechoose.getSelectedFile().getAbsolutePath()+File.separator+((Onglet) onglet).getNomFichier()+".gts";
 				String urlSource=((Onglet) onglet).getDp().getUrl();
 				if(this.copieGTS(new File(urlSource), new File(chemin))){
-					JOptionPane.showMessageDialog(null,"L'exportation de : "+urlSource+" a fonctionnï¿½ !","Exportation rï¿½ussie", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null,"L'exportation de : "+urlSource+" a fonctionnée !","Exportation réussie", JOptionPane.INFORMATION_MESSAGE);
 				}
 				else {
-					JOptionPane.showMessageDialog(null,"L'exportation de : "+urlSource+" a ï¿½chouï¿½ !","Exportation ï¿½chouï¿½e", JOptionPane.OK_OPTION);
+					JOptionPane.showMessageDialog(null,"L'exportation de : "+urlSource+" a échouée !","Exportation échouée", JOptionPane.OK_OPTION);
 				}
 			}
 		} else if (e.getSource().equals(mIFFermer)) {

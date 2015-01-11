@@ -615,7 +615,7 @@ public class OngletMenu extends JPanel{
 			obdd = new OutilsBdd("Database.db");
 			data = obdd.getComboData(b1, b2, b3, tag);
 			if(b1 == true && b2 == true && b3 == true){
-				String title[] = { "Nom", "Auteur", "Derniere Modif", "Nb ouverture", "Nb images"};
+				String title[] = { "Nom", "Auteur", "Dernière Modif", "Nb ouverture", "Nb images"};
 				this.mtm = new MyTableModel(data, title);
 				this.sorter = new TableRowSorter<>(mtm);
 				this.rf0 = null;
@@ -672,7 +672,7 @@ public class OngletMenu extends JPanel{
 				}
 			}
 			else if(b1 == true && b2 == false && b3 == false){
-				String title[] = { "Nom", "Auteur", "Derniere Modif"};
+				String title[] = { "Nom", "Auteur", "Dernière Modif"};
 				this.mtm = new MyTableModel(data, title);
 				this.sorter = new TableRowSorter<>(mtm);
 				this.rf0 = null;
@@ -699,7 +699,7 @@ public class OngletMenu extends JPanel{
 				}
 			}
 			else if(b1 == true && b2 == true && b3 == false){
-				String title[] = { "Nom", "Auteur", "Derniere Modif", "Nb ouverture"};
+				String title[] = { "Nom", "Auteur", "Dernière Modif", "Nb ouverture"};
 				this.mtm = new MyTableModel(data, title);
 				this.sorter = new TableRowSorter<>(mtm);
 				this.rf0 = null;
@@ -729,7 +729,7 @@ public class OngletMenu extends JPanel{
 				}
 			}
 			else if(b1 == true && b2 == false && b3 == true){
-				String title[] = { "Nom", "Auteur", "Derniere Modif", "Nb images"};
+				String title[] = { "Nom", "Auteur", "Dernière Modif", "Nb images"};
 				this.mtm = new MyTableModel(data, title);
 				this.sorter = new TableRowSorter<>(mtm);
 				this.rf0 = null;
@@ -1008,7 +1008,7 @@ public class OngletMenu extends JPanel{
 				//panelInfos = onglet.getPinfos();
 			}
 			else{
-				JOptionPane.showMessageDialog(null,"L'objet est deja ouvert !","Attention", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null,"L'objet est déjà ouvert !","Attention", JOptionPane.ERROR_MESSAGE);
 			}
 
 		}
