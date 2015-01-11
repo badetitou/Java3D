@@ -164,8 +164,8 @@ public class WindowOuvrir extends JFrame {
 						JTable target = (JTable)e.getSource();
 						int row = target.getSelectedRow();
 						int column = target.getSelectedColumn();
-						if(column == 0){
-							nFichier.setText((String) bdd.getValueAt(row, column));
+						if(column == 0 || column == 1){
+							nFichier.setText((String) bdd.getValueAt(row, 0));
 						}
 					}
 				}

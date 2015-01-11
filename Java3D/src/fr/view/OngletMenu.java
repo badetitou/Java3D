@@ -55,6 +55,7 @@ public class OngletMenu extends JPanel{
 
 
 	private final PanelCrit panelCrit;
+	private final PanelArboPreview plArbo;
 
 	public PanelCrit getPanelCrit() {
 		return panelCrit;
@@ -68,7 +69,8 @@ public class OngletMenu extends JPanel{
 		this.add(panelCrit);
 		this.plbdd = new PanelListebdd();
 		this.add(plbdd);
-		this.add(new PanelArboPreview());
+		this.plArbo = new PanelArboPreview();
+		this.add(plArbo);
 		listeOnglets.add(this);
 		//closeButon = new JLabel(new ImageIcon(new ImageIcon("ressources/icones/fermer.png").getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH)));
 		//closeButon.addMouseListener(this);
@@ -542,6 +544,7 @@ public class OngletMenu extends JPanel{
 		private boolean b1;
 		private boolean b2;
 		private boolean b3;
+		private String fSelect;
 
 		public PanelListebdd(){
 			this.filtreNom = "";
@@ -549,6 +552,7 @@ public class OngletMenu extends JPanel{
 			this.filtreModif = "";
 			this.filtreOuverture = "";
 			this.filtreImages = "";
+			this.fSelect = "";
 			this.b1 = false;
 			this.b2 = false;
 			this.b3 = false;
@@ -829,9 +833,11 @@ public class OngletMenu extends JPanel{
 					int sortedRow = bdd.convertRowIndexToModel(row);
 					Object row1 = bdd.getModel().getValueAt(sortedRow, 0);
 					Object row2 = bdd.getModel().getValueAt(sortedRow, 1);
+					if(bdd.getColumnCount()>2){
 					Object row3 = bdd.getModel().getValueAt(sortedRow, 2);
 					Object row4 = bdd.getModel().getValueAt(sortedRow, 3);
 					Object row5 = bdd.getModel().getValueAt(sortedRow, 4);
+					}
 				}
 			});
 			bdd.addMouseListener(new MouseAdapter() {
@@ -841,9 +847,10 @@ public class OngletMenu extends JPanel{
 						JTable target = (JTable)e.getSource();
 						int row = target.getSelectedRow();
 						int column = target.getSelectedColumn();
-						if(column == 0){
-						//	treeString =((String) bdd.getValueAt(row, column));
-						}
+						plArbo.panelTree.removeAll();
+						plArbo.panelTree.add(plArbo.setTree((String) bdd.getModel().getValueAt(row, 0)));
+						plArbo.revalidate();
+						plArbo.repaint();
 					}
 				}
 			});
@@ -855,24 +862,21 @@ public class OngletMenu extends JPanel{
 
 		private final JPanel panelTree;
 		private final JPanel panelImage;
-		private final JTree tree;
-		private String treeString;
+		private JTree tree;
 		public PanelArboPreview(){
 			/*File repertoire = new File("fichiers"+File.separator);
 			File[] listefichiers;
 			listefichiers=repertoire.listFiles();
 			 */
-			UIManager.put("Tree.rendererFillBackground", false);
-			this.treeString = "Bulbizarre";
-			tree=new JTree(new MyTreeModel(treeString));
+		/*	UIManager.put("Tree.rendererFillBackground", false);
 			tree.setRowHeight(25);
 			tree.setPreferredSize(new Dimension(200,900));
 			tree.setOpaque(false);
-			tree.addTreeExpansionListener(new myExpensionListener());
+			tree.addTreeExpansionListener(new myExpensionListener());*/
 			this.setLayout(new BorderLayout());
 			this.setBorder(BorderFactory.createLoweredBevelBorder());
 			panelTree=new JPanel();
-			panelTree.add(tree);
+			panelTree.add(this.setTree(""));
 			panelImage=new JPanel();
 			JPanel panelPreview=new JPanel();
 			JLabel l=new JLabel();
@@ -887,6 +891,15 @@ public class OngletMenu extends JPanel{
 			this.add(panelImage,BorderLayout.SOUTH);
 			
 			/* POUR LOIC GGWP */
+		}
+		public JTree setTree(String treeString){
+			UIManager.put("Tree.rendererFillBackground", false);
+			tree=new JTree(new MyTreeModel(treeString));
+			tree.setRowHeight(25);
+			tree.setPreferredSize(new Dimension(200,900));
+			tree.setOpaque(false);
+			tree.addTreeExpansionListener(new myExpensionListener());
+			return tree;
 		}
 	}
 
