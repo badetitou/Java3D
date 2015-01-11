@@ -351,7 +351,7 @@ public class OutilsBdd {
 	public String[] getLastFiles () {
 		this.connect();
 		String[] lastFiles = new String[5];
-		String query = "SELECT linkFile FROM files ORDER BY lastModifDate DESC";
+		String query = "SELECT linkFile FROM files ORDER BY lastModifDate ASC";
 		try {
 			ResultSet rs = statement.executeQuery(query);
 			int i=0;
