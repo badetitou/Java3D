@@ -37,8 +37,6 @@ public class Menu extends JMenuBar implements ActionListener {
 	private PanelInformations panelInfos;
 
 	private final JMenu mFichier;
-	private final JMenu mEdition;
-	private final JMenu mOptions;
 	private final JMenu mInfos;
 	// Items Menu Fichier
 	private final JMenuItem mIFImporter;
@@ -47,14 +45,7 @@ public class Menu extends JMenuBar implements ActionListener {
 	private final JMenuItem mIFEnregistrer;
 	private final JMenuItem mIFExporter;
 	private final JMenuItem mIFFermer;
-	private final JMenuItem mIFProprietes;
 	private final JMenuItem mIFQuitter;
-	// Items Menu Edition
-	private final JMenuItem mIEDefaire;
-	private final JMenuItem mIERefaire;
-	// Items Menu Options
-	private final JMenuItem mIOBoiteOutils;
-	private final JMenuItem mIOPreferences;
 	// Items Menu Infos
 	private final JMenuItem mIIaPropos;
 	private final JMenuItem mIIContacts;
@@ -91,14 +82,10 @@ public class Menu extends JMenuBar implements ActionListener {
 
 		// Cr�ation du Menu
 		mFichier = new JMenu("Fichier");
-		mEdition = new JMenu("Edition");
-		mOptions = new JMenu("Options");
 		mInfos = new JMenu("?");
 
 		// Dimensions des boutons
 		mFichier.setPreferredSize(new Dimension(60, 350));
-		mEdition.setPreferredSize(new Dimension(60, 350));
-		mOptions.setPreferredSize(new Dimension(60, 350));
 		mInfos.setPreferredSize(new Dimension(60, 350));
 
 		// Cr�ation des sous menus
@@ -110,7 +97,6 @@ public class Menu extends JMenuBar implements ActionListener {
 		mIFExporter = new JMenuItem("Exporter");
 
 		mIFFermer = new JMenuItem("Fermer");
-		mIFProprietes = new JMenuItem("Propri�t�s");
 		mIFQuitter = new JMenuItem("Quitter");
 
 		// /Action des MenuItems Fichier
@@ -129,25 +115,9 @@ public class Menu extends JMenuBar implements ActionListener {
 				InputEvent.CTRL_MASK));
 		mIFFermer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W,
 				InputEvent.CTRL_MASK));
-		mIFProprietes.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_J,
-				InputEvent.CTRL_MASK));
 		mIFQuitter.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q,
 				InputEvent.CTRL_MASK));
 
-		// Sous menu Edition
-		mIEDefaire = new JMenuItem("D�faire");
-		mIERefaire = new JMenuItem("Refaire");
-
-		// Action des MenuItems Edition
-
-		mIEDefaire.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z,
-				InputEvent.CTRL_MASK));
-		mIERefaire.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Y,
-				InputEvent.CTRL_MASK));
-
-		// Sous menu Options
-		mIOBoiteOutils = new JMenuItem("Bo�te � Outils");
-		mIOPreferences = new JMenuItem("Pr�f�rences");
 
 		// Action des MenuItems Options
 
@@ -218,19 +188,11 @@ public class Menu extends JMenuBar implements ActionListener {
 		mFichier.add(mIFExporter);
 		mFichier.add(mIFFermer);
 		mFichier.addSeparator();
-		mFichier.add(mIFProprietes);
-		mFichier.addSeparator();
 		mFichier.add(mIFQuitter);
-		mEdition.add(mIEDefaire);
-		mEdition.add(mIERefaire);
-		mOptions.add(mIOBoiteOutils);
-		mOptions.add(mIOPreferences);
 		mInfos.add(mIIaPropos);
 		mInfos.add(mIIContacts);
 
 		this.add(mFichier);
-		this.add(mEdition);
-		this.add(mOptions);
 		this.add(mInfos);
 
 		mFichier.addMenuListener(new MenuListener() {
@@ -240,13 +202,11 @@ public class Menu extends JMenuBar implements ActionListener {
 				if(e.getSource().equals(mFichier) && tabbedPane.getSelectedComponent() instanceof OngletMenu){
 					mIFEnregistrer.setEnabled(false);
 					mIFExporter.setEnabled(false);
-					mIFProprietes.setEnabled(false);
 				}
 
 				if(e.getSource().equals(mFichier) && tabbedPane.getSelectedComponent() instanceof Onglet){
 					mIFEnregistrer.setEnabled(true);
 					mIFExporter.setEnabled(true);
-					mIFProprietes.setEnabled(true);
 				}
 
 			}
@@ -256,7 +216,6 @@ public class Menu extends JMenuBar implements ActionListener {
 				if(e.getSource().equals(mFichier) && tabbedPane.getSelectedComponent() instanceof Onglet){
 					mIFEnregistrer.setEnabled(true);
 					mIFExporter.setEnabled(true);
-					mIFProprietes.setEnabled(true);
 				}
 			}
 
@@ -265,7 +224,6 @@ public class Menu extends JMenuBar implements ActionListener {
 				if(e.getSource().equals(mFichier) && tabbedPane.getSelectedComponent() instanceof Onglet){
 					mIFEnregistrer.setEnabled(true);
 					mIFExporter.setEnabled(true);
-					mIFProprietes.setEnabled(true);
 				}
 			}
 		});
@@ -348,7 +306,6 @@ public class Menu extends JMenuBar implements ActionListener {
 				tabbedPane.setSelectedComponent(ong);
 				mIFEnregistrer.setEnabled(true);
 				mIFExporter.setEnabled(true);
-				mIFProprietes.setEnabled(true);
 			}
 			else{
 				JOptionPane.showMessageDialog(null,"L'objet est d�j� ouvert !","Attention", JOptionPane.ERROR_MESSAGE);
@@ -370,7 +327,6 @@ public class Menu extends JMenuBar implements ActionListener {
 				tabbedPane.setSelectedComponent(ong);
 				mIFEnregistrer.setEnabled(true);
 				mIFExporter.setEnabled(true);
-				mIFProprietes.setEnabled(true);
 			}
 			else{
 				JOptionPane.showMessageDialog(null,"L'objet est d�j� ouvert !","Attention", JOptionPane.ERROR_MESSAGE);
@@ -392,7 +348,6 @@ public class Menu extends JMenuBar implements ActionListener {
 				tabbedPane.setSelectedComponent(ong);
 				mIFEnregistrer.setEnabled(true);
 				mIFExporter.setEnabled(true);
-				mIFProprietes.setEnabled(true);
 			}
 			else{
 				JOptionPane.showMessageDialog(null,"L'objet est d�j� ouvert !","Attention", JOptionPane.ERROR_MESSAGE);
@@ -415,7 +370,6 @@ public class Menu extends JMenuBar implements ActionListener {
 				tabbedPane.setSelectedComponent(ong);
 				mIFEnregistrer.setEnabled(true);
 				mIFExporter.setEnabled(true);
-				mIFProprietes.setEnabled(true);
 			}
 			else{
 				JOptionPane.showMessageDialog(null,"L'objet est d�j� ouvert !","Attention", JOptionPane.ERROR_MESSAGE);
@@ -438,7 +392,6 @@ public class Menu extends JMenuBar implements ActionListener {
 				tabbedPane.setSelectedComponent(ong);
 				mIFEnregistrer.setEnabled(true);
 				mIFExporter.setEnabled(true);
-				mIFProprietes.setEnabled(true);
 			}
 			else{
 				JOptionPane.showMessageDialog(null,"L'objet est d�j� ouvert !","Attention", JOptionPane.ERROR_MESSAGE);
@@ -450,7 +403,6 @@ public class Menu extends JMenuBar implements ActionListener {
 			panelInfos = windowO.getPanelInfos();
 			mIFEnregistrer.setEnabled(true);
 			mIFExporter.setEnabled(true);
-			mIFProprietes.setEnabled(true);
 		}
 		else if (e.getSource().equals(mIFEnregistrer)) {
 			Component onglet = tabbedPane.getSelectedComponent();
@@ -535,7 +487,6 @@ public class Menu extends JMenuBar implements ActionListener {
 				}
 				mIFEnregistrer.setEnabled(true);
 				mIFExporter.setEnabled(true);
-				mIFProprietes.setEnabled(true);
 			}
 
 
