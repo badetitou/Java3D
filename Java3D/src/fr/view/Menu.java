@@ -520,6 +520,8 @@ public class Menu extends JMenuBar implements ActionListener {
 			}
 		} else if (e.getSource().equals(mIIContacts)){
 			WindowContacts windowC = new WindowContacts();
+		}else if (e.getSource().equals(mIIaPropos)){
+			WindowAPropos windowAP = new WindowAPropos();
 		}
 	}
 
