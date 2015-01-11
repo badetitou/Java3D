@@ -16,7 +16,7 @@ public class WindowContacts extends JFrame {
 	public WindowContacts() {
 		PanelContacts pC = new PanelContacts(this);
 		this.setTitle("Contacts");
-		this.setSize(Window.outil.getScreenSize().width/6, Window.outil.getScreenSize().height/4);
+		this.setSize(Window.outil.getScreenSize().width/4, Window.outil.getScreenSize().height/4);
 		this.setResizable(false);
 		this.setAlwaysOnTop(true);
 		this.setLocationRelativeTo(null);
@@ -24,6 +24,7 @@ public class WindowContacts extends JFrame {
 		this.setContentPane(pC);
 		this.setVisible(true);
 		this.setIconImage(new ImageIcon("ressources/image/logoforreal2.png").getImage());
+		this.pack();
 	}
 
 	public class PanelContacts extends JPanel implements ActionListener {

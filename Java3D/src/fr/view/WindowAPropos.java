@@ -1,6 +1,7 @@
 package fr.view;
 
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,6 +25,7 @@ public class WindowAPropos extends JFrame {
 		this.setContentPane(pAP);
 		this.setVisible(true);
 		this.setIconImage(new ImageIcon("ressources/image/logoforreal2.png").getImage());
+		this.pack();
 	}
 
 	public class PanelAPropos extends JPanel implements ActionListener {
@@ -41,9 +43,9 @@ public class WindowAPropos extends JFrame {
 			this.panImage = new JPanel();
 			String path="ressources/image/800x400.png";
 			JLabel l = new JLabel();
-			l.setIcon(new ImageIcon(new ImageIcon(path).getImage().getScaledInstance(300, 150, Image.SCALE_SMOOTH)));
+			l.setIcon(new ImageIcon(new ImageIcon(path).getImage().getScaledInstance(250, 120, Image.SCALE_SMOOTH)));
 			panImage.add(l);
-			//this.setLayout(new GridLayout(3,1));
+			this.setLayout(new GridLayout(3,1));
 			this.add(panImage);
 			this.add(text);
 			this.add(panOk);
