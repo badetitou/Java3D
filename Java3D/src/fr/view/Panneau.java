@@ -235,10 +235,10 @@ public class Panneau extends JPanel implements MouseListener {
 	private void initPopMenu() {
 		// Init composant
 		popMenu = new JPopupMenu("Menu");
-		low = new JRadioButtonMenuItem("low");
-		medium = new JRadioButtonMenuItem("medium");
-		high = new JRadioButtonMenuItem("high");
-		boutonCentre = new JMenuItem("Recentre");
+		low = new JRadioButtonMenuItem("Faible");
+		medium = new JRadioButtonMenuItem("Moyenne");
+		high = new JRadioButtonMenuItem("Haute");
+		boutonCentre = new JMenuItem("Recentrer");
 		zoomPlus = new JMenuItem("Zoom +");
 		zoomMoins = new JMenuItem("Zoom -");
 
