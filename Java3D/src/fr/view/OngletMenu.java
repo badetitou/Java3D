@@ -401,7 +401,7 @@ public class OngletMenu extends JPanel{
 
 			}
 			else{
-				if(!jcbTag.isSelected()){
+				if(!jcbTag.isSelected() && !jcbModif.isSelected() && !jcbOuverture.isSelected() && !jcbImages.isSelected()){
 					modifCheck = "unchecked";
 					ouvertureCheck = "unchecked";
 					imagesCheck = "unchecked";
@@ -423,7 +423,7 @@ public class OngletMenu extends JPanel{
 					jtfTag.setText("");
 					okTag.setEnabled(false);
 				}
-				else if(!jcbModif.isSelected() && !jcbOuverture.isSelected() && !jcbImages.isSelected()){
+				else if(!jcbTag.isSelected() && !jcbModif.isSelected() && !jcbOuverture.isSelected() && !jcbImages.isSelected()){
 					modifCheck = "unchecked";
 					ouvertureCheck = "unchecked";
 					imagesCheck = "unchecked";
@@ -432,10 +432,13 @@ public class OngletMenu extends JPanel{
 					jtfModif.setEnabled(false);
 					jtfOuverture.setEnabled(false);
 					jtfImages.setEnabled(false);
+					jtfTag.setEnabled(false);
+					jtfTag.setText("");
+					okTag.setEnabled(false);
 					plbdd.revalidate();
 					plbdd.repaint();
 				}
-				else if(!jcbModif.isSelected() && !jcbOuverture.isSelected()){
+				else if(!jcbTag.isSelected() && !jcbModif.isSelected() && !jcbOuverture.isSelected()){
 					modifCheck = "unchecked";
 					ouvertureCheck = "unchecked";
 					plbdd.removeAll();
@@ -443,10 +446,13 @@ public class OngletMenu extends JPanel{
 					jtfModif.setEnabled(false);
 					jtfOuverture.setEnabled(false);
 					jtfImages.setEnabled(true);
+					jtfTag.setEnabled(false);
+					jtfTag.setText("");
+					okTag.setEnabled(false);
 					plbdd.revalidate();
 					plbdd.repaint();
 				}
-				else if(!jcbModif.isSelected() && !jcbImages.isSelected()){
+				else if(!jcbTag.isSelected() && !jcbModif.isSelected() && !jcbImages.isSelected()){
 					modifCheck = "unchecked";
 					imagesCheck = "unchecked";
 					plbdd.removeAll();
@@ -454,10 +460,13 @@ public class OngletMenu extends JPanel{
 					jtfModif.setEnabled(false);
 					jtfOuverture.setEnabled(true);
 					jtfImages.setEnabled(false);
+					jtfTag.setEnabled(false);
+					jtfTag.setText("");
+					okTag.setEnabled(false);
 					plbdd.revalidate();
 					plbdd.repaint();
 				}
-				else if(!jcbOuverture.isSelected() && !jcbImages.isSelected()){
+				else if(!jcbTag.isSelected() && !jcbOuverture.isSelected() && !jcbImages.isSelected()){
 					ouvertureCheck = "unchecked";
 					imagesCheck = "unchecked";
 					plbdd.removeAll();
@@ -465,36 +474,48 @@ public class OngletMenu extends JPanel{
 					jtfModif.setEnabled(true);
 					jtfOuverture.setEnabled(false);
 					jtfImages.setEnabled(false);
+					jtfTag.setEnabled(false);
+					jtfTag.setText("");
+					okTag.setEnabled(false);
 					plbdd.revalidate();
 					plbdd.repaint();
 				}
-				else if(!jcbModif.isSelected()){
+				else if(!jcbTag.isSelected() && !jcbModif.isSelected()){
 					modifCheck = "unchecked";
 					plbdd.removeAll();
 					plbdd.initialiseCombo(false, true, true, "");
 					jtfModif.setEnabled(false);
 					jtfOuverture.setEnabled(true);
 					jtfImages.setEnabled(true);
+					jtfTag.setEnabled(false);
+					jtfTag.setText("");
+					okTag.setEnabled(false);
 					plbdd.revalidate();
 					plbdd.repaint();
 				}
-				else if(!jcbOuverture.isSelected()){
+				else if(!jcbTag.isSelected() && !jcbOuverture.isSelected()){
 					ouvertureCheck = "unchecked";
 					plbdd.removeAll();
 					plbdd.initialiseCombo(true, false, true, "");
 					jtfModif.setEnabled(true);
 					jtfOuverture.setEnabled(false);
 					jtfImages.setEnabled(true);
+					jtfTag.setEnabled(false);
+					jtfTag.setText("");
+					okTag.setEnabled(false);
 					plbdd.revalidate();
 					plbdd.repaint();
 				}
-				else if(!jcbImages.isSelected()){
+				else if(!jcbTag.isSelected() && !jcbImages.isSelected()){
 					imagesCheck = "unchecked";
 					plbdd.removeAll();
 					plbdd.initialiseCombo(true, true, false, "");
 					jtfModif.setEnabled(true);
 					jtfOuverture.setEnabled(true);
 					jtfImages.setEnabled(false);
+					jtfTag.setEnabled(false);
+					jtfTag.setText("");
+					okTag.setEnabled(false);
 					plbdd.revalidate();
 					plbdd.repaint();
 				}
