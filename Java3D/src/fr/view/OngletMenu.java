@@ -871,6 +871,7 @@ public class OngletMenu extends JPanel{
 		private final OutilsBdd obdd;
 		private final JPanel panelPreview;
 		private String lien;
+		private String parent;
 		public PanelArboPreview(){
 			/*File repertoire = new File("fichiers"+File.separator);
 			File[] listefichiers;
@@ -923,7 +924,7 @@ public class OngletMenu extends JPanel{
 			String node = selectedNode.getUserObject().toString();
 			if(node.substring(node.length() - 4, node.length()).equals(".gts")){
 				if(selectedNode.getParent().toString().equals("realisations")){
-					System.out.println("cc");
+					parent=selectedNode.getParent().getParent().toString();
 					lien="fichiers"+File.separator+selectedNode.getParent().getParent().toString()+File.separator+"realisations"+File.separator+node;
 				}
 				else
@@ -952,12 +953,13 @@ public class OngletMenu extends JPanel{
 			boolean bool=false;
 			for(int i=0;i<listeOnglets.size();i++){
 				if(listeOnglets.get(i) instanceof Onglet){
-					if(((Onglet)listeOnglets.get(i)).getNomFichier().equals(treeString))
+					if(((Onglet)listeOnglets.get(i)).getNomFichier().equals(parent))
 						bool=true;
 				}
 			}
 			if(!bool){
-				Onglet onglet = new Onglet(new MyDeskTopPane(lien),tabbedPane,treeString,obdd.getAuthor(treeString),false,listeOnglets);
+				System.out.println(treeString);
+				Onglet onglet = new Onglet(new MyDeskTopPane(lien),tabbedPane,parent,obdd.getAuthor(parent),false,listeOnglets);
 				//System.out.println(obdd.getLinkFile(ouvrir));
 				tabbedPane.addTab(treeString, onglet);
 				onglet.dessineOnglet();
