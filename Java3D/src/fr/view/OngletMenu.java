@@ -1,7 +1,6 @@
 package fr.view;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -550,7 +549,7 @@ public class OngletMenu extends JPanel{
 		private final boolean b2;
 		private final boolean b3;
 		public PanelListebdd(){
-			
+
 			this.filtreNom = "";
 			this.filtreAuteur = "";
 			this.filtreModif = "";
@@ -938,7 +937,6 @@ public class OngletMenu extends JPanel{
 
 				// POUR BADETITOU
 				// Je dois dessiner dans panelPreview qui est dans panelImage (normalement osef t'as pas à toucher à panelImage)
-
 				panelPreview.removeAll();
 				Panneau panneau = new Panneau(new Model(lien, 1, new Dimension(Window.outil.getScreenSize().width/9, Window.outil.getScreenSize().width/9)), null);
 				panneau.setPreferredSize(new Dimension(Window.outil.getScreenSize().width/9, Window.outil.getScreenSize().width/9));
@@ -959,6 +957,7 @@ public class OngletMenu extends JPanel{
 				path += selectedNode.getParent().toString();
 				path += File.separator;
 				path += node;
+				panelPreview.removeAll();
 				l.setIcon(new ImageIcon(new ImageIcon(path).getImage().getScaledInstance(Window.outil.getScreenSize().width/9, Window.outil.getScreenSize().width/9, Image.SCALE_SMOOTH)));
 				panelPreview.add(l);
 				panelImage.add(panelPreview);
