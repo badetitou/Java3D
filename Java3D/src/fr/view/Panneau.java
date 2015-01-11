@@ -59,6 +59,12 @@ public class Panneau extends JPanel implements MouseListener {
 		qualite = i;
 		repaint();
 	}
+	
+	public void setVisibilitePopMenuToFalse()
+	{
+		popMenu.setVisible(false);
+	}
+	
 
 	public BarreVerticale getBarreVerticale() {
 		return dp.getBarreVerticale();

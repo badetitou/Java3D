@@ -95,10 +95,14 @@ public class Window extends JFrame implements ComponentListener,MouseListener{
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		/*if(e.getSource().equals(tabbedPane)){
-			menu.getPlbdd().actualiser();
+		for (int i = 0; i< listeOnglets.size();++i){
+			try{
+				((Onglet)listeOnglets.get(i)).getDp().getPanel().setVisibilitePopMenuToFalse();
+			} catch (Exception e1){
+				e1.printStackTrace();
+			}
+			
 		}
-		 */
 	}
 
 	@Override
