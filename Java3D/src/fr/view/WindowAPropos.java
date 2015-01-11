@@ -16,7 +16,7 @@ public class WindowAPropos extends JFrame {
 	public WindowAPropos() {
 		PanelAPropos pAP = new PanelAPropos(this);
 		this.setTitle("A Propos");
-		this.setSize(500, 350);
+		this.setSize(Window.outil.getScreenSize().height/2, Window.outil.getScreenSize().width/5);
 		this.setResizable(false);
 		this.setAlwaysOnTop(true);
 		this.setLocationRelativeTo(null);
