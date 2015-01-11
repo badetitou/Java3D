@@ -1,7 +1,6 @@
 package fr.view;
 
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,14 +10,13 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 
 public class WindowAPropos extends JFrame {
 
 	public WindowAPropos() {
 		PanelAPropos pAP = new PanelAPropos(this);
 		this.setTitle("A Propos");
-		this.setSize(500, 300);
+		this.setSize(500, 350);
 		this.setResizable(false);
 		this.setAlwaysOnTop(true);
 		this.setLocationRelativeTo(null);
@@ -32,7 +30,7 @@ public class WindowAPropos extends JFrame {
 		private final JLabel text;
 		private final JFrame windowAP;
 		private final JPanel panOk;
-		private final JButton ok;	
+		private final JButton ok;
 		private final JPanel panImage;
 
 		public PanelAPropos(JFrame windowAP) {
@@ -43,9 +41,9 @@ public class WindowAPropos extends JFrame {
 			this.panImage = new JPanel();
 			String path="ressources/image/800x400.png";
 			JLabel l = new JLabel();
-			l.setIcon(new ImageIcon(new ImageIcon(path).getImage().getScaledInstance(Window.outil.getScreenSize().width/9, Window.outil.getScreenSize().width/9, Image.SCALE_SMOOTH)));
+			l.setIcon(new ImageIcon(new ImageIcon(path).getImage().getScaledInstance(300, 150, Image.SCALE_SMOOTH)));
 			panImage.add(l);
-			this.setLayout(new GridLayout(3,1));
+			//this.setLayout(new GridLayout(3,1));
 			this.add(panImage);
 			this.add(text);
 			this.add(panOk);
@@ -59,7 +57,7 @@ public class WindowAPropos extends JFrame {
 			if(e.getSource().equals(ok)){
 				windowAP.dispose();
 			}
-			
+
 		}
 	}
 

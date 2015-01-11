@@ -1,8 +1,6 @@
 package fr.view;
 
-import java.awt.Dialog.ModalityType;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -17,7 +15,7 @@ public class WindowContacts extends JFrame {
 	public WindowContacts() {
 		PanelContacts pC = new PanelContacts(this);
 		this.setTitle("Contacts");
-		this.setSize(300, 250);
+		this.setSize(300, 200);
 		this.setResizable(false);
 		this.setAlwaysOnTop(true);
 		this.setLocationRelativeTo(null);
@@ -35,7 +33,7 @@ public class WindowContacts extends JFrame {
 		private final JLabel loic;
 		private final JFrame windowC;
 		private final JPanel panOk;
-		private final JButton ok;	
+		private final JButton ok;
 
 		public PanelContacts(JFrame windowC) {
 			this.windowC = windowC;
@@ -46,7 +44,7 @@ public class WindowContacts extends JFrame {
 			this.loic = new JLabel("Loïc Delwaulle : delwaulle.loic@hotmail.fr");
 			this.ok = new JButton("Ok");
 			this.panOk = new JPanel();
-			this.setLayout(new GridLayout(6,1));
+			//this.setLayout(new GridLayout(6,1));
 			this.add(text);
 			this.add(ao);
 			this.add(bade);
@@ -63,7 +61,7 @@ public class WindowContacts extends JFrame {
 			if(e.getSource().equals(ok)){
 				windowC.dispose();
 			}
-			
+
 		}
 	}
 
