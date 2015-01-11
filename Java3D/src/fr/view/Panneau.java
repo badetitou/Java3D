@@ -266,66 +266,72 @@ public class Panneau extends JPanel implements MouseListener {
 	@Override
 	public void paintComponent(Graphics g2) {
 		Graphics2D g = (Graphics2D) g2;
-		if (this.qualite == 2) {
-			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-					RenderingHints.VALUE_ANTIALIAS_ON);
-			g.setRenderingHint(RenderingHints.KEY_RENDERING,
-					RenderingHints.VALUE_RENDER_QUALITY);
-			g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING,
-					RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-		} else if (qualite == 1) {
-			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-					RenderingHints.VALUE_ANTIALIAS_OFF);
-			g.setRenderingHint(RenderingHints.KEY_RENDERING,
-					RenderingHints.VALUE_RENDER_QUALITY);
-			g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING,
-					RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-		} else {
-			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-					RenderingHints.VALUE_ANTIALIAS_OFF);
-			g.setRenderingHint(RenderingHints.KEY_RENDERING,
-					RenderingHints.VALUE_RENDER_SPEED);
-			g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING,
-					RenderingHints.VALUE_COLOR_RENDER_SPEED);
-		}
-		super.paintComponent(g);
-		if (getBarreVerticale().isSquelette()) {
-			for (Face f : m.getFace()) {
+		if( dp == null){
+			for (Face f : m.getFace())
 				g.draw(f.getTriangle());
+		}
+		else {
+			if (this.qualite == 2) {
+				g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+						RenderingHints.VALUE_ANTIALIAS_ON);
+				g.setRenderingHint(RenderingHints.KEY_RENDERING,
+						RenderingHints.VALUE_RENDER_QUALITY);
+				g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING,
+						RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+			} else if (qualite == 1) {
+				g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+						RenderingHints.VALUE_ANTIALIAS_OFF);
+				g.setRenderingHint(RenderingHints.KEY_RENDERING,
+						RenderingHints.VALUE_RENDER_QUALITY);
+				g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING,
+						RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+			} else {
+				g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+						RenderingHints.VALUE_ANTIALIAS_OFF);
+				g.setRenderingHint(RenderingHints.KEY_RENDERING,
+						RenderingHints.VALUE_RENDER_SPEED);
+				g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING,
+						RenderingHints.VALUE_COLOR_RENDER_SPEED);
 			}
-		} else if (getBarreVerticale().isModeEdit()) {
-			for (Face f : m.getFace()) {
-				g.setPaint(f.calculLumiere());
-				g.fill(f.getTriangle());
-				if (f.isSelected()) {
-					g.setColor(new Color(255 - g.getColor().getRed(), 255 - g
-							.getColor().getGreen(), 255 - g.getColor()
-							.getBlue()));
+			super.paintComponent(g);
+			if (getBarreVerticale().isSquelette()) {
+				for (Face f : m.getFace()) {
 					g.draw(f.getTriangle());
 				}
+			} else if (getBarreVerticale().isModeEdit()) {
+				for (Face f : m.getFace()) {
+					g.setPaint(f.calculLumiere());
+					g.fill(f.getTriangle());
+					if (f.isSelected()) {
+						g.setColor(new Color(255 - g.getColor().getRed(), 255 - g
+								.getColor().getGreen(), 255 - g.getColor()
+								.getBlue()));
+						g.draw(f.getTriangle());
+					}
+				}
+			} else if (getBarreVerticale().isBb1() || getBarreVerticale().isBb2()) {
+				for (Face f : m.getFace()) {
+					g.setPaint(f.calculLumiere());
+					g.fillPolygon(f.getTriangle());
+				}
+			} else if (getBarreVerticale().isDot()) {
+				for (fr.model.Point p : m.getListPoint())
+					g.drawRect((int) (p.x + m.xTranslate),
+							(int) (p.y + m.yTranslate), 1, 1);
 			}
-		} else if (getBarreVerticale().isBb1() || getBarreVerticale().isBb2()) {
-			for (Face f : m.getFace()) {
-				g.setPaint(f.calculLumiere());
-				g.fillPolygon(f.getTriangle());
+			if (!getBarreVerticale().isBb2()) {
+				DecimalFormat f = new DecimalFormat();
+				f.setMaximumFractionDigits(2);
+				g.setColor(Color.BLACK);
+				g.drawString("Hauteur : " + f.format(m.getHauteurModel()) + " cm", 0, 15);
+				g.drawString("Largeur : " + f.format(m.getLargeurModel()) + " cm", 0, 30);
+				g.drawString("Profondeur : " + f.format(m.getProfondeurModel()) + " cm", 0, 45);
+				g.drawString("Volume : "  + f.format(m.getLargeurModel() * m.getProfondeurModel() * m.getHauteurModel()) + " cm^3", 0, 60);
+				g.setColor(Color.RED);
+				g.drawString("Clic droit pour plus d'options", 0, 75);
 			}
-		} else if (getBarreVerticale().isDot()) {
-			for (fr.model.Point p : m.getListPoint())
-				g.drawRect((int) (p.x + m.xTranslate),
-						(int) (p.y + m.yTranslate), 1, 1);
+			g.dispose();
 		}
-		if (!getBarreVerticale().isBb2()) {
-			DecimalFormat f = new DecimalFormat();
-			f.setMaximumFractionDigits(2);
-			g.setColor(Color.BLACK);
-			g.drawString("Hauteur : " + f.format(m.getHauteurModel()) + " cm", 0, 15);
-			g.drawString("Largeur : " + f.format(m.getLargeurModel()) + " cm", 0, 30);
-			g.drawString("Profondeur : " + f.format(m.getProfondeurModel()) + " cm", 0, 45);
-			g.drawString("Volume : "  + f.format(m.getLargeurModel() * m.getProfondeurModel() * m.getHauteurModel()) + " cm^3", 0, 60);
-			g.setColor(Color.RED);
-			g.drawString("Clic droit pour plus d'options", 0, 75);
-		}
-		g.dispose();
 	}
 
 	@Override

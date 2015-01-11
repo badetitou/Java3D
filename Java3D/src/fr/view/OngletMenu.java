@@ -41,6 +41,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import fr.model.Model;
 import fr.model.OutilsBdd;
 
 public class OngletMenu extends JPanel{
@@ -927,11 +928,17 @@ public class OngletMenu extends JPanel{
 					parent=selectedNode.getParent().getParent().toString();
 					lien="fichiers"+File.separator+selectedNode.getParent().getParent().toString()+File.separator+"realisations"+File.separator+node;
 				}
-				else
+				else{
+					parent=selectedNode.getParent().toString();
 					lien="fichiers"+File.separator+selectedNode.getParent().toString()+File.separator+node;
-				System.out.println(lien);
+				}
 				treeString=node.substring(0, node.length() - 4);
-				//panelPreview.add(new Panneau(new Model(obdd.getLinkFile(treeString), 1, new Dimension(Window.outil.getScreenSize().width/9, Window.outil.getScreenSize().width/9)), null));
+				panelPreview.removeAll();
+				panelPreview.add(new Panneau(new Model(lien, 1, new Dimension(Window.outil.getScreenSize().width/9, Window.outil.getScreenSize().width/9)), null));
+				panelPreview.setPreferredSize(new Dimension(Window.outil.getScreenSize().width/8, Window.outil.getScreenSize().width/8));
+				panelImage.add(panelPreview);
+				panelImage.repaint();
+				panelImage.revalidate();
 				ouvrir.setEnabled(true);
 			}
 			else if(node.endsWith(".png") || node.endsWith(".jpg") || node.endsWith(".jpeg")){
@@ -943,6 +950,10 @@ public class OngletMenu extends JPanel{
 				path += File.separator;
 				path += node;
 				l.setIcon(new ImageIcon(new ImageIcon(path).getImage().getScaledInstance(Window.outil.getScreenSize().width/9, Window.outil.getScreenSize().width/9, Image.SCALE_SMOOTH)));
+				panelPreview.add(l);
+				panelImage.add(panelPreview);
+				panelImage.repaint();
+				panelImage.revalidate();
 			}
 			else {
 				ouvrir.setEnabled(false);
