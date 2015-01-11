@@ -33,7 +33,7 @@ public class Panneau extends JPanel implements MouseListener {
 	private final Model m;
 	private int coordMouseX = 0;
 	private int coordMouseY = 0;
-	private MyDeskTopPane dp;
+	private final MyDeskTopPane dp;
 	private boolean control = false;
 	private JPopupMenu popMenu;
 
@@ -99,14 +99,17 @@ public class Panneau extends JPanel implements MouseListener {
 
 			this.addKeyListener(new KeyListener() {
 
+				@Override
 				public void keyTyped(KeyEvent e) {
-					
+
 				}
 
+				@Override
 				public void keyReleased(KeyEvent e) {
 					control = false;
 				}
 
+				@Override
 				public void keyPressed(KeyEvent e) {
 					if (e.getKeyCode() == KeyEvent.VK_CONTROL)
 						control = true;
@@ -119,6 +122,7 @@ public class Panneau extends JPanel implements MouseListener {
 			});
 
 			this.addMouseListener(new MouseListener() {
+				@Override
 				public void mouseClicked(MouseEvent arg0) {
 					if (MouseEvent.BUTTON1 == arg0.getButton()) {
 						if (getBarreVerticale().getModeEdit()) {
@@ -138,19 +142,23 @@ public class Panneau extends JPanel implements MouseListener {
 					}
 				}
 
+				@Override
 				public void mouseEntered(MouseEvent arg0) {
 					requestFocus();
 				}
 
+				@Override
 				public void mouseExited(MouseEvent arg0) {
 				}
 
+				@Override
 				public void mousePressed(MouseEvent arg0) {
 				}
 
 				/*
 				 * Clic Droit Pop-Up Menu
 				 */
+				@Override
 				public void mouseReleased(MouseEvent arg0) {
 					if (arg0.getButton() == MouseEvent.BUTTON3) {
 						popMenu.setLocation(arg0.getLocationOnScreen());
@@ -162,18 +170,21 @@ public class Panneau extends JPanel implements MouseListener {
 			});
 
 			this.addMouseWheelListener(new MouseWheelListener() {
+				@Override
 				public void mouseWheelMoved(MouseWheelEvent e) {
-					m.zoom((double) ((-e.getWheelRotation() + 15.0)) / 15.0);
+					m.zoom(((-e.getWheelRotation() + 15.0)) / 15.0);
 					repaint();
 				}
 			});
 
 			this.addMouseMotionListener(new MouseMotionListener() {
+				@Override
 				public void mouseMoved(MouseEvent e) {
 					coordMouseX = e.getX();
 					coordMouseY = e.getY();
 				}
 
+				@Override
 				public void mouseDragged(MouseEvent e) {
 					if (SwingUtilities.isLeftMouseButton(e) && m.vue == 0) {
 						if (Barre.boolButtonRotation) {
@@ -224,7 +235,7 @@ public class Panneau extends JPanel implements MouseListener {
 		boutonCentre = new JMenuItem("Recentre");
 		zoomPlus = new JMenuItem("Zoom +");
 		zoomMoins = new JMenuItem("Zoom -");
-		
+
 		boutonCentre.addMouseListener(this);
 		popMenu.add(boutonCentre);
 		boutonCentre.addMouseListener(this);
@@ -242,14 +253,14 @@ public class Panneau extends JPanel implements MouseListener {
 		low.addMouseListener(this);
 		medium.addMouseListener(this);
 		high.addMouseListener(this);
-		
+
 		//Zoom + | Zoom -
 		popMenu.addSeparator();
 		popMenu.add(zoomPlus);
 		popMenu.add(zoomMoins);
 		zoomPlus.addMouseListener(this);
 		zoomMoins.addMouseListener(this);
-		
+
 	}
 
 	@Override
@@ -317,6 +328,7 @@ public class Panneau extends JPanel implements MouseListener {
 		g.dispose();
 	}
 
+	@Override
 	public void mouseClicked(MouseEvent e) {
 		if (e.getSource().equals(boutonCentre)) {
 			if (dp.getBarreVerticale().isBb1()
@@ -343,6 +355,7 @@ public class Panneau extends JPanel implements MouseListener {
 		popMenu.setVisible(false);
 	}
 
+	@Override
 	public void mouseEntered(MouseEvent e) {
 		if (e.getSource().equals(boutonCentre)) {
 			boutonCentre.setArmed(true);
@@ -359,6 +372,7 @@ public class Panneau extends JPanel implements MouseListener {
 		}
 	}
 
+	@Override
 	public void mouseExited(MouseEvent e) {
 		if (e.getSource().equals(boutonCentre)) {
 			boutonCentre.setArmed(false);
@@ -375,9 +389,11 @@ public class Panneau extends JPanel implements MouseListener {
 		}
 	}
 
+	@Override
 	public void mousePressed(MouseEvent arg0) {
 	}
 
+	@Override
 	public void mouseReleased(MouseEvent arg0) {
 	}
 

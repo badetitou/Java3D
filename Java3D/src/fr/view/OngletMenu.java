@@ -851,16 +851,8 @@ public class OngletMenu extends JPanel{
 						plArbo.panelTree.add(plArbo.setTree((String) bdd.getModel().getValueAt(row, 0)));
 						plArbo.revalidate();
 						plArbo.repaint();
-						plArbo.panelImage.removeAll();
-						JPanel panelPreview=new JPanel();
-						JLabel l=new JLabel();
 						String path="ressources/image/800x400.png";
-						l.setIcon(new ImageIcon(new ImageIcon(path).getImage().getScaledInstance(Window.outil.getScreenSize().width/9, Window.outil.getScreenSize().width/9, Image.SCALE_SMOOTH)));
-						panelPreview.add(l);
-						panelPreview.setBorder(BorderFactory.createLoweredBevelBorder());
-						plArbo.panelImage.add(panelPreview);
-						plArbo.panelImage.revalidate();
-						plArbo.panelImage.repaint();
+						plArbo.l.setIcon(new ImageIcon(new ImageIcon(path).getImage().getScaledInstance(Window.outil.getScreenSize().width/9, Window.outil.getScreenSize().width/9, Image.SCALE_SMOOTH)));
 					}
 				}
 			});
@@ -877,6 +869,7 @@ public class OngletMenu extends JPanel{
 		private String treeString;
 		private final JLabel l;
 		private final OutilsBdd obdd;
+		private final JPanel panelPreview;
 		public PanelArboPreview(){
 			/*File repertoire = new File("fichiers"+File.separator);
 			File[] listefichiers;
@@ -896,7 +889,7 @@ public class OngletMenu extends JPanel{
 			panelTree=new JPanel();
 			panelTree.add(this.setTree(""));
 			panelImage=new JPanel();
-			JPanel panelPreview=new JPanel();
+			panelPreview=new JPanel();
 			l=new JLabel();
 			String path="ressources/image/800x400.png";
 			l.setIcon(new ImageIcon(new ImageIcon(path).getImage().getScaledInstance(Window.outil.getScreenSize().width/9, Window.outil.getScreenSize().width/9, Image.SCALE_SMOOTH)));
@@ -927,12 +920,14 @@ public class OngletMenu extends JPanel{
 		public void valueChanged(TreeSelectionEvent e) {
 			DefaultMutableTreeNode selectedNode =(DefaultMutableTreeNode)tree.getLastSelectedPathComponent();
 			String node = selectedNode.getUserObject().toString();
-			if(node.contains(".gts")){
+			if(node.substring(node.length() - 4, node.length()).equals(".gts")){
 				System.out.println(node);
 				System.out.println("faire ouverture!");
+				treeString=node.substring(0, node.length() - 4);
+				//panelPreview.add(new Model(obdd.getLinkFile(treeString), 1, new Dimension(Window.outil.getScreenSize().width/9, Window.outil.getScreenSize().width/9)));
 				ouvrir.setEnabled(true);
 			}
-			else if(node.contains(".png") || node.contains(".jpg") || node.contains(".bmp")){
+			else if(node.endsWith(".png") || node.endsWith(".jpg") || node.endsWith(".jpeg")){
 				ouvrir.setEnabled(false);
 				String path = "fichiers" +File.separator;
 				path += selectedNode.getParent().getParent().toString();
@@ -940,10 +935,7 @@ public class OngletMenu extends JPanel{
 				path += selectedNode.getParent().toString();
 				path += File.separator;
 				path += node;
-				System.out.println(path);
-
 				l.setIcon(new ImageIcon(new ImageIcon(path).getImage().getScaledInstance(Window.outil.getScreenSize().width/9, Window.outil.getScreenSize().width/9, Image.SCALE_SMOOTH)));
-
 			}
 			else {
 				ouvrir.setEnabled(false);
