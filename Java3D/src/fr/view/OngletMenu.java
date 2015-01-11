@@ -870,6 +870,7 @@ public class OngletMenu extends JPanel{
 		private final JLabel l;
 		private final OutilsBdd obdd;
 		private final JPanel panelPreview;
+		private String lien;
 		public PanelArboPreview(){
 			/*File repertoire = new File("fichiers"+File.separator);
 			File[] listefichiers;
@@ -921,10 +922,15 @@ public class OngletMenu extends JPanel{
 			DefaultMutableTreeNode selectedNode =(DefaultMutableTreeNode)tree.getLastSelectedPathComponent();
 			String node = selectedNode.getUserObject().toString();
 			if(node.substring(node.length() - 4, node.length()).equals(".gts")){
-				System.out.println(node);
-				System.out.println("faire ouverture!");
+				if(selectedNode.getParent().toString().equals("realisations")){
+					System.out.println("cc");
+					lien="fichiers"+File.separator+selectedNode.getParent().getParent().toString()+File.separator+"realisations"+File.separator+node;
+				}
+				else
+					lien="fichiers"+File.separator+selectedNode.getParent().toString()+File.separator+node;
+				System.out.println(lien);
 				treeString=node.substring(0, node.length() - 4);
-				//panelPreview.add(new Model(obdd.getLinkFile(treeString), 1, new Dimension(Window.outil.getScreenSize().width/9, Window.outil.getScreenSize().width/9)));
+				//panelPreview.add(new Panneau(new Model(obdd.getLinkFile(treeString), 1, new Dimension(Window.outil.getScreenSize().width/9, Window.outil.getScreenSize().width/9)), null));
 				ouvrir.setEnabled(true);
 			}
 			else if(node.endsWith(".png") || node.endsWith(".jpg") || node.endsWith(".jpeg")){
@@ -951,7 +957,7 @@ public class OngletMenu extends JPanel{
 				}
 			}
 			if(!bool){
-				Onglet onglet = new Onglet(new MyDeskTopPane(obdd.getLinkFile(treeString)),tabbedPane,treeString,obdd.getAuthor(treeString),false,listeOnglets);
+				Onglet onglet = new Onglet(new MyDeskTopPane(lien),tabbedPane,treeString,obdd.getAuthor(treeString),false,listeOnglets);
 				//System.out.println(obdd.getLinkFile(ouvrir));
 				tabbedPane.addTab(treeString, onglet);
 				onglet.dessineOnglet();
