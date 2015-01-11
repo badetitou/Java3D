@@ -183,7 +183,7 @@ public class OngletMenu extends JPanel{
 			panImages.add(panFlowImages, BorderLayout.WEST);
 			this.jcbTag = new JCheckBox("Effectuer une recherche par mots-clés");
 			this.jtfTag = new JTextField("");
-			this.jtfTag.setPreferredSize(new Dimension(50,20));
+			this.jtfTag.setPreferredSize(new Dimension(100,20));
 			this.jtfTag.setEnabled(false);
 			panFlowTag.add(jcbTag);
 			panFlowTag.add(jtfTag);
