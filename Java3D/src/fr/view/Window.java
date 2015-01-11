@@ -98,9 +98,7 @@ public class Window extends JFrame implements ComponentListener,MouseListener{
 		for (int i = 0; i< listeOnglets.size();++i){
 			try{
 				((Onglet)listeOnglets.get(i)).getDp().getPanel().setVisibilitePopMenuToFalse();
-			} catch (Exception e1){
-				e1.printStackTrace();
-			}
+			} catch (Exception e1){	}
 			
 		}
 	}
