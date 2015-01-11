@@ -195,7 +195,7 @@ public class WindowOuvrir extends JFrame {
 					}
 					else{
 						windowO.dispose();
-						JOptionPane.showMessageDialog(null,"L'objet est d�j� ouvert !","Attention", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null,"L'objet est deja ouvert !","Attention", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 				else{

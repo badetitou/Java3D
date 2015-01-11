@@ -14,6 +14,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.PatternSyntaxException;
@@ -35,8 +37,11 @@ import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
 import javax.swing.RowSorter;
 import javax.swing.UIManager;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 import fr.model.OutilsBdd;
 
@@ -851,6 +856,16 @@ public class OngletMenu extends JPanel{
 						plArbo.panelTree.add(plArbo.setTree((String) bdd.getModel().getValueAt(row, 0)));
 						plArbo.revalidate();
 						plArbo.repaint();
+						plArbo.panelImage.removeAll();
+						JPanel panelPreview=new JPanel();
+						JLabel l=new JLabel();
+						String path="ressources/image/800x400.png";
+						l.setIcon(new ImageIcon(new ImageIcon(path).getImage().getScaledInstance(Window.outil.getScreenSize().width/9, Window.outil.getScreenSize().width/9, Image.SCALE_SMOOTH)));
+						panelPreview.add(l);
+						panelPreview.setBorder(BorderFactory.createLoweredBevelBorder());
+						plArbo.panelImage.add(panelPreview);
+						plArbo.panelImage.revalidate();
+						plArbo.panelImage.repaint();
 					}
 				}
 			});
@@ -858,7 +873,7 @@ public class OngletMenu extends JPanel{
 	}
 
 
-	public class PanelArboPreview extends JPanel{
+	public class PanelArboPreview extends JPanel implements TreeSelectionListener{
 
 		private final JPanel panelTree;
 		private final JPanel panelImage;
@@ -890,7 +905,6 @@ public class OngletMenu extends JPanel{
 			this.add(panelTree,BorderLayout.CENTER);
 			this.add(panelImage,BorderLayout.SOUTH);
 			
-			/* POUR LOIC GGWP */
 		}
 		public JTree setTree(String treeString){
 			UIManager.put("Tree.rendererFillBackground", false);
@@ -899,8 +913,37 @@ public class OngletMenu extends JPanel{
 			tree.setPreferredSize(new Dimension(200,900));
 			tree.setOpaque(false);
 			tree.addTreeExpansionListener(new myExpensionListener());
+			tree.addTreeSelectionListener(this);
 			return tree;
 		}
+		
+		public void valueChanged(TreeSelectionEvent e) {
+			   DefaultMutableTreeNode selectedNode =(DefaultMutableTreeNode)tree.getLastSelectedPathComponent();
+			   String node = selectedNode.getUserObject().toString();
+			   if(node.contains(".gts")){
+				   System.out.println(node);
+				   System.out.println("faire ouverture!");
+			   }
+			   else if(node.contains(".png") || node.contains(".jpg") || node.contains(".bmp")){
+				   String path = "fichiers" +File.separator;
+				   path += selectedNode.getParent().getParent().toString();
+				   path += File.separator;
+				   path += selectedNode.getParent().toString();
+				   path += node;
+				 //  System.out.println(path);
+				   panelImage.removeAll();
+				   JPanel panelPreview=new JPanel();
+				   JLabel l=new JLabel();
+				   l.setIcon(new ImageIcon(path));
+				   panelPreview.add(l);
+				   panelPreview.setBorder(BorderFactory.createLoweredBevelBorder());
+				   panelImage.add(panelPreview);
+				   panelImage.revalidate();
+				   panelImage.repaint();
+				   
+			   }
+		}
+		
 	}
 
 
