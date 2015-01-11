@@ -77,7 +77,8 @@ public class Model {
 		this.d = d;
 		centrage();
 		trieFace();
-		this.zoomAuto();
+		recentrer();
+		zoomAuto();
 		this.vue = vue;
 		for (int i = 0; i < rt.getFaceList().size(); ++i) {
 			rt.getFaceList().get(i).setModel(this);

@@ -267,10 +267,12 @@ public class Panneau extends JPanel implements MouseListener {
 	public void paintComponent(Graphics g2) {
 		Graphics2D g = (Graphics2D) g2;
 		if( dp == null){
+			super.paintComponent(g);
 			for (Face f : m.getFace()){
+				g.setColor(f.calculLumiere());
+				g.fill(f.getTriangle());
 				g.draw(f.getTriangle());
 			}
-			super.paintComponent(g);
 			g.dispose();
 		}
 		else {
