@@ -1,7 +1,7 @@
 package fr.model;
 /**
- * @author Loïc
- * Cette classe ne sert qu'à stocker temporairement les segments du fichier de l'objet.
+ * @author Loï¿½c
+ * Cette classe ne sert qu'ï¿½ stocker temporairement les segments du fichier de l'objet.
  */
 public class CouplePoint {
 	private final Point p1;
@@ -14,7 +14,7 @@ public class CouplePoint {
 		this.p2=p2;
 		this.t1 = (int) tab;
 		this.t2 = (int) tab2;
-	}
+	}de
 
 	public Point getP1(){
 		return this.p1;
